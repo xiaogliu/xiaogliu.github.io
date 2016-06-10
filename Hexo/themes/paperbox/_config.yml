@@ -21,7 +21,7 @@ widgets:
 - archive
 
 # Miscellaneous
-wx_block: true
+wx_block: false
 google_analytics:
 favicon:
 twitter:
