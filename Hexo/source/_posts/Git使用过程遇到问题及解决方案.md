@@ -1,0 +1,39 @@
+---
+title: Git使用过程遇到问题及解决方案
+date: 2017-02-12 19:33:13
+tags: [git,学习记录]
+---
+
+记录自己git使用过程中遇到的问题及解决方案，随时更新。
+
+#### 1、pull报错'refusing to merge unrelated histories'
+- 问题描述
+```
+fatal: refusing to merge unrelated histories
+```
+- 原因：The default behavior has changed since git 2.9:
+>"git merge" used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch "--allow-unrelated-histories" option to be used in a rare event that merges histories of two projects that started their lives independently.
+
+ See the [git release changelog](https://github.com/git/git/blob/master/Documentation/RelNotes/2.9.0.txt#L58-L68) for more information.
+
+- 解决方案：Using `--allow-unrelated-histories` flag worked with pull request in this way
+```
+git pull origin branchname --allow-unrelated-histories
+```
+
+- 参考资料：stack**overflow** [Git refusing to merge unrelated histories](http://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories)
+
+<!-- more -->
+
+#### 2、每次push要求填写用户名和密码
+- 问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。
+
+- 原因：A common mistake is cloning using the default (HTTPS) instead of SSH.通过命令 `git remote -v`可以查看默认地址，如果https，要改回ssh
+![](http://ol9ge41ud.bkt.clouddn.com/2017-02-12_201337.png)
+
+- 解决方案：You can correct this by going to your repository, clicking the ssh button left to the URL field and updating the URL of your origin remote like this:(不需要重新clone一份)
+```
+git remote set-url origin git@github.com:username/repo.git
+```
+
+- 参考资料：stack**overflow** [Git push requires username and password](http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password)

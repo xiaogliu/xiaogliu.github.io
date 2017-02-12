@@ -4,7 +4,7 @@ date: 2016-06-09 22:56:37
 tags: [github,hexo,blog]
 ---
 
-自从接触编程以来，一直想建立自己的博客来记录重要的学习笔记，这也符合“分享”的精神。但限于自己小白的身份，一直搭建不成功，直接使用[github page]("https://pages.github.com/")，只是自动生成了首页，但不知如何添加自己的文章。后面了解到，这可能需要借助[jekll]("http://jekyllrb.com/")，但试着部署，还是有种累觉不爱的感觉：折腾的精神应该提倡，但写博客应该把精力放在内容本身上，而非花在样式、不熟等等事情上（算是给自己偷懒的说辞）。后来，注意，后来接触到了[**hexo**]("https://hexo.io/")，相比jekll，它部署简单，并且实际写文章时也可以自动完成很多工作，使我可以专注写作。期间查了很多资料，在此一并做下总结。
+自从接触编程以来，一直想建立自己的博客来记录重要的学习笔记，这也符合“分享”的精神。但限于自己小白的身份，一直搭建不成功，直接使用 [github page](https://pages.github.com/)，只是自动生成了首页，但不知如何添加自己的文章。后面了解到，这可能需要借助 [jekll](http://jekyllrb.com/) ，但试着部署，还是有种累觉不爱的感觉：折腾的精神应该提倡，但写博客应该把精力放在内容本身上，而非花在样式、不熟等等事情上（算是给自己偷懒的说辞）。后来，注意，后来接触到了 [**hexo**](https://hexo.io/) ，相比jekll，它部署简单，并且实际写文章时也可以自动完成很多工作，使我可以专注写作。期间查了很多资料，在此一并做下总结。
 <!-- more -->
 ## 一、环境准备
 
@@ -60,7 +60,7 @@ $ hexo server
 $ hexo new "My New Post"
 [info] File created at d:\Hexo\source\_posts\My-New-Post.md
 ```
-刷新http://localhost:4000/，可以发现在E:\Hexo\source\_posts已生成了一篇新文章 "My New Post"。
+刷新http://localhost:4000/ ，可以发现在E:\Hexo\source\_posts已生成了一篇新文章 "My New Post"。
 
 #### 3.2.4 Generate static files
 执行下面的命令，将markdown文件生成静态网页。
@@ -92,7 +92,7 @@ deploy:
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
   branch: master
 ```
-Repository：必须是SSH形式的url（git@github.com:xiaogliu/xiaogliu.github.io.git），而不能是HTTPS形式的url（https://github.com/xiaogliu/xiaogliu.github.io.git），否则会出现错误：
+Repository：必须是SSH形式的url（ git@github.com:xiaogliu/xiaogliu.github.io.git ），而不能是HTTPS形式的url（https://github.com/xiaogliu/xiaogliu.github.io.git ），否则会出现错误：
 > 此处有坑，有说type为github，但此处应该为git，和hexo版本有关？？？
 >
 > 另，有说：Be carefull, with your current configuration, you will erase all your source code on master branch. I recommend > you to deploy on `gh-pages` to be automatically reachable at https://github.com/username/repository_name
@@ -124,7 +124,7 @@ and the repository exists.
 > 如果你是为一个项目制作网站，那么需要把branch设置为gh-pages。
 
 #### 3.2.7 测试
-当部署完成后，在浏览器中打开http://xiaogliu.github.io/（https://xiaogliu.github.io/） ，正常显示网页，表明部署成功。
+当部署完成后，在浏览器中打开http://xiaogliu.github.io/ ，正常显示网页，表明部署成功。
 
 #### 3.2.8 总结
 每次部署的步骤，可按以下三步来进行。
@@ -141,7 +141,7 @@ $ hexo deploy
 $ hexo g #生成
 $ hexo s #启动本地服务，进行文章预览调试
 ```
-在浏览器输入http://localhost:4000，查看搭建效果。此后的每次变更_config.yml 文件或者新建文件都可以先用此命令调试，尤其是当你想调试新添加的主题时。
+在浏览器输入http://localhost:4000 ，查看搭建效果。此后的每次变更_config.yml 文件或者新建文件都可以先用此命令调试，尤其是当你想调试新添加的主题时。
 
 ##### 3.2.9-2 可以用简化的一条命令
 ```bash
@@ -181,7 +181,7 @@ hexo d == hexo deploy
 ```
 git clone https://github.com/heroicyang/hexo-theme-modernist.git themes/modernist
 ```
-> [more theme]("https://hexo.io/themes/")
+> [more theme](https://hexo.io/themes/)
 
 安装完成后，打开hexo_config.yml，修改主题为modernist
 
@@ -401,9 +401,9 @@ deploy:
 能否在同一个分支直接维护？毕竟hexo在public文件夹下面已经有所需要的html文件了
 
 ### 参考资料
-【1】[hexo你的博客]("http://ibruce.info/2013/11/22/hexo-your-blog/")
-【2】[Hexo搭建Github静态博客]("http://www.cnblogs.com/zhcncn/p/4097881.html")
-【3】[使用hexo，如果换了电脑怎么更新博客？CrazyMilk回答]("https://www.zhihu.com/question/21193762")
-【4】[SSH-互动百科]("http://www.baike.com/wiki/ssh")
-【5】[Secure Shell-维基百科]("https://en.wikipedia.org/wiki/Secure_Shell")
+【1】[hexo你的博客](http://ibruce.info/2013/11/22/hexo-your-blog/)
+【2】[Hexo搭建Github静态博客](http://www.cnblogs.com/zhcncn/p/4097881.html")
+【3】[使用hexo，如果换了电脑怎么更新博客？CrazyMilk回答](https://www.zhihu.com/question/21193762)
+【4】[SSH-互动百科](http://www.baike.com/wiki/ssh)
+【5】[Secure Shell-维基百科](https://en.wikipedia.org/wiki/Secure_Shell)
 
