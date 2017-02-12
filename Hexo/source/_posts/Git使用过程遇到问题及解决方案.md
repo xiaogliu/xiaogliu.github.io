@@ -6,6 +6,8 @@ tags: [git,学习记录]
 
 记录自己git使用过程中遇到的问题及解决方案，随时更新。
 
+<!-- more -->
+
 #### 1、pull报错'refusing to merge unrelated histories'
 - 问题描述
 ```
@@ -23,8 +25,6 @@ git pull origin branchname --allow-unrelated-histories
 
 - 参考资料：stack**overflow** [Git refusing to merge unrelated histories](http://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories)
 
-<!-- more -->
-
 #### 2、每次push要求填写用户名和密码
 - 问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。
 
@@ -37,3 +37,14 @@ git remote set-url origin git@github.com:username/repo.git
 ```
 
 - 参考资料：stack**overflow** [Git push requires username and password](http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password)
+
+#### 3、git中文乱码
+> **实际跟版本也有关系！！！！2.92ok（完全默认设置），但最新的2.11中文就各种问题：不能输入，log乱码等等！** 但安装完hexo，status状态下又乱码了，下面方法解决。
+
+- 问题描述：git status中文乱码，在中文情况下 git status是 “\344\272\247\345\223\201\351\234\200\346\261\202”差不多这样的。
+- 原因不明
+- 解决方案：解决这个问题方法是设置git编码：
+```
+git config --global core.quotepath false
+```
+- 参考资料：[git status 显示中文](http://blog.csdn.net/cjopengler/article/details/46585319)
