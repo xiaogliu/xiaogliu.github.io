@@ -201,8 +201,26 @@ git pull
 <link rel="icon" type="image/x-icon" href="<%- config.root %>favicon.ico">
 ```
 将你的favicon.ico放到工程根目录下即可，也就是hexo\source目录。
-### 4.2 hexo更多介绍
-#### 4.2.1 目录介绍
+
+### 4.2 自定义页面
+#### 4.2.1 about 页面
+执行new page命令
+```
+hexo new page "about"
+```
+在hexo\source\下会生成about目录，里面有个index.md，直接编辑就可以了，然后在主题的_config.yml中将其配置显示出来。
+上述步骤，也可以手工生成，在hexo\source\下手工新建about和index.md也是完全等价的。
+
+#### 4.2.2 404页面
+GitHub Pages自定义[404页面](https://help.github.com/articles/creating-a-custom-404-page-for-your-github-pages-site/)非常容易，直接在根目录下创建自己的404.html就可以。但是自定义404页面仅对绑定顶级域名的项目才起作用，GitHub默认分配的二级域名是不起作用的，使用hexo server在本机调试也是不起作用的。
+
+其实，404页面可以做更多有意义的事，目前有如下几个公益404接入地址:
+
+[腾讯公益404](http://www.qq.com/404/)
+[404公益_益云(公益互联网)社会创新中心](http://yibo.iyiyun.com/Index/web404)
+[失蹤兒童少年資料管理中心404](http://404page.missingkids.org.tw/)
+### 4.3 hexo更多介绍
+#### 4.3.1 目录介绍
 默认目录结构：
 ```
 .
@@ -229,7 +247,7 @@ git pull
 - _config.yml：全局配置文件，大多数的设置都在这里
 - package.json：应用程序数据，指明hexo的版本等信息，类似于一般软件中的关于按钮
 
-#### 4.2.2 _config.yml简单说明：
+#### 4.3.2 _config.yml简单说明：
 ```
 # Hexo Configuration
 ## Docs: http://zespia.tw/hexo/docs/configure.html
@@ -319,7 +337,7 @@ deploy:
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
   branch: master #你的GitHub Pages仓库
   ```
-#### 4.2.3 修改局部页面
+#### 4.3.3 修改局部页面
 页面展现的全部逻辑都在每个主题中控制，源代码在hexo\themes\你使用的主题\中，以modernist主题为例：
 ```
 .
