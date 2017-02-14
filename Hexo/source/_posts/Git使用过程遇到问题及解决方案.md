@@ -8,8 +8,6 @@ tags: [git,学习记录]
 >曾经为了删除未commit的本地更改网上搜了一个命令，解决把该分支下 `.git` 文件下的记录全部删掉，好在不是master分支，不然闯大祸。
 网上的资料也都是网友整理，稂莠不齐，git命令强大，但正因如此，可能强大到失控，模棱两可的命令一定要参考官方文档。
 
-<!-- more -->
-
 #### 1、pull报错'refusing to merge unrelated histories'
 - 问题描述
 ```
@@ -26,6 +24,8 @@ git pull origin branchname --allow-unrelated-histories
 ```
 
 - 参考资料：stack**overflow** [Git refusing to merge unrelated histories](http://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories)
+
+<!-- more -->
 
 #### 2、每次push要求填写用户名和密码
 - 问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。
