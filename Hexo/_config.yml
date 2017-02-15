@@ -5,10 +5,10 @@
 # Site
 title: 刘小光的博客
 subtitle: 求知，好奇，审美。就自己仅有的才能去发挥，去表达内心深刻的感觉。
-description:
+description: 求知，好奇，审美。就自己仅有的才能去发挥，去表达内心深刻的感觉。
 author: 刘小光
 e-mail: xiaogliu@outlook.com
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -64,7 +64,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: paperbox
+# theme: paperbox
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
