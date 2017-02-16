@@ -1,8 +1,5 @@
 ---
 title: 关于
-date: 2017-02-12 20:32:49
+layout: about
+comments: false
 ---
-
-我是刘小光，90后，山东人，进阶中的前端程序猿。
-
-爱好文史哲类的书、健身、摄影，这是我的摄影网站 [500px](https://500px.com/xiaogliu) 。
