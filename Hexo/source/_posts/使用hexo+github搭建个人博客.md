@@ -2,6 +2,7 @@
 title: 使用hexo+github搭建个人博客
 date: 2016-06-09 22:56:37
 tags: [git,hexo,blog]
+comments: false
 ---
 
 记录利用hexo搭建blog的过程。

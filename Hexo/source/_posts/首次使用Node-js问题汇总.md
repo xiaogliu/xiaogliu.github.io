@@ -2,6 +2,7 @@
 title: 首次使用Node.js问题汇总
 date: 2017-02-16 18:39:02
 tags: [Node.js,学习记录]
+comments: false
 ---
 
 由于项目原因，首次接触Node，遇到好多问题，在此做下记录。
