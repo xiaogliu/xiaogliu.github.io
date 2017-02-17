@@ -15,7 +15,6 @@ Chrome快捷键在[常用工具快捷键](http://xiaogliu.github.io/2017/02/14/%
 
 - 新建标签页
  安装掘金插件，由扩展程序掘金控制。
- >可以查看相关技术信息
 
 ## 参考资料
 【1】[Chrome 设置什么字体较好？ - 王成回答](https://www.zhihu.com/question/20365811)

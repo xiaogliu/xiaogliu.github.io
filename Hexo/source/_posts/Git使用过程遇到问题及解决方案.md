@@ -10,7 +10,7 @@ comments: false
 >曾经为了删除未commit的本地更改网上搜了一个命令，解决把该分支下 `.git` 文件下的记录全部删掉，好在不是master分支，不然闯大祸。
 网上的资料也都是网友整理，稂莠不齐，git命令强大，但正因如此，可能强大到失控，模棱两可的命令一定要参考官方文档。
 
-#### 1、pull报错'refusing to merge unrelated histories'
+## pull报错'refusing to merge unrelated histories'
 - 问题描述
 ```
 fatal: refusing to merge unrelated histories
@@ -29,7 +29,7 @@ git pull origin branchname --allow-unrelated-histories
 
 <!-- more -->
 
-#### 2、每次push要求填写用户名和密码
+## 每次push要求填写用户名和密码
 - 问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。
 
 - 原因：A common mistake is cloning using the default (HTTPS) instead of SSH.通过命令 `git remote -v`可以查看默认地址，如果https，要改回ssh
@@ -42,7 +42,7 @@ git remote set-url origin git@github.com:username/repo.git
 
 - 参考资料：stack**overflow** [Git push requires username and password](http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password)
 
-#### 3、git中文乱码
+## git中文乱码
 > **实际跟版本也有关系！！！！2.92ok（完全默认设置），但最新的2.11中文就各种问题：不能输入，log乱码等等！** 但安装完hexo，status状态下又乱码了，下面方法解决。
 
 - 问题描述：git status中文乱码，在中文情况下 git status是 “\344\272\247\345\223\201\351\234\200\346\261\202”差不多这样的。
