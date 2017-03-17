@@ -7,7 +7,7 @@ comments: false
 ---
 ## 安装插件（包括主题）
 - 方法一：使用package control
- `ctrl+shift+p` 调出命令面板，输入 install根据提示找到`package control：install package` ，选中并回车，输入插件名安装，页面左下角会提示安装进度。
+ `ctrl+shift+p` 调出命令面板，输入install根据提示找到`package control：install package` ，选中并回车，输入插件名安装，页面左下角会提示安装进度。
 
   > 有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017/3/17）我下载sublime3，package control已经安装好，无需这步操作（如果在menu > preferences下面有package control，证明已安装好）
   ```
@@ -47,6 +47,5 @@ menu > preferences > key bindings,在user文件中，输入自定义快捷键。
 - [AutoFileName](https://github.com/BoundInCode/AutoFileName)：自动补全文件路径，比如图片
 
 ## 参考资料
-[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)
-
-[如何优雅地使用Sublime Text](http://jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/)
+【1】[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)
+【2】[如何优雅地使用Sublime Text](http://jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/)
