@@ -36,6 +36,10 @@ html, body, .page-header, .modal-dialog, .post-header .toolbox{
 .box-prev-next .icon {
     margin-top: 4px;
 }
+.article-content img {
+    border: 0.2em solid #e0dfcc;
+    border-radius: 10px;
+}
 code {
     padding: 2px 7px;
     vertical-align: inherit;
@@ -74,10 +78,13 @@ figure.highlight{
     color: #555;
     border-top: 1px solid #d3d3d3;
 }
+.footer a{
+    color: #2f73b7;
+}
 .page-home .footer {
     display: none;
 }
-.page-archives .footer, .page-category .footer, .page-tag .footer, .page-about .footer {
+.page-archives .footer, .page-category .footer, .page-tag .footer, .page-about .footer, .page-search .footer {
     width: 500px;
     margin: 10px auto 20px -250px;
 }
