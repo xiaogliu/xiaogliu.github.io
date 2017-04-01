@@ -425,9 +425,9 @@ deploy:
 能否在同一个分支直接维护？毕竟hexo在public文件夹下面已经有所需要的html文件了
 
 ### 参考资料
-【1】[hexo你的博客](http://ibruce.info/2013/11/22/hexo-your-blog/)
-【2】[Hexo搭建Github静态博客](http://www.cnblogs.com/zhcncn/p/4097881.html")
-【3】[使用hexo，如果换了电脑怎么更新博客？CrazyMilk回答](https://www.zhihu.com/question/21193762)
-【4】[SSH-互动百科](http://www.baike.com/wiki/ssh)
+【1】[hexo你的博客](http://ibruce.info/2013/11/22/hexo-your-blog/)   
+【2】[Hexo搭建Github静态博客](http://www.cnblogs.com/zhcncn/p/4097881.html")   
+【3】[使用hexo，如果换了电脑怎么更新博客？CrazyMilk回答](https://www.zhihu.com/question/21193762)   
+【4】[SSH-互动百科](http://www.baike.com/wiki/ssh)   
 【5】[Secure Shell-维基百科](https://en.wikipedia.org/wiki/Secure_Shell)
 

@@ -59,9 +59,9 @@ Warning: Permanently added 'github.com,192.30.255.112' (RSA) to the list of know
 |-- known_hosts（已知远程服务器列表）
 （关于SSH协议/RSA算法/公钥秘钥机制，再写一篇blog。）
 
-## 解决乱码
+## 解决乱码   
 安装完git，新建git项目后，输入 `git log` 或 `git status` 命令后中文可能出现乱码，
-- 解决 `git log` 中文乱码
+#### 解决 `git log` 中文乱码
 乱码类似
 ```
 <E4><BF><AE><E6><94><B9><E6><96><87><E6><9C><AC><E6><96><87><E6><A1><A3>
@@ -74,7 +74,7 @@ Warning: Permanently added 'github.com,192.30.255.112' (RSA) to the list of know
 ```
 git config --global i18n.logoutputencoding gbk
 ```
-- 解决 `git status` 中文乱码
+#### 解决 `git status` 中文乱码
 乱码类似
 ```
 \247\345\223\201\351\234\200\
@@ -89,7 +89,7 @@ git config --global core.quotepath false
 ## 常用命令
 基本add，commit，push，pull不做赘述，仅仅记录常用但不直观的命令
 
-- 1、discard unstaged changes
+#### discard unstaged changes
 
 For a specific file use:
 ```
@@ -101,40 +101,40 @@ git checkout -- .
 ```
 Make sure to include the period at the end.
 
-- 2、查看远程分支url
+#### 查看远程分支url
 ```
 git remote -v
 ```
-- 3、clone远程分支到本地某新建分支
+#### clone远程分支到本地某新建分支
 ```
 git clone -b <lacal-branch-name> <target-url>
 ```
-- 4、查看本地分支
+#### 查看本地分支
 ```
 git branch
 ```
-- 5、查看远程分支
+#### 查看远程分支
 ```
 git branch -r
 ```
-- 6、新建分支，并停留在当前分支
+#### 新建分支，并停留在当前分支
 ```
 git branch <branch-name>
 ```
-- 7、切换分支，并更新工作区
+#### 切换分支，并更新工作区
 ```
 git checkout <branch-name>
 ```
-- 8、新建分支，并与远程分支建立追踪关系
+#### 新建分支，并与远程分支建立追踪关系
 ```
 git branch --track <branch-name> <remote-branch-url>
 ```
-- 9、合并远程分支
+#### 合并远程分支
 ```
 git merge <remote-branch-name>(一般是origin/branch-name)
 ```
 
-#### 参考资料
+## 参考资料
 【1】[How do I discard unstaged changes in Git?](http://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git)   
-【2】[常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html?bsh_bid=938838579)
+【2】[常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html?bsh_bid=938838579)   
 【3】[起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE)
