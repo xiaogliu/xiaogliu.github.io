@@ -11,6 +11,9 @@ html, body, .page-header, .modal-dialog, .post-header .toolbox{
 .content {
     border-left: 4px solid #f3e8d3;
 }
+.content.content-search {
+    margin-bottom: 20px;
+}
 .article-content blockquote {
     padding: 2px 15px;
     border-left: 5px solid #e0dfcc;
