@@ -1,8 +1,8 @@
 ---
 title: Chrome相关
 date: 2017-02-17 17:33:36
-tags: [生产力,工具]
-categories: 工具
+tags: [chrome]
+categories: 编程工具
 comments: false
 ---
 

@@ -2,7 +2,7 @@
 title: sublime使用指南
 date: 2017-03-17 21:34:16
 tags: [编辑器,sublime]
-categories: 工具
+categories: 编程工具
 comments: false
 ---
 ## 安装插件（包括主题）
