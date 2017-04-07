@@ -41,7 +41,7 @@ comments: false
 - Package Control：插件管理，已随sublime3安装好；
 - [Emmet](https://github.com/sergeche/emmet-sublime)：html编辑自动补全；
 - [Pretty Json](https://github.com/dzhibas/SublimePrettyJson)：json格式化；
-- [BracketHightLighter](https://github.com/facelessuser/BracketHighlighter)：成对括号、标签高亮（自定义颜色高亮点这里[Sublime Text3 BracketHighlighter高亮色彩配置](http://www.cnblogs.com/willingtolove/p/4657320.html)）；
+- [BracketHightLighter](https://github.com/facelessuser/BracketHighlighter)：成对括号、标签高亮（自定义颜色高亮点这里[优化BracketHighlighter高亮显示](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化BracketHighlighter高亮显示)）；
 - [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)：在sidebar中增强右键功能，比如在浏览器中打开文件；
 - [JsFormat](https://github.com/jdc0589/JsFormat)：格式化js代码；
 - [TrailingSpaces](https://github.com/SublimeText/TrailingSpaces)：高亮多余空格或tab；
@@ -52,6 +52,7 @@ comments: false
 - [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸
 - [terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端
 - [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式
+- [sublime-markdown-extended](https://github.com/jonschlinkert/sublime-markdown-extended)：markdown高亮优化（查看[效果图](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示)）
 
 # 常用快捷键
 
