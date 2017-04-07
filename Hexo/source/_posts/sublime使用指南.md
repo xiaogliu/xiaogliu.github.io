@@ -5,44 +5,39 @@ tags: [编辑器,sublime]
 categories: 编程工具
 comments: false
 ---
-# 安装插件（包括主题）   
-- 方法一：使用package control
+
+# 插件管理
+
+## 安装插件（包括主题）   
+- 方法一：使用package control    
   `ctrl+shift+p` 调出命令面板，输入install根据提示找到`package control：install package` ，选中并回车，输入插件名安装，页面左下角会提示安装进度。
 
   > 有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017/3/17）我下载sublime3，package control已经安装好，无需这步操作（如果在menu > preferences下面有package control，证明已安装好）   
-  
   ```
-import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+  import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
   ```
+- 方法： 直接将package文件夹放到sublime package目录（menu > preferences > browse packages，点击直接打开package文件夹）   
 
-- 方法： 直接将package文件夹放到sublime package目录（menu > preferences > browse packages，点击直接打开package文件夹）
- > 若国内网络环境不允许或者，更换电脑，用此方法方便快捷
+  > 若国内网络环境不允许或者，更换电脑，用此方法方便快捷
 
-# 删除插件
+## 删除插件
 `ctrl+shift+p` 调出命令面板，输入remove根据提示找到 `package control：remove package`，直接输入需要删除的插件名称，或者用上下方向键选择需要删除的插件。
 
-# 常用快捷键
-## 常用默认快捷键：   
-`ctrl + p`: 在项目中快速查找文件   
-## 自定义常用快捷键：   
-menu > preferences > key bindings,在user文件中，输入自定义快捷键。自己自定以快捷键如下：   
+## 其他插件管理选项
+- 查看插件： list package
+- 更新插件： upgrade package   
+- 禁用插件： disable package   
+- 激活插件： enable package   
 
-```
-[
-	{ "keys": ["ctrl+alt+i"], "command": "reindent" },
-	{ "keys": ["alt+1"], "command": "toggle_side_bar" },
-	{ "keys": ["alt+2"], "command": "show_panel", "args": {"panel": "console", "toggle": true} },
-	{ "keys": ["ctrl+d"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
-	{ "keys": ["ctrl+y"], "command": "swap_line_down" },
-	{ "keys": ["ctrl+o"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"} },
-	{ "keys": ["ctrl+shift+-"], "command": "fold" },
-	{ "keys": ["ctrl+shift+="], "command": "unfold" },
-	{ "keys": ["alt+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
-	{ "keys": ["alt+j"], "command": "find_under_expand" },
-]
+> 禁用插件等同于在preferences > settings > user里添加需要忽略的插件：
+```js
+  "ignored_packages":
+  [
+    "Vintage" // 在这个数组里面添加需要忽略的插件
+  ],
 ```
 
-# 自用插件
+## 自用插件
 - Package Control：插件管理，已随sublime3安装好；
 - [Emmet](https://github.com/sergeche/emmet-sublime)：html编辑自动补全；
 - [Pretty Json](https://github.com/dzhibas/SublimePrettyJson)：json格式化；
@@ -55,35 +50,76 @@ menu > preferences > key bindings,在user文件中，输入自定义快捷键。
 - [GitGutter](https://github.com/jisaacks/GitGutter)：配合git显示文件增减标志
 - [Minify](https://github.com/tssajo/Minify)：压缩js,css文件（和Minifier不同）
 - [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸
+- [terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端
+- [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式
+
+# 常用快捷键
+
+## 常用默认快捷键：   
+`ctrl + p`: 在项目中快速查找文件   
+>方向键下进行选择，按`enter`打开单个文件，**按`右方向键`可以打开多个文件**   
+
+## 自定义常用快捷键：   
+menu > preferences > key bindings,在user文件中，输入自定义快捷键。自己自定以快捷键如下：   
+
+```
+[
+  { "keys": ["ctrl+alt+i"], "command": "reindent" },
+  { "keys": ["alt+1"], "command": "toggle_side_bar" },
+  { "keys": ["alt+2"],"command": "open_terminal"},
+  { "keys": ["alt+3"], "command": "show_panel", "args": {"panel": "console", "toggle": true} },
+  { "keys": ["ctrl+d"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
+  { "keys": ["ctrl+y"], "command": "duplicate_line" },
+  { "keys": ["ctrl+o"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"} },
+  { "keys": ["ctrl+shift+-"], "command": "fold" },
+  { "keys": ["ctrl+shift+="], "command": "unfold" },
+  { "keys": ["alt+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
+  { "keys": ["alt+j"], "command": "find_under_expand" },
+  {
+    "keys": ["j", "j"],
+    "command": "_enter_normal_mode",
+    "args": {
+      "mode": "mode_insert"
+    },
+    "context": [{"key": "vi_insert_mode_aware"}]
+  }
+]
+```
 
 # 其他设置
-## 以下在menu > preferences > settings > user中设置
-1、选中带中划线“-”的文本（如css的class名）
+以下在menu > preferences > settings > user中设置
+
+## 选中带中划线“-”的文本（如css的class名）
 ```
 word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 ```
-2、显示space，tab符号
+## 显示space，tab符号
 ```
 "draw_white_space": "all",
 ```
-3、换行为UNIX格式（LF）
+## 换行为UNIX格式（LF）
 ```
 "default_line_ending": "unix",
 ```
->换行符详细区分见[回车和换行](http://www.ruanyifeng.com/blog/2006/04/post_213.html)   
 
-4、user文件所有设置如下   
-```
+> 换行符详细区分见[回车和换行](http://www.ruanyifeng.com/blog/2006/04/post_213.html)   
+
+## user文件所有设置如下   
+```json
 {
-    "color_scheme": "Packages/User/Color Highlighter/themes/Monokai Soda.tmTheme",
-    "font_face": "Yahei Consolas Hybrid",
-    "font_size": 11,
-    "soda_classic_tabs": true,
-    "tab_size": 2,
-    "theme": "Soda Dark 3.sublime-theme",
-    "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?", // 选中带中划线文本
-    "default_line_ending": "unix", // 换行为UNIX
-    "draw_white_space": "all", // 显示space，tab符号
+  "color_scheme": "Packages/User/SublimeLinter/Monokai Soda (SL).tmTheme",
+  "default_line_ending": "unix",
+  "draw_white_space": "all",
+  "font_face": "YaHei Consolas Hybrid",
+  "font_size": 11,
+  "ignored_packages":
+  [
+    "Vintage"
+  ],
+  "soda_classic_tabs": true,
+  "tab_size": 2,
+  "theme": "Soda Dark 3.sublime-theme",
+  "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?"
 }
 ```
 
