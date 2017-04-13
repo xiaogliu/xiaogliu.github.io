@@ -6,7 +6,7 @@ categories: AngularJS
 comments: false
 ---
 
-当我最开始接触AngularJS时，在任何地方我一直都用AngularJS还提供的变量`$scope`，过去两年我一直如此。直到一周以前，Jonathan Rowny指出在某些情况下我错用了`$scope`。因此，在命名的时候我做了一些改变。    
+当我最开始接触AngularJS时，在任何地方我一直都用AngularJS提供的变量`$scope`，过去两年一直如此。直到一周以前，Jonathan Rowny指出在某些情况下我错用了`$scope`。因此，在命名的时候我做了一些改变。    
 
 Rowny指出，`$scope`前面的`$`标志是指明这个scope被注入到当前执行环境，但不是所有涉及scope的地方都基于依赖注入。举个例子，比如在`$watch`或指令中的`link()`函数中，`scope`仅仅是个**位置参数**，至于叫什么名字，无关紧要。因此，这种情况下，不应该加前缀`$`。请看下面代码:   
 
