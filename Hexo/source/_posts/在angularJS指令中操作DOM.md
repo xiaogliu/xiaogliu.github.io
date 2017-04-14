@@ -8,7 +8,9 @@ comments: false
 
 # 在指令而非在控制器中操作DOM
 
-在页面处理中，难免会遇到操作DOM的情况，在AngularJS中，对DOM的操作是在指令而非控制器中完成的。为什么要在指令而非控制器中操作DOM，可参考这个问答 [Separating DOM manipulation from Angular controllers - Best Practice wanted](http://stackoverflow.com/questions/28988547/separating-dom-manipulation-from-angular-controllers-best-practice-wanted)   
+在页面处理中，难免会遇到操作DOM的情况，在AngularJS中，对DOM的操作是在指令而非控制器中完成的。
+
+> AngularJS强调隔离的思想：把复杂的逻辑和操作放在指令或服务中，控制器作为视图和$scope之间的桥梁，仅仅用来存储数据模型。    
 
 # jqLite
 
