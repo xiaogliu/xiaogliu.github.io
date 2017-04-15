@@ -1,8 +1,8 @@
 ---
 title: 自用markdown写文章格式规范
 date: 2017-04-07 17:55:04
-tags: [markdown,standard]
-categories: standard
+tags: [markdown,Normalization]
+categories: Normalization
 comments: false
 ---
 
