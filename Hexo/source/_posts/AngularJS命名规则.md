@@ -27,6 +27,30 @@ AngularJS执行过程中，对“**小写字母+连接符**”形式的命名做
 - 指令命名时不要以`x`或`data`作为第一个单词   
 - 支持的链接符包括`:`,`-`和`_`，但通常会选择`-`作为连接符   
 
+# 隔离作用域对象中的属性命名
+
+指令隔离作用域对象中属性命名规则同上，见下面代码：
+
+```js
+.directive('myDirective', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      myUrl: '@', // 隔离作用域对象中属性命名为小驼峰命名法
+      myLinkText: '@'
+    },
+    template: '<a href="{{myUrl}}">{{myLinkText}}</a>'
+})
+```
+
+```html
+<div my-directive
+     my-url="http://google.com" <!-- html文件中使用“小写字母+分割符”的命名方式-->
+     my-link-text="Click me"
+     ></div> 
+```
+
 # 参考资料
 【1】[Creating Custom Directives - Normalization](https://docs.angularjs.org/guide/directive)   
 【2】[How are the attribute prefixes “x-” and “data-” used in AngularJS](http://stackoverflow.com/questions/15256396/how-are-the-attribute-prefixes-x-and-data-used-in-angularjs)   
+【3】[美]Ari Lerner 著，赵望野 徐飞 何鹏飞 译（2014），AngularJS权威教程，p52，人民邮电出版社
