@@ -9,7 +9,7 @@ categories: 编程工具
 git客户端地址：[Git for Windows](https://git-scm.com/download/win)   
 Git for Windows 提供了 GUI 和 Git Bash 两种操作方式，除`merge`差异巨大的分支外，建议都通过Git Bash进行代码维护。
 
-# 二 配置
+# 二 配置   
 ## 2.1 配置用户名和邮箱
 “这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：”
 ```bash
