@@ -3,6 +3,7 @@ title: Windows系统下Git配置使用
 date: 2017-03-06 18:58:47
 tags: [Git]
 categories: 编程工具
+comments: false
 ---
 
 # 一 安装
@@ -86,55 +87,12 @@ git config --global core.quotepath false
 
 > **若输入上述命令后，乱码依旧，这时可能是Git for Windows版本问题，更换其他版本即可**。比如Git-2.11.0-64-bit就出现中文乱码和不能输入中文的情况，上述方法都不能解决。[Git各版本下载地址](https://github.com/git-for-windows/git/tags)    
 
-# 常用命令   
-基本add，commit，push，pull不做赘述，仅仅记录常用但不直观的命令
+- 修改最后一次提交注释（未push）
 
-- discard unstaged changes
-
-For a specific file use:
-```js
-git checkout <file>
-```
-For all unstaged files use:
-```js
-git checkout -- .
-```
-Make sure to include the period at the end.
-
-- 查看远程分支url
-```js
-git remote -v
-```
-- clone远程分支到本地某新建分支
-```js
-git clone -b <lacal-branch-name> <target-url>
-```
-- 查看本地分支
-```js
-git branch
-```
-- 查看远程分支
-```js
-git branch -r
-```
-- 新建分支，并停留在当前分支
-```
-git branch <branch-name>
-```
-- 切换分支，并更新工作区
 ```bash
-git checkout <branch-name>
-```
-- 新建分支，并与远程分支建立追踪关系
-```bash
-git branch --track <branch-name> <remote-branch-url>
-```
-- 合并远程分支
-```bash
-git merge <remote-branch-name>(一般是origin/branch-name)
+git commit --amend
 ```
 
 # 参考资料
 【1】[How do I discard unstaged changes in Git?](http://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git)   
-【2】[常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html?bsh_bid=938838579)   
-【3】[起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE)
+【2】[起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE)

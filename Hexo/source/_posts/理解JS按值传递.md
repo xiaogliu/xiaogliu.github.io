@@ -1,5 +1,5 @@
 ---
-title: 深入理解JS参数按值传递
+title: 理解JS参数按值传递
 date: 2017-04-18 23:08:42
 tags: [JavaScript]
 categories: JavaScript
