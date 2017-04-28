@@ -20,7 +20,7 @@ comments: false
 
 接下来，会详细介绍`$watch()`,`$digest()`和`$apply()`函数。   
 
-# `$watch()`
+# $watch()
 
 `$scope.watch()`函数在变量上创建watcher。当创建watcher时，向`$watch()`函数传递了两个函数作为入参：   
 
@@ -59,7 +59,7 @@ $scope.$watch(function (scope) { return scope.data.myVar },
 
 在这个例子中，把id为`someId`的html元素的内容更新为变量`scope.data.myVar`的新值，同时被`b`元素包裹以便使内容加粗。当然，也可以通过`{{data.myVar}}`来达到同样的效果，这里只是为了展示监听函数可以执行的操作。   
 
-# `$digest()`
+# $digest()
 
 `$scope.$digest()`函数循环时会遍历`$scope`对象（以及它的子`$scope`对象，如果有的话）上所有的watcher。**在遍历watcher时，同时会调用watcher上的值函数，如果检测到返回值发生了变化，便会触发对应的监听函数**。   
 
@@ -67,7 +67,7 @@ $scope.$watch(function (scope) { return scope.data.myVar },
 
 但这种调用机制在实际使用中可能会遇到AngularJS没有及时调用`$digest()`函数的情况。所以，当遇到数据没有及时更新时，应该手动检查下是不是AngularJS没有及时调用`$digest()`函数导致的。这种情况下，如果手动触发下`$scope.$digest()`应该就会正常工作了。或者，可以通过`$scope.$apply()`代替手动检查，下面会详述。   
 
-# `$apply()`
+# $apply()
 
 `$scope.$apply()`函数会接受一个函数作为入参，这个函数会在`$apply()`函数调用时被执行，当这个函数执行完成后，`$scope.$digest()`便被触发。这可以更容易的保证所有的watcher都被检查，从而使绑定的数据得到更新。下面是一个应用`$apply`的例子：   
 
