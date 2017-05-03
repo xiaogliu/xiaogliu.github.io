@@ -111,8 +111,10 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "color_scheme": "Packages/User/SublimeLinter/Monokai Soda (SL).tmTheme",
   "default_line_ending": "unix",
   "draw_white_space": "all",
-  "font_face": "YaHei Consolas Hybrid",
-  "font_size": 11,
+  // "font_face": "YaHei Consolas Hybrid",
+  // "font_size": 11,
+  "font_face": "Ubuntu Mono",
+  "font_size": 12,
   "ignored_packages":
   [
     "Vintage"
@@ -123,6 +125,8 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?"
 }
 ```
+
+> 需要在系统中安装Ubuntu Mono字体，下载地址[Ubuntu Font](http://font.ubuntu.com/)。
 
 # 参考资料
 【1】[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)   

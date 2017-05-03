@@ -39,8 +39,9 @@ set LANG=zh_CN.UTF8
 Features > Colors > Schemes，目前在用默认主题`<xterm>`   
 
 ## 字体
-Main > Main console font，目前在用`YaHei Consolas Hybrid`，Size为`18`，勾选`Bold`，其他默认   
-> 很多人推荐Adobe开源字体[source-code-pro](https://github.com/adobe-fonts/source-code-pro)，下载字体包，将字体包里面TTF文件夹下面文件全部复制到window字体文件夹下（控制面板 > 字体，或者win键 > 输入“字体”进行搜索）。但安装后感觉中文显示太难看，换回 "YaHei Consolas Hybrid"。   
+Main > Main console font，目前在用~~`YaHei Consolas Hybrid`~~ `Ubuntu Mono`，Size为`18`，勾选`Bold`，其他默认   
+> 很多人推荐Adobe开源字体[source-code-pro](https://github.com/adobe-fonts/source-code-pro)。但安装后感觉中文显示太难看，换回 ~~"YaHei Consolas Hybrid"~~ "Ubuntu Mono"。
+> windown系统下安装字体方法：下载字体包，将字体包里面TTF文件夹下面文件全部复制到window字体文件夹下（控制面板 > 字体，或者win键 > 输入“字体”进行搜索）   
 
 ## Tab bar
 Main > Tab bar > Tabs, `Don't show`   
