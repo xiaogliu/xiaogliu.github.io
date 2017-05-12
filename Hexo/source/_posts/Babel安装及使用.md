@@ -44,7 +44,7 @@ npm install --save-dev babel-cli
 
 **步骤 3**，设置启动命令。   
 
-因为是本地安装，所以无法直接使用`Babel`这样的全局命令，我们需要将启动命令添加到**npm script**中，以此启动本地 Babel。添加方法是在刚才新建的`package.json`文件中添加`"script"`，内容如下：   
+因为是本地安装，所以无法直接使用`Babel`这样的全局命令，我们需要将启动命令添加到[npm script](https://docs.npmjs.com/misc/scripts)中，以此启动本地 Babel。添加方法是在刚才新建的`package.json`文件中添加`"script"`，内容如下：   
  
 ```bash
   {
@@ -67,7 +67,7 @@ npm install --save-dev babel-cli
 npm run build
 ```
 
-**步骤 4**,指定转化版本。   
+**步骤 4**，指定转化版本。   
 
 经过前三个步骤，虽然Babel可以工作了，但并没有进行版本转换，前后代码相同。这就需要我们指定转化版本了，这也是为什么推荐本地安装的原因：不同项目可能有不同版本转化的需求。    
 
@@ -131,5 +131,7 @@ gulp.task("default", function () {
 # 参考资料：   
 【1】 [How to use Babel with your tool of choice](http://babeljs.io/docs/setup/)   
 【2】 [Babel 入门教程](http://www.ruanyifeng.com/blog/2016/01/babel.html)   
+【3】 [How npm handles the "scripts" field](https://docs.npmjs.com/misc/scripts)
+【4】 [npm scripts 使用指南](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
 
 
