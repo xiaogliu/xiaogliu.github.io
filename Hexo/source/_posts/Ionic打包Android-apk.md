@@ -94,7 +94,7 @@ java.net.SocketException:Connection reset
   var distributionUrl = process.env['CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL'] || 'https://services.gradle.org/distributions/gradle-3.3-all.zip'
   ```
   
-> 方法2未测试，更多内容可参考[ionic build android error when download gradle](http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle)   
+> **方法2未测试**，更多内容可参考[ionic build android error when download gradle](http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle)   
 
 ## 2.2 打包  
 
@@ -105,6 +105,8 @@ ionic build android -release
 ```
 
 打包完成后会提示apk输出目录，此时的apk文件没有签名，无法使用。
+
+> 第一次打包速度很慢，大概需要1小时左右。
 
 ## 2.3 设置签名   
 
@@ -120,11 +122,11 @@ keytool -genkey -alias demo.keystore -keyalg RSA -validity 40000 -keystore demo.
 ```
 
 说明：
-- genkey 产生密钥
-- alias demo.keystore 别名 demo.keystore
-- keyalg RSA 使用RSA算法对签名加密
-- validity 40000 有效期限4000天
-- keystore demo.keystore
+- genkey：产生密钥
+- alias demo.keystore：秘钥别名 demo.keystore
+- keyalg RSA：使用RSA算法对签名加密
+- validity 40000：有效期限4000天
+- keystore：秘钥库别名 demo.keystore
 
 **给apk设置签名**
 
