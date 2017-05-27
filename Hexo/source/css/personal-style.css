@@ -95,6 +95,27 @@ figure.highlight{
 .toolbox-mobile {
     bottom: 60px;
 }
+
+/* 通过改sass */
+.toolbox .list-toolbox {
+    display: block;
+}
+
+.toolbox-entry .icon-angle-down {
+    display: none !important;
+}
+.toolbox-entry .toolbox-entry-text {
+    display: none !important;
+}
+.icon-home {
+    display: inline-block !important;
+}
+.toolbox:hover li a{
+    animation-name: none !important;
+    animation-duration: 0s !important;
+}
+/* 通过改sass end */
+
 @media screen and (max-width: 767px) {
     html, body, .page-header, .modal-dialog, .post-header .toolbox {
         padding-bottom: 5px;
