@@ -125,7 +125,7 @@ keytool -genkey -alias demo.keystore -keyalg RSA -validity 40000 -keystore demo.
 - genkey：产生密钥
 - alias demo.keystore：秘钥别名 demo.keystore
 - keyalg RSA：使用RSA算法对签名加密
-- validity 40000：有效期限4000天
+- validity 40000：有效期限40000天
 - keystore：秘钥库别名 demo.keystore
 
 **给apk设置签名**
