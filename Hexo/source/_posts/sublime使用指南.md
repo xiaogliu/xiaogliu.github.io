@@ -43,6 +43,7 @@ categories: 编程工具
 - [BracketHightLighter](https://github.com/facelessuser/BracketHighlighter)：成对括号、标签高亮（自定义颜色高亮点这里[优化BracketHighlighter高亮显示](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化BracketHighlighter高亮显示)）；
 - [CSScomb](https://github.com/csscomb/CSScomb-for-Sublime)：css属性排序；
 - [Emmet](https://github.com/sergeche/emmet-sublime)：html编辑自动补全；
+- [EJS2](https://packagecontrol.io/packages/EJS%202)：EJS文件高亮；（编辑hexo主题使用）
 - [JSHint Gutter](https://github.com/victorporof/Sublime-JSHint)：js代码检查工具；
 - [Markdown Extended](https://github.com/jonschlinkert/sublime-markdown-extended)：markdown高亮优化（查看[效果图](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示)）；
 - [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)：Markdown预览插件；
@@ -51,9 +52,10 @@ categories: 编程工具
 - [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)：在sidebar中增强右键功能，比如在浏览器中打开文件；
 - [Terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端；
 - [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸；
+- [TypeScript](http://www.typescriptlang.org/)：TypeScript语法高亮；
 - [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式。
 
-下面的可选：
+下面插件可选：
 
 - [Color Highlighter](https://github.com/Monnoroch/ColorHighlighter)：配合git显示文件增减标志；（影响性能）
 - [GitGutter](https://github.com/jisaacks/GitGutter)：配合git显示文件增减标志；（影响性能）
