@@ -21,6 +21,8 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 效果图：   
 ![BracketHighlighter自定义高亮显示](http://ol9ge41ud.bkt.clouddn.com/bracket.png)
 
+> 实际使用中我只保留了蓝色和未配对时显示的红色，太多颜色反而觉得好乱。但下面的配置依然是多色方案。
+
 ## 对插件进行设置 
 在 Preferences > package settings > Bracket Highlighter > Bracket Settings-User 中添加下面内容   
 
@@ -188,7 +190,7 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 ![markdown高亮效果图](http://ol9ge41ud.bkt.clouddn.com/markdown2.png)
 
 ## 引入插件   
-安装插件 [sublime-markdown-extended](https://github.com/jonschlinkert/sublime-markdown-extended)
+安装插件 [Markdown Extended](https://github.com/jonschlinkert/sublime-markdown-extended)
 
 ## 扩展主题
 打开 preferences > color theme > user 引用的`.tmTheme`文件，添加如下内容到`</array>`元素之前：

@@ -38,20 +38,31 @@ categories: 编程工具
 
 ## 自用插件
 - Package Control：插件管理，已随sublime3安装好；
-- [Emmet](https://github.com/sergeche/emmet-sublime)：html编辑自动补全；
-- [Pretty Json](https://github.com/dzhibas/SublimePrettyJson)：json格式化；
+- [AutoFileName](https://github.com/BoundInCode/AutoFileName)：自动补全文件路径，比如图片；
+- [Babel](https://github.com/babel/babel-sublime)：将ES6语法转化为ES5（2017-05-31更）；
 - [BracketHightLighter](https://github.com/facelessuser/BracketHighlighter)：成对括号、标签高亮（自定义颜色高亮点这里[优化BracketHighlighter高亮显示](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化BracketHighlighter高亮显示)）；
-- [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)：在sidebar中增强右键功能，比如在浏览器中打开文件；
-- [JsFormat](https://github.com/jdc0589/JsFormat)：格式化js代码；
-- [TrailingSpaces](https://github.com/SublimeText/TrailingSpaces)：高亮多余空格或tab；
 - [CSScomb](https://github.com/csscomb/CSScomb-for-Sublime)：css属性排序；
-- [AutoFileName](https://github.com/BoundInCode/AutoFileName)：自动补全文件路径，比如图片
-- [GitGutter](https://github.com/jisaacks/GitGutter)：配合git显示文件增减标志
-- [Minify](https://github.com/tssajo/Minify)：压缩js,css文件（和Minifier不同）
-- [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸
-- [terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端
-- [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式
-- [sublime-markdown-extended](https://github.com/jonschlinkert/sublime-markdown-extended)：markdown高亮优化（查看[效果图](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示)）
+- [Emmet](https://github.com/sergeche/emmet-sublime)：html编辑自动补全；
+- [JSHint Gutter](https://github.com/victorporof/Sublime-JSHint)：js代码检查工具；
+- [Markdown Extended](https://github.com/jonschlinkert/sublime-markdown-extended)：markdown高亮优化（查看[效果图](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示)）；
+- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)：Markdown预览插件；
+- [Markdown Table Formatter](https://github.com/bitwiser73/MarkdownTableFormatter)：格式化表格；
+- [Markdown Editing](https://github.com/SublimeText-Markdown/MarkdownEditing)：加粗、斜体可以使用快捷键；
+- [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)：在sidebar中增强右键功能，比如在浏览器中打开文件；
+- [Terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端；
+- [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸；
+- [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式。
+
+下面的可选：
+
+- [Color Highlighter](https://github.com/Monnoroch/ColorHighlighter)：配合git显示文件增减标志；（影响性能）
+- [GitGutter](https://github.com/jisaacks/GitGutter)：配合git显示文件增减标志；（影响性能）
+- [JsFormat](https://github.com/jdc0589/JsFormat)：格式化js代码；（手写注意为主，代码检查为辅）
+- [Minify](https://github.com/tssajo/Minify)：压缩js,css文件（和Minifier不同）；
+- [Pretty Json](https://github.com/dzhibas/SublimePrettyJson)：json格式化；（一般js文件在Chrome插件[JSON-handle](https://chrome.google.com/webstore/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj?utm_source=chrome-app-launcher-info-dialog)中看，日志类长文件在Notepad++中看）
+- [TrailingSpaces](https://github.com/SublimeText/TrailingSpaces)：高亮多余空格或tab；（手写注意为主，代码检查为辅）
+
+> sublime归根结底是文本编辑器，如果安装太多对代码进行大量渲染的插件，比如`GitGutter`, `Color Highlighter`，对性能肯定有所影响。当文件较小时这种影响不是很明显，但当文件大了以后，比如代码超过10000行，这种影响是很明显的。
 
 # 常用快捷键
 
