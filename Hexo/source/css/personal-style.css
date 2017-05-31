@@ -17,7 +17,7 @@ html, body, .page-header, .modal-dialog, .post-header .toolbox{
 }
 .article-content blockquote {
     padding: 2px 15px;
-    border-left: 5px solid #e0dfcc;
+    border-left: 3px solid #e0dfcc;
     background-color: #fff8dc;
 }
 .box-prev-next {
@@ -41,8 +41,7 @@ html, body, .page-header, .modal-dialog, .post-header .toolbox{
     margin-top: 4px;
 }
 .article-content img {
-    border: 0.2em solid #e0dfcc;
-    border-radius: 10px;
+    border: 1px solid #e0dfcc;
 }
 code {
     padding: 2px 7px;
@@ -57,7 +56,7 @@ code, pre, samp {
 }
 figure.highlight{
     padding: 12px;
-    border: 0.2em solid #e0dfcc;
+    border: 1px solid #e0dfcc;
     border-radius: 0;
     background-color: #f5f2f0;
 }

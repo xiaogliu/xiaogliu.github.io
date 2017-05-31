@@ -3,7 +3,6 @@ title: React Native初探
 date: 2017-05-28 00:59:21
 tags: [Hybrid App,React,Android]
 categories: Hybrid App
-comments: false
 ---
 # 概述
 本文基于React Native（0.44）官方文档[Getting Start](https://facebook.github.io/react-native/docs/getting-started.html)实践在Windows 10 操作系统下开发Android APP，主要记录实际开发过程与官方文档不同之处。   
