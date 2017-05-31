@@ -3,7 +3,6 @@ title: 使用hexo+github搭建个人博客
 date: 2016-06-09 22:56:37
 tags: [git,hexo,Node.js]
 categories: 编程工具
-comments: false
 ---
 
 记录利用hexo搭建blog的过程。

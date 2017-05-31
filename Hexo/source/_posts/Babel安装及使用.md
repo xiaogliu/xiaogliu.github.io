@@ -3,7 +3,6 @@ title: Babel安装及使用
 date: 2017-05-09 22:43:42
 tags: [Babel,Gulp]
 categories: 编程工具
-comments: false
 ---
 
 # Babel用途

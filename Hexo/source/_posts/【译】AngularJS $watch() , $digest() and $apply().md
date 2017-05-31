@@ -3,7 +3,6 @@ title: '【译】AngularJS $watch() , $digest() and $apply()'
 date: 2017-04-27 23:10:50
 tags: [AngularJS]
 categories: AngularJS
-comments: false
 ---
 
 # 概述

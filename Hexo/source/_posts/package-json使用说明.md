@@ -3,7 +3,6 @@ title: package.json使用说明
 date: 2017-05-13 16:08:16
 tags: [Node.js,npm,JavaScript]
 categories: JavaScript
-comments: false
 ---
 
 # 概述

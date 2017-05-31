@@ -3,7 +3,6 @@ title: AngularJS指令命名规则
 date: 2017-04-15 12:29:05
 tags: [AngularJS,Normalization]
 categories: AngularJS
-comments: false
 ---
 
 # 命名规范

@@ -3,7 +3,6 @@ title: Git使用过程遇到问题及解决方案
 date: 2017-02-12 19:33:13
 tags: [git]
 categories: 编程工具
-comments: false
 ---
 
 记录自己git使用过程中遇到的问题及解决方案，随时更新。

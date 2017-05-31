@@ -3,7 +3,6 @@ title: JavaScript编程风格规范
 date: 2017-04-27 00:20:15
 tags: [JavaScript,Normalization]
 categories: JavaScript
-comments: false
 ---
 基于[Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)，整理常用风格规范，方便日后查找。
 

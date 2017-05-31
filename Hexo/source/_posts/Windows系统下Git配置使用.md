@@ -3,7 +3,6 @@ title: Windows系统下Git配置使用
 date: 2017-03-06 18:58:47
 tags: [Git]
 categories: 编程工具
-comments: false
 ---
 
 # 一 安装

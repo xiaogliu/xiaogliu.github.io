@@ -3,7 +3,6 @@ title: 通过AngularJS指令操作DOM
 date: 2017-04-12 19:36:57
 tags: [AngularJS,jQuery]
 categories: AngularJS
-comments: false
 ---
 
 # 在指令而非在控制器中操作DOM

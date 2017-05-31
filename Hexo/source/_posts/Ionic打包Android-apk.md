@@ -3,7 +3,6 @@ title: Ionic打包Android apk
 date: 2017-05-13 23:42:41
 tags: [Hybrid App,Ionic,Node.js,npm,JavaScript]
 categories: Hybrid App
-comments: false
 ---
 
 开始前请确保已安装node环境,Ionic的安装和后续的许多前端工具的安装都依赖于node的包管理器npm。

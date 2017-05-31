@@ -3,7 +3,6 @@ title: 修正Ionic-1.32模态框点击确定后APP假死
 date: 2017-05-14 11:43:03
 tags: [Hybrid App,Ionic,JavaScript]
 categories: Hybrid App
-comments: false
 ---
 
 目前Ionic V1最新版为Ionic V1.32，因为目前（2017-5-14）不管是JavaScirpt还是Angular都处于快速发展中，这意味着版本迭代会非常快，尤其对于框架来说，有时升级版本甚至是破坏性升级。而Ionic是基于Angular的，为了避免不断升级过程中大量踩坑，之前用Ionic-V1构建的APP暂时不进行大版本更新，等Angular稳定后再做升级考虑。同时，如果后续再有APP制作需求，采用当时可选的Ionic最新版。   

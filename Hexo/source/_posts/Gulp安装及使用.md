@@ -3,7 +3,6 @@ title: Gulp安装及使用
 date: 2017-05-10 21:33:34
 tags: [Gulp,Babel]
 categories: 编程工具
-comments: false
 ---
 
 # Gulp用途

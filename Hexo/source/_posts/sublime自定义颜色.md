@@ -3,7 +3,6 @@ title: sublime自定义主题配色
 date: 2017-04-07 21:48:24
 tags: [markdown,BracketHighlighter,sublime]
 categories: 编程工具
-comments: false
 ---
 对插件BracketHighlighter默认高亮及sublime自带markdown高亮显示不满意，搜索教程后在这做下总结。
 

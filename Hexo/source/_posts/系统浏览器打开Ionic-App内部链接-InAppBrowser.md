@@ -3,7 +3,6 @@ title: 系统浏览器打开Ionic App内部链接(InAppBrowser)
 date: 2017-05-15 14:57:38
 tags: [Hybrid App,Ionic,JavaScript]
 categories: Hybrid App
-comments: false
 ---
 
 # 一 概述
