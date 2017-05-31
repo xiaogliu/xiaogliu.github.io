@@ -118,6 +118,18 @@ figure.highlight{
 .post-header:hover .toolbox .list-toolbox {
     display: block;
 }
+.post-header .toolbox-entry .icon-angle-down {
+    display: inline-block !important;
+}
+.post-header .icon-home {
+    display: none !important;
+}
+.post-header:hover .toolbox-entry .icon-angle-down {
+    display: none !important;
+}
+.post-header:hover .icon-home {
+    display: inline-block !important;
+}
 
 /* 通过改sass end */
 
