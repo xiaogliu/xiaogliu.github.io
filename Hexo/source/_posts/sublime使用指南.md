@@ -49,6 +49,7 @@ categories: 编程工具
 - [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)：Markdown预览插件；
 - [Markdown Table Formatter](https://github.com/bitwiser73/MarkdownTableFormatter)：格式化表格；
 - [Markdown Editing](https://github.com/SublimeText-Markdown/MarkdownEditing)：加粗、斜体可以使用快捷键；
+- [Sass](https://github.com/nathos/sass-textmate-bundle)：Sass语法高亮；
 - [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)：在sidebar中增强右键功能，比如在浏览器中打开文件；
 - [Terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端；
 - [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸；
