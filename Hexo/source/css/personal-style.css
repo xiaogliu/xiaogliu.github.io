@@ -100,7 +100,6 @@ figure.highlight{
 .toolbox .list-toolbox {
     display: block;
 }
-
 .toolbox-entry .icon-angle-down {
     display: none !important;
 }
@@ -114,6 +113,13 @@ figure.highlight{
     animation-name: none !important;
     animation-duration: 0s !important;
 }
+.post-header .toolbox .list-toolbox {
+    display: none;
+}
+.post-header:hover .toolbox .list-toolbox {
+    display: block;
+}
+
 /* 通过改sass end */
 
 @media screen and (max-width: 767px) {
