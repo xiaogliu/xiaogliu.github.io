@@ -124,26 +124,31 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 {
   "color_scheme": "Packages/User/SublimeLinter/Monokai Soda (SL).tmTheme",
   "default_line_ending": "unix",
-  "draw_white_space": "all",
-  // "font_face": "YaHei Consolas Hybrid",
-  // "font_size": 11,
-  "font_face": "Ubuntu Mono",
-  "font_size": 12,
+  "font_face": "YaHei Consolas Hybrid",
+  "font_size": 11,
+  // "font_face": "Ubuntu Mono",
+  // "font_size": 12,
   "ignored_packages":
   [
-    "Vintage"
+    "Color Highlighter",
+    "JavaScript",
+    "Markdown",
+    "Vintage",
+    "Vintageous"
   ],
   "soda_classic_tabs": true,
   "tab_size": 2,
   "theme": "Soda Dark 3.sublime-theme",
-  "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?"
+  "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
+  "show_encoding": true, // 显示文件编码
 }
-```
 
-> 需要在系统中安装Ubuntu Mono字体，下载地址[Ubuntu Font](http://font.ubuntu.com/)。
+```
+> 如果要将字体设为系统中没有的，比如Ubuntu Mono，需要在系统中安装Ubuntu Mono字体，下载地址[Ubuntu Font](http://font.ubuntu.com/)。
 
 # 参考资料
 【1】[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)   
 【2】[如何优雅地使用Sublime Text](http://jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/)   
 【3】[Sublime Text3 BracketHighlighter高亮色彩配置](http://www.cnblogs.com/willingtolove/p/4657320.html)   
 【4】[sublime text3 双击选中带中划线-的文本](http://www.css88.com/archives/4539)
+【4】[How do I see the current encoding of a file in Sublime Text 2?](https://stackoverflow.com/questions/16195871/how-do-i-see-the-current-encoding-of-a-file-in-sublime-text-2)
