@@ -57,6 +57,8 @@ categories: 编程工具
 - [TypeScript](http://www.typescriptlang.org/)：TypeScript语法高亮；
 - [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式。
 
+> 为了有更好的`JSX`语法高亮显示，Babel推荐将sublime内置的`Javascript`语法高亮禁用，而使用`Javascript(Babel)`作为默认高亮方案。但禁用内置js语法高亮后，在Markdown文件里，使用`Markdown Extended`的高亮方案的js代码，函数体外的单行注释高亮有问题，所以，不建议禁用sublime内置js语法高亮。
+
 下面插件可选：
 
 - [Color Highlighter](https://github.com/Monnoroch/ColorHighlighter)：配合git显示文件增减标志；（影响性能）
@@ -131,7 +133,7 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "ignored_packages":
   [
     "Color Highlighter",
-    "JavaScript",
+    // "JavaScript",
     "Markdown",
     "Vintage",
     "Vintageous"
