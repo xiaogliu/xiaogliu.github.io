@@ -55,7 +55,8 @@ categories: 编程工具
 - [Terminal](https://packagecontrol.io/packages/Terminal)：在sublime使用过程中打开终端；
 - [Theme-soda](https://github.com/buymeasoda/soda-theme)：清爽不浮夸；
 - [TypeScript](http://www.typescriptlang.org/)：TypeScript语法高亮；
-- [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式。
+- [Vintageous](https://github.com/guillermooo/Vintageous)：在sublime下开启vi/vim模式；
+- [Vue Syntax Highlight](https://github.com/vuejs/vue-syntax-highlight)：vue语法高亮，注意，需要配合sass插件才能使vue文件中`<style lang="scss">`中的sass代码高亮。
 
 > 为了有更好的`JSX`语法高亮显示，Babel推荐将sublime内置的`Javascript`语法高亮禁用，而使用`Javascript(Babel)`作为默认高亮方案。但禁用内置js语法高亮后，在Markdown文件里，使用`Markdown Extended`的高亮方案的js代码，函数体外的单行注释高亮有问题，所以，不建议禁用sublime内置js语法高亮。
 
