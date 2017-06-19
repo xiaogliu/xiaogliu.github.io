@@ -11,11 +11,12 @@ categories: 编程工具
 
 # 配置
 ## 添加鼠标右键
-以**管理员权限**打开终端，输入下面命令
+以**管理员权限**打开终端，输入下面命令（先把cmder添加到系统变量中）
 ```bash
 Cmder.exe /REGISTER ALL
 ```
 > 配置完成后，鼠标右键可看到cmder选项，打开cmder，**终端显示目录为当前目录**   
+
 若想**删除鼠标右键打开cmder**，根目录新建文件`*.bat`，写入下面内容，以管理员身份运行即可
 ```bash
 @echo off
@@ -38,7 +39,7 @@ set LANG=zh_CN.UTF8
 Features > Colors > Schemes，目前在用默认主题`<xterm>`   
 
 ## 字体
-Main > Main console font，目前在用~~`YaHei Consolas Hybrid`~~ `Ubuntu Mono`，Size为`18`，勾选`Bold`，其他默认   
+Main > Main console font，目前在用~~`YaHei Consolas Hybrid`~~ ~~`Ubuntu Mono`~~ `Microsoft YaHei Mono`，Size为`18`，勾选`Bold`，其他默认   
 > 很多人推荐Adobe开源字体[source-code-pro](https://github.com/adobe-fonts/source-code-pro)。但安装后感觉中文显示太难看，换回 ~~"YaHei Consolas Hybrid"~~ "Ubuntu Mono"。
 > windown系统下安装字体方法：下载字体包，将字体包里面TTF文件夹下面文件全部复制到window字体文件夹下（控制面板 > 字体，或者win键 > 输入“字体”进行搜索）   
 
@@ -66,7 +67,8 @@ Keys & Macro > Hotkeys,modifiers,macros, 通过搜索框快速定位需要设置
 | Mintty | bash.exe | Unix/Linux like bash shell running on Windows. |
 | Mintty as Admin | bash.exe | Administrative Unix/Linux like bash shell running on Windows. |
 
-若使用Mintty需进行额外设置，详见[Access to multiple shells in one window using tabs](https://github.com/cmderdev/cmder)。   
+若使用Mintty需进行额外设置，详见[Access to multiple shells in one window using tabs](https://github.com/cmderdev/cmder)。  
+
 > 使用cmd.exe、powershell.exe和bash.exe，切换盘符有差别   
 > - cmd.exe、powershell.exe下切换盘符：直接输入盘符加冒号
 > ```js
@@ -144,7 +146,11 @@ alias ls=ls --color $*
 > 也可以直接在 cmder安装目录/config/user-aliases.cmd 中直接输入要设置的别名
 
 # 效果图
-![cmder效果图](http://ol9ge41ud.bkt.clouddn.com/cmder.png)
+![cmder效果图](http://ol9ge41ud.bkt.clouddn.com/cmder.png)   
+
+# 问题
+
+1. win10创意者更新（1703）安装后cmder光标前多了一个空格，且`ls`打印的目录没有颜色，将win10 cmd更改为“使用旧版控制台”就可以了，更多信息可查看这个issue: [display error with non-ASCII characters on windows 1703](https://github.com/cmderdev/cmder/issues/1339)   
 
 # 参考资料
 【1】[cmderdev/cmder](https://github.com/cmderdev/cmder)
