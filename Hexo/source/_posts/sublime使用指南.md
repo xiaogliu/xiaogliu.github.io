@@ -127,10 +127,10 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 {
   "color_scheme": "Packages/User/SublimeLinter/Monokai Soda (SL).tmTheme",
   "default_line_ending": "unix",
-  "font_face": "YaHei Consolas Hybrid",
-  "font_size": 11,
+  "font_face": "Microsoft YaHei Mono",
+  // "font_face": "YaHei Consolas Hybrid",
   // "font_face": "Ubuntu Mono",
-  // "font_size": 12,
+  "font_size": 12,
   "ignored_packages":
   [
     "Color Highlighter",

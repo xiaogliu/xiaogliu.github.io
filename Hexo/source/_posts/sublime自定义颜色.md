@@ -86,7 +86,8 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 ```
 
 ## 对`.tmTheme`文件进行设置
-打开 preferences > color theme > user 引用的`.tmTheme`文件，添加如下内容到`</array>`元素之前：
+
+找到Sublime text3安装目录下的Packages中的`Color Scheme - Default.sublime-package`，给该文件添加`.zip`后缀，解压找到`Monokai.tmTheme`（颜色主题），添加如下内容到`</array>`元素之前：
 
 ```html
 <dict>
@@ -185,14 +186,22 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 </dict>
 ```
 
+修改完成的文件放到压缩包`Color Scheme – Default.sublime-package.zip`里边（直接拖过去就好），最后改名为`Color Scheme – Default.sublime-package`放回源目录。
+
+> 不能将`Color Scheme – Default.sublime-package.zip`解压再压缩，否则sublime无法识别这个文件
+
 # 优化markdown高亮显示
+
 效果图：   
+
 ![markdown高亮效果图](http://ol9ge41ud.bkt.clouddn.com/markdown2.png)
 
 ## 引入插件   
+
 安装插件 [Markdown Extended](https://github.com/jonschlinkert/sublime-markdown-extended)
 
 ## 扩展主题
+
 打开 preferences > color theme > user 引用的`.tmTheme`文件，添加如下内容到`</array>`元素之前：
 
 ```html
