@@ -1,0 +1,25 @@
+<%- partial('_partial/head') %>
+<body>
+
+
+  <% if(theme.toolbox && theme.toolbox.isShow == true && page.base !== '') { %>
+    <span id="toolbox-mobile" class="toolbox-mobile"><%=  theme.toolbox.text %></span>
+  <% } %>
+
+  <%- body %>
+
+  <%- partial('_partial/component/modal') %>
+
+
+  <% if (theme.post.showComments && page.layout === 'post'){ %>
+    <%- partial('_partial/component/comments', {className: 'comments-post'}) %>
+  <% } else if (page.comments) { %>
+    <%- partial('_partial/component/comments', {className: 'comments-' + page.layout}) %>
+  <% } %>
+
+  <%- partial('_partial/load-script') %>
+<div class="footer">
+  &copy; 2017 Xiaoguang-Liu | Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme - based on <a href="https://github.com/forsigner/fexo" target="_blank">fexo</a>
+</div>
+</body>
+</html>

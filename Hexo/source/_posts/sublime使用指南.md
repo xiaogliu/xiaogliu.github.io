@@ -149,6 +149,12 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 ```
 > 如果要将字体设为系统中没有的，比如Ubuntu Mono，需要在系统中安装Ubuntu Mono字体，下载地址[Ubuntu Font](http://font.ubuntu.com/)。
 
+# ubuntu下使用
+
+## 输入中文
+
+可参考这个仓库的做法[lyfeyaj/sublime-text-imfix](https://github.com/lyfeyaj/sublime-text-imfix)
+
 # 参考资料
 【1】[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)   
 【2】[如何优雅地使用Sublime Text](http://jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/)   
