@@ -10,16 +10,23 @@ git客户端地址：[Git for Windows](https://git-scm.com/download/win)
 Git for Windows 提供了 GUI 和 Git Bash 两种操作方式，除`merge`差异巨大的分支外，建议都通过Git Bash进行代码维护。
 
 # 二 配置   
+
 ## 2.1 配置用户名和邮箱
+
 “这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：”
+
 ```bash
 git config --global user.name "your name"
 git config --global user.email youremail@xxx.com
 ```
 ## 2.2 生成SSH公钥
+
 使用git进行代码管理一般都需要远程操作，为保证安全，使用SSH公钥机制进行数据加密，完成公钥加密需要进行两步操作：
+
 ### 2.2.1 将自己的公钥添加至远程服务器公钥列表
+
 若未将自己的公钥提交到远程服务器用于授权，进行`clone``pull`等操作时，会提示如下错误：
+
 ```bash
 Permission denied (publickey).
 fatal: Could not read from remote repository.
@@ -28,26 +35,31 @@ and the repository exists.
 ```
 将自己的公钥添加至远程服务器公钥列表前，先查看自己是否有公钥，公钥默认存放在`~/.ssh`（波浪线代表用户的根目录，windows默认用户根目录为`C:\Users\Administrator\`），名称为`id_rsa.pub`
 若没有公钥，使用`ssh-keygen`命令生成公钥：
+
 ```bash
 ssh-keygen -t rsa -C youremail@xxx.com
-Generating public/private rsa key pair.
-Enter file in which to save the key (~/.ssh/id_rsa):
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in ~/.ssh/id_rsa.
-Your public key has been saved in ~/.ssh/id_rsa.pub.
-The key fingerprint is:xxx
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (~/.ssh/id_rsa):
+# Enter passphrase (empty for no passphrase):
+# Enter same passphrase again:
+# Your identification has been saved in ~/.ssh/id_rsa.
+# Your public key has been saved in ~/.ssh/id_rsa.pub.
+# The key fingerprint is:xxx
 ```
+
 生成公钥过程中先要求你确认保存公钥的位置（.ssh/id_rsa），然后会让你重复一个密码两次，**如果不想在使用公钥的时候输入密码，可以留空**。
 
 ### 2.2.2 将远程服务器公钥添加到本地已知host列表（可能不需要用户授权，直接添加到已知host列表？）
+
 将自己的公钥放置到远程服务器列表后，首次`clone`操作，会提示给远程服务器授权，比如给github授权：
+
 ```bash
-The authenticity of host 'github.com (192.30.255.112)' can't be established.
-RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
-Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added 'github.com,192.30.255.112' (RSA) to the list of known hosts.
+# The authenticity of host 'github.com (192.30.255.112)' can't be established.
+# RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+# Are you sure you want to continue connecting (yes/no)? yes
+# Warning: Permanently added 'github.com,192.30.255.112' (RSA) to the list of known hosts.
 ```
+
 输入`yes`后，就将`github.com (192.30.255.112)`添加到本地 list of known hosts。
 
 配置完SSH公钥，就可以在本地对远程仓库进行操作了。
@@ -60,27 +72,45 @@ Warning: Permanently added 'github.com,192.30.255.112' (RSA) to the list of know
 （关于SSH协议/RSA算法/公钥秘钥机制，再写一篇blog。）   
 
 # 三 解决乱码   
+
 安装完git，新建git项目后，输入`git log`或`git status`命令后中文可能出现乱码，
+
 ## 3.1 解决 git log 中文乱码
 乱码类似
-```js
+
+```bash
 <E4><BF><AE><E6><94><B9><E6><96><87><E6><9C><AC><E6><96><87><E6><A1><A3>
 ```
+
 或者这样
-```js
+
+```bash
 涓枃鍗氬娴嬭瘯
 ```
+
 解决方法：打开Git Bash，输入
-```js
+
+```bash
 git config --global i18n.logoutputencoding gbk
 ```
+
+很诡异，更换一台电脑以后（win10-1703），需要`utf-8`编码才能正确显示中文   
+
+```bash
+git config --global i18n.logoutputencoding utf-8
+```
+
 ## 3.2 解决 git status 中文乱码
+
 乱码类似
+
 ```
 \247\345\223\201\351\234\200\
 ```
+
 解决方法：打开Git Bash，输入
-```js
+
+```bash
 git config --global core.quotepath false
 ```
 
