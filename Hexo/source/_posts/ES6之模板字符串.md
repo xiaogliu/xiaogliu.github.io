@@ -60,6 +60,6 @@ $("#warning").html(`
 如果在JS中嵌套html，通过字符串模板书写更友好。
 
 # 参考资料   
-1. [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-2. [深入浅出ES6（四）：模板字符串](http://www.infoq.com/cn/articles/es6-in-depth-template-string)
-3. [markdown反引号内怎么转义反引号？](https://www.v2ex.com/t/57233)
+【1】[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+【2】[深入浅出ES6（四）：模板字符串](http://www.infoq.com/cn/articles/es6-in-depth-template-string)
+【3】[markdown反引号内怎么转义反引号？](https://www.v2ex.com/t/57233)
