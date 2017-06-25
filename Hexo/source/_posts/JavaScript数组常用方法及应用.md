@@ -1,22 +1,51 @@
 ---
 title: JavaScript数组常用方法及应用
-date: 2017-06-24 11:27:18
+date: 2017-06-25 14:09:18
 tags: [JavaScript]
 categories: JavaScript
 ---
+
+
+# 检测方法
+
+如果判断一个对象是不是数组不能通过`typeof`，在页面当中有多个全局变量的时候`instanceof`也力不从心，为此，数组提供了原生方法`Array.isArray()`来判断一个对象是不是数组。
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| Array.isArray() | 判断一个对象 | true of false：若对象为数组返回true，反之返回false | 否 |
+
+语法： 
+
+```js
+Array.isArray(obj)
+```
+
+应用举例：
+
+```js
+var str = '123';
+var arr = [];
+console.log(Array.isArray(str)); // false
+console.log(Array.isArray(arr)); // true
+```
+
+> `typeof`用来确定某个变量是哪种基本数据类型（string, number, boolean, undefined），对于引用类型，`typeof`只能区分"function"，对于其他引用类型和null都返回"object"。若能保证页面中只有一个全局变量（未嵌套多个框架），可以通过`instanceof`确定变量是哪种引用类型。但实际应用中，一般只需要区分引用类型中的数组，所以`Array.isArray()`使用很频繁。
+
 
 # 迭代方法
 
 ES5定义了5个迭代方法，每个方法都接受两个参数：在每一项运行的函数和运行该函数的作用域对象---影响`this`指向。第二个参数为可选参数，通常不用。   
 
-**语法**： 
+语法： 
 
 
 ```js
 arr.forEach(callBackFn(element[, index][, array])[, thisArg])
 ```
 
-**五个迭代方法对比如下**：    
+> 方括号表示可选参数，而非数组。
+
+五个迭代方法对比如下：    
 
 | 名字        | 做什么          | 返回值                                        | 影响原数组？ | 应用场景                    |
 |:---------- |:------------- |:------------------------------------------- |:------- |:------------------------ |
@@ -26,7 +55,7 @@ arr.forEach(callBackFn(element[, index][, array])[, thisArg])
 | map()     | 同上           | 数组：返回每次执行给：定函数的结果构成的数组，长度和原数组一样            | 否      | 对数组中的项做统一处理             |
 | some()    | 同上           | true or false：数组中任一项执行给定函数返回true，则返回true   | 否      | 数组中是否有满足某一条件的项          |
 
-**应用举例**：
+应用举例：
 
 ## every()
 
@@ -86,22 +115,127 @@ arr.some(isSomeBig); // true
 
 > 注意和`every()`方法的区别
 
-# 位置方法
+# 栈方法
 
-ES5为数组提供了两个位置方法：`indexOf()`和`lastIndexOf()`。   
-
-**语法**
-
-```js
-arr.indexOf(searchElement[, fromIndex])
-```
-
-**两个迭代方法对比如下**
+栈是一种数据结构，访问规则是LIFO(Last-In-First-Out):后进先出，动作之发生在栈头，通过`push()`和`pop()`可实现这种访问规则。
 
 | 名字 | 做什么   | 返回值 | 影响原数组？ |
 |:----- |:------- |:---- |:------- |
-| indexOf() | 从数组开头向后查找提供元素的索引值 | 索引值：第一个符合条件的元素的索引值 | 否 |
-| lastIndexOf() | 从数组末尾向前查找提供元素的索引值 | 同上 | 否 |
+| push() | 在数组尾部添加任意多个项 | 数值：修改数组的长度 | 是 |
+| pop() | 移除数组最后一项 | 被移除的项 | 是 |
+
+## push()
+
+语法： 
+
+```js
+arr.push([element1[, ...[, elementN]]]);
+```
+
+数组中最常用的方法了吧，使用举例：
+
+```js
+var arr = [1, 2];
+var count = arr.push('a', 'b');
+console.log(arr); // [1, 3, '1', 'b']
+console.log(count); // 4
+```
+
+## pop()
+语法：
+
+```js
+arr.pop()
+```
+
+使用举例：
+
+```js
+var arr = [1, 2, 3, 4];
+var deleteElement = arr.pop();
+console.log(arr); // [1, 2, 3]
+console.log(deleteElement); // 4
+```
+> 因为`pop()`方法只能返回一个元素，所以返回的数据类型不是数组。
+
+# 队列方法
+
+队列数据结构访问规则是FIFO(First-In-First-Out)：先进先出，结合`shift()`和`push()`方法可以模拟这种访问规则。同时，结合`unshift()`和`pop()`方法可以从相反的方向来模拟队列。
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| shift() | 移除数组第一项 | 被移除的项 | 是 |
+| unshift() | 在数组前端添加任意多个项 | 数值：修改后数组的长度 | 是 |
+
+## shift()
+
+语法： 
+
+```js
+arr.shift();
+```
+
+队列访问规则：
+
+```js
+var arr = [];
+arr.push(1, 2, 3);
+var deleteElement = arr.shift();
+console.log(arr); // [2, 3]
+console.log(deleteElement); // [1]
+```
+
+反方向队列访问规则：
+
+```js
+var arr = [];
+var count= arr.unshift(1, 2, 3);
+arr.pop();
+console.log(count); // 3
+console.log(arr); // [1, 2]
+```
+
+# 转换方法
+
+这里的转换指的是数组到字符串的转换。数组有继承自Object对象的两个转换方法`toString()`和`toLocalString()`，但更实用的是数组内置方法`join()`
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| join() | 将数组所有项拼接为字符串，并可以指定分隔符 | 字符串：数组中所有项组成的字符串，用指定的分隔符分割 | 否 |
+| toString() | 将数组中所有项拼接为字符串，只能用逗号分割 | 字符串：数组中所有项组成的字符窜，以逗号分割 | 否 |
+| toLocalString() | 同上 | 同上 | 否 |
+
+> `toLocalString()`和`toString()`区别主要体现在数据表现于地区有关的情况下，比如日期，在此不作讨论，详见MDN的[Array.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+
+## join()
+
+语法：
+
+```js
+arr.join()
+arr.join(separator)
+```
+
+> 注意，分隔符一定要放在引号内（ES6也可用反引号，总之是字符串的形式）
+
+应用举例：
+
+```js
+var arr = [1, 2, 3];
+var newArr = arr.join('|');
+console.log(newArr) // '1|2|3'
+```
+
+更实用的例子： 反转字符串
+
+```js
+var str = 'i am student';
+var strArr = str.split(' ');
+var revStr = strArr.reverse().join(' ');
+console.log(revStr); // 'student am i'
+```
+
+> 这里使用了字符串[`split()`方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split)
 
 # 操作方法
 
@@ -212,3 +346,113 @@ console.log(removed); // [2]
 
 # 重排序方法
 
+数组中内置两个原生的重排序方法：`sort()`和`reverse()`。  
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| sort() | 默认将数组按升序排序（先转为字符串，有坑） | 数组：排序后的原数组 | 是 |
+| reverse() | 反转数组原来的顺序 | 数组：反转后的原数组 | 是 |
+
+## sort()
+
+语法： 
+
+```js
+arr.sort();
+arr.sort(compareFn);
+```
+
+`sort()`方法可以接受可选参数：比较函数。如果没有比较函数，`sort()`方法默认升序排序，但不是数值升序，而是先调用数组每一项的`toString()`方法，然后比较字符串，这和常识有点相悖。
+
+```js
+var arr = [1, 2, 3, 10, 4];
+arr.sort();
+console.log(arr);  // [1, 10, 2, 3, 4]
+```
+
+因为字符串中"10"是在"2"之前的。
+
+为了实现数值的比较，可以传入比较函数作为`sort()`方法的入参。
+
+
+```js
+var arr = [1, 2, 3, 10, 4];
+var compareFn = function (v1, v2) {
+  return v1 - v2;
+};
+arr.sort(compareFn);
+console.log(arr);  // [1, 2, 3, 4, 10]
+```
+
+> 比较函数执行过程：如果第一个参数应该位于第二个参数之前，则返回负数；反之，返回正数；相等返回0。这里是数值比较。
+
+## reverse()
+
+语法： 
+
+```js
+arr.reverse()
+```
+
+`reverse()`方法实现对字符串的反转，见下面的例子：
+
+```js
+var arr = [1, 3, 4, 2];
+arr.reverse();
+console.log(arr); // [2, 4, 3, 1]
+```
+
+# 位置方法
+
+ES5为数组提供了两个位置方法：`indexOf()`和`lastIndexOf()`。
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| indexOf() | 从数组开头向后查找提供元素的索引值 | 索引值：第一个符合条件的元素的索引值 | 否 |
+| lastIndexOf() | 从数组末尾向前查找提供元素的索引值 | 同上 | 否 |
+
+## indexOf()   
+
+语法：
+
+```js
+arr.indexOf(searchElement[, fromIndex])
+```
+
+应用举例：
+
+```js
+var arr = [1, 1, 1, 2];
+var index = arr.indexOf(1);
+console.log(index); // 0
+```
+> 返回**第一个**符合条件的元素的索引值。
+
+# 归并方法
+
+所谓归并方法就是将一个数组中的所有项归并为一个值，数组提供了两个原生的归并方法：`reduce()`和`reduceRight()`。
+
+
+| 名字 | 做什么   | 返回值 | 影响原数组？ |
+|:----- |:------- |:---- |:------- |
+| reduce() | 将数组中所有项通过加性操作符归并为一个值，从左往右加 | 归并后的值 | 否 |
+| [reduceRight()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight) | 将数组中所有项通过加性操作符归并为一个值，从右往左加 | 同上 | 否 |
+
+## reduce()
+
+`reduce()`方法可以实现数组求和，如下：
+
+```js
+var arr = [1, 2, 3, 4];
+var sum = arr.reduce(function (prev, cur) {
+	return prev + cur;
+});
+console.log(sum); // 10
+```
+
+> 关于`reduce()`更多介绍请查看MDN[Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+
+# 参考资料
+
+【1】[JavaScript Array on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+【2】[美]Nicholas C. Zakas 著，李松峰 曹力 译（2012），JavasSript高级程序设计，p86~p97，人民邮电出版社   
