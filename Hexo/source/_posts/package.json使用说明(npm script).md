@@ -1,5 +1,5 @@
 ---
-title: package.json使用说明
+title: package.json使用说明(npm script)
 date: 2017-05-13 16:08:16
 tags: [Node.js,npm,JavaScript]
 categories: JavaScript
@@ -67,6 +67,7 @@ categories: JavaScript
 - bugs: info from the current directory, if present
 - homepage: info from the current directory, if present
 
+> 在`scripts`里面添加的内容就是传说中的**npm script**内容了，除了简化命令操作，还可以在本地执行Gulp、Babel等命令（如果知识本地安装而非全局安装，必须使用**npm script**的形式调用Gulp/Babel命令）
 
 ## 指定依赖安装包
 
@@ -83,6 +84,8 @@ npm install <package_name> --save
 ```bazaar
 npm install <package_name> --save-dev
 ```
+
+> 如果在命令后面家`-D`flag，可以直接将插件添加到`package.json`文件中去，比如`npm install <package_name> --save-dev -D`将`<packge_name>`添加到`"devDependencies": {}`中去。
 
 **问题：为什么要区分`dependencies`和`devDependencies`？**   
 
