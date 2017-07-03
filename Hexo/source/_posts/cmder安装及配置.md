@@ -158,7 +158,7 @@ alias ls=ls --color $*
 
 1. win10创意者更新（1703）安装后cmder光标前多了一个空格，且`ls`打印的目录没有颜色，将win10 cmd更改为“使用旧版控制台”就可以了（打开windows自带终端，标题栏右键-->属性-->选项，可看到使用旧版控制台选项），更多信息可查看这个issue: [display error with non-ASCII characters on windows 1703](https://github.com/cmderdev/cmder/issues/1339)  
 
-> 如果要使用Windows自带bash功能，必须使用新版控制台，但Windows的控制台目前（2017-07-03）还很鸡肋，不建议使用。 
+> 如果要使用Windows自带bash功能，必须使用新版控制台，但Windows下的bash目前（2017-07-03）还很鸡肋，不建议使用。 
 
 # 参考资料
 【1】[cmderdev/cmder](https://github.com/cmderdev/cmder)
