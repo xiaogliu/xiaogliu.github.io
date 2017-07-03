@@ -123,6 +123,7 @@ java.io.IOException: Couldn't create PTY
 - 安装插件`terminal`
 - 设置`terminal`
   Preferences->Package Settings->Terminal->Settings-User，输入下面内容
+
   ```js
   {
       // 输入cmder路径
@@ -133,16 +134,21 @@ java.io.IOException: Couldn't create PTY
       "parameters": ["/START","%CWD%"]
   }
   ```
+
 - 自定义打开终端快捷键
   Preferences->Key Bindings - User，输入下面内容
+
   ```json
   { "keys": ["alt+2"],"command": "open_terminal"}
   ```
+
 # 其他设置
 cmder支持Aliases，通过`alias`命令可以设置别名，简化操作，terminal中输入`alias 替代名=被替代名 $*`，如
+
 ```bash
 alias ls=ls --color $*
 ```
+
 > 也可以直接在 cmder安装目录/config/user-aliases.cmd 中直接输入要设置的别名
 
 # 效果图
@@ -150,7 +156,9 @@ alias ls=ls --color $*
 
 # 问题
 
-1. win10创意者更新（1703）安装后cmder光标前多了一个空格，且`ls`打印的目录没有颜色，将win10 cmd更改为“使用旧版控制台”就可以了，更多信息可查看这个issue: [display error with non-ASCII characters on windows 1703](https://github.com/cmderdev/cmder/issues/1339)   
+1. win10创意者更新（1703）安装后cmder光标前多了一个空格，且`ls`打印的目录没有颜色，将win10 cmd更改为“使用旧版控制台”就可以了（打开windows自带终端，标题栏右键-->属性-->选项，可看到使用旧版控制台选项），更多信息可查看这个issue: [display error with non-ASCII characters on windows 1703](https://github.com/cmderdev/cmder/issues/1339)  
+
+> 如果要使用Windows自带bash功能，必须使用新版控制台，但Windows的控制台目前（2017-07-03）还很鸡肋，不建议使用。 
 
 # 参考资料
 【1】[cmderdev/cmder](https://github.com/cmderdev/cmder)
