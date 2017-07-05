@@ -62,7 +62,7 @@ arr.forEach(callBackFn(element[, index][, array])[, thisArg])
 ```js
 var arr = [1, 2, 3, 4];
 var isAllBig = function (element) {
-	return element >= 2;
+  return element >= 2;
 };
 arr.every(isAllBig); // false
 ```
@@ -73,13 +73,13 @@ arr.every(isAllBig); // false
 arr = [{q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}]
 var n = arr[0].d;
 arr.every(function (item) {
-	return item.d === n;
+  return item.d === n;
 }); // true
 
 arr = [{q: 1,d: 3}, {q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}]
 var n = arr[0].d;
 arr.every(function (item) {
-	return item.d === n;
+  return item.d === n;
 }); // false
 ```
 
@@ -88,7 +88,7 @@ arr.every(function (item) {
 ```js
 var arr = [1, 2, 3, 4];
 var getSmallElement = function (element) {
-	return element < 2;
+  return element < 2;
 };
 arr.filter(getSmallElement); // [1]
 ```
@@ -99,7 +99,7 @@ arr.filter(getSmallElement); // [1]
 var arr = [1, 2, 3, 4];
 var res = [];
 var getAnotherArr = function (element) {
-	res.push(element * 2)
+  res.push(element * 2)
 };
 arr.forEach(getAnotherArr);
 console.log(res); // [2, 4, 6, 8]
@@ -113,7 +113,7 @@ console.log(res); // [2, 4, 6, 8]
 var arr = [1, 2, 3, 4];
 var res = []
 var getAnotherArr = function (element) {
-	return  element * 2;
+  return  element * 2;
 };
 res = arr.map(getAnotherArr); 
 console.log(res); // [2, 4, 6, 8]
@@ -124,7 +124,7 @@ console.log(res); // [2, 4, 6, 8]
 ```js
 var arr = [1, 2, 3, 4];
 var isSomeBig = function (element) {
-	return element >= 2;
+  return element >= 2;
 };
 arr.some(isSomeBig); // true
 ```
@@ -461,7 +461,7 @@ console.log(index); // 0
 ```js
 var arr = [1, 2, 3, 4];
 var sum = arr.reduce(function (prev, cur) {
-	return prev + cur;
+  return prev + cur;
 });
 console.log(sum); // 10
 ```
