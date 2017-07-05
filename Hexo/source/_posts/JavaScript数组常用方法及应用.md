@@ -49,7 +49,7 @@ arr.forEach(callBackFn(element[, index][, array])[, thisArg])
 
 | 名字        | 做什么          | 返回值                                        | 影响原数组？ | 应用场景                    |
 |:---------- |:------------- |:------------------------------------------- |:------- |:------------------------ |
-| every()   | 对数组每一项运行给定函数 | true or false：如果数组每一项运行给定函数都返回true，则返回true | 否      | 判断数组所有项是否满足某一条件，比如大于某个数 |
+| every()   | 对数组每一项运行给定函数 | true or false：如果数组每一项运行给定函数都返回true，则返回true | 否      | 判断数组所有项是否满足某一条件，比如数值比较 |
 | filter()  | 同上           | 数组：返回数组中执行给定函数后返回值为true的项组成的数组             | 否      | 将符合某种条件的项过滤出来           |
 | forEach() | 同上           | 没有返回值：与使用for循环迭代数组一样，但更方便，注意没法中断           | 否      | 代替for循环进行数组迭代           |
 | map()     | 同上           | 数组：返回每次执行给：定函数的结果构成的数组，长度和原数组一样            | 否      | 对数组中的项做统一处理             |
@@ -65,6 +65,22 @@ var isAllBig = function (element) {
 	return element >= 2;
 };
 arr.every(isAllBig); // false
+```
+
+另外一个常用的场景是判断数组中某个属性值是否完全相同（有变化）
+
+```js
+arr = [{q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}]
+var n = arr[0].d;
+arr.every(function (item) {
+	return item.d === n;
+}); // true
+
+arr = [{q: 1,d: 3}, {q: 1,d: 2}, {q: 1,d: 2}, {q: 1,d: 2}]
+var n = arr[0].d;
+arr.every(function (item) {
+	return item.d === n;
+}); // false
 ```
 
 ## filter()
