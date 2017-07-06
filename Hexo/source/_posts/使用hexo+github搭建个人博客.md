@@ -499,12 +499,13 @@ npm install
 
 ## 六、遇到问题及解决方案   
 
-1. 有时使用hexo默认指令`hexo server`会出现本地没法预览的情况。因为hexo本地预览，默认端口是`4000`，若该端口被占用，则无法启动预览，开启本地服务时置顶端口就可以了，比如
+1，有时使用hexo默认指令`hexo server`会出现本地没法预览的情况。因为hexo本地预览，默认端口是`4000`，若该端口被占用，则无法启动预览，开启本地服务时置顶端口就可以了，比如   
 
 ```js
 hexo s -p 3600 // 指定3600端口
 ```
-
+2，`FATAL Cannot set property 'lastIndex' of undefined`   
+解决方法：将文件`_config.yml`中的`auto_detect`设为`false`
 
 ### 参考资料
 【1】[hexo你的博客](http://ibruce.info/2013/11/22/hexo-your-blog/)   
