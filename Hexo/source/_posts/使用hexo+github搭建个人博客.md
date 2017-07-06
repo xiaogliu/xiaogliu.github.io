@@ -505,7 +505,7 @@ npm install
 hexo s -p 3600 // 指定3600端口
 ```
 2，`FATAL Cannot set property 'lastIndex' of undefined`   
-解决方法：将文件`_config.yml`中的`auto_detect`设为`false`
+解决方法：将文件`_config.yml`中的`auto_detect`设为`false`，详见[Hexo 3.2.0-beta.2 test result report](https://github.com/hexojs/hexo/issues/1627)。
 
 ### 参考资料
 【1】[hexo你的博客](http://ibruce.info/2013/11/22/hexo-your-blog/)   
