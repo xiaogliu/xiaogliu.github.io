@@ -11,7 +11,8 @@ categories: 编程工具
 
 ## pull报错'refusing to merge unrelated histories'
 - 问题描述
-```
+
+```bash
 fatal: refusing to merge unrelated histories
 ```
 - 原因：The default behavior has changed since git 2.9:
@@ -20,7 +21,8 @@ fatal: refusing to merge unrelated histories
  See the [git release changelog](https://github.com/git/git/blob/master/Documentation/RelNotes/2.9.0.txt#L58-L68) for more information.
 
 - 解决方案：Using `--allow-unrelated-histories` flag worked with pull request in this way
-```
+
+```bash
 git pull origin branchname --allow-unrelated-histories
 ```
 
@@ -35,7 +37,8 @@ git pull origin branchname --allow-unrelated-histories
 ![](http://ol9ge41ud.bkt.clouddn.com/2017-02-12_201337.png)
 
 - 解决方案：You can correct this by going to your repository, clicking the ssh button left to the URL field and updating the URL of your origin remote like this:(不需要重新clone一份)
-```
+
+```bash
 git remote set-url origin git@github.com:username/repo.git
 ```
 
@@ -47,7 +50,36 @@ git remote set-url origin git@github.com:username/repo.git
 - 问题描述：git status中文乱码，在中文情况下 git status是 “\344\272\247\345\223\201\351\234\200\346\261\202”差不多这样的。
 - 原因不明
 - 解决方案：解决这个问题方法是设置git编码：
-```
+
+```bash
 git config --global core.quotepath false
 ```
-- 参考资料：[git status 显示中文](http://blog.csdn.net/cjopengler/article/details/46585319)
+
+## Could not resolve hostname github.com
+
+- 问题描述：用着好好地，某天忽然报`Could not resolve hostname github.com`，完整错误见下
+
+```bash
+ssh: Could not resolve hostname github.com: Name or service not known
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+- 解决方案：   
+
+`ping`github.com，将得到的ip地址添加到hosts文件
+
+```bash
+ping github.com
+```
+得到ip为192.30.253.112，将下面代码添加到hosts文件
+
+```bash
+192.30.253.112 github.com
+```
+
+## 参考资料：
+【1】[git status 显示中文](http://blog.csdn.net/cjopengler/article/details/46585319)   
+【2】[git错误--ssh: Could not resolve hostname ssh.github.com: Name or service not known--解决方式](http://blog.csdn.net/piaotiejun/article/details/48734175)
