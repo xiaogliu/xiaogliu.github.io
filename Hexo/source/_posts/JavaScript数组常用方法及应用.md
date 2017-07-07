@@ -402,6 +402,19 @@ console.log(arr);  // [1, 2, 3, 4, 10]
 
 > 比较函数执行过程：如果第一个参数应该位于第二个参数之前，则返回负数；反之，返回正数；相等返回0。这里是数值比较。
 
+**Tips**：常见的业务场景是：数组元素由对象组成，根据对象中属性的值进行排序，比如：
+
+```js
+var sortByTime = function(v1, v2) {
+  return v1.create_time - v2.create_time
+};
+
+var readMsg = [{"uid": 6, "create_time": 1498458322}, {"uid": 7, "create_time": 1498527524}];
+
+readMsg.sort(sortByTime);
+
+```
+
 ## reverse()
 
 语法： 
