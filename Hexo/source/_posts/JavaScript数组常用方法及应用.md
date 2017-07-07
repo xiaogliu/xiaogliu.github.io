@@ -412,8 +412,6 @@ var sortByTime = function(v1, v2) {
 var readMsg = [{"uid": 6, "create_time": 1498458322}, {"uid": 7, "create_time": 1498527524}];
 
 readMsg.sort(sortByTime);
-
-
 ```
 
 ## reverse()
