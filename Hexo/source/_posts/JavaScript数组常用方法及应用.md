@@ -413,6 +413,7 @@ var readMsg = [{"uid": 6, "create_time": 1498458322}, {"uid": 7, "create_time": 
 
 readMsg.sort(sortByTime);
 
+
 ```
 
 ## reverse()
