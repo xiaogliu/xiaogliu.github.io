@@ -99,6 +99,16 @@ npm install --production
 
 > 关于在生产环境中如何只安装`dependencies`里面的依赖包可查看[option to not install devDependencies](https://github.com/npm/npm/issues/1434)   
 
+## npm script
+
+很多工具本地安装要比全局安装好，这样可以根据不同项目进行不用设置。本地安装的工具，比如`gulp`, `babel`，可以通过`npm script`进行管理，比如启动Gulp   
+
+```js
+"scripts": {
+  "gulp-task": "gulp gulp-task"
+},
+```
+
 ## 其他
 
 更多内容可查看 npm 对`package.json`的官方描述：[Specifics of npm's package.json handling](https://docs.npmjs.com/files/package.json)   
