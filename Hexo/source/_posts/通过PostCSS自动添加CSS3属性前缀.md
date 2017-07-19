@@ -5,15 +5,17 @@ tags: [CSS3,PostCSS,兼容性,工程化]
 categories: CSS
 ---
 
+有点标题党的感觉，给CSS3属性自动添加前缀只是[PostCSS](https://github.com/postcss/postcss)众多功能中的一种，但正是因为这项功能，使我开始使用PostCSS。本文主要介绍PostCSS是什么、为什么要使用以及怎么使用。
+
 # PostCSS是什么
 
 PostCSS是通过JS插件转化CSS样式的一个库，这种转化包括但不限于检查CSS语法、使用变量和mixins、将CSS语法转化为浏览器兼容模式（比如常用的添加浏览器厂商前缀）等等。   
 
 尽管PostCSS可以当做CSS预处理器来使用，就像SASS和LESS一样，但PostCSS能做的远不止如此，因为PostCSS的功能是可以通过插件进行扩展的。   
 
-目前而言，PostCSS最吸引我的是因为它可以提供SASS和LESS不能（轻易）完成的功能：给CSS3属性添加浏览器厂商前缀，转化Flex布局使其兼容IE10以下浏览器。   
+目前而言，PostCSS最吸引我的是因为它可以提供SASS和LESS不能（轻易）完成的功能：**给CSS3属性添加浏览器厂商前缀，转化Flex布局使其兼容IE10以下浏览器**。   
 
-如果你习惯使用SASS语法，同时又想使用PostCSS给CSS3属性添加前缀，也是可以做到的，这也是本篇文章重点介绍的。
+如果你习惯使用SASS语法，同时又想使用PostCSS给对CSS进行处理，也是可以做到的，这也是本篇文章重点介绍的。
 
 # 如何使用
 
@@ -34,10 +36,10 @@ const postcss = require('gulp-postcss');
 /**
   * 通过require引入PostCSS所需插件，这里除了引入flexibility
   */
-gulp.task('css', function () {
+gulp.task('postcss', () => {
   return gulp.src('src/main.css')
-  .pipe( postcss([ require('postcss-flexibility') ]) )
-  .pipe( gulp.dest('dist/') );
+  .pipe(postcss([require('postcss-flexibility')]))
+  .pipe(gulp.dest('dist/'));
 });
 ```
 
@@ -45,7 +47,7 @@ gulp.task('css', function () {
 
 ```js
 ...
-.pipe( postcss([ require('postcss-flexibility'), require('autoprefixer') ]) )
+.pipe(postcss([require('postcss-flexibility'), require('autoprefixer')]))
 ...
 ```
 
@@ -67,11 +69,11 @@ const sass = require('gulp-sass');
 /**
   * 通过require引入PostCSS所需插件，这里除了引入flexibility, autoprefixer插件
   */
-gulp.task('css', function () {
+gulp.task('postcss', () => {
   return gulp.src('src/main.css')
-  .pipe( sass() )
-  .pipe( postcss([ require('postcss-flexibility'), require('autoprefixer') ]) )
-  .pipe( gulp.dest('dist/') );
+  .pipe(sass())
+  .pipe(postcss([require('postcss-flexibility'), require('autoprefixer')]))
+  .pipe(gulp.dest('dist/'));
 });
 ```
 
