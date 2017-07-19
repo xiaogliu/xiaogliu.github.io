@@ -1,7 +1,7 @@
 ---
 title: Gulp安装及使用
 date: 2017-05-10 21:33:34
-tags: [Gulp,Babel]
+tags: [Gulp,Babel,工程化]
 categories: 编程工具
 ---
 
