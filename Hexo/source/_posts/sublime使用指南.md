@@ -105,22 +105,36 @@ menu > preferences > key bindings,在user文件中，输入自定义快捷键。
 ```
 
 # 其他设置
+
 以下在menu > preferences > settings > user中设置
 
 ## 选中带中划线“-”的文本（如css的class名）
+
 ```
 word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 ```
+
 ## 显示space，tab符号
+
 ```
 "draw_white_space": "all",
 ```
+
 ## 换行为UNIX格式（LF）
+
 ```
 "default_line_ending": "unix",
 ```
 
-> 换行符详细区分见[回车和换行](http://www.ruanyifeng.com/blog/2006/04/post_213.html)   
+> 推荐使用UNIX格式的行结束符，这样兼容性更好。换行符详细区分见[回车和换行](http://www.ruanyifeng.com/blog/2006/04/post_213.html)   
+
+## 状态栏显示编码和行结束（line-endings）提示
+
+```
+"show_encoding": true,
+"show_line_endings": true,
+```
+
 
 ## user文件所有设置如下   
 ```json
@@ -144,6 +158,7 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "theme": "Soda Dark 3.sublime-theme",
   "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "show_encoding": true, // 显示文件编码
+  "show_line_endings": true,
 }
 
 ```
