@@ -152,7 +152,7 @@ alias ls=ls --color $*
 > 也可以直接在 cmder安装目录/config/user-aliases.cmd 中直接输入要设置的别名
 
 # 效果图
-![cmder效果图](http://ol9ge41ud.bkt.clouddn.com/cmder.png)   
+![cmder效果图](http://ol9ge41ud.bkt.clouddn.com/cmder170726.png)   
 
 # 问题
 
