@@ -158,7 +158,7 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "theme": "Soda Dark 3.sublime-theme",
   "word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
   "show_encoding": true, // 显示文件编码
-  "show_line_endings": true,
+  "show_line_endings": true
 }
 
 ```
