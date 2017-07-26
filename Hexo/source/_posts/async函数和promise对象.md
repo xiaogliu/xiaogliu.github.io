@@ -71,26 +71,26 @@ p.catch(function(reason) {
 
 ```js
 let p = new Promise(function (resolve, reject) {
-	console.log('promise starting');
-	let timeOut = Math.random() * 2;
-	console.log('the random number is ' + timeOut + '...');
+  console.log('promise starting');
+  let timeOut = Math.random() * 2;
+  console.log('the random number is ' + timeOut + '...');
 
-	// 模拟异步执行需要的时间
-	setTimeout(function () {
-		if (timeOut < 1) {
-			console.log('返回结果如预期，调用resolve()...');
-			resolve('200 OK');
-		} else {
-			console.log('没得到预期返回结果，调用reject()...');
-			reject('请求超时：' + timeOut + 'second ...');
-		}
-	}, timeOut * 1000);
+  // 模拟异步执行需要的时间
+  setTimeout(function () {
+    if (timeOut < 1) {
+      console.log('返回结果如预期，调用resolve()...');
+      resolve('200 OK');
+    } else {
+      console.log('没得到预期返回结果，调用reject()...');
+      reject('请求超时：' + timeOut + 'second ...');
+    }
+  }, timeOut * 1000);
 });
 
 p.then(function (resolveValue) {
-	console.log(resolveValue);
+  console.log(resolveValue);
 }).catch(function (rejectReason) {
-	console.log(rejectReason);
+  console.log(rejectReason);
 });
 ```
 
@@ -98,24 +98,24 @@ p.then(function (resolveValue) {
 
 ```js
 let p = new Promise(function (resolve, reject) {
-	console.log('直接返回resolve的promise');
-	resolve(5);
+  console.log('直接返回resolve的promise');
+  resolve(5);
 });
 
 let multiply = function (input) {
-	return new Promise(function (resolve, reject) {
-		console.log('计算' + input + '*' + input + '...');
+  return new Promise(function (resolve, reject) {
+    console.log('计算' + input + '*' + input + '...');
 
-		// 设置1s的计算延时，同样，认为为resolve的情况
-		setTimeout(resolve, 1000, input * input);
-	});
+    // 设置1s的计算延时，同样，认为为resolve的情况
+    setTimeout(resolve, 1000, input * input);
+  });
 };
 
 let add = function (input) {
-	return new Promise(function (resolve, reject) {
-		console.log('计算' + input + '+' + input + '...');
-		setTimeout(resolve, 1000, input + input);		
-	}); 
+  return new Promise(function (resolve, reject) {
+    console.log('计算' + input + '+' + input + '...');
+    setTimeout(resolve, 1000, input + input);   
+  }); 
 };
 
 p.then(multiply)
@@ -123,7 +123,7 @@ p.then(multiply)
  .then(multiply)
  .then(add)
  .then(function (result) {
-		console.log('最终结果是' + result);
+    console.log('最终结果是' + result);
  });
 ```
 
@@ -177,32 +177,32 @@ async function myFirstAsyncFunction() {
 ```js
 // 模拟异步请求生成的promise对象
 let p = new Promise(function (resolve, reject) {
-	console.log('promise starting');
-	let timeOut = Math.random() * 2;
-	console.log('the random number is ' + timeOut + '...');
+  console.log('promise starting');
+  let timeOut = Math.random() * 2;
+  console.log('the random number is ' + timeOut + '...');
 
-	// 模拟异步执行需要的时间
-	setTimeout(function () {
-		if (timeOut < 1) {
-			console.log('返回结果如预期，调用resolve()...');
-			resolve('200 OK');
-		} else {
-			console.log('没得到预期返回结果，调用reject()...');
-			reject('请求超时：' + timeOut + 'second ...');
-		}
-	}, timeOut * 1000);
+  // 模拟异步执行需要的时间
+  setTimeout(function () {
+    if (timeOut < 1) {
+      console.log('返回结果如预期，调用resolve()...');
+      resolve('200 OK');
+    } else {
+      console.log('没得到预期返回结果，调用reject()...');
+      reject('请求超时：' + timeOut + 'second ...');
+    }
+  }, timeOut * 1000);
 });
 
 (async function () {
-	try {
-		console.log(111);
-		var resolvedP = await p; // promise返回结果之前，函数暂停执行
-		console.log(222);
-		console.log(resolvedP);
-	} catch (error) {
-		console.log(333);
-		console.log(error);
-	}
+  try {
+    console.log(111);
+    var resolvedP = await p; // promise返回结果之前，函数暂停执行
+    console.log(222);
+    console.log(resolvedP);
+  } catch (error) {
+    console.log(333);
+    console.log(error);
+  }
 })();
 
 console.log(444); // await等待promise的时候并不阻塞JS主线程，先于console.log(222)或者console.log(333)执行
@@ -212,33 +212,33 @@ console.log(444); // await等待promise的时候并不阻塞JS主线程，先于
 
 ```js
 let p = new Promise(function (resolve, reject) {
-	console.log('直接返回resolve的promise');
-	resolve(5);
+  console.log('直接返回resolve的promise');
+  resolve(5);
 });
 
 let multiply = function (input) {
-	return new Promise(function (resolve, reject) {
-		console.log('计算' + input + '*' + input + '...');
+  return new Promise(function (resolve, reject) {
+    console.log('计算' + input + '*' + input + '...');
 
-		// 设置1s的计算延时，同样，认为为resolve的情况
-		setTimeout(resolve, 1000, input * input);
-	});
+    // 设置1s的计算延时，同样，认为为resolve的情况
+    setTimeout(resolve, 1000, input * input);
+  });
 };
 
 let add = function (input) {
-	return new Promise(function (resolve, reject) {
-		console.log('计算' + input + '+' + input + '...');
-		setTimeout(resolve, 1000, input + input);		
-	}); 
+  return new Promise(function (resolve, reject) {
+    console.log('计算' + input + '+' + input + '...');
+    setTimeout(resolve, 1000, input + input);   
+  }); 
 };
 
 (async function () {
-	let a = await p;
-	let b = await multiply(a);
-	let c = await add(b);
-	let d = await multiply(c);
-	let e = await add(d);
-	console.log('最终结果是' + e)
+  let a = await p;
+  let b = await multiply(a);
+  let c = await add(b);
+  let d = await multiply(c);
+  let e = await add(d);
+  console.log('最终结果是' + e)
 })();
 ```
 
