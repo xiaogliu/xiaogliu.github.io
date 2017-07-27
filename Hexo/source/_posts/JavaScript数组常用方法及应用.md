@@ -194,21 +194,26 @@ arr.shift();
 队列访问规则：
 
 ```js
-var arr = [];
-arr.push(1, 2, 3);
+var arr = [1, 2, 3];
 var deleteElement = arr.shift();
 console.log(arr); // [2, 3]
 console.log(deleteElement); // [1]
+```
+## unshift()
+
+语法： 
+
+```js
+arr.unshift();
 ```
 
 反方向队列访问规则：
 
 ```js
-var arr = [];
-var count= arr.unshift(1, 2, 3);
-arr.pop();
-console.log(count); // 3
-console.log(arr); // [1, 2]
+var arr = [1, 2, 3];
+var count = arr.unshift(4);
+console.log(count); // 4
+console.log(arr); // [4, 1, 2, 3]
 ```
 
 # 转换方法
