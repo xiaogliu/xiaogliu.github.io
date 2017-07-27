@@ -46,7 +46,7 @@ categories: 编程工具
 - [EJS2](https://packagecontrol.io/packages/EJS%202)：EJS文件高亮；（编辑hexo主题使用）
 - [JSHint Gutter](https://github.com/victorporof/Sublime-JSHint)：js代码检查工具；
 - [Markdown Extended](https://github.com/jonschlinkert/sublime-markdown-extended)：markdown高亮优化（查看[效果图](http://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示)）；
-- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)：Markdown预览插件；
+- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)：Markdown预览插件（**快捷键`ctrl + B`可以将当前md文件编译成html文件，超赞**）；
 - [Markdown Table Formatter](https://github.com/bitwiser73/MarkdownTableFormatter)：格式化表格；
 - [Markdown Editing](https://github.com/SublimeText-Markdown/MarkdownEditing)：加粗、斜体可以使用快捷键；
 - [Minifier](https://github.com/bistory/Sublime-Minifier)：用Gulp替代？；
