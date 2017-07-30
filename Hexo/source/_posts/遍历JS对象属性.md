@@ -28,7 +28,7 @@ for (variable in object) { ...
 var obj = {a: 1, b: 2, c: 3};
 
 for (var prop in obj) {
-	console.log(`obj.${prop} = ${obj[prop]}`);
+  console.log(`obj.${prop} = ${obj[prop]}`);
 }
 
 // 输出
@@ -43,7 +43,7 @@ for (var prop in obj) {
 var triangle = {a: 1, b: 2, c: 3};
 
 var ColoredTriangle = function () {
-	this.color = 'red';
+  this.color = 'red';
 };
 
 ColoredTriangle.prototype = triangle;
@@ -51,10 +51,10 @@ ColoredTriangle.prototype = triangle;
 var obj = new ColoredTriangle();
 
 for (var p in obj) {
-	// 不枚举继承来的属性
-	if (obj.hasOwnProperty(p)) {
-		console.log(`obj.${p} = ${obj[p]}`);
-	}
+  // 不枚举继承来的属性
+  if (obj.hasOwnProperty(p)) {
+    console.log(`obj.${p} = ${obj[p]}`);
+  }
 }
 
 // 输出
