@@ -61,7 +61,21 @@ a instanceof Array; // false
 a instanceof Object; // true
 ```
 
-> 直接测试`{} instanceof Object;`返回`false`
+## 使用instanceof注意事项
+
+**如果变量是`String`, `Number`或者`Boolean`类型，使用`instanceof`操作符始终返回`false`**，见下代码：
+
+```js
+var a = '';
+var b = 1;
+var c = true;
+
+a instanceof String; // false
+b instanceof Number; // false
+c instanceof Boolean; // false
+```
+
+这涉及**基本包装类型**的知识点：自动创建的基本包装类型的生命期只存在于一行代码的执行瞬间，并且只有在自动创建基本类型或者调用基本类型的方法时才会自动创建该对象。
 
 # 检测对象类型通用方法
 
