@@ -75,7 +75,7 @@ b instanceof Number; // false
 c instanceof Boolean; // false
 ```
 
-这涉及**基本包装类型**的知识点：自动创建的基本包装类型的生命期只存在于一行代码的执行瞬间，并且只有在自动创建基本类型或者调用基本类型的方法时才会自动创建该对象。
+这涉及**基本包装类型**的知识点，这里不做展开，可参考《JavaScript高级程序设计（第3版）》对_基本包装类型_的解释以及《The Principles of Object-Oriented JavaScript》对_Primitive wrapper Types_的解释。  
 
 # 检测对象类型通用方法
 
