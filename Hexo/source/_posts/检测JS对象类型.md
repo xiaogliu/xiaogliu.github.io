@@ -87,7 +87,6 @@ c instanceof Boolean; // false
 
 使用`Object.prototype.toString.call(obj)`可以判断某个对象的具体类型。
 
-
 - 语法
 
 ```js
