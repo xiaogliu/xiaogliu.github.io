@@ -25,7 +25,7 @@ git config --global user.email youremail@xxx.com
 
 ### 2.2.1 将自己的公钥添加至远程服务器公钥列表
 
-若未将自己的公钥提交到远程服务器用于授权，进行`clone``pull`等操作时，会提示如下错误：
+若未将自己的公钥提交到远程服务器用于授权，进行`clone`, `pull`等操作时，会提示如下错误：
 
 ```bash
 Permission denied (publickey).
@@ -114,12 +114,29 @@ git config --global i18n.logoutputencoding utf-8
 git config --global core.quotepath false
 ```
 
-> **若输入上述命令后，乱码依旧，这时可能是Git for Windows版本问题，更换其他版本即可**。比如Git-2.11.0-64-bit就出现中文乱码和不能输入中文的情况，上述方法都不能解决。[Git各版本下载地址](https://github.com/git-for-windows/git/tags)    
+> **若输入上述命令后，乱码依旧，这时可能是Git for Windows版本问题，更换其他版本即可**。比如Git-2.11.0-64-bit就出现中文乱码和不能输入中文的情况，上述方法都不能解决。[Git各版本下载地址](https://github.com/git-for-windows/git/tags)   
+
+# 四 常用命令
+
+在这篇文章中零散记录Git常用命令，如果多了，再独立成文。   
+
 
 - 修改最后一次提交注释（未push）
 
 ```bash
 git commit --amend
+```
+
+- 查看本地分支与远程分支对应关系（远程有多个分支时有用，可以查看与哪个远程分支对应）  
+
+```bash
+git branch -vv
+```
+
+- 查看远程分支地址   
+
+```bash
+git remote -v
 ```
 
 # 参考资料
