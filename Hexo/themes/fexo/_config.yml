@@ -126,7 +126,7 @@ init_page_content: HOME_NAV  # HOME_NAV | POST
 # =========================================================
 # Stats
 google_analytics:
-baidu_analytics: 57e94d016e201fba3603a8a2b0263af0
+baidu_analytics: b13a69b867cd1964903ac0c912077723
 
 # Comment service
 disqus_shortname: xiaogliu
