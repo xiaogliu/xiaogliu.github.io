@@ -125,7 +125,7 @@ init_page_content: HOME_NAV  # HOME_NAV | POST
 # 第三方服务
 # =========================================================
 # Stats
-google_analytics:
+google_analytics: UA-87747398-1
 baidu_analytics: b13a69b867cd1964903ac0c912077723
 
 # Comment service
