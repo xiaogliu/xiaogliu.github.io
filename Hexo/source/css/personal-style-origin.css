@@ -3,7 +3,7 @@ html, body, .page-header, .modal-dialog, .post-header .toolbox{
   background-color: #f8f1e3;
   letter-spacing: -0.01em;
   word-spacing: 0.2em;
-  font-family: Georgia, serif;
+  font-family: -apple-system,"SF UI Text",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
   color: #111111;
 }
 .article-content p {
