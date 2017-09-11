@@ -323,7 +323,7 @@ title: 刘小光 #网站标题
 subtitle: 求知，好奇，审美。就自己仅有的才能去发挥，去表达内心深刻的感觉。 #网站副标题
 description: #网站描述，给搜索引擎用的，在生成html中的head->meta中可看到
 author: 刘小光 #网站作者，在下方显示
-email: xiaogliu@outlook.com #联系邮箱
+email: vincexgliu@gmail.com.com #联系邮箱
 language: zh-CN #语言
 timezone:
 
