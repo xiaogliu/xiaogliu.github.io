@@ -3,6 +3,7 @@ title: Async函数和Promise对象
 date: 2017-07-16 11:23:46
 tags: [ES7]
 categories: JavaScript
+e_title: async-function-promise-object
 ---
 
 Async函数已写入ES7标准中，通过async函数可以更友好直观的写异步代码。调用Async函数时返回的是一个Promise对象，所以，介绍Async函数之前，有必要先介绍下Promise对象。
@@ -115,7 +116,7 @@ let add = function (input) {
   return new Promise(function (resolve, reject) {
     console.log('计算' + input + '+' + input + '...');
     setTimeout(resolve, 1000, input + input);   
-  }); 
+  });
 };
 
 p.then(multiply)
@@ -229,7 +230,7 @@ let add = function (input) {
   return new Promise(function (resolve, reject) {
     console.log('计算' + input + '+' + input + '...');
     setTimeout(resolve, 1000, input + input);   
-  }); 
+  });
 };
 
 (async function () {

@@ -3,6 +3,7 @@ title: sublime自定义主题配色
 date: 2017-04-07 21:48:24
 tags: [markdown,BracketHighlighter,sublime]
 categories: 编程工具
+e_title: define-sublime-theme-color
 ---
 对插件BracketHighlighter默认高亮及sublime自带markdown高亮显示不满意，搜索教程后在这做下总结。
 
@@ -23,7 +24,7 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 
 > 实际使用中我只保留了蓝色和未配对时显示的红色，太多颜色反而觉得好乱。但下面的配置依然是多色方案。
 
-## 对插件进行设置 
+## 对插件进行设置
 在 Preferences > package settings > Bracket Highlighter > Bracket Settings-User 中添加下面内容   
 
 ```js

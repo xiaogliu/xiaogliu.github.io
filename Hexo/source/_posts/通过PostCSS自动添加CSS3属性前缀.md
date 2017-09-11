@@ -3,6 +3,7 @@ title: 通过PostCSS自动添加CSS3属性前缀
 date: 2017-07-19 17:21:01
 tags: [CSS3,PostCSS,兼容性,工程化]
 categories: CSS
+e_title: using-postcss-add-css-prefix
 ---
 
 有点标题党的感觉，给CSS3属性自动添加前缀只是[PostCSS](https://github.com/postcss/postcss)众多功能中的一种，但正是因为这项功能，使我开始使用PostCSS。本文主要介绍PostCSS是什么、为什么要使用以及怎么使用。

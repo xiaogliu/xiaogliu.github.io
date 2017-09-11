@@ -3,6 +3,7 @@ title: Babel安装及使用
 date: 2017-05-09 22:43:42
 tags: [Babel,Gulp,工程化]
 categories: 编程工具
+e_title: install-and-use-babel
 ---
 
 # Babel用途
@@ -44,7 +45,7 @@ npm install --save-dev babel-cli
 **步骤 3**，设置启动命令。   
 
 因为是本地安装，所以无法直接使用`Babel`这样的全局命令，我们需要将启动命令添加到[npm script](https://docs.npmjs.com/misc/scripts)中，以此启动本地 Babel。添加方法是在刚才新建的`package.json`文件中添加`"script"`，内容如下：   
- 
+
 ```bash
   {
     "name": "my-project",
@@ -88,10 +89,10 @@ $ npm install babel-preset-es2015 --save-dev
 $ npm install babel-preset-react --save-dev
 
 # ES7不同阶段语法提案的转换规则（共有4个阶段），选装一个
-$ npm install babel-preset-stage-0 --save-dev 
-$ npm install babel-preset-stage-1 --save-dev 
-$ npm install babel-preset-stage-2 --save-dev 
-$ npm install babel-preset-stage-3 --save-dev 
+$ npm install babel-preset-stage-0 --save-dev
+$ npm install babel-preset-stage-1 --save-dev
+$ npm install babel-preset-stage-2 --save-dev
+$ npm install babel-preset-stage-3 --save-dev
 ```
 
 最后，将需要的规则添加到`.babelrc`中   
@@ -132,5 +133,3 @@ gulp.task("default", function () {
 【2】 [Babel 入门教程](http://www.ruanyifeng.com/blog/2016/01/babel.html)   
 【3】 [How npm handles the "scripts" field](https://docs.npmjs.com/misc/scripts)
 【4】 [npm scripts 使用指南](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
-
-

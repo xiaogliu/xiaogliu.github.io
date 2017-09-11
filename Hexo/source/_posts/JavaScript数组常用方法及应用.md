@@ -3,6 +3,7 @@ title: JavaScript数组常用方法及应用
 date: 2017-06-25 14:09:18
 tags: [JavaScript]
 categories: JavaScript
+e_title: js-array-methods-and-example
 ---
 
 
@@ -14,7 +15,7 @@ categories: JavaScript
 |:----- |:------- |:---- |:------- |
 | Array.isArray() | 判断一个对象 | true of false：若对象为数组返回true，反之返回false | 否 |
 
-语法： 
+语法：
 
 ```js
 Array.isArray(obj)
@@ -36,7 +37,7 @@ console.log(Array.isArray(arr)); // true
 
 ES5定义了5个迭代方法，每个方法都接受两个参数：在每一项运行的函数和运行该函数的作用域对象---影响`this`指向。第二个参数为可选参数，通常不用。   
 
-语法： 
+语法：
 
 
 ```js
@@ -115,7 +116,7 @@ var res = []
 var getAnotherArr = function (element) {
   return  element * 2;
 };
-res = arr.map(getAnotherArr); 
+res = arr.map(getAnotherArr);
 console.log(res); // [2, 4, 6, 8]
 ```
 
@@ -142,7 +143,7 @@ arr.some(isSomeBig); // true
 
 ## push()
 
-语法： 
+语法：
 
 ```js
 arr.push([element1[, ...[, elementN]]]);
@@ -185,7 +186,7 @@ console.log(deleteElement); // 4
 
 ## shift()
 
-语法： 
+语法：
 
 ```js
 arr.shift();
@@ -201,7 +202,7 @@ console.log(deleteElement); // [1]
 ```
 ## unshift()
 
-语法： 
+语法：
 
 ```js
 arr.unshift();
@@ -290,7 +291,7 @@ console.log(res); // [1, 2, 3, 4, 5]
 
 ## slice()
 
-语法： 
+语法：
 
 ```js
 arr.slice();
@@ -300,7 +301,7 @@ arr.slice(begin, end);
 
 如果`slice()`方法中不传参数，返回整个数组；只传入一个参数，返回从此位置至数组末尾的元素组成的数组；如果传入两个参数，则返回**第一个参数（包括）至第二个参数（不包括）之间的元素组成的数组**。
 
-举例： 
+举例：
 
 ```js
 var arr = [1, 2, 3, 4];
@@ -316,11 +317,11 @@ console.log(res2); // [2]
 
 ## splice()
 
-语法： 
+语法：
 
 ```js
 array.splice(start)
-array.splice(start, deleteCount) 
+array.splice(start, deleteCount)
 array.splice(start, deleteCount, item1, item2, ...)
 ```
 
@@ -376,7 +377,7 @@ console.log(removed); // [2]
 
 ## sort()
 
-语法： 
+语法：
 
 ```js
 arr.sort();
@@ -421,7 +422,7 @@ readMsg.sort(sortByTime);
 
 ## reverse()
 
-语法： 
+语法：
 
 ```js
 arr.reverse()

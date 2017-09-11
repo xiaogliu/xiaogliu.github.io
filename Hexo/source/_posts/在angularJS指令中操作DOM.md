@@ -3,6 +3,7 @@ title: 通过AngularJS指令操作DOM
 date: 2017-04-12 19:36:57
 tags: [AngularJS,jQuery]
 categories: AngularJS
+e_title: manipulate-dom-use-angular-directive
 ---
 
 # 在指令而非在控制器中操作DOM
@@ -13,7 +14,7 @@ categories: AngularJS
 
 # jqLite
 
-为了便于DOM操作，AngularJS内部封装了`angular.element`，如果现有项目中已经引入的jQuery，`angular.element`相当于jQuery函数的别名，否则，`angular.element`代表AngularJS对jQuery封装的一个子集，称为"jQuery lite"或者**jqLite**。**jqLite**不具备jQuery全部方法，详见AngularJS官方文档 [angular.element](https://docs.angularjs.org/api/ng/function/angular.element)。   
+为了便于DOM操作，AngularJS内部封装了`angular.element`，如果现有项目中已经引入的jQuery，`angular.element`相当于jQuery函数的别名，否则，`angular.element`代表AngularJS对jQuery封装的一个子集，称为"jQuery lite"或者**jqLite**。**jqLite** 不具备jQuery全部方法，详见AngularJS官方文档 [angular.element](https://docs.angularjs.org/api/ng/function/angular.element)。   
 
 # link-function
 
@@ -29,18 +30,18 @@ webApp.directive("detailTopStick", ["$timeout", "$window", function ($timeout, $
     restrict: "A",
     link: function (scope) {
       $timeout(function () {
-        var navbar = $(".navbar-nav"); 
+        var navbar = $(".navbar-nav");
         var navbarOffsetTop = navbar.offset().top;
         var headerInfo = $(".header-info");
         var headerInfoMarginBottom = parseInt(headerInfo.css("margin-bottom"));
         var navbarHeight = parseInt(navbar.css("height"));
-        
+
         angular.element($window).bind("resize", function () { // 窗口绑定resize事件
           navbar.css("width", headerInfo.width());
           navbarOffsetTop = navbar.offset().top;
           scope.$apply();
         });
-        
+
         angular.element($window).bind("scroll", function () {
           if ($window.scrollY > navbarOffsetTop) {
             navbar.css("width", headerInfo.width());
@@ -53,7 +54,7 @@ webApp.directive("detailTopStick", ["$timeout", "$window", function ($timeout, $
           }
           scope.$apply();
         });
-        
+
         navbar.on("click", function () {
           if ($window.scrollY > navbarOffsetTop) {
             $window.scrollTo(0, navbarOffsetTop);

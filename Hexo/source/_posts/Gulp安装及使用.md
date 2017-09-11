@@ -3,6 +3,7 @@ title: Gulp安装及使用
 date: 2017-05-10 21:33:34
 tags: [Gulp,Babel,工程化]
 categories: 编程工具
+e_title: install-and-use-gulp
 ---
 
 # Gulp用途
@@ -347,7 +348,7 @@ gulp.task("version", function () {
       patterns: [{
         match: 'hash',
         replacement: arrHash.join(' , ')
-      } 
+      }
       ]}))
     .pipe(rename('version.js'))
     .pipe(gulp.dest('./config'))

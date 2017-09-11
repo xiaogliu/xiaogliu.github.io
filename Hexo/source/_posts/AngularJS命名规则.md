@@ -3,10 +3,11 @@ title: AngularJS指令命名规则
 date: 2017-04-15 12:29:05
 tags: [AngularJS,Normalization]
 categories: AngularJS
+e_title: normalization-name-angular-directive
 ---
 
 # 命名规范
-   
+
 同一个AngularJS指令，在js文件和html文件中有着不同的命名规范：在js文件中使用标准的**小驼峰命名法**，在html文件中使用“**小写字母+连接符**”的命名法。如下表所示   
 
 | 在js文件中 | 在html文件中 |
@@ -46,7 +47,7 @@ AngularJS执行过程中，对“**小写字母+连接符**”形式的命名做
 <div my-directive
      my-url="http://google.com" <!-- html文件中使用“小写字母+分割符”的命名方式-->
      my-link-text="Click me"
-     ></div> 
+     ></div>
 ```
 
 # 参考资料

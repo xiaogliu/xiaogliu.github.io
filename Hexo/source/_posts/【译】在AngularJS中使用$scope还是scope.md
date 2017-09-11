@@ -3,6 +3,7 @@ title: 【译】在AngularJS中使用$scope还是scope
 date: 2017-04-13 22:31:55
 tags: [AngularJS]
 categories: AngularJS
+e_title: $scope-or-scope-in-angular
 ---
 
 当我最开始接触AngularJS时，在任何地方我一直都用AngularJS提供的变量`$scope`，过去两年一直如此。直到一周以前，Jonathan Rowny指出在某些情况下我错用了`$scope`。因此，在命名的时候我做了一些改变。    
@@ -64,15 +65,12 @@ Controllers, Services, Factories, and Directive functions都使用依赖注入�
 ```js
 // Linking functions (and probably other pre-link functions).
 function link( scope ) { ... }
-   
+
 // Watch expressions (not handlers).
 $scope.$on( function watchExpression( scope ) { ... }, .... )
-   
+
 // Transclude clone functions.
 transclude( function linkClonedNode( clone, scope ) { ... } )
 ```
 
 出处：[When To Use $scope vs. scope In AngularJS](https://www.bennadel.com/blog/2716-when-to-use-scope-vs-scope-in-angularjs.htm) - [Ben Nadel](https://twitter.com/BenNadel)
-
-
-

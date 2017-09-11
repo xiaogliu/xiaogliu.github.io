@@ -3,6 +3,7 @@ title: 获取JS对象属性（自身/原型/可枚举/不可枚举）
 date: 2017-08-06 19:17:23
 tags: [JavaScript]
 categories: [JavaScript]
+e_title: get-js-object-properties
 ---
 
 在看JS构造函数、原型、原型链、继承相关内容时对对象的属性，比如`[[Prototype]]`, `constructor`, `prototype`有些云里雾里，因为画原型链时，使用的是对象的自身属性（own property），但实际使用时，对象中又能继承原型属性（prototype property）。
@@ -31,13 +32,13 @@ Object.keys(obj); // 返回的是所有属性组成的数组
 var Person = function (name) {
   this.name = name;
 };
-   
+
 // 创建原型属性
 Person.prototype.age = 26;
-   
+
 // 创建实例
 var person = new Person('xiaog');
-   
+
 // 在person实例中创建不可枚举属性"job"
 Object.defineProperty(person, 'job', {
   value: 'FEDer',
@@ -45,7 +46,7 @@ Object.defineProperty(person, 'job', {
   configurable: true,
   writable: true,
 });
-   
+
 // 只能返回自身可枚举属性
 Object.keys(person); // ["name"]
 ```
@@ -75,13 +76,13 @@ for (property in object) { ...
 var Person = function (name) {
   this.name = name;
 };
-   
+
 // 创建原型属性
 Person.prototype.age = 26;
-   
+
 // 创建实例
 var person = new Person('xiaog');
-   
+
 // 在person实例中创建不可枚举属性"job"
 Object.defineProperty(person, 'job', {
   value: 'FEDer',
@@ -89,7 +90,7 @@ Object.defineProperty(person, 'job', {
   configurable: true,
   writable: true,
 });
-   
+
 var person = new Person('xiaog');
 for (p in person) {
   // 只能打印自身+原型中可枚举属性
@@ -105,13 +106,13 @@ for (p in person) {
 var Person = function (name) {
   this.name = name;
 };
-   
+
 // 创建原型属性
 Person.prototype.age = 26;
-   
+
 // 创建实例
 var person = new Person('xiaog');
-   
+
 // 在person实例中创建不可枚举属性"job"
 Object.defineProperty(person, 'job', {
   value: 'FEDer',
@@ -119,7 +120,7 @@ Object.defineProperty(person, 'job', {
   configurable: true,
   writable: true,
 });
-   
+
 for (p in person) {
   // 只有是自身属性时，打印
   if (Object.hasOwnProperty(p)) {
@@ -144,13 +145,13 @@ Object.getOwnPropertyNames(obj);
 var Person = function (name) {
   this.name = name;
 };
-   
+
 // 创建原型属性
 Person.prototype.age = 26;
-   
+
 // 创建实例
 var person = new Person('xiaog');
-   
+
 // 在person实例中创建不可枚举属性"job"
 Object.defineProperty(person, 'job', {
   value: 'FEDer',
@@ -158,16 +159,16 @@ Object.defineProperty(person, 'job', {
   configurable: true,
   writable: true,
 });
-   
+
 var ownAllProperties = Object.getOwnPropertyNames(person);
-   
+
 // 可以打印自身可枚举属性"name"以及不可枚举属性"job"
 console.log(ownAllProperties); // ["name", "job"]
 ```
 
 # 自身+原型所有属性
 
-想要获取自身+原型所有属性没有内建的JS方法，可通过下面代码实现： 
+想要获取自身+原型所有属性没有内建的JS方法，可通过下面代码实现：
 
 
 ```js
@@ -185,18 +186,18 @@ function getAllPropertyNames( obj ) {
 
   return props;
 }
-   
+
 // 测试
 var Person = function (name) {
   this.name = name;
 };
-   
+
 // 创建原型属性
 Person.prototype.age = 26;
-   
+
 // 创建实例
 var person = new Person('xiaog');
-   
+
 // 在person实例中创建不可枚举属性"job"
 Object.defineProperty(person, 'job', {
   value: 'FEDer',
@@ -204,7 +205,7 @@ Object.defineProperty(person, 'job', {
   configurable: true,
   writable: true,
 });
-   
+
 var allPropertiesNames = getAllPropertyNames(person);
 console.log(allPropertiesNames); // 返回的数组中会包括"name", "job", "age", 还有原型对象中其他默认不可枚举属性
 ```

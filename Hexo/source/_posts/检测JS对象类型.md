@@ -3,6 +3,7 @@ title: 检测JS对象类型
 date: 2017-07-29 11:25:08
 tags: [JavaScript]
 categories: JavaScript
+e_title: check-js-object-type
 ---
 
 这里检测对象类型不是指`typeof`操作符返回的六种对象类型（string, number, boolean, object, function, undefined），而是指要区分出具体的引用类型(`Object`, `Array`, `Date`, `RegExp`, `Function`)以及`null`。测试结果具体见下表
@@ -48,7 +49,7 @@ Array.isArray(""); // false
 - 语法
 
 ```js
-obj instanceof Array; 
+obj instanceof Array;
 ```
 
 - 举例
@@ -98,9 +99,9 @@ Object.prototype.toString.call(obj)
 - 举例
 
 ```js
-Object.prototype.toString.call([]); // "[object Array]" 
-Object.prototype.toString.call(new Date()); // "[object Date]" 
-Object.prototype.toString.call({}); // "[object Object]" 
+Object.prototype.toString.call([]); // "[object Array]"
+Object.prototype.toString.call(new Date()); // "[object Date]"
+Object.prototype.toString.call({}); // "[object Object]"
 ```
 
 ## 封装

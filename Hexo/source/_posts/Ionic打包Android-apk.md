@@ -3,6 +3,7 @@ title: Ionic打包Android apk
 date: 2017-05-13 23:42:41
 tags: [Hybrid App,Ionic,Node.js,npm,JavaScript]
 categories: Hybrid App
+e_title: package-ionic-android-app
 ---
 
 开始前请确保已安装node环境,Ionic的安装和后续的许多前端工具的安装都依赖于node的包管理器npm。
@@ -92,7 +93,7 @@ java.net.SocketException:Connection reset
   ```bazaar
   var distributionUrl = process.env['CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL'] || 'https://services.gradle.org/distributions/gradle-3.3-all.zip'
   ```
-  
+
 > **方法2未测试**，更多内容可参考[ionic build android error when download gradle](http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle)   
 
 ## 2.2 打包  
@@ -113,7 +114,7 @@ ionic build android -release
 - 使用产生的key对apk设置签名用到的是`jarsigner.exe`(位于`jdkx.x.x\bin`目录下)   
 
 需要把上述两个软件所在的目录添加到环境变量PATH中，接下来   
-   
+
 **创建key**
 
 ```bazaar
@@ -146,12 +147,8 @@ jarsigner -verbose -keystore demo.keystore -signedjar demo_signed.apk demo.apk d
   Password=your key password
   ```
   使用`ionic build --release android`构建后，文件即是已签名的安装包。
-  
+
 # 参考资料
 【1】[window下Ionic环境安装](http://www.cnblogs.com/shikelong/p/4480975.html)
 【2】[ionic环境配置和android打包签名](http://www.jianshu.com/p/0588510fbb97)
 【3】[ionic build android error when download gradle](http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle)
-
-
-
-

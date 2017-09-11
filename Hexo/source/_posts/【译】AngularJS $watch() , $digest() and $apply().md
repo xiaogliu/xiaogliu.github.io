@@ -3,6 +3,7 @@ title: '【译】AngularJS $watch() , $digest() and $apply()'
 date: 2017-04-27 23:10:50
 tags: [AngularJS]
 categories: AngularJS
+e_title: watch-digest-apply-in-angular
 ---
 
 # 概述
@@ -113,7 +114,7 @@ var myController1 = module.controller("myController", function ($scope) {
 
 在这个例子中，将`$scope.data.time`绑定到了HTML页面，同时，也为`$scope.data.time`创建了watcher。   
 
-这个例子中包含两个按钮，第一个按钮添加了`ng-click`，当按钮点击时，`$scope.updateTime()`函数被调用，之后，AngularJS调用`$scope.$digest()`使绑定的数据得以更新。 
+这个例子中包含两个按钮，第一个按钮添加了`ng-click`，当按钮点击时，`$scope.updateTime()`函数被调用，之后，AngularJS调用`$scope.$digest()`使绑定的数据得以更新。
 
 第二个按钮是在控制器函数中添加的标准JavaScript监听事件。当按钮被点击时，执行监听函数。正如你所见，这两个按钮上的监听函数做着几乎一样的事情，但是当第二个按钮上的监听函数被调用时，绑定的数据并没有更新。这是因为当第二个按钮的监听函数执行以后`$scope.$digest()`没有被调用。因此，当点击第二个按钮时，尽管`$scope.data.time`上的时间更新了，但是更新的时间并没有在HTML中展示出来。   
 

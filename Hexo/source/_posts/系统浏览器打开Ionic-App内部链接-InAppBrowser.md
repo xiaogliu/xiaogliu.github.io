@@ -3,6 +3,7 @@ title: 系统浏览器打开Ionic App内部链接(InAppBrowser)
 date: 2017-05-15 14:57:38
 tags: [Hybrid App,Ionic,JavaScript]
 categories: Hybrid App
+e_title: open-ionic-app-inside-link-use-mobile-browser
 ---
 
 # 一 概述
@@ -76,5 +77,3 @@ ionic build android -release
 
 # 参考资料   
 【1】[Cordova InAppBrowser Plugin Example using ionic framework](http://sourcefreeze.com/cordova-inappbrowser-plugin-example-using-ionic-framework/)   
-
-

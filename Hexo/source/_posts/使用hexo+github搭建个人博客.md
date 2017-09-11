@@ -1,8 +1,9 @@
 ﻿---
-title: 使用hexo+github搭建个人博客
+title: 使用 Hexo + Github 搭建个人博客
 date: 2016-06-09 22:56:37
 tags: [git,hexo,Node.js]
 categories: 编程工具
+e_title: build-blog-by-hexo-github
 ---
 
 记录利用hexo搭建blog的过程。
@@ -116,7 +117,7 @@ deploy:
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git 
+  type: git
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
   branch: master
 ```
@@ -513,4 +514,3 @@ hexo s -p 3600 // 指定3600端口
 【3】[使用hexo，如果换了电脑怎么更新博客？CrazyMilk回答](https://www.zhihu.com/question/21193762)   
 【4】[SSH-互动百科](http://www.baike.com/wiki/ssh)   
 【5】[Secure Shell-维基百科](https://en.wikipedia.org/wiki/Secure_Shell)
-

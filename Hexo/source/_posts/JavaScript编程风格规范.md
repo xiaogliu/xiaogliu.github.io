@@ -3,6 +3,7 @@ title: JavaScript编程风格规范
 date: 2017-04-27 00:20:15
 tags: [JavaScript,Normalization]
 categories: JavaScript
+e_title: js-write-normalization
 ---
 基于[Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)，整理常用风格规范，方便日后查找。
 
@@ -18,9 +19,9 @@ categories: JavaScript
  * based on the passed-in tag name
  */
 function make(tag) {
-   
+
   // ...
-   
+
   return element;
 }
 ```
@@ -32,35 +33,35 @@ function make(tag) {
 ```js
 // bad
 const active = true;  // is current tab
-   
+
 // good
 // is current tab
 const active = true;
-   
+
 // bad
 function getType() {
   console.log('fetching type...');
   // set the default type to 'no type'
   const type = this.type || 'no type';
-   
+
   return type;
 }
-   
+
 // good
 function getType() {
   console.log('fetching type...');
-   
+
   // set the default type to 'no type'
   const type = this.type || 'no type';
 
   return type;
 }
-   
+
 // also good
 function getType() {
   // set the default type to 'no type'
   const type = this.type || 'no type';
-   
+
   return type;
 }
 ```
@@ -73,20 +74,20 @@ function getType() {
 // bad
 //is current tab
 const active = true;
-   
+
 // good
 // is current tab
 const active = true;
-   
+
 // bad
 /**
  *make() returns a new element
  *based on the passed-in tag name
  */
 function make(tag) {
-   
+
   // ...
-   
+
   return element;
 }
 
@@ -96,9 +97,9 @@ function make(tag) {
  * based on the passed-in tag name
  */
 function make(tag) {
-   
+
   // ...
-   
+
   return element;
 }
 ```
@@ -115,7 +116,7 @@ function make(tag) {
 class Calculator extends Abacus {
   constructor() {
     super();
-   
+
     // FIXME: shouldn't use a global here
     total = 0;
   }
@@ -128,7 +129,7 @@ class Calculator extends Abacus {
 class Calculator extends Abacus {
   constructor() {
     super();
-   
+
     // TODO: total should be configurable by an options param
     this.total = 0;
   }
@@ -146,12 +147,12 @@ class Calculator extends Abacus {
 function foo() {
 ∙∙∙∙let name;
 }
-   
+
 // bad
 function bar() {
 ∙let name;
 }
-   
+
 // good
 function baz() {
 ∙∙let name;
@@ -170,18 +171,18 @@ function baz() {
 function test(){
   console.log('test');
 }
-   
+
 // good
 function test() {
   console.log('test');
 }
-   
+
 // bad
 dog.set('attr',{
   age: '1 year',
   breed: 'Bernese Mountain Dog',
 });
-   
+
 // good
 dog.set('attr', {
   age: '1 year',
@@ -194,7 +195,7 @@ dog.set('attr', {
 ```js
 // bad
 const foo = {clark: 'kent'};
-   
+
 // good
 const foo = { clark: 'kent' };
 ```
@@ -209,7 +210,7 @@ const foo = { clark: 'kent' };
 // bad
 const foo = [ 1, 2, 3 ];
 console.log(foo[ 0 ]);
-   
+
 // good
 const foo = [1, 2, 3];
 console.log(foo[0]);
@@ -226,7 +227,7 @@ console.log(foo[0]);
 if(isJedi) {
   fight ();
 }
-   
+
 // good
 if (isJedi) {
   fight();
@@ -242,7 +243,7 @@ if (isJedi) {
 function fight () {
   console.log ('Swooosh!');
 }
-   
+
 // good
 function fight() {
   console.log('Swooosh!');
@@ -250,13 +251,13 @@ function fight() {
 ```
 
 **注意：如果是匿名函数则在`function`声明和小括号之间加一空格(相当于隐去的函数名)**   
-   
+
 ```js
 // bad
 var test = function() {
     // ...
 }
-   
+
 // good
 var test = function () {
     // ...
@@ -270,17 +271,17 @@ var test = function () {
 function bar( foo ) {
   return foo;
 }
-   
+
 // good
 function bar(foo) {
   return foo;
 }
-   
+
 // bad
 if ( foo ) {
   console.log(foo);
 }
-   
+
 // good
 if (foo) {
   console.log(foo);
@@ -296,10 +297,10 @@ if (foo) {
 ```js
 // bad
 const x=y+5;
-    
+
 // good
 const x = y + 5;
-   
+
 // good
 const maybeNull = value1 > value2 ? 'baz' : null;
 ```
@@ -314,7 +315,7 @@ const hero = {
   firstName:'Ada',
   lastName:'Lovelace',
 };
-   
+
 // good
 const hero = {
   firstName: 'Ada',
@@ -328,20 +329,20 @@ const hero = {
 // bad
 const foo = [1,2,3];
 const foo = [1 , 2 , 3];
-   
-// bad 
+
+// bad
 function foo(name,age) {
   // ...
 }
-   
+
 function foo(name , age) {
   // ...
 }
-   
+
 // good
 const foo = [1, 2, 3];
-   
-// bad 
+
+// bad
 function foo(name, age) {
   // ...
 }
@@ -382,7 +383,7 @@ export default es6;↵
 ```js
 // bad
 $('#items').find('.selected').highlight().end().find('.open').updateCount();
-   
+
 // bad
 $('#items').
   find('.selected').
@@ -390,7 +391,7 @@ $('#items').
     end().
   find('.open').
     updateCount();
-   
+
 // good
 $('#items')
   .find('.selected')
@@ -398,13 +399,13 @@ $('#items')
     .end()
   .find('.open')
     .updateCount();
-   
+
 // bad
 const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
     .attr('width', (radius + margin) * 2).append('svg:g')
     .attr('transform', `translate(${radius + margin},${radius + margin})`)
     .call(tron.led);
-   
+
 // good
 const leds = stage.selectAll('.led')
     .data(data)
@@ -414,7 +415,7 @@ const leds = stage.selectAll('.led')
   .append('svg:g')
     .attr('transform', `translate(${radius + margin},${radius + margin})`)
     .call(tron.led);
-   
+
 // good（只有两个方法的方法链可以写在同一行）
 const leds = stage.selectAll('.led').data(data);
 ```
@@ -422,7 +423,7 @@ const leds = stage.selectAll('.led').data(data);
 ## 2.8 代码块
 
 ### 2.8.1 代码块之后
- 
+
 代码块之后，下一语句之前，加一空白行之后，下一语句之前，加一空白行   
 
 ```js
@@ -431,14 +432,14 @@ if (foo) {
   return bar;
 }
 return baz;
-   
+
 // good
 if (foo) {
   return bar;
 }
-   
+
 return baz;
-   
+
 // bad
 const obj = {
   foo() {
@@ -447,18 +448,18 @@ const obj = {
   },
 };
 return obj;
-   
+
 // good
 const obj = {
   foo() {
   },
-    
+
   bar() {
   },
 };
-   
+
 return obj;
-   
+
 // bad
 const arr = [
   function foo() {
@@ -467,16 +468,16 @@ const arr = [
   },
 ];
 return arr;
-   
+
 // good
 const arr = [
   function foo() {
   },
-   
+
   function bar() {
   },
 ];
-   
+
 return arr;
 ```
 
@@ -487,36 +488,36 @@ return arr;
 ```js
 // bad
 function bar() {
-   
+
   console.log(foo);
-   
+
 }
-   
+
 // also bad
 if (baz) {
-   
+
   console.log(qux);
 } else {
   console.log(foo);
-   
+
 }
-   
+
 // good
 function bar() {
   console.log(foo);
 }
-   
+
 // good
 if (baz) {
   console.log(qux);
 } else {
   console.log(foo);
 }
-   
-// also good 
+
+// also good
 if (baz) {
   console.log(qux);
-   
+
   // this is a comment
   console.log(qux);
 } else {
@@ -531,10 +532,10 @@ if (baz) {
 ```js
 // bad
 const foo = jsonData && jsonData.foo && jsonData.foo.bar && jsonData.foo.bar.baz && jsonData.foo.bar.baz.quux && jsonData.foo.bar.baz.quux.xyzzy;
-   
+
 // bad
 $.ajax({ method: 'POST', url: 'https://airbnb.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this city.'));
-   
+
 // good
 const foo = jsonData
   && jsonData.foo
@@ -542,7 +543,7 @@ const foo = jsonData
   && jsonData.foo.bar.baz
   && jsonData.foo.bar.baz.quux
   && jsonData.foo.bar.baz.quux.xyzzy;
-   
+
 // good
 $.ajax({
   method: 'POST',
@@ -564,7 +565,7 @@ $.ajax({
 function q() {
   // ...
 }
-   
+
 // good
 function query() {
   // ...
@@ -579,7 +580,7 @@ function query() {
 const OBJEcttsssss = {};
 const this_is_my_object = {};
 function c() {}
-   
+
 // good
 const thisIsMyObject = {};
 function thisIsMyFunction() {}
@@ -594,18 +595,18 @@ function thisIsMyFunction() {}
 function user(options) {
   this.name = options.name;
 }
-   
+
 const bad = new user({
   name: 'nope',
 });
-   
+
 // good
 class User {
   constructor(options) {
     this.name = options.name;
   }
 }
-   
+
 const good = new User({
   name: 'yup',
 });
@@ -618,7 +619,7 @@ const good = new User({
 this.__firstName__ = 'Panda';
 this.firstName_ = 'Panda';
 this._firstName = 'Panda';
-   
+
 // good
 this.firstName = 'Panda';
 ```
@@ -632,15 +633,15 @@ this.firstName = 'Panda';
 ```js
 // bad
 import SmsContainer from './containers/SmsContainer';
-   
+
 // bad
 const HttpRequests = [
   // ...
 ];
-   
+
 // good
 import SMSContainer from './containers/SMSContainer';
-   
+
 // good
 const HTTPRequests = [
   // ...
@@ -656,8 +657,8 @@ const HTTPRequests = [
 if (hasName === "test") {
   return false;
 }
-   
-// good 
+
+// good
 if (hasName === 'test') {
   return false;
 }

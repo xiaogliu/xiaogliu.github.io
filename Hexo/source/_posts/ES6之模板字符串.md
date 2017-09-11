@@ -3,6 +3,7 @@ title: ES6之模板字符串
 date: 2017-06-22 11:59:12
 tags: [ES6]
 categories: JavaScript
+e_title: es6-template-literals
 ---
 
 # 简介

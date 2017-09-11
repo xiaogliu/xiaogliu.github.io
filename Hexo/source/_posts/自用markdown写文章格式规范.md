@@ -3,6 +3,7 @@ title: 自用markdown写文章格式规范
 date: 2017-04-07 17:55:04
 tags: [markdown,Normalization]
 categories: 编程工具
+e_title: markdown-normalization
 ---
 
 # 标题

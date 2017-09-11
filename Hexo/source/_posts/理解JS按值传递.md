@@ -3,6 +3,7 @@ title: 理解JS参数按值传递
 date: 2017-04-18 23:08:42
 tags: [JavaScript]
 categories: JavaScript
+e_title: understand-params-passing-by-value
 ---
 
 首先要明白按值传递和按引用传递的区别以及JS当中基本类型值和引用类型值的区别。
@@ -77,7 +78,7 @@ console.log(a); // 1
 var x = {key:"foo"};
 
 function changeKey(argument) {
-  argument.key = "bar"; 
+  argument.key = "bar";
 }
 
 changeKey(x);

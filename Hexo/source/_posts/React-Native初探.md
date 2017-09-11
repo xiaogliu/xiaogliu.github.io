@@ -3,6 +3,7 @@ title: React Native初探
 date: 2017-05-28 00:59:21
 tags: [Hybrid App,React,Android]
 categories: Hybrid App
+e_title: glance-react-native
 ---
 # 概述
 本文基于React Native（0.44）官方文档[Getting Start](https://facebook.github.io/react-native/docs/getting-started.html)实践在Windows 10 操作系统下开发Android APP，主要记录实际开发过程与官方文档不同之处。   
@@ -113,7 +114,7 @@ gradlew assembleRelease
 
 如果是想发布签名版APK，请参考[Generating Signed APK](https://facebook.github.io/react-native/docs/signed-apk-android.html)
 
-可能会遇到的问题是： 
+可能会遇到的问题是：
 
 1.finished with non zero exit value
 
