@@ -171,6 +171,16 @@ word_separators": "./\\()\"':,.;<>~!@#$%^&*|+=[]{}`~?",
 
 可参考这个仓库的做法[lyfeyaj/sublime-text-imfix](https://github.com/lyfeyaj/sublime-text-imfix)
 
+# 重要更新
+
+现在主力编辑器（2017-09-14）已经更换为[Atom](https://atom.io/)，原因如下：
+
+- 最为重要的是sublime在js代码有注释的情况下，自动缩进失效，这个问题在github上早有提及[Reindent command breaks on (multiline) comments](https://github.com/SublimeTextIssues/Core/issues/1271)，但一直没有解决；
+- 关于主题高亮，atom默认主题`one dark`可以区分html标签，js关键字、自定义函数、原生函数，这样一目了然，而sublime试了默认主题，以及`Material Theme`还有其他几种，高亮区分都没有atom全，并且像`async`，ES7的关键字都没有高亮；
+- 对于markdown的支持，atom免费插件[md-writer](https://github.com/zhuochun/md-writer)，可定制性相当强大。sublime上有markdown书写插件[Markdown Editing](https://github.com/SublimeText-Markdown/MarkdownEditing)，但这个插件免费提供的功能非常有限，如果要使用完整功能，需要付费。
+
+以上三点，足以让自己的主力编辑器更换为atom了。sublime仍然保留，主要用于atom不能顺利打开的大文件（几十万行的代码？），但自定义设置、插件只保留必要的，比如LF换行，vue代码高亮插件等，其他为默认。
+
 # 参考资料
 【1】[那些年我使用过的 Sublime Text 3 插件](http://bubkoo.com/2014/01/04/sublime-text-3-plugins/)   
 【2】[如何优雅地使用Sublime Text](http://jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/)   
