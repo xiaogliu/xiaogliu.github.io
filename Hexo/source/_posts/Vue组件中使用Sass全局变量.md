@@ -17,11 +17,11 @@ e_title: use-sass-global-variables-in-every-vue-components
 ```vue
 // some vue component
 <template lang="html">
-  <!-- some code -->
+<!-- some code -->
 </template>
 
 <script>
-  // some code
+// some code
 </script>
 
 <style lang="scss">
@@ -38,13 +38,17 @@ import ../path/global.scss;
 
 推荐项目中使用这种方法，只需在Webpack中配置一次，项目中所有Vue组件都可以直接使用Sass全局变量，不需要通过`import`方式重复引用。
 
-## 1.安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
+## webpack-simple
+
+这里是使用Vue脚手架`webpack-simple`中配置的方法：
+
+### 1.安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
 
 官方介绍该loader的作用：This loader will `@import` your SASS resources into every `required` SASS module. So you can use your shared variables & mixins across all SASS styles without manually importing them in each file.   
 
 但是在`webpack-simple`脚手架中按照Github主页上的介绍，并没有成功引入Sass全局变量。。。而是通过修改默认`vue-loader`解决的
 
-## 2.修改默认vue-loader
+### 2.修改默认vue-loader
 
 在Webpack配置文件中修改后的整个`vue-loader`代码如下：
 
@@ -95,6 +99,52 @@ import ../path/global.scss;
 ```
 经过上述配置，项目中所有Vue组件，只要`<style lang="scss">` (或者sass)标签中的代码都可以使用在`global.scss`中定义的全局变量了，等效将`global.scss`引入进来。
 
+## nuxt
+
+这里是使用[Nuxt.js](https://nuxtjs.org/)时配置方法：
+
+### 1.同样需要安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
+
+### 2.在`nuxt.config.js`中进行如下配置：   
+
+```js
+const resolve = require('path').resolve
+
+const isVueRule = (rule) => {
+  return rule.test.toString() === '/\\.vue$/'
+}
+const isSASSRule = (rule) => {
+  return ['/\\.sass$/', '/\\.scss$/'].indexOf(rule.test.toString()) !== -1
+}
+const sassResourcesLoader = {
+  loader: 'sass-resources-loader',
+  options: {
+    resources: [
+      resolve(__dirname, 'sass/variables.sass')
+    ]
+  }
+}
+
+module.exports = {
+  css: ['~/sass/main.scss'],
+  build: {
+    extend (config) {
+      config.module.rules.forEach((rule) => {
+        if (isVueRule(rule)) {
+          rule.query.loaders.sass.push(sassResourcesLoader)
+          rule.query.loaders.scss.push(sassResourcesLoader)
+        }
+        if (isSASSRule(rule)) {
+          rule.use.push(sassResourcesLoader)
+        }
+      })
+    }
+  }
+}
+```
+
 # 参考资料   
 
-【1】[Load a global settings.scss file in every vue component?](https://github.com/vuejs/vue-loader/issues/328)
+【1】[Load a global settings.scss file in every vue component?](https://github.com/vuejs/vue-loader/issues/328)   
+【2】[Enable pre-processors of global scss variables](https://github.com/nuxt/nuxt.js/issues/1092)   
+【3】[Using Pre-Processors --- Loading a global settings file](https://vue-loader.vuejs.org/en/configurations/pre-processors.html#loading-a-global-settings-file)   
