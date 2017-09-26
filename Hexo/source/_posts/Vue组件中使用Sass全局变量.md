@@ -42,13 +42,13 @@ import ../path/global.scss;
 
 这里是使用Vue脚手架`webpack-simple`中配置的方法：
 
-### 1.安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
+1. 安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
 
 官方介绍该loader的作用：This loader will `@import` your SASS resources into every `required` SASS module. So you can use your shared variables & mixins across all SASS styles without manually importing them in each file.   
 
 但是在`webpack-simple`脚手架中按照Github主页上的介绍，并没有成功引入Sass全局变量。。。而是通过修改默认`vue-loader`解决的
 
-### 2.修改默认vue-loader
+2. 修改默认vue-loader
 
 在Webpack配置文件中修改后的整个`vue-loader`代码如下：
 
@@ -103,9 +103,9 @@ import ../path/global.scss;
 
 这里是使用[Nuxt.js](https://nuxtjs.org/)时配置方法：
 
-### 1.同样需要安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
+1. 同样需要安装[sass-resources-loader](https://github.com/shakacode/sass-resources-loader)   
 
-### 2.在`nuxt.config.js`中进行如下配置：   
+2. 在`nuxt.config.js`中进行如下配置：   
 
 ```js
 const resolve = require('path').resolve
