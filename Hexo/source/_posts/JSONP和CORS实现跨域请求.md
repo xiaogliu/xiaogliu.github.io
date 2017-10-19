@@ -1,5 +1,5 @@
 ---
-title: 通过JSONP和CORS实现跨源请求
+title: JSONP和CORS实现跨源请求
 date: 2017-10-18 15:06:32
 tags: [JavaScript]
 categories: JavaScript
@@ -115,3 +115,7 @@ function onBack(res) {
 浏览器向服务器发送请求时会在 Request Headers 中自动添加源信息（`Origin`字段），服务器端通过在 Response Headers 中添加 `Access-Control-Allow-Origin` 字段，指明允许那些源可以访问。经浏览器检查，如果请求源在服务器允许请求源列表中，则允许请求源从该服务器上的获取资源。   
 
 > 实际上，浏览器本身不会阻止跨源请求，如果源A要请求源B上的资源，浏览器会将请求到的数据放在 _the network level_，然后检查源A是否在源B允许的请求源列表上，如果没有，浏览器就会触发 `XMLHttpRequest` 的 `error` 事件（此处就是跨源错误），同时阻止数据从 _the network level_ 传送到源A的js代码中。
+
+# 参考资料
+
+【1】[How does Access-Control-Allow-Origin header work?](https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work)
