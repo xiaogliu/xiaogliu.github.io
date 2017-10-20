@@ -1,7 +1,7 @@
 ---
 title: JSONP和CORS实现跨源请求
 date: 2017-10-18 15:06:32
-tags: [JavaScript]
+tags: [JavaScript,Node.js]
 categories: JavaScript
 e_title: cross-origin-request-using-jsonp-and-cors
 ---

@@ -1,7 +1,7 @@
 ---
 title: Ionic打包Android apk
 date: 2017-05-13 23:42:41
-tags: [Hybrid App,Ionic,Node.js,npm,JavaScript]
+tags: [Hybrid App,Ionic,npm,JavaScript]
 categories: Hybrid App
 e_title: package-ionic-android-app
 ---

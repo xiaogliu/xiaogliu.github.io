@@ -1,7 +1,7 @@
 ---
 title: package.json使用说明(npm script)
 date: 2017-05-13 16:08:16
-tags: [Node.js,npm,JavaScript]
+tags: [npm,JavaScript]
 categories: JavaScript
 e_title: package.json-instruction
 ---
