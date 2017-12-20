@@ -65,7 +65,7 @@ menuClicked (event, url) {
 |        |- second-menu3
 |        |- second-menu4
 |        |- second-menu5
-``` 
+```
 
 ## 在 vuex 分配 `state` 和 `mutations`  
 
@@ -93,21 +93,33 @@ const store = new Vuex.Store({
 
 ## 组件中渲染   
 
-### 在 template 动态加载高亮 class，通过 vuex 中 state 控制：
+- 在 template 动态加载高亮 class，通过 vuex 中 state 控制：
 
 ```html
 <div class="subMenu">
-  <span :class="{ activeSecondMenu: activeMenu.secondMenu1 }" @click="menuClicked('secondMenu1')">secondMenu1</span>
+  <span 
+    :class="{ activeSecondMenu: activeMenu.secondMenu1 }" 
+    @click="menuClicked('secondMenu1')">
+    secondMenu1
+  </span>
 </div>
 <div class="subMenu">
-  <span :class="{ activeSecondMenu: activeMenu.secondMenu2 }" @click="menuClicked('secondMenu2')">secondMenu2</span>
+  <span 
+    :class="{ activeSecondMenu: activeMenu.secondMenu2 }" 
+    @click="menuClicked('secondMenu2')">
+    secondMenu2
+  </span>
 </div>
 <div class="subMenu">
-  <span :class="{ activeSecondMenu: activeMenu.secondMenu3 }" @click="menuClicked('secondMenu3')">secondMenu3</span>
+  <span 
+    :class="{ activeSecondMenu: activeMenu.secondMenu3 }" 
+    @click="menuClicked('secondMenu3')">
+    secondMenu3
+  </span>
 </div>
 ```
 
-### 写 js 时有个技巧：路由 path 和对应高亮的 menu 名称最好相同，因为路由跳转和高亮 menu 直接相关，这样可以减少一个参数：
+- 写 js 时有个技巧：路由 path 和对应高亮的 menu 名称最好相同，因为路由跳转和高亮 menu 直接相关，这样可以减少一个参数：
 
 ```js
 data () {
@@ -155,7 +167,7 @@ mounted: {
 
 上文有谈到，实际工作中为了更大程度实现代码复用，对于某个类别的状态管理可以只写一个 `mutations`，通过传参（[Payload](https://vuex.vuejs.org/zh-cn/mutations.html)）判断更改内容。还是以 menu 管理为例，可进行下面的优化：   
 
-### vuex 优化后如下：   
+- vuex 优化后如下：   
 
 ```js
 const store = new Vuex.Store({
@@ -170,7 +182,7 @@ const store = new Vuex.Store({
 });
 ```
 
-### 组件 js 部分优化后如下：   
+- 组件 js 部分优化后如下：   
 
 ```js
 methods: {
