@@ -85,7 +85,7 @@ const store = new Vuex.Store({
       storage: {
         getItem: key => Cookies.get(key),
 
-        // OA项目中添加{ secure: true }无法加入cookie，原因未知
+        // 在项目中添加{ secure: true }无法加入cookie，原因未知
         setItem: (key, value) => Cookies.set(key, value),
         removeItem: key => Cookies.remove(key),
       },
