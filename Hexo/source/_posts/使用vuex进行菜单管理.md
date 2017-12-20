@@ -48,7 +48,6 @@ menuClicked (event, url) {
 
 使用 vuex 进行菜单管理需要**在开发前就规划好菜单的层级**，以便在 vuex 分配 `state` 和 `mutations`。 
 
-
 ## 规划层级   
 
 确定项目中哪些是一级菜单，哪些是二级菜单，以此类推…… 这里要注意的是，为简化操作，同级别菜单都以不同名称命名，这样在 vuex 中就不需要关注菜单属于那个页面，只关注状态就好。菜单层级通常如下：   
@@ -69,7 +68,9 @@ menuClicked (event, url) {
 
 ## 在 vuex 分配 `state` 和 `mutations`  
 
-不同层级的菜单分别占用一个 `state`，至于 `mutations`，本例中不同 `state` 分别对应写了一个 `mutations`，实际工作中为了更大成都减少代码复用，对于 menu 的状态管理可以只写一个 `mutations`，通过传参判断是更改哪个层级及对应的 menu。
+不同层级的菜单分别占用一个 `state`，至于 `mutations`，本例中不同 `state` 分别对应写了一个 `mutations`，实际工作中为了更大成都减少代码复用，对于 menu 的状态管理可以只写一个 `mutations`，通过传参判断是更改哪个层级及对应的 menu。   
+
+需要注意的是** vuex 在页面刷新后状态会重新初始化**，这显然和管理菜单所需功能不符（除了主动触发，其他操作不能对菜单产生影响）。可以通过[vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate) 改变 vuex 默认生命周期，下面示例代码将 vuex 状态存储在了 cookie 中：   
 
 ```js
 const store = new Vuex.Store({
@@ -78,6 +79,18 @@ const store = new Vuex.Store({
     activeFirstMenu: 'firstMenu1',
     activeSecondMenu : 'secondMenu1',
   },
+  // 防止刷新后vuex状态变为初始状态，使用cookie存储，有效期为session
+  plugins: [
+    createPersistedState({
+      storage: {
+        getItem: key => Cookies.get(key),
+
+        // OA项目中添加{ secure: true }无法加入cookie，原因未知
+        setItem: (key, value) => Cookies.set(key, value),
+        removeItem: key => Cookies.remove(key),
+      },
+    }),
+  ],
   mutations: {
     // 更改一级菜单
     changeFirstActiveMenu (state, menu) {
