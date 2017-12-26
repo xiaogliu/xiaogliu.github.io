@@ -1,13 +1,13 @@
 ---
-title: 'VSCode 格式化 JSX '
+title: 'VSCode 配置 react 开发环境'
 date: 2017-12-26 20:27:48
 tags: [vscode, React]
 categories: 编程工具
 e_title: format-jsx-using-vscode
 ---
-vscode 默认配置对于格式化 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    
+vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    
 
-通过搭配使用 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 和 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 插件可以实现在 vscode 中完美格式化 JSX 语法。   
+通过搭配使用 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 和 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 插件可以实现在 vscode 中完美支持 JSX 语法。   
 
 # 编辑器安装插件
 
@@ -48,7 +48,7 @@ npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
   "rules": {
     // React Native has JSX in JS files
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    
+
     // React Native includes images via require("../images/example.png")
     "global-require": 0
   }
@@ -126,3 +126,4 @@ npm install prettier-eslint --save-dev
 
 【1】[Configure ESLint, Prettier, and Flow in VS Code for React Development](https://hackernoon.com/configure-eslint-prettier-and-flow-in-vs-code-for-react-development-c9d95db07213)   
 【2】[eslint-plugin-react/docs/rules/prop-types.md](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)   
+【3】[Linting for React Native](https://medium.com/pvtl/linting-for-react-native-bdbb586ff694)   
