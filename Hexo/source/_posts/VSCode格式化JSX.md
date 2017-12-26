@@ -20,10 +20,10 @@ vscode 默认配置对于格式化 react 的 JSX 语法不友好，体现在使�
 
 ## 配置ESLint
 
-1. 项目中安装 `babel-eslint` 依赖：   
+1. 项目中安装 `babel-eslint`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react` 依赖：   
 
 ```bash
-npm install babel-eslint --save-dev
+npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
 ```
 
 2. 配置 `.eslintrc` 如下：   
@@ -52,14 +52,19 @@ npm install prettier-eslint --save-dev
 
 在 vscode workspace 用户自定义部分添加如下代码：   
 
-```json
-// Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+```js
+// Format a file on save. 
+// A formatter must be available, 
+// the file must not be auto-saved, 
+// and editor must not be shutting down.
 "editor.formatOnSave": true,
-
+   
 // Enable/disable default JavaScript formatter (For Prettier)
 "javascript.format.enable": false,
-
-// Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+   
+// Use 'prettier-eslint' instead of 'prettier'. 
+// Other settings will only be fallbacks 
+// in case they could not be inferred from eslint rules.
 "prettier.eslintIntegration": true
 ```
 
