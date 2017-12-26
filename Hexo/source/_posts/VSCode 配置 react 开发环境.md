@@ -3,7 +3,7 @@ title: 'VSCode 配置 react 开发环境'
 date: 2017-12-26 20:27:48
 tags: [vscode, React]
 categories: 编程工具
-e_title: format-jsx-using-vscode
+e_title: develop-react-using-vscode
 ---
 vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    
 
