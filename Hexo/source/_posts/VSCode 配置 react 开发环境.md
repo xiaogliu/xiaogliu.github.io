@@ -106,7 +106,7 @@ npm install prettier-eslint --save-dev
 
 在 vscode workspace 用户自定义部分添加如下代码：   
 
-```js
+```json
 // Format a file on save. 
 // A formatter must be available, 
 // the file must not be auto-saved, 
