@@ -20,23 +20,77 @@ vscode 默认配置对于格式化 react 的 JSX 语法不友好，体现在使�
 
 ## 配置ESLint
 
+### 基础配置
+
 1. 项目中安装 `babel-eslint`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react` 依赖：   
 
 ```bash
 npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
 ```
 
-2. 配置 `.eslintrc` 如下：   
+2. 推荐的 ESLint 配置如下（修改`.eslintrc`）  
 
 ```json
 {
-  "parser": "babel-eslint",
+  // Use the AirBnB JS styleguide - https://github.com/airbnb/javascript
   "extends": "airbnb",
+
+  // We use 'babel-eslint' mainly for React Native Classes
+  "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "classes": true,
+  },
+
+  // jsx相关插件
   "plugins": ["react", "jsx-a11y", "import"]
+
+  // We can add/overwrite custom rules here
+  "rules": {
+    // React Native has JSX in JS files
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    
+    // React Native includes images via require("../images/example.png")
+    "global-require": 0
+  }
 }
 ```
 
-> 如果使用 yarn 安装，需要手动创建 `.eslintrc` 文件
+需要注意几点：   
+   
+- 如果使用 yarn 安装，需要手动创建 `.eslintrc` 文件
+- **如果在使用过程中 eslint 报错，提示缺少依赖，安装相关依赖就好**
+
+### 可能遇到的问题
+
+1. 如果在项目中文件名后缀是 `.js` 而不是 `.jsx`，可能会遇到下面的错误：   
+
+```bash
+[eslint] JSX not allowed in files with extension '.js' (react/jsx-filename-extension)
+```
+   
+在 `.eslintrc` 中添加新的 `rules` 允许 `.js` 和 `.jsx` 后缀就好：   
+
+```json
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
+```
+
+> react-native 0.49 及以后版本已经不建议使用 `.jsx` 为后缀了，参考这个讨论 [No .jsx extension?](https://github.com/facebookincubator/create-react-app/issues/87)   
+
+2. props validation 错误
+
+```bash
+[eslint] 'navigation' is missing in props validation (react/prop-types)
+```
+
+检测 props 的类型有助于写出复用组件，最好不要把这个提醒关掉，如果一定要关，添加下面规则：   
+   
+```json
+  "rules": {
+    "react/prop-types": 0
+  }
+```
 
 ## 配置Prettier
 
@@ -71,3 +125,4 @@ npm install prettier-eslint --save-dev
 # 参考资料   
 
 【1】[Configure ESLint, Prettier, and Flow in VS Code for React Development](https://hackernoon.com/configure-eslint-prettier-and-flow-in-vs-code-for-react-development-c9d95db07213)   
+【2】[eslint-plugin-react/docs/rules/prop-types.md](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)   
