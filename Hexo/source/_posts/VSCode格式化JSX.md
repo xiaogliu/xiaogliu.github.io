@@ -65,7 +65,7 @@ npm install prettier-eslint --save-dev
 // Use 'prettier-eslint' instead of 'prettier'. 
 // Other settings will only be fallbacks 
 // in case they could not be inferred from eslint rules.
-"prettier.eslintIntegration": true
+"prettier.eslintIntegration": true,
 ```
 
 # 参考资料   
