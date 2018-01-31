@@ -14,7 +14,7 @@ keywords: forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,fr
 
 home_nav:
   - name: 博客
-    url: /archives
+    url: https://xiaogliu.github.io/archives/
     target_blank: false #不在新页面打开
   #- name: Project
   #  url: /project/
