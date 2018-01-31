@@ -58,7 +58,7 @@ ionic plugin add cordova-plugin-inappbrowser
 $scope.openInExternalBrowser = function()
 {
   // 在系统自带浏览器中打开链接
-  window.open('http://xiaogliu.github.io/','_system','location=yes');
+  window.open('https://xiaogliu.github.io/','_system','location=yes');
 };
 // InAppBrowser example end
 ```
@@ -71,7 +71,7 @@ $scope.openInExternalBrowser = function()
 ionic build android -release
 ```
 
-> 更多打包Ionic APP的信息可查看[Ionic打包Android apk](http://xiaogliu.github.io/2017/05/13/Ionic%E6%89%93%E5%8C%85Android-apk/)   
+> 更多打包Ionic APP的信息可查看[Ionic打包Android apk](https://xiaogliu.github.io/2017/05/13/package-ionic-android-app/)   
 
 **完整代码请参考GitHub上这个仓库[Cordova_InAppBrowser_Plugin_Example](https://github.com/xiaogliu/Cordova_InAppBrowser_Plugin_Example)**   
 

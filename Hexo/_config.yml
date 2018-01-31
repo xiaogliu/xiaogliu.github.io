@@ -12,7 +12,7 @@ language: zh-CN
 timezone:
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+## If your site is put in a subdirectory, set url as 'https://yoursite.com/child' and root as '/child/'
 url: https://xiaogliu.github.io/
 root: /
 permalink: :year/:month/:day/:e_title/
