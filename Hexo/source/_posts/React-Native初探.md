@@ -122,7 +122,7 @@ gradlew assembleRelease
 
 2.设置签名后输出的APK还是未签名的
 
-解决方法：目前无解，不知道为什么按照官方教程设置以后依然是未签名的APK，但可以手动给未签名的APK设置签名，参考这篇文章：[Ionic打包Android apk](http://xiaogliu.github.io/2017/05/13/Ionic%E6%89%93%E5%8C%85Android-apk/#2-3-设置签名)设置签名部分。
+解决方法：目前无解，不知道为什么按照官方教程设置以后依然是未签名的APK，但可以手动给未签名的APK设置签名，参考这篇文章：[Ionic打包Android apk](https://xiaogliu.github.io/2017/05/13/Ionic%E6%89%93%E5%8C%85Android-apk/#2-3-设置签名)设置签名部分。
 
 # 参考资料
 【1】[Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)

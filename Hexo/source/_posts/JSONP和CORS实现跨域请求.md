@@ -165,7 +165,7 @@ http-server -a 127.0.0.1 -p 7070
 
 这里启动的静态服务器域名为 `127.0.0.1`， 端口为 `7070`，协议默认为 `http`，静态目录就是当前运行命令所在目录，点击事先准备好的请求文件模拟跨域请求。
 
-> 这里全局安装 `http-server` 模块后才能直接使用该命令，不过更推荐通过本地（局部）安装，然后通过 [npm script](http://xiaogliu.github.io/2017/05/13/package.json-instruction/#npm-script) 启动服务。
+> 这里全局安装 `http-server` 模块后才能直接使用该命令，不过更推荐通过本地（局部）安装，然后通过 [npm script](https://xiaogliu.github.io/2017/05/13/package.json-instruction/#npm-script) 启动服务。
 
 - 设置请求文件
 

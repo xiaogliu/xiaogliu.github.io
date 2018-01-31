@@ -160,7 +160,7 @@ and the repository exists.
 
 #### 3.2.7 测试
 
-当部署完成后，在浏览器中打开http://xiaogliu.github.io/ ，正常显示网页，表明部署成功。
+当部署完成后，在浏览器中打开https://xiaogliu.github.io/ ，正常显示网页，表明部署成功。
 
 #### 3.2.8 总结
 
