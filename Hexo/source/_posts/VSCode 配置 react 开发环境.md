@@ -124,7 +124,7 @@ npm install prettier-eslint --save-dev
 
 # 最终效果
 
-进行保存操作后，自定格式化文件
+进行保存操作后，自动格式化文件
 
 ![vscode 格式化 react 效果图](http://ol9ge41ud.bkt.clouddn.com/vscode_format_react.gif)
 
