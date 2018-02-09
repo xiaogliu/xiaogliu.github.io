@@ -7,7 +7,7 @@ e_title: develop-react-using-vscode
 ---
 vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    
 
-通过搭配使用 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 和 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 插件可以实现在 vscode 中完美支持 JSX 语法。   
+通过搭配使用 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 和 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 插件可以实现在 vscode 中完美支持 JSX 语法。      
 
 # 编辑器安装插件
 
@@ -62,7 +62,7 @@ npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
 
 ### 可能遇到的问题
 
-1. 如果在项目中文件名后缀是 `.js` 而不是 `.jsx`，可能会遇到下面的错误：   
+- 如果在项目中文件名后缀是 `.js` 而不是 `.jsx`，可能会遇到下面的错误：   
 
 ```bash
 [eslint] JSX not allowed in files with extension '.js' (react/jsx-filename-extension)
@@ -78,7 +78,7 @@ npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
 
 > react-native 0.49 及以后版本已经不建议使用 `.jsx` 为后缀了，参考这个讨论 [No .jsx extension?](https://github.com/facebookincubator/create-react-app/issues/87)   
 
-2. props validation 错误
+- props validation 错误
 
 ```bash
 [eslint] 'navigation' is missing in props validation (react/prop-types)
@@ -121,6 +121,14 @@ npm install prettier-eslint --save-dev
 // in case they could not be inferred from eslint rules.
 "prettier.eslintIntegration": true,
 ```
+
+# 最终效果
+
+进行保存操作后，自定格式化文件
+
+![vscode 格式化 react 效果图](http://ol9ge41ud.bkt.clouddn.com/vscode_format_react.gif)
+
+> ps：随着 vscode 不断升级，编辑器默认支持 react 越来越好，这片文章基于 vscode 19.0版本。    
 
 # 参考资料   
 
