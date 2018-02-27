@@ -6,6 +6,8 @@ categories: Hybrid App
 e_title: develop-react-native-app-1
 ---
 
+**本文使用的 Demo 完整代码在这** [react_native_complete_demo](https://github.com/xiaogliu/react_native_complete_demo)。
+
 最开始接到公司通知要开发 React Native APP 的时候，很兴奋，因为之前的技术栈主要是 Vue 和 Angular，对于 React 只是写过几个 Demo，一直想在实际项目中使用但没有机会。不过公司给的开发时间很短，从设计需求到第一版送审只给了一个月时间。鉴于之前使用 Vue 的经验（即便不是很熟的情况下也可以把官网 Demo 撸下来改改就能上线，功能及性能可以后续迭代优化）以及业务 API 90%以上都已和后台同学联调 OK，当时想一个月绰绰有余。
 
 虽说最后 APP 上线了（[iOS](https://itunes.apple.com/cn/app/%E6%A6%84%E7%9B%9B%E9%87%91%E8%9E%8D/id1336295162?mt=8)，[安卓](http://ol9ge41ud.bkt.clouddn.com/lsapp.apk)），但开发过程中踩了很多坑。
@@ -14,7 +16,7 @@ e_title: develop-react-native-app-1
 
 其次，React 本身的学习曲线就相对陡峭，尤其涉及状态管理部分，很难找到可以直接 copy-paste 的代码，除此之外原生 App 本身还有很多区别于 web 的需求。
 
-鉴于以上原因，所以决定写篇文章详细介绍开发 React Native APP 的过程。本文使用的 Demo 完整代码在这 [react_native_complete_demo](https://github.com/xiaogliu/react_native_complete_demo)。
+鉴于以上原因，所以决定写篇文章详细介绍开发 React Native APP 的过程。
 
 内容较多，分两部分介绍，这部分主要内容为：
 
@@ -597,22 +599,15 @@ AppRegistry.registerComponent("AwesomeProject", () => ReduxApp);
 /**
  * ScreenTab2/index.js
  */
-
-// ...
-
 // redux 依赖
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actionCreators from "../../redux/actions";
 
-// ...
-
 changeReduxStore(userInfo) {
   // 设置 redux store，相当于 dispatch，这里触发 actions 中的 'SET_USER_INFO'
   this.props.setUserInfo(userInfo);
 }
-
-// ...
 
 // 将 store 中的状态映射（map）到当前组件的 props 中，这样才能在该组建中访问 redux state
 function mapStateToProps(state) {
