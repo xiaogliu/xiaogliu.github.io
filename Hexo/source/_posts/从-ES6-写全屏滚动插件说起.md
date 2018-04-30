@@ -45,7 +45,7 @@ e_title: develop-full-page-scroll-by-es6
 
 ### 2.1 实现原理
 
-实现原理见下图：容器及容器内的 page 取当前可视区高度，通过更改容器 `top` 值实现全屏滚动效果。
+实现原理见下图：page 取当前可视区高度，通过更改容器 `top` 值实现全屏滚动效果。
 
 ![全屏滚动实现原理](http://ol9ge41ud.bkt.clouddn.com/full_page_scroll.png)
 
@@ -58,3 +58,4 @@ e_title: develop-full-page-scroll-by-es6
   <div class="page"></div>
 </div>
 ```
+
