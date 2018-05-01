@@ -1,6 +1,6 @@
 ---
 title: 从 ES6 写全屏滚动插件说起
-date: 2016-04-28 22:56:37
+date: 2018-04-28 22:56:37
 tags: [JavaScript,ES6]
 categories: JavaScript
 e_title: develop-full-page-scroll-by-es6
