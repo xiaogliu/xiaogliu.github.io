@@ -6,30 +6,30 @@ categories: JavaScript
 e_title: develop-full-page-scroll-by-es6
 ---
 
-这篇文章将介绍如何使用原生 JS （主要使用 ES6 语法）实现全屏滚动插件，兼容 IE 10+、手机触屏，Mac 触摸板优化，支持自定义页面动画，压缩后 gzip 文件只有 2k。完整源码在这 [pure_full_page](https://github.com/xiaogliu/pure_full_page)，点这查看 [demo](https://xiaogliu.github.io/pure_full_page/index.html)
+这篇文章将介绍如何使用原生 JS （主要使用 ES6 语法）实现全屏滚动插件，兼容 IE 10+、手机触屏，Mac 触摸板优化，支持自定义页面动画，压缩后 gzip 文件只有 2k。完整源码在这 [pure_full_page](https://github.com/xiaogliu/pure_full_page)，点这查看 [demo](https://xiaogliu.github.io/pure_full_page/index.html)。
 
 ## 1）前面的话
 
 现在已经有很多全屏滚动插件了，比如著名的 [fullPage](https://github.com/alvarotrigo/fullPage.js)，那为什么还要自己造轮子呢？
 
-首先，现有轮子有以下问题：
+现有轮子有以下问题：
 
-* 首先，最大的问题是最流行的几个插件都依赖 jQuery，这意味着在使用 React 或者 Vue 的项目中使用是一件十分蛋疼的事：我只需要一个全屏滚动功能，却还需要把 jQuery 引入，有种杀鸡使用宰牛刀的感觉；
-* 其次，现有的很多全屏滚动插件功能往往都十分丰富，这在前几年是优势，但现在（2018-4）可以看作是劣势：前端开发已经发生了很大变化，其中很重要的一个变化是 ES6 原生支持模块化开发，模块化开发最大的特点是一个模块最好只专注做好一件事，然后再拼成一个完整的系统，从这个角度看，大而全的插件有悖模块化开发的原则。
+* 首先，最大的问题是最流行的几个插件都依赖 jQuery，这意味着在使用 React 或者 Vue 的项目中使用他们是一件十分蛋疼的事：我只需要一个全屏滚动功能，却还需要把 jQuery 引入，有种杀鸡使用宰牛刀的感觉；
+* 其次，现有的很多全屏滚动插件功能往往都十分丰富，这在前几年是优势，但现在（2018-5）可以看作是劣势：前端开发已经发生了很大变化，其中很重要的一个变化是 ES6 原生支持模块化开发，模块化开发最大的特点是一个模块最好只专注做好一件事，然后再拼成一个完整的系统，从这个角度看，大而全的插件有悖模块化开发的原则。
 
 对比之下，通过原生语言造轮子有以下好处：
 
 * 使用原生语言编写的插件，自身不会受依赖的插件的使用场景而影响自身的使用（现在依赖 jQuery 的插件非常不适合开发单页面应用），所以使用上更加灵活；
-* 搭配模块化开发，使用原生语言开发的插件可以只专注一个功能，所以代码量可以很少（我编写的这个全屏滚动插件去掉注释和空行后，全部代码不到 100 行）；
+* 搭配模块化开发，使用原生语言开发的插件可以只专注一个功能，所以代码量可以很少；
 * 最后，随着 JS/CSS/HTML 的发展以及浏览器不断迭代更新，现在使用原生语言编写插件的开发成本越来越低，那为什么不呢？
 
 ## 2）实现原理及代码架构
 
 ### 2.1 实现原理
 
-实现原理见下图：容器及容器内的页面取当前可视区高度，同时容器的父级元素 `overflow` 属性值定为 `hidden`，通过更改容器 `top` 值实现全屏滚动效果。
+实现原理见下图：容器及容器内的页面取当前可视区高度，同时容器的父级元素 `overflow` 属性值设为 `hidden`，通过更改容器 `top` 值实现全屏滚动效果。
 
-![全屏滚动实现原理](http://ol9ge41ud.bkt.clouddn.com/full_page_scroll.png)
+![全屏滚动实现原理](http://ol9ge41ud.bkt.clouddn.com/pure_full_page.png)
 
 ### 2.2 代码架构
 
@@ -96,7 +96,7 @@ Notice：
 
 * 容器的 `position` 属性值需要设置为 `relative`，因为 `top` 只有在 `position` 属性值不为 `static` 时才有效；
 
-* 页面高度需设置为当前可视区高度，但不能直接设置为 `100vh`，因为 safari 手机浏览器把地址栏算进去计算 `100vh`，但地址栏下面的不应该算做“可视区”，毕竟实际上是“看不见”的区域。这会导致 `100vh` 对应的像素值比 `document.documentElement.clientHeight` 获取的像素值要大。这样在切换 `top` 值时就不是全屏切换了，实际上，此时切换的高度小于页面的高度。
+* 页面高度需设置为当前可视区高度，但不能直接设置为 `100vh`，因为 safari 手机浏览器把地址栏算进去计算 `100vh`，但地址栏下面的不应该算做“可视区”，毕竟实际上是“看不见”的区域。这会导致 `100vh` 对应的像素值比 `document.documentElement.clientHeight` 获取的像素值大。这样在切换 `top` 值时就不是全屏切换了，实际上，这种情况下切换的高度小于页面的高度。
 
 * 解决 safari 手机浏览器可视区高度问题：既然通过 js 获取的 `document.documentElement.clientHeight` 值是符合预期的可视区高度（不包括顶部地址栏和底部工具栏），那就**将该值通过 js 设置为容器的高度，同时，容器内的页面高度设置为 `100%`**，这样就可以保证容器及页面的高度和切换 `top` 值相同了，也就保证了全屏切换。
 
@@ -107,16 +107,18 @@ Notice：
 
 ## 5）监控滚动/滑动事件
 
-这里的滑动事件包括鼠标滚动、触摸板滑动以及手机屏幕上下滑动。
+这里的滚动/滑动事件包括鼠标滚动、触摸板滑动以及手机屏幕上下滑动。
 
 ### 5.1 PC 端
 
-PC 端主要解决鼠标滚动或触摸板滑动方向，实际上，触摸板和鼠标滚动事件绑定的是同一个事件：
+PC 端主要解决的问题是获取鼠标滚动或触摸板滑动方向，触摸板上下滑动和鼠标滚动绑定的是同一个事件：
 
-* firefox 是 `DOMMouseScroll` 事件，对应的滚轮信息（向前滚还是向后滚）存储在 `detail` 属性中，向前滚，这个属性值是 -3 的倍数，反之，是 3 的倍数；
-* firefox 之外的其他浏览器是 `mousewheel` 事件，对应的滚轮信息存储在 `wheelDelta` 属性中，向前滚，这个属性值是 120 的倍数，反之， -120 的倍数。
+* firefox 是 `DOMMouseScroll` 事件，对应的滚轮信息（向前滚还是向后滚）存储在 `detail` 属性中，向前滚，这个属性值是 3 的倍数，反之，是 -3 的倍数；
+* firefox 之外的其他浏览器是 `mousewheel` 事件，对应的滚轮信息存储在 `wheelDelta` 属性中，向前滚，这个属性值是 -120 的倍数，反之， 120 的倍数。
 
-所以，可以通过 `detail` 或 `wheelDelta` 的值判断鼠标的滚动方向，进而控制页面是向前还是向后滚动，此时我们只关心正负，不关心具体值的大小，为了便于使用，下面基于这两个事件封装了一个函数：如果鼠标往前滚动，返回正数，反之，返回负数，代码如下：
+> macOS 如此，windows 相反？
+
+所以，可以通过 `detail` 或 `wheelDelta` 的值判断鼠标的滚动方向，进而控制页面是向上还是向下滚动。在这里我们只关心正负，不关心具体值的大小，为了便于使用，下面基于这两个事件封装了一个函数：如果鼠标往前滚动，返回负数，反之，返回正数，代码如下：
 
 ```js
 // 鼠标滚轮事件
@@ -136,12 +138,12 @@ getWheelDelta(event) {
 // 鼠标滚动逻辑（全屏滚动关键逻辑）
 scrollMouse(event) {
   let delta = utils.getWheelDelta(event);
-  // 向下滚动，delta < 表示向下滚动，且只有页面底部还有内容时才能滚动
+  // delta < 0，鼠标往前滚动，页面向下滚动
   if (delta < 0)
   ) {
     this.goDown();
   }
-  // 向上滚动，delta > 0，且页面顶部还有内容时才能滚动
+  // delta > 0，鼠标往后滚动，页面向上滚动
   if (delta > 0)) {
     this.goUp();
   }
@@ -162,7 +164,7 @@ if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
 上面实现了滚动方向判断，但实际代码还需要 **判断滚动边界，保证容器中显示的始终是页面内容**：
 
 * 上边界容易确定，为 1 个页面（也即可视区）的高度，即如果容器当前的上外边框距离整个页面顶部的距离（这里此值正是容器的 `offsetTop` 值的绝对值，因为它父元素的 `offsetTop` 值都是 `0`）大于等于当前可视区高度时，才允许向上滚动，不然，就证明上面已经没有页面了，不允许继续向上滚动；
-* 下边界为 `n - 2` 个可视区的高度，当容器的 `offsetTop` 值的绝对值小于等于 `n - 2` 个可视区的高度时，表示还可以向下滚动一个页面。
+* 下边界为 `n - 2`（n 表示全屏滚动的页面数） 个可视区的高度，当容器的 `offsetTop` 值的绝对值小于等于 `n - 2` 个可视区的高度时，表示还可以向下滚动一个页面。
 
 更改后的滚动逻辑如下：
 
@@ -170,7 +172,8 @@ if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
 // 鼠标滚动逻辑（全屏滚动关键逻辑）
 scrollMouse(event) {
   let delta = utils.getWheelDelta(event);
-  // 向下滚动，delta < 表示向下滚动，且只有页面底部还有内容时才能滚动
+
+  // delta < 0，鼠标往前滚动，且只有页面底部还有页面时页面向下滚动
   if (
     delta < 0 &&
     -this.container.offsetTop <= this.viewHeight * (this.pagesNum - 2)
@@ -178,7 +181,7 @@ scrollMouse(event) {
     this.goDown();
   }
 
-  // 向上滚动，delta > 0，且页面顶部还有内容时才能滚动
+  // delta > 0，鼠标往后滚动，且页面顶部还有页面时页面向上滚动
   if (delta > 0 && -this.container.offsetTop >= this.viewHeight) {
     this.goUp();
   }
@@ -229,11 +232,11 @@ document.addEventListener('touchend', event => {
 
 而截流函数是在延迟时间内，绑定到事件上的回调函数能且只能触发一次，这和截流函数不同，即便是在延迟时间内连续触发事件，也不会阻止在延迟时间内有一个回调函数执行。并且截流函数允许我们指定回调函数是在延迟时间开始时还是结束时执行。
 
-鉴于截流函数的上述两个特定，尤其适合优化滚动/滑动事件：
+鉴于截流函数的上述两个特性，尤其适合优化滚动/滑动事件：
 
 * 可以限制频率；
-* 不会因为滚动/滑动事件太灵敏导致事件无法触发；
-* 可以设置在延迟时间开始时触发滚动/滑动事件，从而用户感到操作之后的短暂延时。
+* 不会因为滚动/滑动事件太灵敏（在延迟时间内不断触发）导致注册在事件上的回调函数无法执行；
+* 可以设置在延迟时间开始时触发回调函数，从而避免用户感到操作之后的短暂延时。
 
 这里不介绍防抖动函数和截流函数的实现原理，感兴趣的可以看[Throttling and Debouncing in JavaScript](https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf)，下面是实现的代码：
 
@@ -241,22 +244,23 @@ document.addEventListener('touchend', event => {
 // 防抖动函数，method 回调函数，context 上下文，event 传入的时间，delay 延迟函数
 debounce(method, context, event, delay) {
   clearTimeout(method.tId);
-  method.tId = setTimeout(function() {
+  method.tId = setTimeout(() => {
     method.call(context, event);
   }, delay);
 },
+
 // 截流函数，method 回调函数，context 上下文，delay 延迟函数，
 // immediate 传入 true 表示在 delay 开始时执行回调函数
 throttle(method, context, delay, immediate) {
   return function() {
-    let args = arguments;
-    let later = function() {
+    const args = arguments;
+    const later = () => {
       method.tID = null;
       if (!immediate) {
         method.apply(context, args);
       }
     };
-    let callNow = immediate && !method.tID;
+    const callNow = immediate && !method.tID;
     clearTimeout(method.tID);
     method.tID = setTimeout(later, delay);
     if (callNow) {
@@ -270,7 +274,7 @@ throttle(method, context, delay, immediate) {
 
 ### 6.2 改造 PC 端滚动事件
 
-通过上述说明，我们已经知道截流函数可以通过限定滚动事件触发频率提升性能，同时，设置在**延迟时间开始阶段立即触发滚动事件的回调函数**并不会牺牲用户体验。
+通过上述说明，我们已经知道截流函数可以通过限定滚动事件触发频率提升性能，同时，设置在**延迟时间开始阶段立即调用滚动事件的回调函数**并不会牺牲用户体验。
 
 截流函数上文已经定义好，使用起来就很简单了：
 
@@ -348,7 +352,37 @@ constructor(options) {
 }
 ```
 
-### 7.3 兼容性
+### 7.3 窗口尺寸改变时更新数据
+
+浏览器窗口尺寸改变的时候，需要重新获取可视区、页面元素高度，并重新确定容器当前的 `top` 值。
+
+同时，为了避免不必要的性能开支，这里使用了防抖动函数。
+
+```js
+// window resize 时重新获取位置
+getNewPosition() {
+  this.viewHeight = document.documentElement.clientHeight;
+  this.container.style.height = this.viewHeight + 'px';
+  let activeNavIndex;
+  this.navDots.forEach((e, i) => {
+    if (e.classList.contains('active')) {
+      activeNavIndex = i;
+    }
+  });
+  this.currentPosition = -(activeNavIndex * this.viewHeight);
+  this.turnPage(this.currentPosition);
+}
+
+handleWindowResize(event) {
+  // 设置防抖动函数
+  utils.debounce(this.getNewPosition, this, event, this.DELAY);
+}
+
+// 窗口尺寸变化时重置位置
+window.addEventListener('resize', this.handleWindowResize.bind(this));
+```
+
+### 7.4 兼容性
 
 这里的兼容性主要指两个方面：一是不同浏览器对同一行为定义了不同 API，比如上文提到的获取鼠标滚动信息的 API Firefox 和其他浏览器不一样；第二点就是 ES6 新语法、新 API 的兼容处理。
 
@@ -387,9 +421,9 @@ polyfill() {
 
 > 因为本插件只兼容到 IE10，所以不打算对事件做兼容处理，毕竟 [IE9 都支持](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Browser_compatibility) `addEventListener` 了。
 
-### 7.4 通过惰性载入进一步优化性能
+### 7.5 通过惰性载入进一步优化性能
 
-在 5.1 中写的 `getWheelDelta` 函数每次执行都需要检测是否支持 `event.wheelDelta`，实际上，浏览器只需在第一次加载时检测，如果支持，接下来都会支持，再做检测就没必要的。
+在 5.1 中写的 `getWheelDelta` 函数每次执行都需要检测是否支持 `event.wheelDelta`，实际上，浏览器只需在第一次加载时检测，如果支持，接下来都会支持，再做检测是没必要的。
 
 并且这个检测在页面的生命周期中会执行很多次，这种情况下可以通过 _惰性载入_ 技巧进行优化，如下：
 
@@ -407,3 +441,13 @@ getWheelDelta(event) {
   }
 },
 ```
+
+## 参考资料
+
+[纯 JS 全屏滚动 / 整屏翻页](https://blog.csdn.net/tangdou5682/article/details/52351404)  
+[Throttling and Debouncing in JavaScript](https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf)  
+[Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/)  
+[JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function)  
+[Viewport height is taller than the visible part of the document in some mobile browsers](https://nicolas-hoizey.com/2015/02/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers.html)  
+[MDN-Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill)  
+[Babel 编译出来还是 ES 6？难道只能上 polyfill？- Henry 的回答](https://www.zhihu.com/question/49382420)
