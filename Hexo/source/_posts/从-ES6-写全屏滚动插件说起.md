@@ -1,5 +1,5 @@
 ---
-title: 从 ES6 写全屏滚动插件说起
+title: 用 ES6 写全屏滚动插件
 date: 2018-04-28 22:56:37
 tags: [JavaScript,ES6]
 categories: JavaScript
