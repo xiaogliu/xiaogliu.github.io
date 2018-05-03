@@ -139,13 +139,40 @@ getWheelDelta(event) {
 scrollMouse(event) {
   let delta = utils.getWheelDelta(event);
   // delta < 0，鼠标往前滚动，页面向下滚动
-  if (delta < 0)
-  ) {
+  if (delta < 0) {
     this.goDown();
-  }
-  // delta > 0，鼠标往后滚动，页面向上滚动
-  if (delta > 0)) {
+  } else {
     this.goUp();
+  }
+}
+```
+
+`goDown`、`goUp` 是页面滚动的逻辑代码，需要特别说明的是必须 **判断滚动边界，保证容器中显示的始终是页面内容**：
+
+* 上边界容易确定，为 1 个页面（也即可视区）的高度，即如果容器当前的上外边框距离整个页面顶部的距离（这里此值正是容器的 `offsetTop` 值的绝对值，因为它父元素的 `offsetTop` 值都是 `0`）大于等于当前可视区高度时，才允许向上滚动，不然，就证明上面已经没有页面了，不允许继续向上滚动；
+* 下边界为 `n - 2`（n 表示全屏滚动的页面数） 个可视区的高度，当容器的 `offsetTop` 值的绝对值小于等于 `n - 2` 个可视区的高度时，表示还可以向下滚动一个页面。
+
+具体代码如下：
+
+```js
+goUp() {
+  // 只有页面顶部还有页面时页面向上滚动
+  if (-this.container.offsetTop >= this.viewHeight) {
+    // 重新指定当前页面距视图顶部的距离 currentPosition，实现全屏滚动，
+    // currentPosition 为负值，越大表示超出顶部部分越少
+    this.currentPosition = this.currentPosition + this.viewHeight;
+
+    this.turnPage(this.currentPosition);
+  }
+}
+goDown() {
+  // 只有页面底部还有页面时页面向下滚动
+  if (-this.container.offsetTop <= this.viewHeight * (this.pagesNum - 2)) {
+    // 重新指定当前页面距视图顶部的距离 currentPosition，实现全屏滚动，
+    // currentPosition 为负值，越小表示超出顶部部分越多
+    this.currentPosition = this.currentPosition - this.viewHeight;
+
+    this.turnPage(this.currentPosition);
   }
 }
 ```
@@ -158,33 +185,6 @@ if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
   document.addEventListener('mousewheel', scrollMouse);
 } else {
   document.addEventListener('DOMMouseScroll', scrollMouse);
-}
-```
-
-上面实现了滚动方向判断，但实际代码还需要 **判断滚动边界，保证容器中显示的始终是页面内容**：
-
-* 上边界容易确定，为 1 个页面（也即可视区）的高度，即如果容器当前的上外边框距离整个页面顶部的距离（这里此值正是容器的 `offsetTop` 值的绝对值，因为它父元素的 `offsetTop` 值都是 `0`）大于等于当前可视区高度时，才允许向上滚动，不然，就证明上面已经没有页面了，不允许继续向上滚动；
-* 下边界为 `n - 2`（n 表示全屏滚动的页面数） 个可视区的高度，当容器的 `offsetTop` 值的绝对值小于等于 `n - 2` 个可视区的高度时，表示还可以向下滚动一个页面。
-
-更改后的滚动逻辑如下：
-
-```js
-// 鼠标滚动逻辑（全屏滚动关键逻辑）
-scrollMouse(event) {
-  let delta = utils.getWheelDelta(event);
-
-  // delta < 0，鼠标往前滚动，且只有页面底部还有页面时页面向下滚动
-  if (
-    delta < 0 &&
-    -this.container.offsetTop <= this.viewHeight * (this.pagesNum - 2)
-  ) {
-    this.goDown();
-  }
-
-  // delta > 0，鼠标往后滚动，且页面顶部还有页面时页面向上滚动
-  if (delta > 0 && -this.container.offsetTop >= this.viewHeight) {
-    this.goUp();
-  }
 }
 ```
 
@@ -207,13 +207,22 @@ document.addEventListener('touchstart', event => {
 //手指离开屏幕
 document.addEventListener('touchend', event => {
   let endY = event.changedTouches[0].pageY;
-  if (endY - this.startY > 0) {
-    // 手指向下滑动，对应页面向上滚动
-    this.goUp();
-  } else {
+  if (endY - this.startY < 0) {
     // 手指向上滑动，对应页面向下滚动
     this.goDown();
+  } else {
+    // 手指向下滑动，对应页面向上滚动
+    this.goUp();
   }
+});
+```
+
+为了避免下拉刷新，可以阻止 `touchmove` 事件的默认行为：
+
+```js
+// 阻止 touchmove 下拉刷新
+document.addEventListener('touchmove', event => {
+  event.preventDefault();
 });
 ```
 
@@ -250,21 +259,17 @@ debounce(method, context, event, delay) {
 },
 
 // 截流函数，method 回调函数，context 上下文，delay 延迟函数，
-// immediate 传入 true 表示在 delay 开始时执行回调函数
-throttle(method, context, delay, immediate) {
+// 这里没有提供是在延迟时间开始还是结束的时候执行回调函数的选项，
+// 直接在延迟时间开始的时候执行回调
+throttle(method, context, delay) {
+  let wait = false;
   return function() {
-    const args = arguments;
-    const later = () => {
-      method.tID = null;
-      if (!immediate) {
-        method.apply(context, args);
-      }
-    };
-    const callNow = immediate && !method.tID;
-    clearTimeout(method.tID);
-    method.tID = setTimeout(later, delay);
-    if (callNow) {
-      method.apply(context, args);
+    if (!wait) {
+      method.apply(context, arguments);
+      wait = true;
+      setTimeout(() => {
+        wait = false;
+      }, delay);
     }
   };
 },
@@ -448,6 +453,8 @@ getWheelDelta(event) {
 [Throttling and Debouncing in JavaScript](https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf)  
 [Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/)  
 [JavaScript Debounce Function](https://davidwalsh.name/javascript-debounce-function)  
+[Simple throttle in js](https://stackoverflow.com/questions/27078285/simple-throttle-in-js)  
+[Simple throttle in js - jsfiddle](https://jsfiddle.net/jonathansampson/m7G64/)  
 [Viewport height is taller than the visible part of the document in some mobile browsers](https://nicolas-hoizey.com/2015/02/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers.html)  
 [MDN-Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill)  
 [Babel 编译出来还是 ES 6？难道只能上 polyfill？- Henry 的回答](https://www.zhihu.com/question/49382420)
