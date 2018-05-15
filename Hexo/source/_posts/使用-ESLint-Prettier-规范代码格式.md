@@ -116,6 +116,9 @@ module.exports = {
 ```js
 // 点击保存时，根据 eslint 规则自定修复
 "eslint.autoFixOnSave": true,
+
+// 为了避免和编辑器自带格式化冲突，关闭编辑器保存自动格式化功能；如果需要，手动使用编辑器自带格式化功能
+"editor.formatOnSave": false,
 ```
 
 ## 参考资料
