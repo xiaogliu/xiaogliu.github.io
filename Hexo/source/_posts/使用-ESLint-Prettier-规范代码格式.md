@@ -95,17 +95,25 @@ module.exports = {
     ],
 
     // 其他 eslint 检查规则
-    semi: ['error', 'always'], // 语句强制分号结尾
     camelcase: 'off', // 强制驼峰法命名
     'no-new': 'off', // 禁止在使用 new 构造一个实例后不赋值
     'space-before-function-paren': 'off', // 函数定义时括号前面不要有空格
     'no-plusplus': 'off', // 禁止使用 ++， ——
     'max-len': 'off', // 字符串最大长度
-    'comma-dangle': ['error', 'always-multiline'], // 多行对象字面量项尾总是有逗号
     'func-names': 'off', // 函数表达式必须有名字
   },
 };
 ```
+
+需要特别注意，在使用 Prettier 的时候，ESLint 自定义规则不能和 Prettier 的重复，不然会重复格式化，比如，如果在 ESLint 自定义规则中添加了下面内容会导致格式化时多出一个分号和逗号：
+
+```js
+// 加多这两个自定义规则，导致重复格式化
+semi: ['error', 'always'], // 语句强制分号结尾
+'comma-dangle': ['error', 'always-multiline'], // 多行对象字面量项尾总是有逗号
+```
+
+> 因为自定义规则优先级更高？
 
 ### 编辑器配置
 
