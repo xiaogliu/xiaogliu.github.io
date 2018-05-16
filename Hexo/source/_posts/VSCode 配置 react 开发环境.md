@@ -5,6 +5,9 @@ tags: [vscode, React]
 categories: 编程工具
 e_title: develop-react-using-vscode
 ---
+
+> update 2018-05-16：这篇文章比较久了，如果配置完有问题，可参考这篇文章 [使用 ESLint && Prettier 规范代码格式](https://xiaogliu.github.io/2018/05/15/format-code-by-eslint-and-prettier/)
+
 vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    
 
 通过搭配使用 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 和 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 插件可以实现在 vscode 中完美支持 JSX 语法。      
