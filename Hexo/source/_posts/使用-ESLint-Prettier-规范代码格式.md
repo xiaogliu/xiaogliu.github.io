@@ -1,7 +1,7 @@
 ---
 title: 使用 ESLint && Prettier 规范代码格式
 date: 2018-05-15 15:08:18
-tags: [vscode, React]
+tags: [vscode]
 categories: 编程工具
 e_title: format-code-by-eslint-and-prettier
 ---
@@ -52,10 +52,12 @@ ESLint 可以
 
 * eslint 相关
 
+这里使用 airbnb 代码规范，同时安装了对 react 和 vue 支持的插件
+
 ```bash
 yarn add
-  eslint babel-core babel-eslint eslint-config-airbnb
-  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+  eslint babel-core babel-eslint eslint-config-airbnb eslint-plugin-import
+  eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-vue
 -D
 ```
 
@@ -124,9 +126,173 @@ semi: ['error', 'always'], // 语句强制分号结尾
 ```js
 // 点击保存时，根据 eslint 规则自定修复
 "eslint.autoFixOnSave": true,
+```
 
-// 为了避免和编辑器自带格式化冲突，关闭编辑器保存自动格式化功能；如果需要，手动使用编辑器自带格式化功能
-"editor.formatOnSave": false,
+## 其他
+
+### 添加对 Vue/React 的支持
+
+* 编辑器更改
+
+安装 VS code 插件 [vetur](https://github.com/vuejs/vetur)（格式化 Vue），同时编辑器 setting 中添加下面配置自动格式化
+
+```json
+// eslint 对 vue 支持
+"eslint.validate": [
+  "javascript",
+  // 这里是 react 支持
+  "javascriptreact",
+  {
+    "language": "vue",
+    "autoFix": true
+  }
+],
+
+// 默认 html 没有格式化插件，添加 js-beautify-html
+// 官方说不久后不再支持 js-beautify-html
+"vetur.format.defaultFormatter.html": "js-beautify-html",
+```
+
+> 注意，这里没有开启编辑器保存自动格式化（`"editor.formatOnSave": false`），因为可能和 ESLint 规则冲突，如果需要格式化 html 部分，手动选中格式化（如果编写 markdown 什么的，那就坑了，都得手动格式化。也好了，自己要知道怎么写才规范，然后自定格式化作为辅助）。
+
+* ESLint 配置文件更改
+
+在 ESLint plugins 添加 Vue 和 React 选项：
+
+```js
+// vue
+extends: ['plugin:vue/essential', 'airbnb-base', 'prettier'],
+plugins: ['prettier', 'vue'],
+
+// react
+extends: ['airbnb-base', 'prettier'],
+plugins: ['prettier', 'react'],
+```
+
+如果上面配置完 react 还有问题，加多下面配置：
+
+```js
+"plugins": ["react", "jsx-a11y", "import"],
+"rules": {
+  // 如果在项目中文件名后缀是 .js 而不是 .jsx 避免报错
+  "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+  // props validation 错误
+  "react/prop-types": 0,
+}
+```
+
+### 完整配置参考
+
+* .eslintrc.js 配置
+
+```js
+module.exports = {
+  root: true,
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
+  env: {
+    browser: true,
+  },
+  // vue
+  extends: ['plugin:vue/essential', 'airbnb-base', 'prettier'],
+  plugins: ['prettier', 'vue'],
+
+  // react
+  // extends: ['airbnb-base', 'prettier'],
+  // plugins: ['prettier', 'react'],
+
+  // add your custom rules here
+  rules: {
+    // customizing prettier rules (unfortunately not many of them are customizable)
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'all',
+      },
+    ],
+    camelcase: 'off', // 强制驼峰法命名
+    'no-new': 'off', // 禁止在使用new构造一个实例后不赋值
+    'space-before-function-paren': 'off', // 函数定义时括号前面不要有空格
+    'no-plusplus': 'off', // 禁止使用 ++， ——
+    'max-len': 'off', // 字符串最大长度
+    'func-names': 'off', // 函数表达式必须有名字
+    'no-param-reassign': 'off', // 不准给函数入参赋值
+    // react 如果在项目中文件名后缀是 .js 而不是 .jsx 避免报错
+    // "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    // react props validation 错误
+    // "react/prop-types": 0,
+  },
+};
+
+```
+
+* 编辑器完整配置
+
+```js
+{
+  // 样式相关
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Atom One Dark",
+  "editor.fontFamily": "Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "workbench.statusBar.visible": true,
+  "workbench.activityBar.visible": false,
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+  "atomKeymap.promptV3Features": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "explorer.confirmDragAndDrop": false,
+  "vetur.validation.template": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "search.followSymlinks": false,
+  "editor.wordWrap": "on",
+  "window.zoomLevel": 0,
+  // 禁止 CommonJS module 提示报错，JS 检查用 eslint 就好了
+  "javascript.suggestionActions.enabled": false,
+  // Show Errors & Warnings on files and folder.
+  "problems.decorations.enabled": false,
+  // 关闭默认 js 检查
+  "javascript.format.enable": false,
+  // 文件末尾插入新行
+  "files.insertFinalNewline": true,
+
+  // markdownlint config object
+  "markdownlint.config": {
+    // 长度限制
+    "MD013": false,
+    // list 后必须有一个空格（和prettier自动格式化有冲突）
+    "MD030": false,
+    // 开头必须 h1
+    "MD002": false,
+    "MD041": false,
+    // 有序列表必须顺序排列并且中间不能有内容
+    "MD029": false,
+    // 不允许出现相同名字的标题，但不同层级应该允许
+    "MD024": false,
+  },
+
+  // 粘贴自动格式化，保存不自动格式化
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+
+  // 开启 eslint 支持
+  "prettier.eslintIntegration": true,
+  "eslint.autoFixOnSave": true,
+
+  // 添加 vue/react 支持
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+        "language": "vue",
+        "autoFix": true
+    }
+  ],
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+}
 ```
 
 ## 参考资料
