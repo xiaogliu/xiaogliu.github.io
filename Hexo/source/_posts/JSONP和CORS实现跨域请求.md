@@ -198,10 +198,15 @@ xhr.send(null);
 - 缺点
 
 1. 存在[兼容性问题](http://caniuse.com/#search=cors)：IE10以上。
+2. 最重要的是不能设置 cookie（cookie 遵循同源策略）。
 
 ## 应用场景
 
 在服务源可以按照自己的需求更改（即在 response headers 中添加请求源信息）时使用，公司项目一般都是通过CORS方法实现跨源通信的。
+
+# 通过 Nginx 反向代理
+
+这是最好的方法，简单，前后端也不需要做额外更改。
 
 # 参考资料
 

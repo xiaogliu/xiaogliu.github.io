@@ -6,7 +6,7 @@ categories: 编程工具
 e_title: atom-configuration
 ---
 
-用 vscode 很长一段时间，因为相比 atom，vscode 占用内容更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。
+用 vscode 很长一段时间，因为相比 atom，vscode 占用内存和 CPU 更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。
 
 # 编辑器配置
 
@@ -95,6 +95,7 @@ e_title: atom-configuration
 ~~[atom-terminal](https://atom.io/packages/atom-terminal)：在当前目录打开终端；~~  
 [highlight-selected](https://atom.io/packages/highlight-selected)：自动高亮选中的相同字符；  
 ~~[minimap](https://atom.io/packages/minimap)：代码缩略地图；~~
+[open-in-browser](https://github.com/magbicaleman/open-in-browser)：在浏览器中打开文件，主要针对 html
 
 ## 语言相关
 

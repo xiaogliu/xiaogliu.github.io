@@ -57,7 +57,7 @@ ESLint 可以
 ```bash
 yarn add
   eslint babel-core babel-eslint eslint-config-airbnb eslint-plugin-import
-  eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-vue
+  eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-vue eslint-plugin-html
 -D
 ```
 
@@ -119,7 +119,9 @@ semi: ['error', 'always'], // 语句强制分号结尾
 
 ### 编辑器配置
 
-我主力编辑器是 VS Code，所以这里只有 VS Code 的配置。
+* vscode
+
+安装插件：
 
 因为我们的目的是根据 ESLint 规则自动格式化代码，这只需在 `preference -> setting -> user setting` 中添加下面配置即可：
 
@@ -127,6 +129,16 @@ semi: ['error', 'always'], // 语句强制分号结尾
 // 点击保存时，根据 eslint 规则自定修复
 "eslint.autoFixOnSave": true,
 ```
+
+* atom
+
+安装插件：
+
+[prettier-atom](https://atom.io/packages/prettier-atom)：格式化代码；  
+[atom-beautify](https://atom.io/packages/atom-beautify)：格式化代码（以 prettier 为主，没有 prettier 时用，同时在 setting 设置 vue 的格式化插件为 prettier-atom）；  
+[linter-eslint](https://atom.io/packages/linter-eslint)：js 检查，可设置和 prettier 配合使用（还有其他相关依赖，atom 会提示安装）
+
+> 最好手动通过 eslint 进行格式化
 
 ## 其他
 
@@ -136,7 +148,7 @@ semi: ['error', 'always'], // 语句强制分号结尾
 
 安装 VS code 插件 [vetur](https://github.com/vuejs/vetur)（格式化 Vue），同时编辑器 setting 中添加下面配置自动格式化
 
-```json
+```js
 // eslint 对 vue 支持
 "eslint.validate": [
   "javascript",
@@ -225,7 +237,6 @@ module.exports = {
     // "react/prop-types": 0,
   },
 };
-
 ```
 
 * 编辑器完整配置
