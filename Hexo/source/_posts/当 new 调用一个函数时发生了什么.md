@@ -8,9 +8,9 @@ e_title: what-happened-when-using-new
 
 JS 中经常使用构造函数创建对象（通过 `new` 操作符调用一个函数），那在使用构造函数创建对象的时候到底发生了什么？先看几个例子，再解释背后发生了什么。
 
-## 三个例子
+## 1）看三个例子
 
-- 例子 1，构造函数最后没有 `return` 语句
+### 1.1 例子 1，构造函数最后没有 `return` 语句
 
 我们知道，构造函数中不需要 `return` 语句，默认返回一个新对象，如下：
 
@@ -25,7 +25,7 @@ console.log(o);
 
 这是常见的使用构造函数创建对象的过程，打印出来的是 `{age: 111}`。
 
-- 例子 2，构造函数最后 `return` 对象类型数据
+### 1.2 例子 2，构造函数最后 `return` 对象类型数据
 
 显式返回对象类型的值：
 
@@ -42,7 +42,7 @@ console.log(o);
 
 打印出来的是 `{type: '我是显式返回的'}`，也就是说，`return` 之前的工作都白做了，最后返回 `return` 后面的对象。
 
-- 例子 3，构造函数最后 `return` 基本类型数据
+### 1.3 例子 3，构造函数最后 `return` 基本类型数据
 
 那是不是只要有显式的 `return`，最后返回都是 `return` 后面的数据呢？
 
@@ -61,9 +61,9 @@ console.log(o);
 
 打印出来的是 `{age: 333}`，和没有 `return` 时效果一样。
 
-## 背后原理
+## 2）背后原理
 
-- 先讨论非箭头函数的情况。
+### 2.1 先讨论非箭头函数的情况。
 
 当使用 `new` 操作符创建对象是，ES5 官方文档在 _函数定义_ 一节中做了如下定义 [13.2.2 [[Construct]]](https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)：
 
@@ -82,18 +82,18 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 
 看第 8、9 步：
 
-> 8.  调用函数 `F`，将其返回值赋给 `result`；其中，`F` 执行时的实参为传递给 `[[Construct]]`（即 `F` 本身） 的参数，`F` 内部 `this` 指向 `obj`；
-> 9.  如果 `result` 是 `Object` 类型，返回 `result`；
+> 8) 调用函数 `F`，将其返回值赋给 `result`；其中，`F` 执行时的实参为传递给 `[[Construct]]`（即 `F` 本身） 的参数，`F` 内部 `this` 指向 `obj`；
+> 9) 如果 `result` 是 `Object` 类型，返回 `result`；
 
 **这也就解释了如果构造函数显式返回对象类型，则直接返回这个对象，而不是返回最开始创建的对象。**
 
 最后在看第 10 步：
 
-> 10：如果 `F` 返回的不是对象类型（第 9 步不成立），则返回创建的对象 `obj`。
+> 10) 如果 `F` 返回的不是对象类型（第 9 步不成立），则返回创建的对象 `obj`。
 
 **如果构造函数没有显式返回对象类型（显式返回基本数据类型或者直接不返回），则返回最开始创建的对象。**
 
-- 箭头函数的情况
+### 2.2 箭头函数的情况
 
 那如果构造函数是箭头函数怎么办？
 
@@ -103,7 +103,9 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 
 > 相关规范在 [ES6 的官方文档](https://www.ecma-international.org/ecma-262/6.0/index.html) 中有提，但自从 ES6 以来的官方文档巨难懂，在此不做表述。
 
-## new 调用函数完整过程
+## 3）new 调用函数完整过程
+
+### 3.1 中文描述及相关代码描述
 
 除了箭头函数之外的任何函数，都可以使用 `new` 进行调用，背后发生了什么，上节英文讲述的很清楚了，再用中文描述如下：
 
@@ -140,7 +142,7 @@ console.log(o2.__proto__ === Object.prototype); // true
 > 2）由上可知，`null instanceof Object` 返回 `false`，所以 `null` 不是 `Object` 类型，尽管`typeof null` 返回 "Object"  
 > 3）题外话：**`instanceof` 的工作原理是：在表达式 `x instanceof Foo` 中，如果 `Foo` 的原型（即 `Foo.prototype`）出现在 `x` 的原型链中，则返回 `true`，不然，返回 `false`**
 
-更简洁的语言描述下：
+### 3.2 更简洁的语言描述
 
 若执行 `new Foo()`，过程如下：
 
