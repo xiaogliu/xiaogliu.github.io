@@ -85,13 +85,13 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 > 8.  调用函数 `F`，将其返回值赋给 `result`；其中，`F` 执行时的实参为传递给 `[[Construct]]`（即 `F` 本身） 的参数，`F` 内部 `this` 指向 `obj`；
 > 9.  如果 `result` 是 `Object` 类型，返回 `result`；
 
-**这也就解释了如果构造函数显式返回对象类型，则直接返回这个对象，而不是返回最开始创建的对象**
+**这也就解释了如果构造函数显式返回对象类型，则直接返回这个对象，而不是返回最开始创建的对象。**
 
 最后在看第 10 步：
 
 > 10：如果 `F` 返回的不是对象类型（第 9 步不成立），则返回创建的对象 `obj`。
 
-**如果构造函数没有显式返回对象类型（显式返回  基本数据类型或者直接不返回），则返回最开始创建的对象**
+**如果构造函数没有显式返回对象类型（显式返回基本数据类型或者直接不返回），则返回最开始创建的对象。**
 
 - 箭头函数的情况
 
@@ -108,12 +108,12 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 除了箭头函数之外的任何函数，都可以使用 `new` 进行调用，背后发生了什么，上节英文讲述的很清楚了，再用中文描述如下：
 
 1）创建 ECMAScript 原生对象 `obj`；
-2）给 `obj` 设置原生对象的内部属性；（和原型方法不同，内部属性表示为 `[[PropertyName]]`，两个方括号，并且属性名打斜，比如常见 `[[Prototype]]`、`[[Constructor]]`）
-3）设置 `obj` 的内部属性 `[[Class]]` 为 `Object`；
-4）设置 `obj` 的内部属性 `[[Extensible]]` 为 `true`；
-5）将 `proto` 的值设置为 `F` 的 `prototype` 属性值；
-6）如果 `proto` 是对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为 `proto`；（**进行原型链关联，实现继承的关键**）
-7）如果 `proto` 是不对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为内建构造函数 **Object** 的 `prototype` 值；（**函数 `prototype` 属性可以被改写**，如果改成非对象类型，`obj` 的 `[[Prototype]]` 就指向 Object 的原型对象）
+2）给 obj 设置原生对象的内部属性；（和原型方法不同，内部属性表示为 [[PropertyName]]，两个方括号，并且属性名打斜，比如常见 [[Prototype]]、[[Constructor]]）
+3）设置 obj 的内部属性 [[Class]] 为 Object；
+4）设置 obj 的内部属性 [[Extensible]] 为 true；
+5）将 proto 的值设置为 F 的 prototype 属性值；
+6）如果 proto 是对象类型，则设置 obj 的内部属性 [[Prototype]] 值为 proto；（**进行原型链关联，实现继承的关键**）
+7）如果 proto 是不对象类型，则设置 obj 的内部属性 [[Prototype]] 值为内建构造函数 **Object** 的 prototype 值；（**函数 prototype 属性可以被改写**，如果改成非对象类型，obj 的 [[Prototype]] 就指向 Object 的原型对象）
 8）9）10）见上节分析。（决定返回什么）
 
 对于第 9 步的情况，见下面代码：
@@ -135,9 +135,10 @@ console.log(o2.__proto__ === CreateO.prototype); // false
 console.log(o2.__proto__ === Object.prototype); // true
 ```
 
-> 关于一个数据是否是 `Object` 类型，可以通过 `instanceof` 操作符进行判断：如果 `x instanceof Object` 返回 `true`，则 `x` 为 `Object` 类型。   
-> 由上可知，`null instanceof Object` 返回 `false`，所以 `null` 不是 `Object` 类型，尽管`typeof null` 返回 "Object"   
-> 题外话：**`instanceof` 的工作原理是：在表达式 `x instanceof Foo` 中，如果 `Foo` 的原型（即 `Foo.prototype`）出现在 `x` 的原型链中，则返回 `true`，不然，返回 `false`**   
+> 几点说明：
+> 1）关于一个数据是否是 `Object` 类型，可以通过 `instanceof` 操作符进行判断：如果 `x instanceof Object` 返回 `true`，则 `x` 为 `Object` 类型。  
+> 2）由上可知，`null instanceof Object` 返回 `false`，所以 `null` 不是 `Object` 类型，尽管`typeof null` 返回 "Object"  
+> 3）题外话：**`instanceof` 的工作原理是：在表达式 `x instanceof Foo` 中，如果 `Foo` 的原型（即 `Foo.prototype`）出现在 `x` 的原型链中，则返回 `true`，不然，返回 `false`**
 
 更简洁的语言描述下：
 
