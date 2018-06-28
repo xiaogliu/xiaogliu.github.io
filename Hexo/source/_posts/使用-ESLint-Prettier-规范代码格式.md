@@ -70,8 +70,7 @@ Prettier 格式化默认快捷键：`ctrl + alt + f`，atom-beautify 格式化�
 
 安装插件：
 
-[ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)，
-[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+[ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)，[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 VS Code 插件配置统一在 `preference -> setting -> user setting` 设置：
 
