@@ -69,16 +69,16 @@ console.log(o);
 
 When the `[[Construct]]` internal method for a `Function` object `F` is called with a possibly empty list of arguments, the following steps are taken:
 
-1.  Let `obj` be a newly created **native ECMAScript object**.
-2.  Set all the internal methods of `obj` as specified in 8.12.
-3.  Set the `[[Class]]` internal property of `obj` to `Object`.
-4.  Set the `[[Extensible]]` internal property of `obj` to `true`.
-5.  Let `proto` be the value of calling the `[[Get]]` internal property of **`F` with argument "prototype"**.
-6.  If `Type(proto)` is `Object`, set the **`[[Prototype]]` internal property of `obj` to `proto`**.
-7.  If `Type(proto)` is not `Object`, set the `[[Prototype]]` internal property of `obj` to the standard built-in **Object prototype object** as described in 15.2.4.
-8.  Let `result` be the result of calling the `[[Call]]` internal property of `F`, **providing `obj` as the `this` value** and providing the argument list passed into `[[Construct]]` as args.
-9.  **If `Type(result)` is `Object` then return `result`**.
-10. Return `obj`.
+1.  Let obj be a newly created **native ECMAScript object**.
+2.  Set all the internal methods of obj as specified in 8.12.
+3.  Set the [[Class]] internal property of obj to Object.
+4.  Set the [[Extensible]] internal property of obj to true.
+5.  Let proto be the value of calling the [[Get]] internal property of **F with argument "prototype"**.
+6.  If Type(proto) is Object, set the **[[Prototype]] internal property of obj to proto**.
+7.  If Type(proto) is not Object, set the [[Prototype]] internal property of obj to the standard built-in **Object prototype object** as described in 15.2.4.
+8.  Let result be the result of calling the [[Call]] internal property of F, **providing obj as the this value** and providing the argument list passed into [[Construct]] as args.
+9.  **If Type(result) is Object then return result**.
+10. Return obj.
 
 看第 8、9 步：
 
@@ -108,12 +108,12 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 除了箭头函数之外的任何函数，都可以使用 `new` 进行调用，背后发生了什么，上节英文讲述的很清楚了，再用中文描述如下：
 
 1）创建 ECMAScript 原生对象 `obj`；
-2）给 obj 设置原生对象的内部属性；（和原型方法不同，内部属性表示为 [[PropertyName]]，两个方括号，并且属性名打斜，比如常见 [[Prototype]]、[[Constructor]]）
-3）设置 obj 的内部属性 [[Class]] 为 Object；
-4）设置 obj 的内部属性 [[Extensible]] 为 true；
-5）将 proto 的值设置为 F 的 prototype 属性值；
-6）如果 proto 是对象类型，则设置 obj 的内部属性 [[Prototype]] 值为 proto；（**进行原型链关联，实现继承的关键**）
-7）如果 proto 是不对象类型，则设置 obj 的内部属性 [[Prototype]] 值为内建构造函数 **Object** 的 prototype 值；（**函数 prototype 属性可以被改写**，如果改成非对象类型，obj 的 [[Prototype]] 就指向 Object 的原型对象）
+2）给 `obj` 设置原生对象的内部属性；（和原型方法不同，内部属性表示为 `[[PropertyName]]`，两个方括号，并且属性名大写，比如常见 `[[Prototype]]`、`[[Constructor]]`）
+3）设置 `obj` 的内部属性 `[[Class]]` 为 `Object`；
+4）设置 `obj` 的内部属性 `[[Extensible]]` 为 `true`；
+5）将 `proto` 的值设置为 `F` 的 `prototype` 属性值；
+6）如果 `proto` 是对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为 `proto`；（**进行原型链关联，实现继承的关键**）
+7）如果 `proto` 是不对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为内建构造函数 **Object** 的 `prototype` 值；（**函数 `prototype` 属性可以被改写**，如果改成非对象类型，`obj` 的 `[[Prototype]]` 就指向 Object 的原型对象）
 8）9）10）见上节分析。（决定返回什么）
 
 对于第 9 步的情况，见下面代码：
