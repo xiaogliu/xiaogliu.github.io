@@ -1,69 +1,69 @@
 ---
-title: 当 new 调用一个函数时发生了什么
+title: 详解 JS 中 new 调用函数原理
 date: 2018-06-28 23:14:14
 tags: [JavaScript]
 categories: JavaScript
 e_title: what-happened-when-using-new
 ---
 
-JS 中经常使用构造函数创建对象（通过 `new` 操作符调用一个函数），那在使用构造函数创建对象的时候到底发生了什么？先看几个例子，再解释背后发生了什么。
+JavaScript 中经常使用构造函数创建对象（通过 `new` 操作符调用一个函数），那在使用 `new` 调用一个函数的时候到底发生了什么？先看几个例子，再解释背后发生了什么。
 
 ## 1）看三个例子
 
-### 1.1 例子 1，构造函数最后没有 `return` 语句
+### 1.1 无 return 语句
 
-我们知道，构造函数中不需要 `return` 语句，默认返回一个新对象，如下：
+构造函数最后没有 `return` 语句，这也是使用构造函数时默认情况，最后会返回一个新对象，如下：
 
 ```js
-function CreateO(age) {
+function Foo(age) {
   this.age = age;
 }
 
-var o = new CreateO(111);
+var o = new Foo(111);
 console.log(o);
 ```
 
 这是常见的使用构造函数创建对象的过程，打印出来的是 `{age: 111}`。
 
-### 1.2 例子 2，构造函数最后 `return` 对象类型数据
+### 1.2 return 对象类型数据
 
-显式返回对象类型的值：
+构造函数最后 `return` 对象类型数据：
 
 ```js
-function CreateO(age) {
+function Foo(age) {
   this.age = age;
 
   return { type: "我是显式返回的" };
 }
 
-var o = new CreateO(222);
+var o = new Foo(222);
 console.log(o);
 ```
 
 打印出来的是 `{type: '我是显式返回的'}`，也就是说，`return` 之前的工作都白做了，最后返回 `return` 后面的对象。
 
-### 1.3 例子 3，构造函数最后 `return` 基本类型数据
+### 1.3 return 基本类型数据
 
-那是不是只要有显式的 `return`，最后返回都是 `return` 后面的数据呢？
+那是不是只要构造函数体内最后有 `return`，返回都是 `return` 后面的数据呢？
 
-我们看下显式返回基本类型的值：
+我们看下返回基本类型数据的情况：
 
 ```js
-function CreateO(age) {
+function Foo(age) {
   this.age = age;
 
   return 1;
 }
 
-var o = new CreateO(333);
+var o = new Foo(333);
 console.log(o);
 ```
 
-打印出来的是 `{age: 333}`，和没有 `return` 时效果一样。
+打印出来的是 `{age: 333}`，和没有 `return` 时效果一样。跟预期不一样，背后你原理看下面分析。
 
 ## 2）背后原理
 
-### 2.1 先讨论非箭头函数的情况。
+### 2.1 非箭头函数的情况
 
 当使用 `new` 操作符创建对象是，ES5 官方文档在 _函数定义_ 一节中做了如下定义 [13.2.2 [[Construct]]](https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)：
 
@@ -82,14 +82,14 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 
 看第 8、9 步：
 
-> 8) 调用函数 `F`，将其返回值赋给 `result`；其中，`F` 执行时的实参为传递给 `[[Construct]]`（即 `F` 本身） 的参数，`F` 内部 `this` 指向 `obj`；
-> 9) 如果 `result` 是 `Object` 类型，返回 `result`；
+> 8）调用函数 `F`，将其返回值赋给 `result`；其中，`F` 执行时的实参为传递给 `[[Construct]]`（即 `F` 本身） 的参数，`F` 内部 `this` 指向 `obj`；
+> 9）如果 `result` 是 `Object` 类型，返回 `result`；
 
 **这也就解释了如果构造函数显式返回对象类型，则直接返回这个对象，而不是返回最开始创建的对象。**
 
 最后在看第 10 步：
 
-> 10) 如果 `F` 返回的不是对象类型（第 9 步不成立），则返回创建的对象 `obj`。
+> 10）如果 `F` 返回的不是对象类型（第 9 步不成立），则返回创建的对象 `obj`。
 
 **如果构造函数没有显式返回对象类型（显式返回基本数据类型或者直接不返回），则返回最开始创建的对象。**
 
@@ -99,57 +99,78 @@ When the `[[Construct]]` internal method for a `Function` object `F` is called w
 
 箭头函数中没有 `[[Construct]]` 方法，不能使用 `new` 调用，会报错。
 
-其中 `[[Construct]]` 就是指构造函数本身。
+NOTICE：其中 `[[Construct]]` 就是指构造函数本身。
 
 > 相关规范在 [ES6 的官方文档](https://www.ecma-international.org/ecma-262/6.0/index.html) 中有提，但自从 ES6 以来的官方文档巨难懂，在此不做表述。
 
 ## 3）new 调用函数完整过程
 
-### 3.1 中文描述及相关代码描述
+### 3.1 中文描述及相关代码分析
 
 除了箭头函数之外的任何函数，都可以使用 `new` 进行调用，背后发生了什么，上节英文讲述的很清楚了，再用中文描述如下：
 
-1）创建 ECMAScript 原生对象 `obj`；
-2）给 `obj` 设置原生对象的内部属性；（和原型方法不同，内部属性表示为 `[[PropertyName]]`，两个方括号，并且属性名大写，比如常见 `[[Prototype]]`、`[[Constructor]]`）
-3）设置 `obj` 的内部属性 `[[Class]]` 为 `Object`；
-4）设置 `obj` 的内部属性 `[[Extensible]]` 为 `true`；
-5）将 `proto` 的值设置为 `F` 的 `prototype` 属性值；
-6）如果 `proto` 是对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为 `proto`；（**进行原型链关联，实现继承的关键**）
-7）如果 `proto` 是不对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为内建构造函数 **Object** 的 `prototype` 值；（**函数 `prototype` 属性可以被改写**，如果改成非对象类型，`obj` 的 `[[Prototype]]` 就指向 Object 的原型对象）
+1）创建 ECMAScript 原生对象 `obj`；  
+2）给 `obj` 设置原生对象的内部属性；（和原型属性不同，内部属性表示为 `[[PropertyName]]`，两个方括号包裹属性名，并且属性名大写，比如常见 `[[Prototype]]`、`[[Constructor]]`）  
+3）设置 `obj` 的内部属性 `[[Class]]` 为 `Object`；  
+4）设置 `obj` 的内部属性 `[[Extensible]]` 为 `true`；  
+5）将 `proto` 的值设置为 `F` 的 `prototype` 属性值；  
+6）如果 `proto` 是对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为 `proto`；（**进行原型链关联，实现继承的关键**）  
+7）如果 `proto` 是不对象类型，则设置 `obj` 的内部属性 `[[Prototype]]` 值为内建构造函数 **Object** 的 `prototype` 值；（**函数 `prototype` 属性可以被改写**，如果改成非对象类型，`obj` 的 `[[Prototype]]` 就指向 Object 的原型对象）  
 8）9）10）见上节分析。（决定返回什么）
 
-对于第 9 步的情况，见下面代码：
+对于第 7 步的情况，见下面代码：
 
 ```js
-function CreateO(name) {
+function Foo(name) {
   this.name = name;
 }
 
-var o1 = new CreateO("xiaoming");
-console.log(o1.__proto__ === CreateO.prototype); // true
+var o1 = new Foo("xiaoming");
+console.log(o1.__proto__ === Foo.prototype); // true
 
 // 重写构造函数原型属性为非对象类型，实例内部 [[Prototype]] 属性指向 Object 原型对象
 // 因为实例是一个对象类型的数据，默认会继承内建对象的原型，
 // 如果构造函数的原型不满足形成原型链的要求，那就跳过直接和内建对象原型关联
-CreateO.prototype = 1;
-var o2 = new CreateO("xiaohong");
-console.log(o2.__proto__ === CreateO.prototype); // false
+Foo.prototype = 1;
+var o2 = new Foo("xiaohong");
+console.log(o2.__proto__ === Foo.prototype); // false
 console.log(o2.__proto__ === Object.prototype); // true
 ```
-
-> 几点说明：
-> 1）关于一个数据是否是 `Object` 类型，可以通过 `instanceof` 操作符进行判断：如果 `x instanceof Object` 返回 `true`，则 `x` 为 `Object` 类型。  
-> 2）由上可知，`null instanceof Object` 返回 `false`，所以 `null` 不是 `Object` 类型，尽管`typeof null` 返回 "Object"  
-> 3）题外话：**`instanceof` 的工作原理是：在表达式 `x instanceof Foo` 中，如果 `Foo` 的原型（即 `Foo.prototype`）出现在 `x` 的原型链中，则返回 `true`，不然，返回 `false`**
 
 ### 3.2 更简洁的语言描述
 
 若执行 `new Foo()`，过程如下：
 
-1）创建新对象 `o`；
-2）给新对象的内部属性赋值，关键是给`[[Prototype]]`属性赋值，构造原型链（如果构造函数的原型是 Object 类型，则指向构造函数的原型；不然指向 Object 对象的原型）；
-3）执行函数 `Foo`，执行过程中内部 `this` 指向新创建的对象 `o`；
+1）创建新对象 `o`；  
+2）给新对象的内部属性赋值，关键是给`[[Prototype]]`属性赋值，构造原型链（如果构造函数的原型是 Object 类型，则指向构造函数的原型；不然指向 Object 对象的原型）；  
+3）执行函数 `Foo`，执行过程中内部 `this` 指向新创建的对象 `o`；  
 4）如果 `Foo` 内部显式返回对象类型数据，则，返回该数据，执行结束；不然返回新创建的对象 `o`。
+
+## 4）几点说明
+
+### 4.1 判断是否是 Object 类型
+
+关于一个数据是否是 `Object` 类型，可以通过 `instanceof` 操作符进行判断：如果 `x instanceof Object` 返回 `true`，则 `x` 为 `Object` 类型。
+
+由上可知，`null instanceof Object` 返回 `false`，所以 `null` 不是 `Object` 类型，尽管`typeof null` 返回 "Object"。
+
+### 4.2 instanceof 原理
+
+**`instanceof` 的工作原理是：在表达式 `x instanceof Foo` 中，如果 `Foo` 的原型（即 `Foo.prototype`）出现在 `x` 的原型链中，则返回 `true`，不然，返回 `false`**。
+
+因为函数的原型可以被改写，所以会出现在 `x` 通过 `Foo` new 出来**之后**完全改写 `Foo` 的原型 `x instanceof Foo` 返回 `false` 的情况。因为实例创建之后重写构造函数原型，实例指向的原型已经不是构造函数的新的原型了，见下面代码：
+
+```js
+const Foo = function() {};
+
+const o = new Foo();
+
+o instanceof Foo; // true
+
+// 重写 Foo 原型
+Foo.prototype = {};
+o instanceof Foo; // false
+```
 
 ## 参考资料
 

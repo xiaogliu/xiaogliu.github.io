@@ -23,6 +23,12 @@ home_nav:
   - name: Github
     url: https://github.com/xiaogliu
     target_blank: true
+  - name: 掘金
+    url: https://juejin.im/user/57f855c4a22b9d005bee9228/posts
+    target_blank: true
+  - name: SegmentFault
+    url: https://segmentfault.com/u/xiaoguangliu
+    target_blank: true
   - name: 500px
     url: https://500px.com/xiaogliu
     target_blank: true
