@@ -1,5 +1,5 @@
 ---
-title: 详解 JS 中 new 调用函数原理
+title: JS 中 new 调用函数原理
 date: 2018-06-28 23:14:14
 tags: [JavaScript]
 categories: JavaScript
