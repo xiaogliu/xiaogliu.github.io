@@ -136,7 +136,7 @@ module: {
   // loader 配置本身是个对象
   rules: [
     {
-      // 正则匹配文件
+      // 正则匹配文件，最终匹配的是一个路径，具体间解析 zepto 源文件时的设置
       test: /\.scss$/,
       // 使用的 loader，可以字符串（单个 loader）、数组（多个 loader）
       // 如果是数组，从右往左开始解析
@@ -165,7 +165,10 @@ module: {
 - css-loader：解析 css 文件；
 - sass-loader：解析 scss/sass 文件；
 - style-loader：将解析后的 css 嵌入 js；
-- file-loader：解析图片文件。
+- file-loader：解析图片文件；
+- url-loader：具有 file-loader 的全部功能，同时可以提取小图片为 base64（如果开启 HTTP2 这样增大 静态资源体积反而不好？）；
+- postcss-loader：完成 css 自动化处理，比如添加前缀、压缩 css、自动生成雪碧图等
+  > postcss 本身支持插件扩展，常用的有 autoprefixer、cssnano、postcss-sprites，更多参考[官网介绍](https://github.com/postcss/postcss)
 
 Vue 相关
 
@@ -199,11 +202,13 @@ plugins: [
 - webpack-merge：实际项目中，一般将 webpack 配置文件拆分为 base、dev、pro，这个插件用户合并配置文件；
 - webpack.HotModuleReplacementPlugin：热更新插件，webpack 内置；
 - clean-webpack-plugin：清除指定文件夹，一般是构建的目录（大型项目慎用，更新需要时间）；
-- mini-css-extract-plugin：提取 css 文件，减小增量更新成本；
+- mini-css-extract-plugin：提取 css 文件，减小增量更新成本（**需要在`module`代理 style-loader 处理 css**）；
   > style-loader 先把 css 嵌入 js 使其变成有效 module，这个插件将 css 从 js 中分离出来。这个过程不矛盾，因为最开始 webpack 无法处理 css 文件，所以需要 css-loader, style-loader 处理，嵌入到 js 中的 css mini-css-extract-plugin 可以识别并提出。这个插件是 webpack 4.x 新引入，代替 extract-text-webpack-plugin。
 - optimize-css-assets-webpack-plugin：将提取出的 css 做进一步优化；
-- uglifyjs-webpack-plugin：minify js 代码；
-- webpack-bundle-analyzer：打包后文件图形化展示工具，一目了然各文件体积。
+- uglifyjs-webpack-plugin：**不仅仅是压缩代码，还进行了 tree shaking 工作**；
+- webpack-bundle-analyzer：打包后文件图形化展示工具，一目了然各文件体积；
+- ProvidePlugin：webpack 内置，提取第三方库的 api，比如通过 `$` 符号调用 jq
+  > 如果不是通过 npm 安装，而是直接在项目中引入，需要配合`resolve`的别名使用，不然找不到
 
 ## 2.5 Mode
 
@@ -305,6 +310,109 @@ if (module.hot) {
 ```
 
 多页面目前只有在 JS 或者 CSS 文件改变的时候实现了热更新，如果是模版（html）文件改变，没有实现热更新（可以实现自动刷新页面，但感觉很鸡肋，如果改动了模版文件，手动刷新）。
+
+### 2.6.4 resolve
+
+`resolve` 选项可以指定如何解析 modules，更多是通过设置 alias 告诉 webpack 去哪找文件解析。比如，如果在项目中通过文件的形式引入的 jq，那在使用 `ProvidePlugin` 对 jq 进行解析的时候，就需要通过设置别名的形式告诉 webpack 去哪找 jq 源文件。
+
+```js
+resolve: {
+  alias: {
+    // 后面加 $ 符号表示精确匹配
+    jquery$: path.resolve(__dirname, 'path/jquery.min.js');
+  }
+}
+
+
+// 解析插件
+new webpack.ProvidePlugin({
+  // 加载 jquery
+  $: 'jquery',
+}),
+```
+
+# 3）常见需求详细配置
+
+下面记录针对具体需求的完整代码描述。
+
+## 3.1 引入第三方库
+
+比如，jq，zepto 等，如果通过 CDN 可以在项目中直接使用 `$` 符号，但如果是通过 npm 安装到本地，甚至直接将第三方库源文件写在项目中，那是无法直接使用 `$` 符号这种调用方式的，需要使用上文介绍的 `ProvidePlugin` 插件。当然，还有细节需要注意，见下面详细代码。
+
+### 3.1.1 使用 npm 引入
+
+相对于直接引入，使用 npm 可以省去我们手动指定 module 路径的麻烦，已 zepto 为例：
+
+> 使用 zepto 时，直接使用 ProvidePlugin 会报错，具体参考这片文章[如何在 webpack 中引入未模块化的库，如 Zepto](https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/)
+
+```js
+// 处理 zepto 模块化问题
+{
+  test: require.resolve('zepto'),
+  use: ['exports-loader?window.Zepto', 'script-loader'],
+},
+
+// 给 zepto 设置别名，可以任何名称
+plugins: [
+  new webpack.ProvidePlugin({
+    $: 'zepto',
+  }),
+],
+```
+
+### 3.1.2 直接在项目中引入源文件
+
+同 npm 不同之处在于我们需要手动指定 zepto 的路径，如下
+
+```js
+// 设置别名
+resolve: {
+  alias: {
+    zepto$: path.resolve(__dirname, 'src/js/vendor/zepto.min.js'),
+  },
+},
+
+// 处理 zepto 模块化问题
+{
+  // test 路径也要跟着改变，不知道为什么不能用上面指定的别名。。
+  test: path.resolve(__dirname, 'src/js/vendor/zepto.min.js'),
+  use: ['exports-loader?window.Zepto', 'script-loader'],
+},
+
+// 给 zepto 设置别名，可以任何名称
+plugins: [
+  new webpack.ProvidePlugin({
+    $: 'zepto',
+  }),
+],
+```
+
+## 3.2 提取 css
+
+为了能将 css 从 js 中提取出来，需要在 `module` 中将 style-loader 替换为 MiniCssExtractPlugin.loader，见下面代码：
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader'],
+    },
+    {
+      test: /\.scss$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+    },
+  ],
+},
+
+plugins: [
+  new MiniCssExtractPlugin({
+    filename: 'css/[name].[contenthash:8].css',
+    // 这个干嘛用？
+    chunkFileName: '[id].[contenthash:8].css',
+  }),
+],
+```
 
 # 参考资料
 
