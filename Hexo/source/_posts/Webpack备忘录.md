@@ -169,6 +169,7 @@ module: {
 - url-loader：具有 file-loader 的全部功能，同时可以提取小图片为 base64（如果开启 HTTP2 这样增大 静态资源体积反而不好？）；
 - postcss-loader：完成 css 自动化处理，比如添加前缀、压缩 css、自动生成雪碧图等
   > postcss 本身支持插件扩展，常用的有 autoprefixer、cssnano、postcss-sprites，更多参考[官网介绍](https://github.com/postcss/postcss)
+  > 要在 css-loader 之前处理 css：`use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']`
 
 Vue 相关
 
@@ -345,8 +346,9 @@ new webpack.ProvidePlugin({
 
 > 使用 zepto 时，直接使用 ProvidePlugin 会报错，具体参考这片文章[如何在 webpack 中引入未模块化的库，如 Zepto](https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/)
 
+
 ```js
-// 处理 zepto 模块化问题
+// 处理 zepto 模块化问题，需要安装 exports-loader 和 script-loader
 {
   test: require.resolve('zepto'),
   use: ['exports-loader?window.Zepto', 'script-loader'],
