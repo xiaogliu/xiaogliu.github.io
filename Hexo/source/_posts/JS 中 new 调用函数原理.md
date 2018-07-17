@@ -172,6 +172,24 @@ Foo.prototype = {};
 o instanceof Foo; // false
 ```
 
+PS.那既然 `instanceof` 不靠谱，怎么才能判断一个实例是哪个构造函数构造的呢？可以通过原型对象上的 `constructor` 属性实现：虽然构造函数原型可以改写导致之前创建的实例的原型链断开，但是，构造函数的原型中 `contructor` 属性还是指向构造函数的。
+
+```js
+const Foo = function() {};
+
+const o = new Foo();
+
+// 重写 Foo 原型
+Foo.prototype = {};
+o instanceof Foo; // false
+
+// o.__proto__ 获取 o 构造函数的原型，此时，其 constructor 属性还是之前最初的构造函数
+// 通过 name 属性能直接找到构造函数是哪个 
+o.__proto__.constructor.name; // Foo
+o.__proto__.constructor === Foo; // true
+```
+
+
 ## 参考资料
 
 [What values can a constructor return to avoid returning this?](https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)  
