@@ -146,7 +146,7 @@ console.log(o2.__proto__ === Object.prototype); // true
 3）执行函数 `Foo`，执行过程中内部 `this` 指向新创建的对象 `o`；  
 4）如果 `Foo` 内部显式返回对象类型数据，则，返回该数据，执行结束；不然返回新创建的对象 `o`。
 
-### 3.3 为代码实现 new
+### 3.3 伪代码实现 new
 
 ```js
 var bar = new Foo(...args);
