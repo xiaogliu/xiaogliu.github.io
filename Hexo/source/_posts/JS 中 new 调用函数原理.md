@@ -139,12 +139,65 @@ console.log(o2.__proto__ === Object.prototype); // true
 
 ### 3.2 更简洁的语言描述
 
-若执行 `new Foo()`，过程如下：
+- 若执行 `new Foo()`，过程如下：
 
 1）创建新对象 `o`；  
 2）给新对象的内部属性赋值，关键是给`[[Prototype]]`属性赋值，构造原型链（如果构造函数的原型是 Object 类型，则指向构造函数的原型；不然指向 Object 对象的原型）；  
 3）执行函数 `Foo`，执行过程中内部 `this` 指向新创建的对象 `o`；  
 4）如果 `Foo` 内部显式返回对象类型数据，则，返回该数据，执行结束；不然返回新创建的对象 `o`。
+
+### 3.3 为代码实现 new
+
+```js
+var bar = new Foo(...args);
+
+// 过程如下（不考虑 Foo 显式返回对象）
+var bar = {};
+bar.__proto__ = Foo.prototype; // 或者 bar.[[Prototype]] = Foo.prototype
+Foo.apply(bar, args);
+
+return bar;
+```
+
+### 3.4 可运行的 new polyfill
+
+- 好理解的版本
+
+下面这个版本也是根据规范表述写的：
+
+```js
+// 入参：构造函数、构造函数入参
+function myNew() {
+  let obj = {};
+  // 提取构造函数，同时删除 arguments 第一个元素
+  let Constructor = Array.prototype.shift.call(arguments);
+
+  obj.__proto__ = Constructor.prototype;
+
+  let temp = Constructor.apply(obj, arguments);
+
+  // 如果构造函数返回对象，则直接返回构造函数的对象，不然返回创建的对象
+  return temp instanceof Object ? temp : obj;
+}
+```
+
+- 兼容不支持 `__proto__` 的版本
+
+```js
+function myNew() {
+  let Constructor = Array.prototype.shift.call(arguments);
+
+  // 创建对象，并关联原型链
+  let obj = Object.create(Constructor.prototype);
+
+  let temp = Constructor.apply(obj, arguments);
+
+  // 如果构造函数返回对象，则直接返回构造函数的对象，不然返回创建的对象
+  return temp instanceof Object ? temp : obj;
+}
+```
+
+> 参考这篇文章后面的评论[JavaScript深入之new的模拟实现](https://github.com/mqyqingfeng/Blog/issues/13)，注意，**是这篇文章后面的评论**，文章本身代码实现和 《JavaScript 设计模式与开发实践》p19 中一样，不知谁参考了谁的，但后面的评论有些很精彩。
 
 ## 4）几点说明
 
