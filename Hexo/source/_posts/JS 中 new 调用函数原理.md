@@ -242,8 +242,38 @@ o.__proto__.constructor.name; // Foo
 o.__proto__.constructor === Foo; // true
 ```
 
+### 4.3 关于内建构造函数
+
+```js
+// 内建构造函数都是 Function 的实例
+// 毕竟也是函数，但创建过程待重新整理
+Object instanceof Function; // true
+Function instanceof Function; // true
+Array instanceof Function; // true
+Date instanceof Function; // true
+RegExp instanceof Function; // true
+
+// 或者
+Object.__proto__.constructor === Function; // true
+Function.__proto__.constructor === Function; // true
+Array.__proto__.constructor === Function; // true
+Date.__proto__.constructor === Function; // true
+RegExp.__proto__.constructor === Function; // true
+```
+
+但下面也成立：
+
+```js
+Function instanceof Object;
+
+// 因为 Function 的原型对象（Function.__proto__）的 __proto__ 指向 Object.prototype
+// 即 Object.prototype 出现在了 Function 的原型链上
+Function.__proto__.__proto__ === Object.prototype; // true
+```
+
+具体参考这篇问答：[Why in JavaScript both “Object instanceof Function” and “Function instanceof Object” return true?](https://stackoverflow.com/questions/23622695/why-in-javascript-both-object-instanceof-function-and-function-instanceof-obj/23623598)
 
 ## 参考资料
 
-[What values can a constructor return to avoid returning this?](https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)  
-[`[[Construct]]` internal method](https://stackoverflow.com/questions/21874128/construct-internal-method)
+[What values can a constructor return to avoid returning this?](https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)    
+[`[[Construct]]` internal method](https://stackoverflow.com/questions/21874128/construct-internal-method)   
