@@ -304,7 +304,7 @@ console.log("12");
 
 这部分将用 promise 封装 ajax 的 GET 请求，为接下来的链式调用 promise 做准备。
 
-> 最简单的 ajax 请求，没有考虑兼容性，请求错误处理等，主要说明 promise 应用
+> 最简单的 ajax 请求，没有考虑兼容性，请求错误处理等，主要说明 promise 应用   
 
 ```js
 // 使用 promise 封装 ajax
@@ -364,7 +364,7 @@ var p = new Promise((r, j) => {
 p.then(v => console.log(v)).then(v => console.log(v));
 ```
 
-没有显示的`return`语句，默认返回已完成且`[[PromiseValue]]`值为`undefined`的 promise
+没有显式的`return`语句，默认返回已完成且`[[PromiseValue]]`值为`undefined`的 promise
 
 上面代码等同于：
 
@@ -399,7 +399,7 @@ p1 {
 }
 ```
 
-### 3.2.2 显示 return 非 promise
+### 3.2.2 显式 return 非 promise
 
 如果在`then()`中显式`return`非 promise，返回的数据就是当前 promise 兑现后的`[[PromiseValue]]`的值：
 
