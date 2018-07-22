@@ -1,12 +1,12 @@
 ---
-title: 开发 React Native APP —— 从改造官方Demo开始（二）
+title: 开发 React Native APP（二）
 date: 2018-02-27 19:55:29
 tags: [Hybrid App,React,Android]
 categories: Hybrid App
 e_title: develop-react-native-app-2
 ---
 
-经过第一部分[开发 React Native APP —— 从改造官方 Demo 开始（一）](https://xiaogliu.github.io/2018/02/27/develop-react-native-app-1/)介绍，App 框架基本构建完成，这部分主要讨论 UI/交互、App 发布前的准备工作及如何发布，具体内容包括：
+经过第一部分[开发 React Native APP（一）](https://xiaogliu.github.io/2018/02/27/develop-react-native-app-1/)介绍，App 框架基本构建完成，这部分主要讨论 UI/交互、App 发布前的准备工作及如何发布，具体内容包括：
 
 * 在使用 react navigation 的前提下，**iOS 实现单个页面从下往上（modal）的进入动画**
 * 尺寸自适应
@@ -132,7 +132,7 @@ const AppNavigator = StackModalNavigator();
 
 * `config/pxToDp.js` 尺寸转换的工具函数
 
-> 尺寸转换的工具函数在第一部分[开发 React Native APP —— 从改造官方 Demo 开始（一）](https://xiaogliu.github.io/2018/02/27/develop-react-native-app-1/)已经添加
+> 尺寸转换的工具函数在第一部分[开发 React Native APP（一）](https://xiaogliu.github.io/2018/02/27/develop-react-native-app-1/)已经添加
 
 1）编写自适应尺寸工具函数
 

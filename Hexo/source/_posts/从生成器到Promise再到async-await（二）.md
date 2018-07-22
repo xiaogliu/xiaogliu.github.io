@@ -675,8 +675,6 @@ console.log("12"); // 1，5，10，12，等待2
 
 # 参考资料
 
-[美]JOHN RESIG,BEAR BIBEAULT and JOSIP MARAS 著（2016），Secrets of the JavaScript Ninja (Second Edition)，第 6 章 promise 部分，Manning Publications Co.
-
-[美]Nicholas C. Zakas 著，刘振涛 译（2017），深入理解 ES6，p86~p97，电子工业出版社
-
-[Promise 必知必会（十道题）](https://zhuanlan.zhihu.com/p/30828196)
+【1】[美]JOHN RESIG,BEAR BIBEAULT and JOSIP MARAS 著（2016），Secrets of the JavaScript Ninja (Second Edition)，第 6 章 promise 部分，Manning Publications Co.   
+【2】[美]Nicholas C. Zakas 著，刘振涛 译（2017），深入理解 ES6，p86~p97，电子工业出版社   
+【3】[Promise 必知必会（十道题）](https://zhuanlan.zhihu.com/p/30828196)   
