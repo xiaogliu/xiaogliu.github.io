@@ -1,12 +1,12 @@
 ---
-title: 从生成器到 Promise 再到 async-await（二）
+title: 异步之二：Promise
 date: 2018-07-22 22:57:24
 tags: [JavaScript, ES6, ES7]
 categories: JavaScript
-e_title: from-generator-to-promise-to-async-wait-2
+e_title: from-generator-to-promise-to-async-2
 ---
 
-解决回调地狱的异步操作，async-await 是终极办法，但了解生成器和 Promise 有助于理解 async-wait 原理。由于内容较多，分三部分进行，这是第二部分，介绍 Promise 相关。[第一部分介绍 Generator](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-wait-1)，[第三部分介绍 async-await](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-wait-3)。
+解决回调地狱的异步操作，Async 函数 是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第二部分，介绍 Promise 相关。[第一部分介绍 Generator](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-1)，[第三部分介绍 Async 函数](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-3)。
 
 # 1）Promise 概述
 
@@ -574,7 +574,7 @@ promiseAjax("URL1")
 
 # 4）promise 的实现
 
-限于篇幅，将在另一篇文章中专门写 promise 的源码实现。
+限于篇幅，将在另一篇文章中专门写 promise 的原理及实现。
 
 > 网上有很多类似文章了，自己写一遍加深印象。
 
@@ -582,9 +582,9 @@ promiseAjax("URL1")
 
 相比使用回调函数，promise 已经使代码得到了很大改善， 但相比同步代码还是看着有些复杂，比如，链式调用那部分，代码看上去还是有些混乱。
 
-**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是第三部分将要介绍的 async-await。
+**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是第三部分将要介绍的 Async 函数。
 
-那是不是说 promise 就没用了呢？并不是，async-wait 实际是生成器 + promise 的语法糖，只有理解了生成器和 promise 的原理，才能更好的理解 async-await。
+那是不是说 promise 就没用了呢？并不是，Async 函数实际是生成器 + promise 的语法糖，只有理解了生成器和 promise 的原理，才能更好的理解 Async 函数。
 
 # 附录
 
