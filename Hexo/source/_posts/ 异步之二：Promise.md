@@ -581,7 +581,7 @@ promiseAjax("URL1")
 
 相比使用回调函数，promise 已经使代码得到了很大改善， 但相比同步代码还是看着有些复杂，比如，链式调用那部分，代码看上去还是有些混乱。
 
-**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是[第三部分](http://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-3/)将要介绍的 Async 函数。
+**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是[第三部分](https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-3/)将要介绍的 Async 函数。
 
 那是不是说 promise 就没用了呢？并不是，Async 函数实际是 _生成器 + promise_ 的语法糖，只有理解了生成器和 promise 的原理，才能更好的理解 Async 函数。并且，现在很多 Web API 甚至库（比如 [axios](https://github.com/axios/axios)）都是经过 promise 封装的，熟悉 promise 的使用及原理有助于理解和 promise 相关的其他代码。
 
