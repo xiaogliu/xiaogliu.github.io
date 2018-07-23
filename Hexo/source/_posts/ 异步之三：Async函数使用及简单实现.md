@@ -31,7 +31,7 @@ Async 函数会 **返回一个已完成的 promise 对象**，实际在使用的
 
 如果 async 函数体内如果没有`await`操作符，那么它返回的 promise 对象状态和他的函数体内代码怎么写有关系，具体和 promise 的`then()`方法的处理方式相同：
 
-- 没有显式 return 任何数据
+1）没有显式 return 任何数据
 
 此时默认返回`Promise.resolve()`:
 
@@ -56,7 +56,7 @@ a {
 }
 ```
 
-- 显式 return 非 promise
+2）显式 return 非 promise
 
 相当于返回`Promise.resolve(data)`
 
@@ -83,16 +83,12 @@ a {
 }
 ```
 
-- 显式 return promise 对象
+3）显式 return promise 对象
 
 此时 async 函数返回的 promise 对象状态由显示返回的 promise 对象状态决定，这里以被拒绝的 promise 为例：
 
 ```js
-var a = (async () => {
-  return new Promise((r, j) => {
-    j(111);
-  });
-})();
+var a = (async () => Promise.reject(111))();
 ```
 
 此时 a 的值：
@@ -126,7 +122,7 @@ rv: 可选。如果有且 expression 是非 promise 的值，则 rv 等于 expre
 
 看下面代码例子：
 
-- expression 后为非 promise
+1）expression 后为非 promise
 
 ```js
 (async () => {
@@ -137,27 +133,23 @@ rv: 可选。如果有且 expression 是非 promise 的值，则 rv 等于 expre
 
 直接返回这个 expression 的值，即，打印 `111`。
 
-- expression 为兑现的 promise
+2）expression 为兑现的 promise
 
 ```js
 (async () => {
-  const b = await new Promise((r, j) => {
-    r(111);
-  });
+  const b = await Promise.resolve(111);
   console.log(b); // 111
 })();
 ```
 
 返回兑现的 promise 的值，所以打印`111`。
 
-- expression 为拒绝的 promise
+3）expression 为拒绝的 promise
 
 ```js
 (async () => {
   try {
-    const b = await new Promise((r, j) => {
-      j(111);
-    });
+    const b = await Promise.reject(111);
 
     // 前面的 await 出错后，当前代码块后面的代码就不执行了
     console.log(b); // 不执行
@@ -209,8 +201,8 @@ async function() {
 
 这里有两点值得关注:
 
-1.  `await`帮我们处理了 promise，要么返回兑现的值，要么抛出异常；
-2.  `await`在等待 promise 兑现的同时，整个 async 函数会挂起，promise 兑现后再重新执行接下来的代码。
+1）`await`帮我们处理了 promise，要么返回兑现的值，要么抛出异常；
+2）`await`在等待 promise 兑现的同时，整个 async 函数会挂起，promise 兑现后再重新执行接下来的代码。
 
 对于第 2 点，是不是想到了生成器？在 1.4 节中我们会通过生成器 + promise 自己写一个 async 函数。
 
@@ -242,9 +234,9 @@ async function fn2() {
 }
 ```
 
-# 3 Async 模拟实现
+# 3）Async 模拟实现
 
-## 2.1 async 函数处理异步数据的原理
+## 3.1 async 函数处理异步数据的原理
 
 我们先看下 async 处理异步的原理：
 
@@ -259,13 +251,13 @@ async 函数本身的行为，和生成器类似；而`await`等待的通常是 
 
 既然我们知道了 async 函数处理异步数据的原理，接下来我们就简单模拟下 async 函数的实现过程。
 
-## 2.2 async 函数简单实现
+## 3.2 async 函数简单实现
 
 这里只模拟 async 函数配合`await`处理网络请求的场景，并且请求最终返回 promise 对象，async 函数本身返回值（已完成的 promise 对象）及更多使用场景这里没做考虑。
 
 所以接下来的 myAsync 函数只是为了说明 async-await 原理，不要将其用在生产环境中。
 
-### 2.2.1 代码实现
+### 3.2.1 代码实现
 
 ```js
 /**
@@ -300,7 +292,7 @@ var myAsync = generator => {
 };
 ```
 
-### 2.2.2 使用
+### 3.2.2 使用
 
 `myAsync`接收的一个生成器作为入参，生成器函数内部的代码，和写原生 async 函数类似，只是用`yield`代替了`await`
 
@@ -321,19 +313,19 @@ myAsync(function*() {
 
 如果第二个`yield`语句后的 promise 被拒绝`Promise.reject(a + 10)`，则打印`出错了：11`。
 
-### 2.2.3 说明：
+### 3.2.3 说明：
 
 - myAsync 函数接受一个生成器作为参数，控制生成器的 _挂起_ 可达到使整个 myAsync 函数在异步代码请求过程 _挂起_ 的效果；
 - myAsync 函数内部通过定义`handle`函数，控制生成器的 _挂起-执行_。
 
 具体过程如下：
 
-1.  首先调用`generator()`生成它的控制器，即迭代器`iterator`，此时，生成器处于挂起状态；
-2.  第一次调用`handle`函数，并传入`iterator.next()`，这样就完成生成器的第一次调用的；
-3.  执行生成器，遇到`yield`生成器再次挂起，同时把`yield`后表达式的结果（未完成的 promise）传给 handle；
-4.  生成器挂起的同时，异步请求还在进行，异步请求完成（promise 兑现）后，会调用`handle`函数中的`iteratorValue.then()`；
-5.  `iteratorValue.then()`执行时内部递归调用`handle`，同时把异步请求回的数据传给生成器（`iterator.next(result)`），生成器更新数据再次执行。如果出错直接结束；
-6.  3、4、5 步重复执行，直到生成器结束，即`iteratorResult.done === true`，myAsync 结束调用。
+1）首先调用`generator()`生成它的控制器，即迭代器`iterator`，此时，生成器处于挂起状态；
+2）第一次调用`handle`函数，并传入`iterator.next()`，这样就完成生成器的第一次调用的；
+3）执行生成器，遇到`yield`生成器再次挂起，同时把`yield`后表达式的结果（未完成的 promise）传给 handle；
+4）生成器挂起的同时，异步请求还在进行，异步请求完成（promise 兑现）后，会调用`handle`函数中的`iteratorValue.then()`；
+5）`iteratorValue.then()`执行时内部递归调用`handle`，同时把异步请求回的数据传给生成器（`iterator.next(result)`），生成器更新数据再次执行。如果出错直接结束；
+6）3、4、5 步重复执行，直到生成器结束，即`iteratorResult.done === true`，myAsync 结束调用。
 
 > 如果看不明白，可参考下 [第一部分](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-1) 生成器相关和 [第二部分](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-2) Promise 相关。
 

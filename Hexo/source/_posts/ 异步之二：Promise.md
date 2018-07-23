@@ -58,10 +58,10 @@ console.log(555);
 
 分析：
 
-1.  `executor`函数立即执行，所以`111`先打印出来；
-2.  `resolve`此时也立即执行，为了体现这一点，给其传入了立即执行函数，直接打印出了`222`。实际上此时 promise 已经完成，但我们还无法访问完成后的 promise，需要配合下文讨论的`then()`访问；
-3.  紧接着是后面代码执行，打印`444`；
-4.  最后打印`555`。
+1）`executor`函数立即执行，所以`111`先打印出来；
+2）`resolve`此时也立即执行，为了体现这一点，给其传入了立即执行函数，直接打印出了`222`。实际上此时 promise 已经完成，但我们还无法访问完成后的 promise，需要配合下文讨论的`then()`访问；
+3）紧接着是后面代码执行，打印`444`；
+5）最后打印`555`。
 
 > 虽然一直在讨论`resolve`，`reject`执行时过程同`resolve`，不单独讨论。
 
@@ -84,8 +84,8 @@ promise 实例拥有`then()`方法，它设计的目的是 **异步获取** prom
 
 这里要注意，函数完成之后才执行`then()`，并且`then()`里面的函数是异步执行的，**最快在当前事件循环的微任务开始执行时执行**，这里有两点要注意：
 
-1.  虽然是异步，但仍然是在当前事件循环中执行（微任务在当前事件循环中执行，只是在宏任务之后），所以，会比`setTimeout()`中的代码先执行（`setTimeout()`中代码会在下一个事件循环中执行）；
-2.  之所以称之为异步，是因为`then()`里面的代码会移到当前事件循环的微任务中执行，如果`then()`之后还有宏任务代码需要执行，微任务要等宏任务中的代码执行完之后才执行。
+1）虽然是异步，但仍然是在当前事件循环中执行（微任务在当前事件循环中执行，只是在宏任务之后），所以，会比`setTimeout()`中的代码先执行（`setTimeout()`中代码会在下一个事件循环中执行）；
+2）之所以称之为异步，是因为`then()`里面的代码会移到当前事件循环的微任务中执行，如果`then()`之后还有宏任务代码需要执行，微任务要等宏任务中的代码执行完之后才执行。
 
 > 关于 JS 运行机制更详细的讨论可以参考这篇文章 [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.im/post/59e85eebf265da430d571f89)
 
@@ -170,7 +170,7 @@ Promise 实例创建以后，我们需要关注两个内部属性：
 
 见下面例子：
 
-- pending 状态
+1）pending 状态
 
 ```js
 var p = new Promise((r, j) => {});
@@ -188,7 +188,7 @@ p {
 }
 ```
 
-- resolved 状态
+2）resolved 状态
 
 ```js
 var p = new Promise((r, j) => {
@@ -207,7 +207,7 @@ p {
 }
 ```
 
-- rejected 状态
+3）rejected 状态
 
 ```js
 var p = new Promise((r, j) => {
@@ -442,7 +442,7 @@ p1 {
 }
 ```
 
-- **NOTICE**：
+**NOTICE**：
 
 返回错误对象也是相当于返回兑现的 promise，如下：
 
@@ -490,7 +490,7 @@ p.then(v => {
   .catch(e => console.log("拒绝"));
 ```
 
-- **NOTICE**
+**NOTICE**
 
 如果当前返回的是被拒绝的 promise，则后面的所有`then()`都不执行，直到遇到第一个`catch()`，执行`catch()`里面的代码，并且当前`catch()`也会返回一个 promise。
 
@@ -541,12 +541,11 @@ promiseAjax("URL1")
 Promise 还有两个常用功能`promise.all()`和`promise.race`，它们都用于一次处理多个 promise，不同点是：
 
 - `promise.all()`可以一次处理多个 promise，我们 **不需要关心哪个先完成，全部兑现后后统一返回，但任何一个 promise 被拒绝都会导致整个 promise 被拒绝**；
-
 - 使`promise.race()`时我们也 **不需要关心执行顺序，但任何一个 promise 完成就会立即返回这个完成的 promise**。
 
 它们的不同点主要体现在 promise 兑现后传递给`then()`的数据：`promise.all()`返回的是**所有** promise 兑现后组成的数组数据，而`promise.race()`返回的是 **最先完成的那一个** promise 返回的数据。见下面的代码例子：
 
-- `promise.all()`
+1）`promise.all()`
 
 ```js
 promise.all[
@@ -559,7 +558,7 @@ promiseAjax("URL1")
 }).catch(e => console.log(e));
 ```
 
-- `promise.rase()`
+2）`promise.rase()`
 
 ```js
 promise.race[
@@ -582,9 +581,9 @@ promiseAjax("URL1")
 
 相比使用回调函数，promise 已经使代码得到了很大改善， 但相比同步代码还是看着有些复杂，比如，链式调用那部分，代码看上去还是有些混乱。
 
-**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是第三部分将要介绍的 Async 函数。
+**那能不能用写同步代码的方式请求异步数据呢**？可以的，这就是[第三部分](http://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-3/)将要介绍的 Async 函数。
 
-那是不是说 promise 就没用了呢？并不是，Async 函数实际是生成器 + promise 的语法糖，只有理解了生成器和 promise 的原理，才能更好的理解 Async 函数。
+那是不是说 promise 就没用了呢？并不是，Async 函数实际是 _生成器 + promise_ 的语法糖，只有理解了生成器和 promise 的原理，才能更好的理解 Async 函数。并且，现在很多 Web API 甚至库（比如 [axios](https://github.com/axios/axios)）都是经过 promise 封装的，熟悉 promise 的使用及原理有助于理解和 promise 相关的其他代码。
 
 # 附录
 
