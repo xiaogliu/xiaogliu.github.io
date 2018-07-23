@@ -327,7 +327,7 @@ myAsync(function*() {
 5）`iteratorValue.then()`执行时内部递归调用`handle`，同时把异步请求回的数据传给生成器（`iterator.next(result)`），生成器更新数据再次执行。如果出错直接结束；
 6）3、4、5 步重复执行，直到生成器结束，即`iteratorResult.done === true`，myAsync 结束调用。
 
-> 如果看不明白，可参考下 [第一部分](https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-1) 生成器相关和 [第二部分](https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-2) Promise 相关。
+> 如果看不明白，可参考下 [第一部分](https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-1/) 生成器相关和 [第二部分](https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-2/) Promise 相关。
 
 # 参考
 
