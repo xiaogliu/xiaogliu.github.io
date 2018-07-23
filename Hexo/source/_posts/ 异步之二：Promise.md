@@ -6,7 +6,7 @@ categories: JavaScript
 e_title: from-generator-to-promise-to-async-2
 ---
 
-解决回调地狱的异步操作，Async 函数 是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第二部分，介绍 Promise 相关。[第一部分介绍 Generator](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-1)，[第三部分介绍 Async 函数](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-3)。
+解决回调地狱的异步操作，Async 函数 是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第二部分，介绍 Promise 相关。[第一部分](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-1)介绍 Generator，[第三部分](https://xiaogliu.github.io/2018/07/22/from-generator-to-promise-to-async-3)介绍 Async 函数。
 
 # 1）Promise 概述
 
