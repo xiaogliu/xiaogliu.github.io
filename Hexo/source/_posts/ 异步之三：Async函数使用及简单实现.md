@@ -208,9 +208,28 @@ async function() {
 
 ## 2.2 无依赖关系的异步数据
 
-Async 函数没有`Promise.prototype.all()`之类的方法，我们需要写多几个 async 函数。
+~~Async 函数没有`Promise.prototype.all()`之类的方法，我们需要写多几个 async 函数。~~
 
-> 无依赖的异步数据，写在一起不见得是好的实践，因为拿到异步数据我们往往需要对数据做进一步处理，都放在一起，看上去会显得混乱。
+可以借助`Promise.all()`在同一个 async 函数中并行处理多个无依赖关系的异步数据，如下：
+
+```js
+async function fn1() {
+  try {
+    const arr = await Promise.all([
+      promiseAjax("URL1"),
+      promiseAjax("URL2"),
+    ]);
+
+    // ... do something
+  } catch (e) {
+    console.log(e);
+  }
+}
+```
+
+但此时返回的`arr`是所有 promise 解决后的值组成的数组，如果我们需要对请求回的数据分别做处理，还要手动提取一波。并且，无依赖的异步数据间往往对应不同业务，写在一个函数里不管前期写，还是后期维护，都会增加困难。
+
+所以说无依赖的异步数据，写在一起不见得是好的实践，具体权衡，看业务需求。下面是分开写的例子：
 
 ```js
 async function fn1() {
