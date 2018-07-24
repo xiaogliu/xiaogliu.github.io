@@ -208,7 +208,7 @@ async function() {
 
 ## 2.2 无依赖关系的异步数据
 
-~~Async 函数没有`Promise.prototype.all()`之类的方法，我们需要写多几个 async 函数。~~
+~~Async 函数没有`Promise.all()`之类的方法，我们需要写多几个 async 函数。~~
 
 可以借助`Promise.all()`在同一个 async 函数中并行处理多个无依赖关系的异步数据，如下：
 
@@ -226,6 +226,8 @@ async function fn1() {
   }
 }
 ```
+
+> 感谢 [@贾顺名](https://segmentfault.com/u/jiasm) 的 [评论](https://segmentfault.com/a/1190000015735201#goToReplyArea)
 
 但此时返回的`arr`是所有 promise 解决后的值组成的数组，如果我们需要对请求回的数据分别做处理，还要手动提取一波。并且，无依赖的异步数据间往往对应不同业务，写在一个函数里不管前期写，还是后期维护，都会增加困难。
 
@@ -350,7 +352,7 @@ myAsync(function*() {
 
 # 参考
 
-【1】[美]JOHN RESIG,BEAR BIBEAULT and JOSIP MARAS 著（2016），Secrets of the JavaScript Ninja (Second Edition)，p159，Manning Publications Co.
-【2】[async function-MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
-【3】[await-MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
-【4】[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
+【1】[美]JOHN RESIG,BEAR BIBEAULT and JOSIP MARAS 著（2016），Secrets of the JavaScript Ninja (Second Edition)，p159，Manning Publications Co.   
+【2】[async function-MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)   
+【3】[await-MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)   
+【4】[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)   
