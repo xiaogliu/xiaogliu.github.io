@@ -538,21 +538,21 @@ promiseAjax("URL1")
 
 ## 3.3 Promise 其他用法
 
-Promise 还有两个常用功能`promise.all()`和`promise.race`，它们都用于一次处理多个 promise，不同点是：
+Promise 还有两个常用功能`Promise.all()`和`Promise.race`，它们都用于一次处理多个 promise，不同点是：
 
-- `promise.all()`可以一次处理多个 promise，我们 **不需要关心哪个先完成，全部兑现后后统一返回，但任何一个 promise 被拒绝都会导致整个 promise 被拒绝**；
-- 使`promise.race()`时我们也 **不需要关心执行顺序，但任何一个 promise 完成就会立即返回这个完成的 promise**。
+- `Promise.all()`可以一次处理多个 promise，我们 **不需要关心哪个先完成，全部兑现后后统一返回，但任何一个 promise 被拒绝都会导致整个 promise 被拒绝**；
+- 使`Promise.race()`时我们也 **不需要关心执行顺序，但任何一个 promise 完成就会立即返回这个完成的 promise**。
 
-它们的不同点主要体现在 promise 兑现后传递给`then()`的数据：`promise.all()`返回的是**所有** promise 兑现后组成的数组数据，而`promise.race()`返回的是 **最先完成的那一个** promise 返回的数据。见下面的代码例子：
+它们的不同点主要体现在 promise 兑现后传递给`then()`的数据：`Promise.all()`返回的是**所有** promise 兑现后组成的数组数据，而`Promise.race()`返回的是 **最先完成的那一个** promise 返回的数据。见下面的代码例子：
 
-1）`promise.all()`
+1）`Promise.all()`
 
 ```js
-promise.all[
+Promise.all([
   promiseAjax("URL1"),
   promiseAjax("URL2"),
   promiseAjax("URL3"),
-].then(data => {
+]).then(data => {
   // data[1] 对应请求 URL1 后得到的数据，其他蕾丝
   console.log(data[1], data[2], data[3]);
 }).catch(e => console.log(e));
@@ -561,11 +561,11 @@ promiseAjax("URL1")
 2）`promise.rase()`
 
 ```js
-promise.race[
+Promise.race([
   promiseAjax("URL1"),
   promiseAjax("URL2"),
   promiseAjax("URL3"),
-].then(data => {
+]).then(data => {
   // data 表示先完成的那个 promise 请求的 URL 数据
   console.log(data);
 }).catch(e => console.log(e));
