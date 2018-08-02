@@ -243,8 +243,10 @@ optimization: {
         name: 'vendor',
         // 只要第三方库，只要 > 0B, 就 split 出来
         minSize: 0,
-        priority: 10,
-        enforce: true,
+        // 只要被引用一次，也要分离出来
+        minChunks: 1,
+        // priority: 10,
+        // enforce: true,
       },
       common: {
         //  split  `src/js/common` 目录下共用的代码到`common.js`
@@ -256,8 +258,8 @@ optimization: {
         name: 'common',
         minChunks: 2,
         minSize: 0,
-        priority: 9,
-        enforce: true,
+        // priority: 9,
+        // enforce: true,
       },
     },
   },
@@ -311,6 +313,8 @@ if (module.hot) {
 ```
 
 多页面目前只有在 JS 或者 CSS 文件改变的时候实现了热更新，如果是模版（html）文件改变，没有实现热更新（可以实现自动刷新页面，但感觉很鸡肋，如果改动了模版文件，手动刷新）。
+
+> devServer 还可以设置反向代理，后续填坑。
 
 ### 2.6.4 resolve
 
@@ -415,6 +419,15 @@ plugins: [
   }),
 ],
 ```
+
+## 3.3 缓存控制
+
+主要一下几个方面：
+
+- 提取 css，添加 `contenthash`（使用 `mini-css-extract-plugin`）;
+- 提取公共代码（工具函数等，更改频率相比业务代码要小），添加 `contenthash`，使用 webpack 自带 splitChunks 提取;
+- 提取第三方库代码（比如 jquery，更改频率相比公共代码还要小），添加 `contenthash`，使用 webpack 自带 splitChunks 提取;
+- 图片可以直接打 `hash`（图片文件添加 hash 并不一样，也不会随每次构建改变，还不知原理，反正可以工作，待填坑）。
 
 # 参考资料
 

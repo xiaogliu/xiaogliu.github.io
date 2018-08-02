@@ -242,6 +242,27 @@ o.__proto__.constructor.name; // Foo
 o.__proto__.constructor === Foo; // true
 ```
 
+但重新原型对象，稍不注意会引入新的问题：`constructor` 指向丢失。比如上面的例子:
+
+```js
+const Foo = function() {};
+const o = new Foo();
+// 重写 Foo 原型
+Foo.prototype = {};
+
+var o1 = new Foo();
+o1.__proto__.constructor.name; // Object 而非 Foo，因为 Foo.prototype = new Object(); 新建对象实例，普通对象实例没有 constructor 属性
+
+// 每次重新原型都要向下面这样执行 constructor 
+Foo.prototype = {
+  constructor: Foo,
+};
+var o2 = new Foo();
+o2.__proto__.constructor.name; // Foo
+```
+
+> 虽然 function 自带的原型对象也是对象，但有特殊属性 `constructor`，重写后默认丢失，需要指定。
+
 ### 4.3 关于内建构造函数
 
 ```js
