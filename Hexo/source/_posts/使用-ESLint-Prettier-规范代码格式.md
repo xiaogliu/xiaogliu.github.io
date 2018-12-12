@@ -1,7 +1,7 @@
 ---
 title: 使用 ESLint && Prettier 规范代码格式
 date: 2018-05-15 15:08:18
-tags: [vscode]
+tags: [工具]
 categories: 编程工具
 e_title: format-code-by-eslint-and-prettier
 ---
@@ -44,7 +44,7 @@ ESLint 可以
 
 因为 ESLint 和 Prettier 都可以格式化代码，如果他们对格式化代码执行不同规则，那就可能发生冲突，可以通过配置解决大部分冲突，但仍有一些是无法解决的，比如，Prettier 在 `function` 关键字后不允许有空格且不能自定义，那如果想避免 ESLint 不报错，只能配置 ESLint 允许 `function` 关键字后不带空格（主要针对匿名函数）。
 
-这类不能配置的冲突很少，目前我只发现一例，所以，还是选择继续使用 Prettier，毕竟，更多的时候使用Prettier 很方便，并且，后续 Prettier 版本可能会添加更多自定义选项。
+这类不能配置的冲突很少，目前我只发现一例，所以，还是选择继续使用 Prettier，毕竟，更多的时候使用 Prettier 很方便，并且，后续 Prettier 版本可能会添加更多自定义选项。
 
 > 关于 `function` 关键字后不带空格更多讨论可参考[Space after function keyword - MOVED to #3847!](https://github.com/prettier/prettier/issues/1139)
 
@@ -125,17 +125,17 @@ module.exports = {
   root: true,
   parserOptions: {
     // 检查 ES6 语法
-    parser: 'babel-eslint',
+    parser: "babel-eslint"
   },
   env: {
-    browser: true,
+    browser: true
   },
   // extending airbnb config and config derived from eslint-config-prettier
   // 这里是 vue
-  extends: ['plugin:vue/essential', 'airbnb-base', 'prettier'],
+  extends: ["plugin:vue/essential", "airbnb-base", "prettier"],
 
   // 选择 eslint 插件
-  plugins: ['prettier', 'vue'],
+  plugins: ["prettier", "vue"],
 
   // react
   // extends: ['airbnb-base', 'prettier'],
@@ -148,26 +148,26 @@ module.exports = {
   // 自定义 eslint 检查规则
   rules: {
     // 自定义 prettier 规则 (实际上，可配置项非常有限)
-    'prettier/prettier': [
-      'error',
+    "prettier/prettier": [
+      "error",
       {
         singleQuote: true,
-        trailingComma: 'all',
-      },
+        trailingComma: "all"
+      }
     ],
-    camelcase: 'off', // 强制驼峰法命名
-    'no-new': 'off', // 禁止在使用new构造一个实例后不赋值
-    'space-before-function-paren': 'off', // 函数定义时括号前面不要有空格
-    'no-plusplus': 'off', // 禁止使用 ++， ——
-    'max-len': 'off', // 字符串最大长度
-    'func-names': 'off', // 函数表达式必须有名字
-    'no-param-reassign': 'off', // 不准给函数入参赋值
+    camelcase: "off", // 强制驼峰法命名
+    "no-new": "off", // 禁止在使用new构造一个实例后不赋值
+    "space-before-function-paren": "off", // 函数定义时括号前面不要有空格
+    "no-plusplus": "off", // 禁止使用 ++， ——
+    "max-len": "off", // 字符串最大长度
+    "func-names": "off", // 函数表达式必须有名字
+    "no-param-reassign": "off" // 不准给函数入参赋值
 
     // react 如果在项目中文件名后缀是 .js 而不是 .jsx 避免报错
     // "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     // react props validation 错误
     // "react/prop-types": 0,
-  },
+  }
 };
 ```
 
