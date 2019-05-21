@@ -6,7 +6,7 @@ categories: JavaScript
 e_title: develop-full-page-scroll-by-es6
 ---
 
-这篇文章将介绍如何使用原生 JS （主要使用 ES6 语法）实现全屏滚动插件，兼容 IE 10+、手机触屏，Mac 触摸板优化，支持自定义页面动画，压缩后 gzip 文件只有 2.15KB。完整源码在这 [pure_full_page](https://github.com/xiaogliu/pure_full_page)，点这查看 [demo](https://xiaogliu.github.io/pure_full_page/index.html)。
+这篇文章将介绍如何使用原生 JS （主要使用 ES6 语法）实现全屏滚动插件，兼容 IE 10+、手机触屏，Mac 触摸板优化，支持自定义页面动画，压缩后 gzip 文件只有 2.15KB。完整源码在这 [pure-full-page](https://github.com/xiaogliu/pure-full-page)，点这查看 [demo](https://xiaogliu.github.io/pure-full-page/index.html)。
 
 ## 1）前面的话
 
