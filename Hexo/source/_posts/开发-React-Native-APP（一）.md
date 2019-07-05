@@ -6,8 +6,6 @@ categories: Hybrid App
 e_title: develop-react-native-app-1
 ---
 
-**本文使用的 Demo 完整代码在这** [react_native_complete_demo](https://github.com/xiaogliu/react_native_complete_demo)。
-
 最开始接到公司通知要开发 React Native APP 的时候，很兴奋，因为之前的技术栈主要是 Vue 和 Angular，对于 React 只是写过几个 Demo，一直想在实际项目中使用但没有机会。不过公司给的开发时间很短，从设计需求到第一版送审只给了一个月时间。鉴于之前使用 Vue 的经验（即便不是很熟的情况下也可以把官网 Demo 撸下来改改就能上线，功能及性能可以后续迭代优化）以及业务 API 90%以上都已和后台同学联调 OK，当时想一个月绰绰有余。
 
 虽说最后 APP 上线了（[iOS](https://itunes.apple.com/cn/app/%E6%A6%84%E7%9B%9B%E9%87%91%E8%9E%8D/id1336295162?mt=8)，[安卓](http://ol9ge41ud.bkt.clouddn.com/lsapp.apk)），但开发过程中踩了很多坑。
@@ -24,6 +22,8 @@ e_title: develop-react-native-app-1
 * 自定义组件
 * 通过 fetch API 发送网络请求
 * 集成 redux，并实现 redux 状态的持久化存储
+
+完整 demo 在这 [react-native-complete-demo](https://github.com/xiaogliu/react-native-complete-demo)
 
 # 一 准备工作
 

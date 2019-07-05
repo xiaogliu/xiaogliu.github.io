@@ -13,6 +13,8 @@ e_title: develop-react-native-app-2
 * 设置启动页，更换桌面图标、app 展示名称、appID
 * 打包发布
 
+完整 demo 在这 [react-native-complete-demo](https://github.com/xiaogliu/react-native-complete-demo)
+
 # 一 扩展 react navigation
 
 这里的扩展指的是实现**可单独配置页面的进入方式**（[react navigation](https://reactnavigation.org/docs/stack-navigator.html) 默认只支持全局配置，要么 `card`，要么 `modal`，配置后所有页面进入动画相同）。

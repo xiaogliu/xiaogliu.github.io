@@ -35,7 +35,7 @@ e_title: build-blog-by-hexo-github
 打开 Git 命令控制窗口，执行下面命令
 
 ```bash
-$ npm install -g hexo
+$ npm install -g hexo-cli
 ```
 
 ### 3.2 快速开始
