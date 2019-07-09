@@ -1,6 +1,6 @@
 ---
 title: Webpack 备忘录
-date: 2018-07-09 21:50:32
+date: 2019-01-12 21:50:32
 tags: [Webpack]
 categories: Webpack
 e_title: webpack-memo
@@ -8,7 +8,7 @@ e_title: webpack-memo
 
 Webpack 属于在项目中配置一次就很少改动的那种工具，但这样就导致新项目再配置 Webpack 时会有些生疏，所以将 Webpack 核心概念及常用配置记录如下。
 
-# 1）核心概念
+# 一 核心概念
 
 Webpack 4.x 之前的核心概念有四个：entry，output，loaders，plugins，4.x 之后增加了 mode。含义如下：
 
@@ -19,7 +19,7 @@ Webpack 4.x 之前的核心概念有四个：entry，output，loaders，plugins�
   > Loaders 将特定文件转换为有效 module，而 plugin 扩展性更强
 - Mode：接受`development`、`production`、`none`三个值，一般指定为前两个值的一种，webpack 内部针对不同环境做优化。
 
-# 2）配置
+# 二 配置
 
 下面介绍的配置都是`module.exports`的直接属性，比如：
 
@@ -50,6 +50,8 @@ entry: {
   login: './src/js/view/login.js',
 }
 ```
+
+> 上例实际是多页面入口，但页面一般只有一个入口文件。实际，目前（2019-07-09）但单页应用都会官方集成 webpack，开箱即用，除非有深度定制要求。反倒是普通多页应用（当然小项目可能只有一个页面，比如简历）在使用 webpack 时必须进行从 0 到 1 的手动配置。
 
 ## 2.2 Output
 
@@ -127,7 +129,8 @@ Loaders 的配置写在`module`对象中，如前所述，因为 loaders 最终�
 loaders 规则写在 `module.rules` 里面（不知道为什么不直接写在 `module` 中），其中 `rules` 是个数组，可接受一个或多个 loader 配置。两点需要注意：
 
 1）如果某类型需要多个 loader 进行处理，在 `use` 中按 **从右往左** 的顺序流式处理；
-2）每个 loader 可以进行额外配置。
+2）每个 loader 可以进行额外配置；
+3）像是 `postcss-loader`, `babel-loader` 等一般需要额外的配置，**推荐直接在 webpack 配置文件中进行配置，而非在根目录下新建文件**（项目目录看上去更整洁）。
 
 ```js
 module: {
@@ -158,24 +161,6 @@ module: {
 },
 ```
 
-### 2.3.2 常用 loader
-
-- babel-loader：es6+语法转换；
-- html-loader：解析 html 文件；
-- css-loader：解析 css 文件；
-- sass-loader：解析 scss/sass 文件；
-- style-loader：将解析后的 css 嵌入 js；
-- file-loader：解析图片文件；
-- url-loader：具有 file-loader 的全部功能，同时可以提取小图片为 base64（如果开启 HTTP2 这样增大 静态资源体积反而不好？）；
-- postcss-loader：完成 css 自动化处理，比如添加前缀、压缩 css、自动生成雪碧图等
-  > postcss 本身支持插件扩展，常用的有 autoprefixer、cssnano、postcss-sprites，更多参考[官网介绍](https://github.com/postcss/postcss)
-  > 要在 css-loader 之前处理 css：`use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']`
-
-Vue 相关
-
-- vue-loader：解析 vue 文件；
-- vue-style-loader：解析 vue 中的样式文件。
-
 ## 2.4 Plugins
 
 同 loaders 一样，分配置和常用 plugins 两部分
@@ -196,20 +181,6 @@ plugins: [
   new UglifyJsPlugin(),
 ],
 ```
-
-### 2.4.2 常用 plugins
-
-- html-webpack-plugin：将构建后的静态文件动态插入 html 中；
-- webpack-merge：实际项目中，一般将 webpack 配置文件拆分为 base、dev、pro，这个插件用户合并配置文件；
-- webpack.HotModuleReplacementPlugin：热更新插件，webpack 内置；
-- clean-webpack-plugin：清除指定文件夹，一般是构建的目录（大型项目慎用，更新需要时间）；
-- mini-css-extract-plugin：提取 css 文件，减小增量更新成本（**需要在`module`代理 style-loader 处理 css**）；
-  > style-loader 先把 css 嵌入 js 使其变成有效 module，这个插件将 css 从 js 中分离出来。这个过程不矛盾，因为最开始 webpack 无法处理 css 文件，所以需要 css-loader, style-loader 处理，嵌入到 js 中的 css mini-css-extract-plugin 可以识别并提出。这个插件是 webpack 4.x 新引入，代替 extract-text-webpack-plugin。
-- optimize-css-assets-webpack-plugin：将提取出的 css 做进一步优化；
-- uglifyjs-webpack-plugin：**不仅仅是压缩代码，还进行了 tree shaking 工作**；
-- webpack-bundle-analyzer：打包后文件图形化展示工具，一目了然各文件体积；
-- ProvidePlugin：webpack 内置，提取第三方库的 api，比如通过 `$` 符号调用 jq
-  > 如果不是通过 npm 安装，而是直接在项目中引入，需要配合`resolve`的别名使用，不然找不到
 
 ## 2.5 Mode
 
@@ -336,7 +307,7 @@ new webpack.ProvidePlugin({
 }),
 ```
 
-# 3）常见需求详细配置
+# 三 常见需求详细配置
 
 下面记录针对具体需求的完整代码描述。
 
@@ -349,7 +320,6 @@ new webpack.ProvidePlugin({
 相对于直接引入，使用 npm 可以省去我们手动指定 module 路径的麻烦，已 zepto 为例：
 
 > 使用 zepto 时，直接使用 ProvidePlugin 会报错，具体参考这片文章[如何在 webpack 中引入未模块化的库，如 Zepto](https://sebastianblade.com/how-to-import-unmodular-library-like-zepto/)
-
 
 ```js
 // 处理 zepto 模块化问题，需要安装 exports-loader 和 script-loader
@@ -428,6 +398,231 @@ plugins: [
 - 提取公共代码（工具函数等，更改频率相比业务代码要小），添加 `contenthash`，使用 webpack 自带 splitChunks 提取;
 - 提取第三方库代码（比如 jquery，更改频率相比公共代码还要小），添加 `contenthash`，使用 webpack 自带 splitChunks 提取;
 - 图片可以直接打 `hash`（图片文件添加 hash 并不一样，也不会随每次构建改变，还不知原理，反正可以工作，待填坑）。
+
+# 四 常用 loaders 及 plugins
+
+这里按照功能进行划分。
+
+## 4.1 处理 html
+
+1）loaders
+
+- html-loader：解析 html 文件；
+
+2）plugins
+
+- html-webpack-plugin：将构建后的静态文件动态插入 html 中；
+
+## 4.2 处理 js（ts）
+
+1）loaders
+
+- babel-loader：es6+语法转换，目前已支持 ts 转换；
+
+2）plugins
+
+- uglifyjs-webpack-plugin：**不仅仅是压缩代码，还进行了 tree shaking 工作**；
+
+## 4.3 处理 css（sass）
+
+1）loaders
+
+- sass-loader：解析 scss/sass 文件；
+- css-loader：解析 css 文件；
+- style-loader：将解析后的 css 嵌入 js；
+- postcss-loader：完成 css 自动化处理，比如添加前缀、压缩 css、自动生成雪碧图等
+  > postcss 本身支持插件扩展，常用的有 autoprefixer、cssnano、postcss-sprites，更多参考[官网介绍](https://github.com/postcss/postcss)
+  > 要在 css-loader 之前处理 css：`use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']`
+
+- MiniCssExtractPlugin.loader：这个是 `mini-css-extract-plugin` 提供的 loader，可以替代 `style-loader`
+
+2）plugins
+
+- mini-css-extract-plugin：提取 css 文件，减小增量更新成本（**需要在`module`代理 style-loader 处理 css**）；
+  > 这个插件将 css 从 js 中分离出来，是 webpack 4.x 新引入，代替 extract-text-webpack-plugin。
+
+- optimize-css-assets-webpack-plugin：将提取出的 css 做进一步优化；
+
+## 4.4 处理 图片
+
+1）loaders
+
+- file-loader：解析图片文件；
+- url-loader：具有 file-loader 的全部功能，同时可以提取小图片为 base64（如果开启 HTTP2 这样增大 静态资源体积反而不好？）；
+
+## 4.5 构建相关 plugins
+
+涉及到构建的主要是 plugins，分为内置和第三方
+
+1）webpack 内置
+
+- webpack.HotModuleReplacementPlugin：热更新插件，webpack 内置；
+- ProvidePlugin：webpack 内置，提取第三方库的 api，比如通过 `$` 符号调用 jq
+  > 如果不是通过 npm 安装，而是直接在项目中引入，需要配合`resolve`的别名使用，不然找不到
+
+2）第三方
+
+- webpack-merge：实际项目中，一般将 webpack 配置文件拆分为 base、dev、pro，这个插件用户合并配置文件；
+- clean-webpack-plugin：清除指定文件夹，一般是构建的目录（大型项目慎用，更新需要时间）；
+- webpack-bundle-analyzer：打包后文件图形化展示工具，一目了然各文件体积；
+
+## 4.6 第三方库相关
+
+事实上，目前（2019-07-09）第三方库（react，vue，angular）都已经集成好了 webpack，如果不是特别需要，可以不进行单独配置。
+
+1）Vue 相关
+
+- vue-loader：解析 vue 文件；
+- vue-style-loader：解析 vue 中的样式文件。
+
+2）jquery 和 zepto ?
+
+尝试用原生 js 写，兼容到 ie10 +
+
+## 4.7 一键安装 loaders 和 plugins
+
+```bash
+npm i -D html-webpack-plugin @babel/core @babel/preset-env @babel/preset-typescript typescript babel-loader uglifyjs-webpack-plugin node-sass sass-loader css-loader mini-css-extract-plugin postcss-loader postcss-cssnext cssnano clean-webpack-plugin webpack webpack-bundle-analyzer webpack-cli webpack-dev-server webpack-merge
+```
+
+说明：
+
+- `@babel/core @babel/preset-env @babel/preset-typescript typescript` babel 依赖，包含了处理 typescript 的 package
+- `node-sass` 处理 `sass` 的依赖
+- `postcss-cssnext cssnano` 这两个是 postcss 的插件，其中 `postcss-cssnext` 可用于写 css next 版本的语法，同时补全浏览器前缀；而 `cssnano` 可以用来减少 css 文件体积，不止是压缩，可其参考[官方文档示例](https://cssnano.co/)
+
+# 五 一个完整的配置文件
+
+## 5.1 完整文件
+
+示例配置文件只添加了处理 html、js、css 的基础 loaders 和 plugins 以及配置开发环境，至于像 `DllPlugin` 这种高阶插件的使用并没有列入其中。
+
+```js
+const webpack = require("webpack"); //to access built-in plugins
+const HtmlWebpackPlugin = require("html-webpack-plugin"); //installed via npm
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+module.exports = {
+  entry: {
+    // entry files, can multiple files
+    index: "./src/scripts/index.ts"
+  },
+  output: {
+    // output directory
+    path: path.resolve(__dirname, "dist"),
+    // variable in []
+    filename: "js/[name].[hash:8].js",
+    // html static file directory
+    publicPath: "/"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: "babel-loader",
+        options: {
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                targets: {
+                  node: true
+                }
+              }
+            ],
+            "@babel/typescript"
+          ]
+        },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: () => [
+                require('postcss-cssnext')(),
+                require('cssnano')()
+              ]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: () => [
+                require('postcss-cssnext')(),
+                require('cssnano')()
+              ]
+            }
+          },
+          "sass-loader"
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "img/[name].[ext]"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  // recognize typescript
+  resolve: {
+    extensions: [".ts", ".js"]
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[contenthash:8].css",
+      // 这个干嘛用？
+      chunkFileName: "[id].[contenthash:8].css"
+    }),
+    new HtmlWebpackPlugin({ template: "./src/pages/index.html" }),
+    // 直接调用
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
+  },
+  mode: "development",
+  // 生产环境
+  // devtool: "source-map",
+  // 开发环境
+  devtool: "cheap-module-eval-source-map",
+  // 使用webpack-dev-server，提高开发效率
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000,
+    hot: true,
+    open: true
+  }
+};
+```
+
+## 5.2 github 示例代码
+
+<!-- TODO 提供多个参考配置文件（1.拆分；2.带有 zepto；3.不带 zepto 等） -->
+
+在 github 上提供了一个示例代码
 
 # 参考资料
 
