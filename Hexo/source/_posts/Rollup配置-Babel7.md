@@ -6,7 +6,7 @@ categories: tools
 e_title: rollup-config
 ---
 
-Vue 和 React 当前（2019-07-24）都是用 Rollup 作为构建工具，目前有一个最佳实践：如果是应用打包（需要处理静态静态资源，这是 Rollup 的弱项）用 webpack，如果是 library 打包用 Rollup（更小的打包体积及更多选择的输入文件格式，比如 ES6 module，CommonJS 等）。
+Vue 和 React 当前（2019-07-24）都是用 Rollup 作为构建工具，目前有一个[最佳实践](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)：如果是应用打包（需要处理静态静态资源，这是 Rollup 的弱项）用 webpack，如果是 library 打包用 Rollup（更小的打包体积及更多选择的输入文件格式，比如 ES6 module，CommonJS 等）。
 
 关于 Rollup 和 Webpack 打包后资源对比可参考这篇文章 [Tree-Shaking 性能优化实践 - 原理篇](https://juejin.im/post/5a4dc842518825698e7279a9)
 
@@ -210,6 +210,7 @@ plugins: [
 
 [Tree-Shaking 性能优化实践 - 原理篇](https://juejin.im/post/5a4dc842518825698e7279a9)   
 [10分钟快速精通rollup.js——前置学习之rollup.js插件篇](https://juejin.im/post/5bf823b96fb9a049e93c61a8)   
-[你的 Tree-Shaking 并没什么卵用](https://juejin.im/post/5a5652d8f265da3e497ff3de#heading-2)   
-[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typeScript-babel/)
-[使用 rollup 打包 JS](https://juejin.im/post/5c073d86f265da615a419989)
+[你的 Tree-Shaking 并没什么卵用](https://juejin.im/post/5a5652d8f265da3e497ff3de#heading-2)    
+[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typeScript-babel/)   
+[使用 rollup 打包 JS](https://juejin.im/post/5c073d86f265da615a419989)   
+[Webpack and Rollup: the same but different](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)   
