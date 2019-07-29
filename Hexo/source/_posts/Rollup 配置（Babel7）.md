@@ -1,12 +1,12 @@
 ---
-title: Rollup 配置记录
+title: Rollup 配置（Babel7）
 date: 2019-07-24 11:32:06
 tags: [Rollup]
 categories: tools
 e_title: rollup-config
 ---
 
-Vue 和 React 当前（2019-07-24）都是用 Rollup 作为构建工具，目前有一个最佳实践：如果是应用打包（需要处理静态静态资源，这是 Rollup 的弱项）用 webpack，如果是 library 打包用 Rollup（更小的打包体积及更多选择的输入文件格式，比如 ES6 module，commonJS 等）。
+Vue 和 React 当前（2019-07-24）都是用 Rollup 作为构建工具，目前有一个最佳实践：如果是应用打包（需要处理静态静态资源，这是 Rollup 的弱项）用 webpack，如果是 library 打包用 Rollup（更小的打包体积及更多选择的输入文件格式，比如 ES6 module，CommonJS 等）。
 
 关于 Rollup 和 Webpack 打包后资源对比可参考这篇文章 [Tree-Shaking 性能优化实践 - 原理篇](https://juejin.im/post/5a4dc842518825698e7279a9)
 
@@ -34,7 +34,7 @@ Vue 和 React 当前（2019-07-24）都是用 Rollup 作为构建工具，目前
 - `output`：处理后的输出文件名及所在目录；
 - `plugins`：对于入口文件一系列处理都依赖插件完成。
 
-> Rollup 支持 ES6 模块和 commonJS 模块，这里使用了 ES6 模块
+> Rollup 支持 ES6 模块和 CommonJS 模块，这里使用了 ES6 模块
 
 ## 2.1）单个输入输出文件
 
@@ -92,9 +92,9 @@ export default [
 ];
 ```
 
-**更常见的模式是一个入口文件，多个输出文件，其中输出文件的不同在于使用了不同的模块定义，比如同时输出 ES6 模块和 commonJS 模块**。
+**更常见的模式是一个入口文件，多个输出文件，其中输出文件的不同在于使用了不同的模块定义，比如同时输出 ES6 模块和 CommonJS 模块**。
 
-> 输出 ES6 模式是为了做 Treeshaking，详见：输出 commonJS 模块是为了兼容。
+> 输出 ES6 模式是为了做 Treeshaking，详见：输出 CommonJS 模块是为了兼容。
 
 # 三 Rollup 插件
 
@@ -106,11 +106,11 @@ import { terser } from "rollup-plugin-terser";
 
 ## 3.1）rollup-plugin-babel
 
-适用于 Rollup 的 Babel 插件。这里需要特别说明，Babel7 之前，如果要转译 Typescript 代码，需要安装单独的 Typescript 插件，但从 Babel7 开始，通过 `preset-typescript` 这一个 preset 对 Typescript 进行转译。
+适用于 Rollup 的 Babel 插件。这里需要特别说明，Babel7 之前，如果要转译 TypeScript 代码，需要安装单独的 TypeScript 插件，但从 Babel7 开始，通过 `preset-typeScript` 这一个 preset 对 TypeScript 进行转译。
 
 > preset 代表一组 _预设_ 的 Babel 插件集合。
 
-相对于引入 TS 自身的编译器，通过 Babel 统一管理需要转译的代码是比较好的（不管 JSX or TS or 其他，只要非目标 JS，都用 Babel 进行转译，相比于 JSX，TS 也没啥特殊的），更多介绍可参考这篇文章：[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typescript-babel/)
+相对于引入 TS 自身的编译器，通过 Babel 统一管理需要转译的代码是比较好的（不管 JSX or TS or 其他，只要非目标 JS，都用 Babel 进行转译，相比于 JSX，TS 也没啥特殊的），更多介绍可参考这篇文章：[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typeScript-babel/)
 
 在 `rollup.config.js` 中配置如下：
 
@@ -135,13 +135,13 @@ plugins: [
     [
       "@babel/preset-env",
       {
-        // 避免转换成 commonJS
+        // 避免转换成 CommonJS
         "modules": false,
         // 使用 loose 模式，避免产生副作用
         "loose": true
       }
     ],
-    ["@babel/preset-typescript"]
+    ["@babel/preset-typeScript"]
   ]
 }
 ```
@@ -211,5 +211,5 @@ plugins: [
 [Tree-Shaking 性能优化实践 - 原理篇](https://juejin.im/post/5a4dc842518825698e7279a9)   
 [10分钟快速精通rollup.js——前置学习之rollup.js插件篇](https://juejin.im/post/5bf823b96fb9a049e93c61a8)   
 [你的 Tree-Shaking 并没什么卵用](https://juejin.im/post/5a5652d8f265da3e497ff3de#heading-2)   
-[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typescript-babel/)
+[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typeScript-babel/)
 [使用 rollup 打包 JS](https://juejin.im/post/5c073d86f265da615a419989)
