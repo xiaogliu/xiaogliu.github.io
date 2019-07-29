@@ -8,7 +8,7 @@ e_title: develop-react-native-app-1
 
 最开始接到公司通知要开发 React Native APP 的时候，很兴奋，因为之前的技术栈主要是 Vue 和 Angular，对于 React 只是写过几个 Demo，一直想在实际项目中使用但没有机会。不过公司给的开发时间很短，从设计需求到第一版送审只给了一个月时间。鉴于之前使用 Vue 的经验（即便不是很熟的情况下也可以把官网 Demo 撸下来改改就能上线，功能及性能可以后续迭代优化）以及业务 API 90%以上都已和后台同学联调 OK，当时想一个月绰绰有余。
 
-虽说最后 APP 上线了（[iOS](https://itunes.apple.com/cn/app/%E6%A6%84%E7%9B%9B%E9%87%91%E8%9E%8D/id1336295162?mt=8)，[安卓](http://ol9ge41ud.bkt.clouddn.com/lsapp.apk)），但开发过程中踩了很多坑。
+虽说最后 APP 上线了（[iOS](https://itunes.apple.com/cn/app/%E6%A6%84%E7%9B%9B%E9%87%91%E8%9E%8D/id1336295162?mt=8)，[安卓](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/lsapp.apk)），但开发过程中踩了很多坑。
 
 首先，难以找到一个开箱即用的 React Native APP Demo。目前存在的 Demo 要么过于简单，比如 React Native 官网提供的 Demo [AwesomeProject](https://facebook.github.io/react-native/docs/getting-started.html) ，这个 Demo 只提供了最简功能，对于路由（导航组件）、状态管理等并没有涉及。虽然 React Native 教程中对于复杂应用应如何选择组件及第三方库都有提及，但并没有给出完整示例。而另一方面，又有很多 [React Native APP](https://github.com/ReactNativeNews/React-Native-Apps) 虽已开源，但都是用于特定场合的完整 APP，有些 APP 的目录结构本身就不友好，并且也没有完整的说明文档。
 
@@ -57,7 +57,7 @@ e_title: develop-react-native-app-1
 
 良好的目录结构有助于今后的开发及维护，本文后半部分每添加新功能，除了代码部分，如果目录结构有变，还会着重指出。首先，让我们看下官方 Demo 的目录结构：
 
-![AwesomeProject 目录结构](http://ol9ge41ud.bkt.clouddn.com/aw_content.jpeg)
+![AwesomeProject 目录结构](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/aw_content.jpeg)
 
 上面的目录结构说明如下，重要的有：
 
@@ -91,7 +91,7 @@ react navigation 常用 API 有三个：
 
 **首先我们要调整下目录结构**，调整后的结构如下：
 
-![添加 StackNavigator 后目录结构](http://ol9ge41ud.bkt.clouddn.com/stack_navigator.png)
+![添加 StackNavigator 后目录结构](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/stack_navigator.png)
 
 * `src/` 放置所有原始的 react native 代码
 * `config/` 配置文件，比如路由配置
@@ -200,13 +200,13 @@ export default self => (
 
 经过上述配置，效果如下：
 
-![StackNavigator效果图](http://ol9ge41ud.bkt.clouddn.com/stack_navigator.gif)
+![StackNavigator效果图](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/stack_navigator.gif)
 
 ## 3.2 TabNavigator 实现页面底部 tab 切换
 
 首先在 `screens` 目录下新建 `ScreenBottomTab` 页面，用于配置 `TabNavigator`。每个 tab 对应一个页面，按需新建页面，并且新建的页面需要在 `route.js` 中进行配置，更新后的目录结构如下：
 
-![添加tab导航后目录结构](http://ol9ge41ud.bkt.clouddn.com/tab_navigator.png)
+![添加tab导航后目录结构](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/tab_navigator.png)
 
 * `ScreenBottomTab` 配置底部 tab 导航
 * `ScreenTab1/2/3` 新建页面，配合底部 tab 导航
@@ -270,7 +270,7 @@ static navigationOptions = {
 
 最终的效果如下:
 
-![底部 tab 导航效果图](http://ol9ge41ud.bkt.clouddn.com/tab_navigator.gif)
+![底部 tab 导航效果图](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/tab_navigator.gif)
 
 ## 3.3 单个页面实现 modal 模式的切换
 
@@ -282,7 +282,7 @@ react native 已经封装了很多常用组件，但有时我们仍然需要在�
 
 这里只介绍目录结构的调整，具体代码可参考 Github 上项目代码，因为自定义组件的需求千差万别，具体编写过程也有很多教程，这里不再具体介绍，只添加了自定义 Toast 组件。目录结构调整如下：
 
-![组件目录](http://ol9ge41ud.bkt.clouddn.com/define_components.png)
+![组件目录](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/define_components.png)
 
 * `components/` 自定义组件都放这里
 * `XgToast.js` 自定义组件具体代码
@@ -295,7 +295,7 @@ react native 使用上有个最大的好处是可以不用考虑新语法兼容�
 
 添加网络请求后目录结构调整如下：
 
-![网络请求目录](http://ol9ge41ud.bkt.clouddn.com/http_request.png)
+![网络请求目录](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/http_request.png)
 
 * `xgHttp.js` 配置 fetch api
 * `xgRequest.js` api 请求列表
@@ -437,7 +437,7 @@ this.state = {
 
 最终的效果图如下：
 
-![网络请求效果](http://ol9ge41ud.bkt.clouddn.com/network.gif)
+![网络请求效果](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/network.gif)
 
 # 六 集成 redux
 
@@ -445,7 +445,7 @@ this.state = {
 
 引入 redux 后后目录结构调整如下：
 
-![redux目录](http://ol9ge41ud.bkt.clouddn.com/redux.png)
+![redux目录](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/redux.png)
 
 * `redux` 存放 redux 相关配置文件
 * `actions.js` redux action
@@ -637,7 +637,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ScreenTab2);
 
 最终效果图如下：
 
-![集成redux后效果](http://ol9ge41ud.bkt.clouddn.com/redux_gif.gif)
+![集成redux后效果](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/redux_gif.gif)
 
 ## 6.4 持久化存储
 
@@ -766,7 +766,7 @@ function mapStateToProps(state) {
 
 经过上述修改，便可以实现 redux 的持久化存储：初始化姓名是 `小光`，更改为 `vince` 后重新加载页面，姓名还是 `vince`（而非初始状态 `小光`）。效果图如下：
 
-![redux持久化存储](http://ol9ge41ud.bkt.clouddn.com/persist_redux.gif)
+![redux持久化存储](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/persist_redux.gif)
 
 # 七 小结
 

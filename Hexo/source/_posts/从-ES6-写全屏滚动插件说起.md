@@ -29,7 +29,7 @@ e_title: develop-full-page-scroll-by-es6
 
 实现原理见下图：容器及容器内的页面取当前可视区高度，同时容器的父级元素 `overflow` 属性值设为 `hidden`，通过更改容器 `top` 值实现全屏滚动效果。
 
-![全屏滚动实现原理](http://ol9ge41ud.bkt.clouddn.com/pure_full_page.png)
+![全屏滚动实现原理](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/pure_full_page.png)
 
 ### 2.2 代码架构
 

@@ -14,7 +14,7 @@ e_title: config-win10-sub-linux-sys
 
 先上效果图，下面介绍如何配置。
 
-![windows中linux终端](http://ol9ge41ud.bkt.clouddn.com/windows-linux.png)
+![windows中linux终端](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/windows-linux.png)
 
 # 1. 配置 linux 的终端
 

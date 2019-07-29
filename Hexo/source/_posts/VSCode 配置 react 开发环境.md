@@ -129,7 +129,7 @@ npm install prettier-eslint --save-dev
 
 进行保存操作后，自动格式化文件
 
-![vscode 格式化 react 效果图](http://ol9ge41ud.bkt.clouddn.com/vscode_format_react.gif)
+![vscode 格式化 react 效果图](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/vscode_format_react.gif)
 
 > ps：随着 vscode 不断升级，编辑器默认支持 react 越来越好，这片文章基于 vscode 19.0版本。    
 

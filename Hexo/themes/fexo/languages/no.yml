@@ -1,12 +1,12 @@
-categories: 分类
-search: 搜索
-tags: 标签
-tagcloud: 标签云
+categories: Kategorier
+search: Søk
+tags: Tags
+tagcloud: Tag Cloud
 tweets: Tweets
-prev: 上一页
-next: 下一页
-comment: Comments
-archive_a: 归档
-archive_b: 归档：%s
-page: 第 %d 页
-recent_posts: 最新文章
+prev: Forrige
+next: Neste
+comment: Kommentarer
+archive_a: Arkiv
+archive_b: "Arkiv: %s"
+page: Side %d
+recent_posts: Siste innlegg

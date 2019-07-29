@@ -31,7 +31,7 @@ a = 2;
 console.log(b); // 1
 ```
 
-![基本类型复制前后变量对象变化](http://ol9ge41ud.bkt.clouddn.com/20170418185835.png)   
+![基本类型复制前后变量对象变化](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185835.png)   
 
 - 如果从一个变量向另一个变量复制基本类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，**这个值的副本实际上是一个指针**，而这个指针指向存储在堆中的一个对象。复制操作结束后，**两个变量实际上将引用同一个对象：改变其中一个变量，就会影响另一个变量**。见下代码及图示   
 
@@ -42,7 +42,7 @@ obj1.name = "xiaoming";
 console.log(obj2.name); // "xiaoming"
 ```
 
-![引用类型复制前后变量对象变化](http://ol9ge41ud.bkt.clouddn.com/20170418185905.png)   
+![引用类型复制前后变量对象变化](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185905.png)   
 
 # JS传参按值传递详解
 

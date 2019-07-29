@@ -189,7 +189,7 @@ alias ls=ls --color $*
 
 # 效果图
 
-![cmder效果图](http://ol9ge41ud.bkt.clouddn.com/cmder170726.png)
+![cmder效果图](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/cmder170726.png)
 
 # 问题
 

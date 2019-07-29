@@ -20,7 +20,7 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 
 # 优化BracketHighlighter高亮显示
 效果图：   
-![BracketHighlighter自定义高亮显示](http://ol9ge41ud.bkt.clouddn.com/bracket.png)
+![BracketHighlighter自定义高亮显示](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/bracket.png)
 
 > 实际使用中我只保留了蓝色和未配对时显示的红色，太多颜色反而觉得好乱。但下面的配置依然是多色方案。
 
@@ -195,7 +195,7 @@ sublime通过 preferences > color theme > user 对color theme进行选择，colo
 
 效果图：   
 
-![markdown高亮效果图](http://ol9ge41ud.bkt.clouddn.com/markdown2.png)
+![markdown高亮效果图](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/markdown2.png)
 
 ## 引入插件   
 

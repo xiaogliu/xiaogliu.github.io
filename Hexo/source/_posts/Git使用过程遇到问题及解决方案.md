@@ -35,7 +35,7 @@ git pull origin branchname --allow-unrelated-histories
 - 问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。
 
 - 原因：A common mistake is cloning using the default (HTTPS) instead of SSH.通过命令 `git remote -v`可以查看默认地址，如果https，要改回ssh
-![](http://ol9ge41ud.bkt.clouddn.com/2017-02-12_201337.png)
+![](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/2017-02-12_201337.png)
 
 - 解决方案：You can correct this by going to your repository, clicking the ssh button left to the URL field and updating the URL of your origin remote like this:(不需要重新clone一份)
 

@@ -17,10 +17,8 @@
         <% } else { %>
           <div class="text">
             <span><%= item.text_key || ''%></span>
-            <% if(item.text_key && item.target_blank) {%>
-              <a rel="noopener noreferrer" class="text-value-url" href="<%= item.text_value_url || ''%>" target="_blank"> <%= item.text_value || ''%></a>
-            <% } else if(item.text_key && !item.target_blank) {%>
-              <a rel="noopener noreferrer" class="text-value-url" href="<%= item.text_value_url || ''%>"><%= item.text_value || ''%></a>
+            <% if(item.text_key) {%>
+              <a rel="noopener noreferrer" target="_blank" class="text-value-url" href="<%= item.text_value_url || ''%>"><%= item.text_value || ''%></a>
             <% } else { %>
               <span><%= item.text_value || ''%></span>
             <% }%>

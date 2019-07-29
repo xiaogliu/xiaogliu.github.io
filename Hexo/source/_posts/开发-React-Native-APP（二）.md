@@ -118,7 +118,7 @@ const AppNavigator = StackModalNavigator();
 ```
 
 最终效果图：
-![自定义页面进入动画](http://ol9ge41ud.bkt.clouddn.com/nav_diff_entry.gif)
+![自定义页面进入动画](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/nav_diff_entry.gif)
 
 # 二 自适应
 
@@ -130,7 +130,7 @@ const AppNavigator = StackModalNavigator();
 
 调整后的目录如下：
 
-![尺寸转换函数目录](http://ol9ge41ud.bkt.clouddn.com/px_to_dp.png)
+![尺寸转换函数目录](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/px_to_dp.png)
 
 * `config/pxToDp.js` 尺寸转换的工具函数
 
@@ -229,7 +229,7 @@ test@3x.png # 尺寸 120 x 120
 * Nexus4：2 倍图
 * Pixel2：3 倍图
 
-![自定加载不同分辨率图片](http://ol9ge41ud.bkt.clouddn.com/autod_pic.png)
+![自定加载不同分辨率图片](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/autod_pic.png)
 
 # 三 修改桌面图标、App 展示名称，设置启动页
 
@@ -265,7 +265,7 @@ test@3x.png # 尺寸 120 x 120
 
 2）将图片拖放至 Xcode 指定位置，具体是：`Project Navigator -> Images.xcassets -> AppIcon`，如下图
 
-![iOS AppIcon](http://ol9ge41ud.bkt.clouddn.com/ios_app_icon.png)
+![iOS AppIcon](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/ios_app_icon.png)
 
 > 拖放完成后，通过文件管理器查看项目目录，也会发现相应图片。
 
@@ -292,7 +292,7 @@ test@3x.png # 尺寸 120 x 120
 
 调出工程设置菜单（双击工程名称或者单击然后然后右侧选择 Targets --> yourProject），进入 `info` 选项，在 `Custom iOS Target Properties` 中添加 `Bundle display name`，其 `value` 便是 App 的名称。具体设置如下图：
 
-![ios修改app名称](http://ol9ge41ud.bkt.clouddn.com/ios_app_name.png)
+![ios修改app名称](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/ios_app_name.png)
 
 * 安卓
 
@@ -413,11 +413,11 @@ NOTE:
 
 首先新建 `LaunchImage` 文件，操作步骤如下：
 
-![设置启动页](http://ol9ge41ud.bkt.clouddn.com/launch_image1.png)
+![设置启动页](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/launch_image1.png)
 
 然后在 `general` 设置中将启动页指向刚才新建的 `LaunchImage` 文件，**注意 Launch Screen File 必须为空，不然就指向 LaunchScreen.xib 中默认的启动页了**:
 
-![设置启动页](http://ol9ge41ud.bkt.clouddn.com/launch_image2.png)
+![设置启动页](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/launch_image2.png)
 
 * 安卓配置
 
@@ -504,7 +504,7 @@ public class MainActivity extends ReactActivity {
 
 设置完桌面图标、修改 APP 展示名称及设置启动页之后的效果图如下：
 
-![图标及启动页](http://ol9ge41ud.bkt.clouddn.com/launch_image.gif)
+![图标及启动页](https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/launch_image.gif)
 
 # 四 打包发布
 
