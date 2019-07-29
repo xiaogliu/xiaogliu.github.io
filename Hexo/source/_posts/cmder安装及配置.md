@@ -2,7 +2,7 @@
 title: cmder安装及配置
 date: 2017-04-07 21:51:49
 tags: [cmder, webstorm, sublime]
-categories: 编程工具
+categories: tools
 e_title: install-and-configure-cmder
 ---
 

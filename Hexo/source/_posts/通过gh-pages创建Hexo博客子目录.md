@@ -2,7 +2,7 @@
 title: 通过 gh-pages 创建 Hexo 博客子目录
 date: 2018-01-29 22:46:09
 tags: [git,hexo]
-categories: 编程工具
+categories: tools
 e_title: create-hexo-subdir-using-gh-pages
 ---
 

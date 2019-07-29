@@ -2,7 +2,7 @@
 title: 在 Win10 中配置 Linux 开发环境
 date: 2018-09-20 20:42:32
 tags: [工具]
-categories: 编程工具
+categories: tools
 e_title: config-win10-sub-linux-sys
 ---
 

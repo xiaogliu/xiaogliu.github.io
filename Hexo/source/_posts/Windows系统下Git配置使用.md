@@ -2,7 +2,7 @@
 title: Windows系统下Git配置使用
 date: 2017-03-06 18:58:47
 tags: [Git, 工具]
-categories: 编程工具
+categories: tools
 e_title: configure-git-under-windows
 ---
 

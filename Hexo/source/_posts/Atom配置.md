@@ -2,7 +2,7 @@
 title: Atom配置
 date: 2017-08-27 13:15:24
 tags: [atom]
-categories: 编程工具
+categories: tools
 e_title: atom-configuration
 ---
 

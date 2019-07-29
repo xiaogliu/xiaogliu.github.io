@@ -2,7 +2,7 @@
 title: 使用 Hexo + Github 搭建个人博客
 date: 2016-06-09 22:56:37
 tags: [工具, hexo, Node.js]
-categories: 编程工具
+categories: tools
 e_title: build-blog-by-hexo-github
 ---
 

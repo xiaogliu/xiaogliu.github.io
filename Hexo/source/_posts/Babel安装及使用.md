@@ -2,7 +2,7 @@
 title: Babel安装及使用
 date: 2017-05-09 22:43:42
 tags: [Babel,Gulp,工程化]
-categories: 编程工具
+categories: tools
 e_title: install-and-use-babel
 ---
 
