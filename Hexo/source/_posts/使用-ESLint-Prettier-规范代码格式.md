@@ -86,6 +86,8 @@ VS Code 插件配置统一在 `preference -> setting -> user setting` 设置：
 
 ### 在项目中安装本地依赖
 
+[update 2019-08-01]：现在 ESLint 和 Prettier 功能已经足够强大，不需要安装这么多依赖了，详细配置可参考基于 react 的 [demo](https://github.com/xiaogliu/react-simple-boilerplate) 
+
 1）ESlint 相关
 
 这里使用 airbnb 代码规范、babel 对 ES6 语法做检查，同时安装了对 react 和 vue 支持的插件
