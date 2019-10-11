@@ -2,7 +2,7 @@
 title: Chrome相关
 date: 2017-02-17 17:33:36
 tags: [chrome]
-categories: tools
+categories: Tools
 e_title: chrome
 ---
 

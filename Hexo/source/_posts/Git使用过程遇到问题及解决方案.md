@@ -2,7 +2,7 @@
 title: Git使用过程遇到问题及解决方案
 date: 2017-02-12 19:33:13
 tags: [git]
-categories: tools
+categories: Tools
 e_title: gather-git-question
 ---
 

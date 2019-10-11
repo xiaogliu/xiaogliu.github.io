@@ -2,7 +2,7 @@
 title: Rollup 配置（Babel7）
 date: 2019-07-24 11:32:06
 tags: [Rollup]
-categories: tools
+categories: Tools
 e_title: rollup-config
 ---
 

@@ -2,7 +2,7 @@
 title: 'VSCode 配置 react 开发环境'
 date: 2017-12-26 20:27:48
 tags: [vscode, React]
-categories: tools
+categories: Tools
 e_title: develop-react-using-vscode
 ---
 

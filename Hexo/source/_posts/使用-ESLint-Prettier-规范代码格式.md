@@ -1,8 +1,8 @@
 ---
 title: 使用 ESLint && Prettier 规范代码格式
 date: 2018-05-15 15:08:18
-tags: [工具]
-categories: tools
+tags: [Tools]
+categories: Tools
 e_title: format-code-by-eslint-and-prettier
 ---
 

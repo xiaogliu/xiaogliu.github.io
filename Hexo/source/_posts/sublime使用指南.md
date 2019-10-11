@@ -2,7 +2,7 @@
 title: sublime使用指南
 date: 2017-03-17 21:34:16
 tags: [编辑器,sublime]
-categories: tools
+categories: Tools
 e_title: sublime-guide
 ---
 

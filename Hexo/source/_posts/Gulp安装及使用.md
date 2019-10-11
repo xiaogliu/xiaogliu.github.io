@@ -2,7 +2,7 @@
 title: Gulp安装及使用
 date: 2017-05-10 21:33:34
 tags: [Gulp,Babel,工程化]
-categories: tools
+categories: Tools
 e_title: install-and-use-gulp
 ---
 
