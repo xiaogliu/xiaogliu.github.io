@@ -6,6 +6,15 @@ categories: JavaScript
 e_title: package.json-instruction
 ---
 
+这篇文章需要更新啦：需要区分 package.json 和 package-lock.json 及更新机制。
+
+https://github.com/SamHwang1990/blog/issues/7  
+https://stackoverflow.com/questions/44297803/what-is-the-role-of-the-package-lock-json   
+https://stackoverflow.com/questions/45022048/why-does-npm-install-rewrite-package-lock-json   
+https://docs.npmjs.com/about-semantic-versioning   
+https://www.zhihu.com/question/62331583   
+
+
 # 概述
 
 `package.json`是`npm`本地安装包管理文件，主要作用如下：   
