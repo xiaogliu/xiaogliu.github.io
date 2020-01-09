@@ -10,3 +10,4 @@ e_title: common-linux-command
 | ------------------------ | ---------------------- | ---------------------------------------- |
 | `lsof` (list open files) | 列出当前系统打开的文件 | `lsof -i:3000`：正在使用 3000 端口的进程 |
 | `make`                   | "制作"某个文件         | `make rn_setup_npm`                      |
+| `pkill [process name]`   | kill process by name   | `pkill nginx`                            |
