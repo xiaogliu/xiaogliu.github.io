@@ -1,7 +1,7 @@
 ---
 title: 通过PostCSS自动添加CSS3属性前缀
 date: 2017-07-19 17:21:01
-tags: [CSS3,PostCSS,兼容性,工程化]
+tags: [CSS,PostCSS,兼容性,工程化]
 categories: CSS
 e_title: using-postcss-add-css-prefix
 ---
