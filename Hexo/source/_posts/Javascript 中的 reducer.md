@@ -6,7 +6,7 @@ categories: JavaScript
 e_title: reducer-in-js
 ---
 
-很长一段时间一直对 _reducer_ 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。知道今天，看到一个函数，豁然开朗：
+很长一段时间一直对 _reducer_ 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗：
 
 ```js
 const uniqueKey = new Set(obj.reduce((acc, { key }) => [...acc, key], []));
