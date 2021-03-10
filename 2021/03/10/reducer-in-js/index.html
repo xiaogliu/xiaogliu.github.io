@@ -15,18 +15,18 @@
     <meta name="keywords" content="JavaScript,">
   
 
-  <meta name="description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。知道今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key 都">
+  <meta name="description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 中的 reducer">
 <meta property="og:url" content="https://xiaogliu.github.io/2021/03/10/reducer-in-js/index.html">
 <meta property="og:site_name" content="刘小光的博客">
-<meta property="og:description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。知道今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key 都">
+<meta property="og:description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-10T09:59:53.652Z">
+<meta property="og:updated_time" content="2021-03-10T12:02:48.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 中的 reducer">
-<meta name="twitter:description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。知道今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key 都">
+<meta name="twitter:description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗： const uniqueKey = new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) =&amp;gt; [...acc, key], [])); 这个函数的作用是将一个数组对象元素中的 key">
 
   
 
@@ -225,7 +225,7 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <p>很长一段时间一直对 <em>reducer</em> 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。知道今天，看到一个函数，豁然开朗：</p>
+      <p>很长一段时间一直对 <em>reducer</em> 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> uniqueKey = <span class="keyword">new</span> <span class="built_in">Set</span>(obj.reduce(<span class="function">(<span class="params">acc, &#123; key &#125;</span>) =&gt;</span> [...acc, key], []));</span><br></pre></td></tr></table></figure>
 <p>这个函数的作用是将一个数组对象元素中的 key 都找出来，然后去重，返回的是 <code>Set</code> 类型的数据。</p>
 <h2 id="数组中的-reducer-方法"><a href="#数组中的-reducer-方法" class="headerlink" title="数组中的 reducer 方法"></a>数组中的 reducer 方法</h2><p>上个函数是数组中 <code>reduce</code> 用法，</p>
