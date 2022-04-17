@@ -237,9 +237,7 @@ test@3x.png # 尺寸 120 x 120
 
 ## 3.1 设置桌面图标
 
-因为 App 图标对应多个尺寸，手动改写太麻烦，这个网站可以自动生成 [MakeAppIcon](https://makeappicon.com/)。
-
-> Thanks Alejandra's recommendation that [Website Planet](https://www.websiteplanet.com/webtools/favicon-generator/) also can generate App icon and supports file less 5M.
+因为 App 图标对应多个尺寸，手动改写太麻烦，这个网站可以自动生成 [MakeAppIcon](https://makeappicon.com/)。(Thanks Alejandra's recommendation that [Website Planet](https://www.websiteplanet.com/webtools/favicon-generator/) also can generate App icon and supports file less 5M.)
 
 > 并不是所有尺寸的图片都需要，见下文。
 
