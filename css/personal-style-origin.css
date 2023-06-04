@@ -1,0 +1,163 @@
+html, body, .page-header, .modal-dialog, .post-header .toolbox{
+  padding-bottom: 27px;
+  background-color: #f8f1e3;
+  letter-spacing: -0.01em;
+  word-spacing: 0.2em;
+  font-family: -apple-system,"SF UI Text",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+  color: #111111;
+}
+.article-content p {
+  color: #111111;
+}
+.content {
+  border-left: 4px solid #f3e8d3;
+}
+.content.content-search {
+  margin-bottom: 20px;
+}
+.article-content blockquote {
+  padding: 2px 15px;
+  border-left: 3px solid #e0dfcc;
+  background-color: #fff8dc;
+}
+.box-prev-next {
+  margin-top: 0;
+  margin-bottom: 70px;
+}
+.box-prev-next .icon {
+  line-height: 24px;
+}
+.article-content h1 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d3d3d3;
+}
+.toc-article{
+  width: 200px;
+}
+.toolbox .toolbox-entry, .toolbox-mobile {
+  box-shadow: 2px 5px 15px #777;
+}
+.box-prev-next .icon {
+  margin-top: 4px;
+}
+.article-content img {
+  border: 1px solid #e0dfcc;
+}
+code {
+  padding: 2px 7px;
+  vertical-align: inherit;
+  margin: 0 5px;
+}
+/******************* code style begin *********************/
+code, pre, samp {
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  color: black;
+  background-color: #e1d5ef;
+}
+figure.highlight{
+  padding: 12px;
+  border: 1px solid #e0dfcc;
+  border-radius: 0;
+  background-color: #f5f2f0;
+}
+.highlight pre {
+  line-height: 1.5em;
+  overflow-y: hidden;
+  white-space: pre; /*代码自动缩进*/
+  word-wrap: normal;
+}
+.highlight .gutter pre {
+  padding-right: 15px;
+}
+/******************* code style end *********************/
+.footer {
+  position: absolute;
+  left: 50%;
+  /*bottom: 0;*/
+  width: 760px;
+  margin: 10px auto 0 -380px;
+  padding-top: 10px;
+  font-size: 0.9em;
+  color: #555;
+  border-top: 1px solid #d3d3d3;
+}
+.footer a{
+  color: #551aa1;
+}
+.page-home .footer {
+  display: none;
+}
+.page-archives .footer, .page-category .footer, .page-tag .footer, .page-about .footer, .page-search .footer {
+  width: 500px;
+  margin: 10px auto 0 -250px;
+}
+.toolbox-mobile {
+  bottom: 60px;
+}
+
+/* 通过改sass */
+.toolbox .list-toolbox {
+  display: block;
+}
+.toolbox-entry .icon-angle-down {
+  display: none !important;
+}
+.toolbox-entry .toolbox-entry-text {
+  display: none !important;
+}
+.icon-home {
+  display: inline-block !important;
+}
+.toolbox:hover li a{
+  animation-name: none !important;
+  animation-duration: 0s !important;
+}
+.post-header .toolbox .list-toolbox {
+  display: none;
+}
+.post-header:hover .toolbox .list-toolbox {
+  display: block;
+}
+.post-header .toolbox-entry .icon-angle-down {
+  display: inline-block !important;
+}
+.post-header .icon-home {
+  display: none !important;
+}
+.post-header .toolbox-entry {
+  box-shadow: none;
+  animation: sploosh 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  animation-iteration-count: infinite !important;
+}
+@keyframes sploosh {
+  0% {
+    box-shadow: 0 0 0 0px rgba(153, 153, 153, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(153, 153, 153, 0);
+  }
+}
+.post-header:hover .toolbox-entry .icon-angle-down {
+  display: none !important;
+}
+.post-header:hover .icon-home {
+  display: inline-block !important;
+}
+
+/* 通过改sass end */
+
+@media screen and (max-width: 767px) {
+  html, body, .page-header, .modal-dialog, .post-header .toolbox {
+    padding-bottom: 5px;
+  }
+  .footer {
+    position: relative;
+    width: 96% !important;
+    left: 0;
+    margin: 2% !important;
+    padding-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+    border-top: 1px solid #d3d3d3;
+  }
+}

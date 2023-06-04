@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>修正Ionic-1.32模态框点击确定后APP假死 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript,Hybrid App,Ionic," />
+  
+
+  <meta name="description" content="目前Ionic V1最新版为Ionic V1.32，因为目前（2017-5-14）不管是JavaScirpt还是Angular都处于快速发展中，这意味着版本迭代会非常快，尤其对于框架来说，有时升级版本甚至是破坏性升级。而Ionic是基于Angular的，为了避免不断升级过程中大量踩坑，之前用Ionic-V1构建的APP暂时不进行大版本更新，等Angular稳定后再做升级考虑。同时，如果后续再有AP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="修正Ionic-1.32模态框点击确定后APP假死">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/05/14/fix-ionic1.32-click-modal-app-frozen/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="目前Ionic V1最新版为Ionic V1.32，因为目前（2017-5-14）不管是JavaScirpt还是Angular都处于快速发展中，这意味着版本迭代会非常快，尤其对于框架来说，有时升级版本甚至是破坏性升级。而Ionic是基于Angular的，为了避免不断升级过程中大量踩坑，之前用Ionic-V1构建的APP暂时不进行大版本更新，等Angular稳定后再做升级考虑。同时，如果后续再有AP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-14T03:43:03.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.574Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Hybrid App">
+<meta property="article:tag" content="Ionic">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-修正Ionic-1-32模态框点击确定后APP假死" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">修正Ionic-1.32模态框点击确定后APP假死</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.05.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Hybrid-App/">Hybrid App</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>目前Ionic V1最新版为Ionic V1.32，因为目前（2017-5-14）不管是JavaScirpt还是Angular都处于快速发展中，这意味着版本迭代会非常快，尤其对于框架来说，有时升级版本甚至是破坏性升级。而Ionic是基于Angular的，为了避免不断升级过程中大量踩坑，之前用Ionic-V1构建的APP暂时不进行大版本更新，等Angular稳定后再做升级考虑。同时，如果后续再有APP制作需求，采用当时可选的Ionic最新版。   </p>
+<p>也正是因为发展太快，Ionic团队对于旧版本bug的修复往往不能及时发布更新（甚至不做更新），但会在GitHub这个仓库<a target="_blank" rel="noopener" href="https://github.com/driftyco/ionic-v1/issues/53">driftyco&#x2F;ionic-v1</a>对已知bug提供解决方案。   </p>
+<p>曾遇到下拉框在Chrome-V53中无效的情况，但这个问题已经在Ionic-V1.32中修复（详细讨论见这个issue <a target="_blank" rel="noopener" href="https://github.com/driftyco/ionic/issues/8181#issuecomment-249667016">Select&#x2F;option doesn’t work in chrome 53 for touch events</a>），但V-1.32引入了新问题：模态框点击确定后APP假死，修复方案如下：   </p>
+<p>在<code>ionic-angular.js</code>和<code>ionic.bundle.js</code>中找到：   </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!modalStack.<span class="property">length</span>) &#123;</span><br></pre></td></tr></table></figure>
+
+<p>替换为：   </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> otherSibling = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; modalStack.<span class="property">length</span>; ++i) &#123;</span><br><span class="line">  <span class="keyword">if</span> (modalStack[i].<span class="property">viewType</span> === self.<span class="property">viewType</span>) &#123;</span><br><span class="line">    <span class="comment">// there are other modal (or popover, depending on viewType)</span></span><br><span class="line">    otherSibling = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!otherSibling) &#123;</span><br></pre></td></tr></table></figure>
+
+<p>关于该问题的总结请查看：<a target="_blank" rel="noopener" href="https://github.com/driftyco/ionic-v1/issues/53">bug (and fix): app FROZEN: class popover-open not removed from body when closing a popover from a modal</a>   </p>
+<p>该问题最初的讨论在这：<a target="_blank" rel="noopener" href="https://github.com/driftyco/ionic-v1/issues/71">Popover and Modals interfering, body classes do not get removed - bug newly introduced with 1.3.2</a>   </p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/05/13/package-ionic-android-app/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/05/15/open-ionic-app-inside-link-use-mobile-browser/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/05/14/fix-ionic1.32-click-modal-app-frozen/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

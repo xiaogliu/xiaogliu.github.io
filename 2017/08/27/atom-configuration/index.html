@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Atom配置 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="atom," />
+  
+
+  <meta name="description" content="用 vscode 很长一段时间，因为相比 atom，vscode 占用内存和 CPU 更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。 编辑器配置Non Word Charactors&#x2F;\()&quot;&amp;#x27;:,.;&lt;&gt;~!@#$%^&amp;*|">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Atom配置">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/08/27/atom-configuration/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="用 vscode 很长一段时间，因为相比 atom，vscode 占用内存和 CPU 更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。 编辑器配置Non Word Charactors&#x2F;\()&quot;&amp;#x27;:,.;&lt;&gt;~!@#$%^&amp;*|">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-08-27T05:15:24.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.568Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="atom">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">编辑器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Non-Word-Charactors"><span class="toc-text">Non Word Charactors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preferred-Line-Length"><span class="toc-text">Preferred Line Length</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Show-Indent-Guide"><span class="toc-text">Show Indent Guide</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE%E9%85%8D%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">自定义快捷键配置如下：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%BB%98%E8%AE%A4%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">系统默认常用快捷键</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87"><span class="toc-text">必备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E7%9B%B8%E5%85%B3"><span class="toc-text">语言相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-text">主题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-1"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows-%E4%B8%8B%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5"><span class="toc-text">windows 下默认安装失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">更新说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Atom配置" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Atom配置</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>用 vscode 很长一段时间，因为相比 atom，vscode 占用内存和 CPU 更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。</p>
+<h1 id="编辑器配置"><a href="#编辑器配置" class="headerlink" title="编辑器配置"></a>编辑器配置</h1><h2 id="Non-Word-Charactors"><a href="#Non-Word-Charactors" class="headerlink" title="Non Word Charactors"></a>Non Word Charactors</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/\()&quot;&#x27;:,.;&lt;&gt;~!@#$%^&amp;*|+=[]&#123;&#125;`?…</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>双击选择文本时中划线<code>-</code>作为单词的一部分，不作为分割依据</p>
+</blockquote>
+<h2 id="Preferred-Line-Length"><a href="#Preferred-Line-Length" class="headerlink" title="Preferred Line Length"></a>Preferred Line Length</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不一定是 200，主要不想看到编辑器中的分割线，大于编辑器能显示的最大字符就好</p>
+</blockquote>
+<h2 id="Show-Indent-Guide"><a href="#Show-Indent-Guide" class="headerlink" title="Show Indent Guide"></a>Show Indent Guide</h2><p>复选框打钩，可以显示对齐线。</p>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><h2 id="自定义快捷键配置如下："><a href="#自定义快捷键配置如下：" class="headerlink" title="自定义快捷键配置如下："></a>自定义快捷键配置如下：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;atom-text-editor&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;cmd-alt-i&#x27;</span>:        <span class="string">&#x27;editor:auto-indent&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-shift-cmd-m&#x27;</span>: <span class="string">&#x27;markdown-preview:toggle&#x27;</span></span><br><span class="line"><span class="comment"># markdown-writer keymap</span></span><br><span class="line"><span class="string">&#x27;.platform-darwin atom-text-editor:not([mini])&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;shift-cmd-K&#x27;</span>: <span class="string">&#x27;markdown-writer:insert-link&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-I&#x27;</span>: <span class="string">&#x27;markdown-writer:insert-image&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-v&#x27;</span>:       <span class="string">&#x27;markdown-writer:insert-image-clipboard&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-i&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-italic-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-b&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-bold-text&#x27;</span></span><br><span class="line">  <span class="string">&quot;cmd-&#x27;&quot;</span>:       <span class="string">&#x27;markdown-writer:toggle-code-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-k&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-keystroke-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-h&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-strikethrough-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-1&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h1&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-2&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h2&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-3&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h3&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-4&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h4&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-5&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h5&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-O&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-ol&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-U&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-ul&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-&gt;&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-blockquote&#x27;</span></span><br><span class="line">  <span class="string">&quot;shift-cmd-&#x27;&quot;</span>: <span class="string">&#x27;markdown-writer:toggle-codeblock-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-p&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-previous-heading&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-n&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-next-heading&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-d&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-reference-definition&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-t&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-next-table-cell&#x27;</span></span><br><span class="line"><span class="comment"># enable emmet in .vue file</span></span><br><span class="line"><span class="string">&#x27;atom-text-editor[data-grammar~=&quot;vue&quot;]:not([mini])&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;tab&#x27;</span>: <span class="string">&#x27;emmet:expand-abbreviation-with-tab&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="系统默认常用快捷键"><a href="#系统默认常用快捷键" class="headerlink" title="系统默认常用快捷键"></a>系统默认常用快捷键</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>toggle 目录树</td>
+<td>cmd + \</td>
+</tr>
+<tr>
+<td>在当前行的下一行插入一空行</td>
+<td>cmd + enter</td>
+</tr>
+<tr>
+<td>在项目中搜索文件</td>
+<td>cmd + p</td>
+</tr>
+<tr>
+<td>调出命令窗口</td>
+<td>cmd + shift + p</td>
+</tr>
+<tr>
+<td>tab 间切换</td>
+<td>cmd + 数字 or ctrl + tab</td>
+</tr>
+<tr>
+<td>全局搜索</td>
+<td>cmd + shift + f</td>
+</tr>
+<tr>
+<td>当前行复制到下一行</td>
+<td>cmd + shift + d</td>
+</tr>
+<tr>
+<td>选中相同字符</td>
+<td>cmd + d</td>
+</tr>
+<tr>
+<td>删除当前行</td>
+<td>ctrl + shift + k</td>
+</tr>
+<tr>
+<td>通过 prettier 格式化</td>
+<td>ctrl + options + f</td>
+</tr>
+<tr>
+<td>通过 atom-beautify 格式化</td>
+<td>ctrl + options + b</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>显示隐藏不可见字符操作：首先<code>cmd + shift + p</code>调出命令行，然后在搜索框输入<code>invisible</code>，选中<code>Window Toggle Invisibles</code>。这在确认编辑器中是否混用<code>tab</code>，<code>space</code>，或者查看行结尾是 Unix 类型还是 Windows 类型时很便捷，不用去设置里设置。</p>
+</blockquote>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h2 id="必备"><a href="#必备" class="headerlink" title="必备"></a>必备</h2><p><a target="_blank" rel="noopener" href="https://atom.io/packages/Sublime-Style-Column-Selection">sublime-style-column-selection</a>：支持列选择；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/prettier-atom">prettier-atom</a>：格式化代码；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/atom-beautify">atom-beautify</a>：格式化代码（以 prettier 为主，没有 prettier 时用，同时在 setting 设置 vue 的格式化插件为 prettier-atom）；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/linter-eslint">linter-eslint</a>：js 检查，可设置和 prettier 配合使用（还有其他相关依赖，atom 会提示安装）；<br><del><a target="_blank" rel="noopener" href="https://atom.io/packages/atom-terminal">atom-terminal</a>：在当前目录打开终端；</del><br><a target="_blank" rel="noopener" href="https://atom.io/packages/highlight-selected">highlight-selected</a>：自动高亮选中的相同字符；<br><del><a target="_blank" rel="noopener" href="https://atom.io/packages/minimap">minimap</a>：代码缩略地图；</del><br><a target="_blank" rel="noopener" href="https://github.com/magbicaleman/open-in-browser">open-in-browser</a>：在浏览器中打开文件，主要针对 html</p>
+<h2 id="语言相关"><a href="#语言相关" class="headerlink" title="语言相关"></a>语言相关</h2><p><a target="_blank" rel="noopener" href="https://atom.io/packages/emmet">emmet</a>：编写 html 神奇，强大的自动补全（<strong>vue 组件中使用需更改自定义快捷键配置，见上文快捷键配置</strong>）；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/markdown-writer">markdown-writer</a>：书写 markdown 利器，支持各种快捷键（<strong>需自定义快捷键，见上文快捷键配置</strong>）；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/language-vue">language-vue</a>：Vue 语法高亮；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/pigments">pigments</a>：CSS 颜色高亮；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/atom-typescript">atom-typescript</a>：typescript 颜色高亮；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/language-ejs">language-ejs</a>：ejs 颜色高亮；</p>
+<blockquote>
+<p>vue 的 template 不能设置自定义规则格式化，再另安装插件感觉没必要，但支持手动批量缩进，见自定义快捷键。</p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a target="_blank" rel="noopener" href="https://atom.io/packages/file-icons">file-icons</a>：显示文件类型图标；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/docblockr">docblockr</a>：快速注释；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/autocomplete-paths">autocomplete-paths</a>：路径不全，vue 中貌似 not working；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/script">script</a>：选中代码即可在 atom 中返回执行结果；<br><a target="_blank" rel="noopener" href="https://atom.io/packages/merge-conflicts">merge-conflicts</a>：处理冲突的文件（还没用过）；</p>
+<h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><strong>UI Theme</strong>： one dark;<br><del><strong>Syntax Theme</strong>: Monokai。</del><br><strong>Syntax Theme</strong>: one dark。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://atom.io/themes/monokai">Monokai</a>主题需要单独安装</p>
+</blockquote>
+<h1 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h1><h2 id="windows-下默认安装失败"><a href="#windows-下默认安装失败" class="headerlink" title="windows 下默认安装失败"></a>windows 下默认安装失败</h2><p>如果在 windows 下默认安装失败，提示<code>Path too long exception</code>，下载安装包后参考下面解决方式：</p>
+<ol>
+<li>用解压文件打开 AtomSetup.exe；</li>
+<li>将文件内容导出到相对较短的路径中，比如<code>C:\Temp</code>；</li>
+<li>打开 CMD，进入刚才放 Atom 导出文件的文件目录；</li>
+<li>运行<code>Update.exe --install=.</code> 。</li>
+</ol>
+<h2 id="更新说明"><a href="#更新说明" class="headerlink" title="更新说明"></a>更新说明</h2><p>2017-09-16 更新为基于 Mac 进行的配置。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://github.com/atom/atom/issues/5109">Path too long exception on Windows install</a><br>【2】<a target="_blank" rel="noopener" href="https://gxnotes.com/article/71037.html">Atom 编辑器中的自动缩进代码</a><br>【3】<a target="_blank" rel="noopener" href="https://github.com/zhuochun/md-writer/wiki/Settings-for-Keymaps">zhuochun&#x2F;md-writer-Settings for Keymaps</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/06/get-js-object-properties/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/09/09/use-sass-global-variables-in-every-vue-components/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/08/27/atom-configuration/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

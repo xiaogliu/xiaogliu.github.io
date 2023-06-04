@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS 中 new 调用函数原理 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript," />
+  
+
+  <meta name="description" content="JavaScript 中经常使用构造函数创建对象（通过 new 操作符调用一个函数），那在使用 new 调用一个函数的时候到底发生了什么？先看几个例子，再解释背后发生了什么。 1）看三个例子1.1 无 return 语句构造函数最后没有 return 语句，这也是使用构造函数时默认情况，最后会返回一个新对象，如下： function Foo(age) &amp;#123;  this.age &#x3D; age;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 中 new 调用函数原理">
+<meta property="og:url" content="https://xiaogliu.github.io/2018/06/28/what-happened-when-using-new/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="JavaScript 中经常使用构造函数创建对象（通过 new 操作符调用一个函数），那在使用 new 调用一个函数的时候到底发生了什么？先看几个例子，再解释背后发生了什么。 1）看三个例子1.1 无 return 语句构造函数最后没有 return 语句，这也是使用构造函数时默认情况，最后会返回一个新对象，如下： function Foo(age) &amp;#123;  this.age &#x3D; age;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-28T15:14:14.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.569Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%BC%89%E7%9C%8B%E4%B8%89%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-text">1）看三个例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%97%A0-return-%E8%AF%AD%E5%8F%A5"><span class="toc-text">1.1 无 return 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-return-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="toc-text">1.2 return 对象类型数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-return-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="toc-text">1.3 return 基本类型数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%BC%89%E8%83%8C%E5%90%8E%E5%8E%9F%E7%90%86"><span class="toc-text">2）背后原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%9D%9E%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-text">2.1 非箭头函数的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-text">2.2 箭头函数的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EF%BC%89new-%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B"><span class="toc-text">3）new 调用函数完整过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%B8%AD%E6%96%87%E6%8F%8F%E8%BF%B0%E5%8F%8A%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">3.1 中文描述及相关代码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%9B%B4%E7%AE%80%E6%B4%81%E7%9A%84%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0"><span class="toc-text">3.2 更简洁的语言描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%BC%AA%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-new"><span class="toc-text">3.3 伪代码实现 new</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84-new-polyfill"><span class="toc-text">3.4 可运行的 new polyfill</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%EF%BC%89%E5%87%A0%E7%82%B9%E8%AF%B4%E6%98%8E"><span class="toc-text">4）几点说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF-Object-%E7%B1%BB%E5%9E%8B"><span class="toc-text">4.1 判断是否是 Object 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-instanceof-%E5%8E%9F%E7%90%86"><span class="toc-text">4.2 instanceof 原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%85%B3%E4%BA%8E%E5%86%85%E5%BB%BA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">4.3 关于内建构造函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JS 中 new 调用函数原理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JS 中 new 调用函数原理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.06.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>JavaScript 中经常使用构造函数创建对象（通过 <code>new</code> 操作符调用一个函数），那在使用 <code>new</code> 调用一个函数的时候到底发生了什么？先看几个例子，再解释背后发生了什么。</p>
+<h2 id="1）看三个例子"><a href="#1）看三个例子" class="headerlink" title="1）看三个例子"></a>1）看三个例子</h2><h3 id="1-1-无-return-语句"><a href="#1-1-无-return-语句" class="headerlink" title="1.1 无 return 语句"></a>1.1 无 return 语句</h3><p>构造函数最后没有 <code>return</code> 语句，这也是使用构造函数时默认情况，最后会返回一个新对象，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params">age</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="number">111</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o);</span><br></pre></td></tr></table></figure>
+
+<p>这是常见的使用构造函数创建对象的过程，打印出来的是 <code>&#123;age: 111&#125;</code>。</p>
+<h3 id="1-2-return-对象类型数据"><a href="#1-2-return-对象类型数据" class="headerlink" title="1.2 return 对象类型数据"></a>1.2 return 对象类型数据</h3><p>构造函数最后 <code>return</code> 对象类型数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params">age</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">type</span>: <span class="string">&quot;我是显式返回的&quot;</span> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="number">222</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o);</span><br></pre></td></tr></table></figure>
+
+<p>打印出来的是 <code>&#123;type: &#39;我是显式返回的&#39;&#125;</code>，也就是说，<code>return</code> 之前的工作都白做了，最后返回 <code>return</code> 后面的对象。</p>
+<h3 id="1-3-return-基本类型数据"><a href="#1-3-return-基本类型数据" class="headerlink" title="1.3 return 基本类型数据"></a>1.3 return 基本类型数据</h3><p>那是不是只要构造函数体内最后有 <code>return</code>，返回都是 <code>return</code> 后面的数据呢？</p>
+<p>我们看下返回基本类型数据的情况：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params">age</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="number">333</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o);</span><br></pre></td></tr></table></figure>
+
+<p>打印出来的是 <code>&#123;age: 333&#125;</code>，和没有 <code>return</code> 时效果一样。跟预期不一样，背后你原理看下面分析。</p>
+<h2 id="2）背后原理"><a href="#2）背后原理" class="headerlink" title="2）背后原理"></a>2）背后原理</h2><h3 id="2-1-非箭头函数的情况"><a href="#2-1-非箭头函数的情况" class="headerlink" title="2.1 非箭头函数的情况"></a>2.1 非箭头函数的情况</h3><p>当使用 <code>new</code> 操作符创建对象是，ES5 官方文档在 <em>函数定义</em> 一节中做了如下定义 [13.2.2 [[Construct]]](<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)%EF%BC%9A">https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this)：</a></p>
+<p>When the <code>[[Construct]]</code> internal method for a <code>Function</code> object <code>F</code> is called with a possibly empty list of arguments, the following steps are taken:</p>
+<ol>
+<li>Let obj be a newly created <strong>native ECMAScript object</strong>.</li>
+<li>Set all the internal methods of obj as specified in 8.12.</li>
+<li>Set the [[Class]] internal property of obj to Object.</li>
+<li>Set the [[Extensible]] internal property of obj to true.</li>
+<li>Let proto be the value of calling the [[Get]] internal property of <strong>F with argument “prototype”</strong>.</li>
+<li>If Type(proto) is Object, set the <strong>[[Prototype]] internal property of obj to proto</strong>.</li>
+<li>If Type(proto) is not Object, set the [[Prototype]] internal property of obj to the standard built-in <strong>Object prototype object</strong> as described in 15.2.4.</li>
+<li>Let result be the result of calling the [[Call]] internal property of F, <strong>providing obj as the this value</strong> and providing the argument list passed into [[Construct]] as args.</li>
+<li><strong>If Type(result) is Object then return result</strong>.</li>
+<li>Return obj.</li>
+</ol>
+<p>看第 8、9 步：</p>
+<blockquote>
+<p>8）调用函数 <code>F</code>，将其返回值赋给 <code>result</code>；其中，<code>F</code> 执行时的实参为传递给 <code>[[Construct]]</code>（即 <code>F</code> 本身） 的参数，<code>F</code> 内部 <code>this</code> 指向 <code>obj</code>；<br>9）如果 <code>result</code> 是 <code>Object</code> 类型，返回 <code>result</code>；</p>
+</blockquote>
+<p><strong>这也就解释了如果构造函数显式返回对象类型，则直接返回这个对象，而不是返回最开始创建的对象。</strong></p>
+<p>最后在看第 10 步：</p>
+<blockquote>
+<p>10）如果 <code>F</code> 返回的不是对象类型（第 9 步不成立），则返回创建的对象 <code>obj</code>。</p>
+</blockquote>
+<p><strong>如果构造函数没有显式返回对象类型（显式返回基本数据类型或者直接不返回），则返回最开始创建的对象。</strong></p>
+<h3 id="2-2-箭头函数的情况"><a href="#2-2-箭头函数的情况" class="headerlink" title="2.2 箭头函数的情况"></a>2.2 箭头函数的情况</h3><p>那如果构造函数是箭头函数怎么办？</p>
+<p>箭头函数中没有 <code>[[Construct]]</code> 方法，不能使用 <code>new</code> 调用，会报错。</p>
+<p>NOTICE：其中 <code>[[Construct]]</code> 就是指构造函数本身。</p>
+<blockquote>
+<p>相关规范在 <a target="_blank" rel="noopener" href="https://www.ecma-international.org/ecma-262/6.0/index.html">ES6 的官方文档</a> 中有提，但自从 ES6 以来的官方文档巨难懂，在此不做表述。</p>
+</blockquote>
+<h2 id="3）new-调用函数完整过程"><a href="#3）new-调用函数完整过程" class="headerlink" title="3）new 调用函数完整过程"></a>3）new 调用函数完整过程</h2><h3 id="3-1-中文描述及相关代码分析"><a href="#3-1-中文描述及相关代码分析" class="headerlink" title="3.1 中文描述及相关代码分析"></a>3.1 中文描述及相关代码分析</h3><p>除了箭头函数之外的任何函数，都可以使用 <code>new</code> 进行调用，背后发生了什么，上节英文讲述的很清楚了，再用中文描述如下：</p>
+<p>1）创建 ECMAScript 原生对象 <code>obj</code>；<br>2）给 <code>obj</code> 设置原生对象的内部属性；（和原型属性不同，内部属性表示为 <code>[[PropertyName]]</code>，两个方括号包裹属性名，并且属性名大写，比如常见 <code>[[Prototype]]</code>、<code>[[Constructor]]</code>）<br>3）设置 <code>obj</code> 的内部属性 <code>[[Class]]</code> 为 <code>Object</code>；<br>4）设置 <code>obj</code> 的内部属性 <code>[[Extensible]]</code> 为 <code>true</code>；<br>5）将 <code>proto</code> 的值设置为 <code>F</code> 的 <code>prototype</code> 属性值；<br>6）如果 <code>proto</code> 是对象类型，则设置 <code>obj</code> 的内部属性 <code>[[Prototype]]</code> 值为 <code>proto</code>；（<strong>进行原型链关联，实现继承的关键</strong>）<br>7）如果 <code>proto</code> 是不对象类型，则设置 <code>obj</code> 的内部属性 <code>[[Prototype]]</code> 值为内建构造函数 <strong>Object</strong> 的 <code>prototype</code> 值；（<strong>函数 <code>prototype</code> 属性可以被改写</strong>，如果改成非对象类型，<code>obj</code> 的 <code>[[Prototype]]</code> 就指向 Object 的原型对象）<br>8）9）10）见上节分析。（决定返回什么）</p>
+<p>对于第 7 步的情况，见下面代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o1 = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="string">&quot;xiaoming&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o1.<span class="property">__proto__</span> === <span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写构造函数原型属性为非对象类型，实例内部 [[Prototype]] 属性指向 Object 原型对象</span></span><br><span class="line"><span class="comment">// 因为实例是一个对象类型的数据，默认会继承内建对象的原型，</span></span><br><span class="line"><span class="comment">// 如果构造函数的原型不满足形成原型链的要求，那就跳过直接和内建对象原型关联</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="string">&quot;xiaohong&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o2.<span class="property">__proto__</span> === <span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o2.<span class="property">__proto__</span> === <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-更简洁的语言描述"><a href="#3-2-更简洁的语言描述" class="headerlink" title="3.2 更简洁的语言描述"></a>3.2 更简洁的语言描述</h3><ul>
+<li>若执行 <code>new Foo()</code>，过程如下：</li>
+</ul>
+<p>1）创建新对象 <code>o</code>；<br>2）给新对象的内部属性赋值，关键是给<code>[[Prototype]]</code>属性赋值，构造原型链（如果构造函数的原型是 Object 类型，则指向构造函数的原型；不然指向 Object 对象的原型）；<br>3）执行函数 <code>Foo</code>，执行过程中内部 <code>this</code> 指向新创建的对象 <code>o</code>；<br>4）如果 <code>Foo</code> 内部显式返回对象类型数据，则，返回该数据，执行结束；不然返回新创建的对象 <code>o</code>。</p>
+<h3 id="3-3-伪代码实现-new"><a href="#3-3-伪代码实现-new" class="headerlink" title="3.3 伪代码实现 new"></a>3.3 伪代码实现 new</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> <span class="title class_">Foo</span>(...args);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 过程如下（不考虑 Foo 显式返回对象）</span></span><br><span class="line"><span class="keyword">var</span> bar = &#123;&#125;;</span><br><span class="line">bar.<span class="property">__proto__</span> = <span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span>; <span class="comment">// 或者 bar.[[Prototype]] = Foo.prototype</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="title function_">apply</span>(bar, args);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> bar;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-可运行的-new-polyfill"><a href="#3-4-可运行的-new-polyfill" class="headerlink" title="3.4 可运行的 new polyfill"></a>3.4 可运行的 new polyfill</h3><ul>
+<li>好理解的版本</li>
+</ul>
+<p>下面这个版本也是根据规范表述写的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 入参：构造函数、构造函数入参</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">myNew</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> obj = &#123;&#125;;</span><br><span class="line">  <span class="comment">// 提取构造函数，同时删除 arguments 第一个元素</span></span><br><span class="line">  <span class="keyword">let</span> <span class="title class_">Constructor</span> = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">shift</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);</span><br><span class="line"></span><br><span class="line">  obj.<span class="property">__proto__</span> = <span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> temp = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj, <span class="variable language_">arguments</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果构造函数返回对象，则直接返回构造函数的对象，不然返回创建的对象</span></span><br><span class="line">  <span class="keyword">return</span> temp <span class="keyword">instanceof</span> <span class="title class_">Object</span> ? temp : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>兼容不支持 <code>__proto__</code> 的版本</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myNew</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="title class_">Constructor</span> = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">shift</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建对象，并关联原型链</span></span><br><span class="line">  <span class="keyword">let</span> obj = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> temp = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj, <span class="variable language_">arguments</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果构造函数返回对象，则直接返回构造函数的对象，不然返回创建的对象</span></span><br><span class="line">  <span class="keyword">return</span> temp <span class="keyword">instanceof</span> <span class="title class_">Object</span> ? temp : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考这篇文章后面的评论<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/13">JavaScript深入之new的模拟实现</a>，注意，<strong>是这篇文章后面的评论</strong>，文章本身代码实现和 《JavaScript 设计模式与开发实践》p19 中一样，不知谁参考了谁的，但后面的评论有些很精彩。</p>
+</blockquote>
+<h2 id="4）几点说明"><a href="#4）几点说明" class="headerlink" title="4）几点说明"></a>4）几点说明</h2><h3 id="4-1-判断是否是-Object-类型"><a href="#4-1-判断是否是-Object-类型" class="headerlink" title="4.1 判断是否是 Object 类型"></a>4.1 判断是否是 Object 类型</h3><p>关于一个数据是否是 <code>Object</code> 类型，可以通过 <code>instanceof</code> 操作符进行判断：如果 <code>x instanceof Object</code> 返回 <code>true</code>，则 <code>x</code> 为 <code>Object</code> 类型。</p>
+<p>由上可知，<code>null instanceof Object</code> 返回 <code>false</code>，所以 <code>null</code> 不是 <code>Object</code> 类型，尽管<code>typeof null</code> 返回 “Object”。</p>
+<h3 id="4-2-instanceof-原理"><a href="#4-2-instanceof-原理" class="headerlink" title="4.2 instanceof 原理"></a>4.2 instanceof 原理</h3><p>**<code>instanceof</code> 的工作原理是：在表达式 <code>x instanceof Foo</code> 中，如果 <code>Foo</code> 的原型（即 <code>Foo.prototype</code>）出现在 <code>x</code> 的原型链中，则返回 <code>true</code>，不然，返回 <code>false</code>**。</p>
+<p>因为函数的原型可以被改写，所以会出现在 <code>x</code> 通过 <code>Foo</code> new 出来<strong>之后</strong>完全改写 <code>Foo</code> 的原型 <code>x instanceof Foo</code> 返回 <code>false</code> 的情况。因为实例创建之后重写构造函数原型，实例指向的原型已经不是构造函数的新的原型了，见下面代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Foo</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line"></span><br><span class="line">o <span class="keyword">instanceof</span> <span class="title class_">Foo</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 Foo 原型</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;&#125;;</span><br><span class="line">o <span class="keyword">instanceof</span> <span class="title class_">Foo</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>PS.那既然 <code>instanceof</code> 不靠谱，怎么才能判断一个实例是哪个构造函数构造的呢？可以通过原型对象上的 <code>constructor</code> 属性实现：虽然构造函数原型可以改写导致之前创建的实例的原型链断开，但是，构造函数的原型中 <code>contructor</code> 属性还是指向构造函数的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Foo</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 Foo 原型</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;&#125;;</span><br><span class="line">o <span class="keyword">instanceof</span> <span class="title class_">Foo</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// o.__proto__ 获取 o 构造函数的原型，此时，其 constructor 属性还是之前最初的构造函数</span></span><br><span class="line"><span class="comment">// 通过 name 属性能直接找到构造函数是哪个 </span></span><br><span class="line">o.<span class="property">__proto__</span>.<span class="property">constructor</span>.<span class="property">name</span>; <span class="comment">// Foo</span></span><br><span class="line">o.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Foo</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>但重新原型对象，稍不注意会引入新的问题：<code>constructor</code> 指向丢失。比如上面的例子:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Foo</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line"><span class="comment">// 重写 Foo 原型</span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o1 = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">o1.<span class="property">__proto__</span>.<span class="property">constructor</span>.<span class="property">name</span>; <span class="comment">// Object 而非 Foo，因为 Foo.prototype = new Object(); 新建对象实例，普通对象实例没有 constructor 属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 每次重新原型都要向下面这样执行 constructor </span></span><br><span class="line"><span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">  <span class="attr">constructor</span>: <span class="title class_">Foo</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">o2.<span class="property">__proto__</span>.<span class="property">constructor</span>.<span class="property">name</span>; <span class="comment">// Foo</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然 function 自带的原型对象也是对象，但有特殊属性 <code>constructor</code>，重写后默认丢失，需要指定。</p>
+</blockquote>
+<h3 id="4-3-关于内建构造函数"><a href="#4-3-关于内建构造函数" class="headerlink" title="4.3 关于内建构造函数"></a>4.3 关于内建构造函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 内建构造函数都是 Function 的实例</span></span><br><span class="line"><span class="comment">// 毕竟也是函数，但创建过程待重新整理</span></span><br><span class="line"><span class="title class_">Object</span> <span class="keyword">instanceof</span> <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Function</span> <span class="keyword">instanceof</span> <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Array</span> <span class="keyword">instanceof</span> <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Date</span> <span class="keyword">instanceof</span> <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">RegExp</span> <span class="keyword">instanceof</span> <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Function</span>.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Date</span>.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Function</span>; <span class="comment">// true</span></span><br><span class="line"><span class="title class_">RegExp</span>.<span class="property">__proto__</span>.<span class="property">constructor</span> === <span class="title class_">Function</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>但下面也成立：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Function</span> <span class="keyword">instanceof</span> <span class="title class_">Object</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为 Function 的原型对象（Function.__proto__）的 __proto__ 指向 Object.prototype</span></span><br><span class="line"><span class="comment">// 即 Object.prototype 出现在了 Function 的原型链上</span></span><br><span class="line"><span class="title class_">Function</span>.<span class="property">__proto__</span>.<span class="property">__proto__</span> === <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>具体参考这篇问答：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23622695/why-in-javascript-both-object-instanceof-function-and-function-instanceof-obj/23623598">Why in JavaScript both “Object instanceof Function” and “Function instanceof Object” return true?</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1978049/what-values-can-a-constructor-return-to-avoid-returning-this">What values can a constructor return to avoid returning this?</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21874128/construct-internal-method"><code>[[Construct]]</code> internal method</a>   </p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/15/format-code-by-eslint-and-prettier/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/07/22/generator-to-promise-to-async-1/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2018/06/28/what-happened-when-using-new/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

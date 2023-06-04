@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>理解JS参数按值传递 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript," />
+  
+
+  <meta name="description" content="首先要明白按值传递和按引用传递的区别以及JS当中基本类型值和引用类型值的区别。 按值传递和按引用传递 按值传递：在变量传递进函数之前，先从堆内存对象中复制一个副本，然后传入函数。所以在函数中对该变量做的任何修改，都不会影响到该变量在堆内存中引用的对象（因为修改的是副本，而非引用本身）。  按参数传递：传入函数中的变量实际只是指向堆内存对象的一个指针，所以，在函数内部对于该变量做的任何修改，也同步修">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解JS参数按值传递">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/04/18/understand-params-passing-by-value/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="首先要明白按值传递和按引用传递的区别以及JS当中基本类型值和引用类型值的区别。 按值传递和按引用传递 按值传递：在变量传递进函数之前，先从堆内存对象中复制一个副本，然后传入函数。所以在函数中对该变量做的任何修改，都不会影响到该变量在堆内存中引用的对象（因为修改的是副本，而非引用本身）。  按参数传递：传入函数中的变量实际只是指向堆内存对象的一个指针，所以，在函数内部对于该变量做的任何修改，也同步修">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185835.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185905.png">
+<meta property="article:published_time" content="2017-04-18T15:08:42.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.576Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185835.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E6%8C%89%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="toc-text">按值传递和按引用传递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%80%BC%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%80%BC"><span class="toc-text">基本类型值和引用类型值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS%E4%BC%A0%E5%8F%82%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92%E8%AF%A6%E8%A7%A3"><span class="toc-text">JS传参按值传递详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%8F%82%E6%95%B0%E4%B8%BA%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E6%97%B6"><span class="toc-text">当参数为基本类型时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%8F%82%E6%95%B0%E4%B8%BA%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E6%97%B6"><span class="toc-text">当参数为引用类型时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%AE%E5%8A%A9%E7%90%86%E8%A7%A3%E7%9A%84%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><span class="toc-text">帮助理解的关键概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-理解JS按值传递" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">理解JS参数按值传递</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.04.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>首先要明白按值传递和按引用传递的区别以及JS当中基本类型值和引用类型值的区别。</p>
+<h1 id="按值传递和按引用传递"><a href="#按值传递和按引用传递" class="headerlink" title="按值传递和按引用传递"></a>按值传递和按引用传递</h1><ul>
+<li><p>按值传递：在变量传递进函数之前，先从堆内存对象中复制一个副本，然后传入函数。所以在函数中对该变量做的任何修改，都不会影响到该变量在堆内存中引用的对象（因为修改的是副本，而非引用本身）。</p>
+</li>
+<li><p>按参数传递：传入函数中的变量实际只是指向堆内存对象的一个指针，所以，在函数内部对于该变量做的任何修改，也同步修改了该变量在堆内存中引用的对象，这样，在函数调用结束后在函数内部对该变量做的任何修改都会保留下来。</p>
+</li>
+</ul>
+<h1 id="基本类型值和引用类型值"><a href="#基本类型值和引用类型值" class="headerlink" title="基本类型值和引用类型值"></a>基本类型值和引用类型值</h1><p>ECMAScript 变量可能包含两种不同数据类型的值：基本类型值(primitive values)和引用类型值(reference values)，定义如下：</p>
+<blockquote>
+<p>基本类型值指的是简单的数据段，而引用类型值指那些可能由多个值构成的对象。</p>
+</blockquote>
+<p>两种数据类型最大的区别在于对其进行复制时：</p>
+<ul>
+<li>如果从一个变量向另一个变量复制基本类型的值时，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上。也就是说，新的变量是旧变量的一个副本，复制操作结束后，两者便互不相干：<strong>改变其中一个变量，不会影响另一个变量</strong>。见下代码及图示：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">a = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185835.png" alt="基本类型复制前后变量对象变化">   </p>
+<ul>
+<li>如果从一个变量向另一个变量复制基本类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，<strong>这个值的副本实际上是一个指针</strong>，而这个指针指向存储在堆中的一个对象。复制操作结束后，<strong>两个变量实际上将引用同一个对象：改变其中一个变量，就会影响另一个变量</strong>。见下代码及图示</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line">obj1.<span class="property">name</span> = <span class="string">&quot;xiaoming&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="property">name</span>); <span class="comment">// &quot;xiaoming&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/20170418185905.png" alt="引用类型复制前后变量对象变化">   </p>
+<h1 id="JS传参按值传递详解"><a href="#JS传参按值传递详解" class="headerlink" title="JS传参按值传递详解"></a>JS传参按值传递详解</h1><p>《JavaScript高级程序设计》中指出JS所有参数都是按值传递的，不可能按引用传递：   </p>
+<blockquote>
+<p>All arguments in ECMAScript are passed by value. It is not possible to pass<br>  arguments by reference.   </p>
+</blockquote>
+<p>当参数为基本类型时，这容易理解，但当参数为引用类型时，有些地方需要注意。   </p>
+<h2 id="当参数为基本类型时"><a href="#当参数为基本类型时" class="headerlink" title="当参数为基本类型时"></a>当参数为基本类型时</h2><p>当变量为基本类型时，很好理解参数传递是按值传递的，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">changeValue</span>(<span class="params">argument</span>) &#123;</span><br><span class="line">  argument = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">changeValue</span>(a);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>在函数体内的<code>a</code>是函数体外的<code>a</code>的副本，所以在函数体内对<code>a</code>的操作不影响函数体外的<code>a</code>。</p>
+<h2 id="当参数为引用类型时"><a href="#当参数为引用类型时" class="headerlink" title="当参数为引用类型时"></a>当参数为引用类型时</h2><p>当参数为引用类型时，需要注意的点是，虽然引用类型也是按值传递，但<strong>这里的“值”指的是引用类型指向堆内存中对象的指针</strong>，如果仅仅是修改引用类型内部的属性值，这些修改在函数调用结束后，都会保留下来。看下面的例子  </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;<span class="attr">key</span>:<span class="string">&quot;foo&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">changeKey</span>(<span class="params">argument</span>) &#123;</span><br><span class="line">  argument.<span class="property">key</span> = <span class="string">&quot;bar&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">changeKey</span>(x);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// &#123;key:&quot;bar&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为此时函数体内的<code>x</code>和函数体外的<code>x</code>引用的都是同一个堆内存中的对象，所以修改函数体内的<code>x</code>属性值反映到了函数体外的<code>x</code>身上。这会让人产生疑惑：当参数为引用类型时，是按引用传递，而非按值传递。其实不然，看下面的例子</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;<span class="attr">key</span>:<span class="string">&quot;foo&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">changeObject</span>(<span class="params">argument</span>) &#123;</span><br><span class="line">  argument = &#123;<span class="attr">key</span>:<span class="string">&quot;bar&quot;</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">changeObject</span>(x);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x); <span class="comment">// &#123;key:&quot;foo&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>跟上面的例子不同的是，函数体内的<code>x</code>被重新赋值，而非修改内部的属性，如果是按引用传递，此时函数体外的<code>x</code>也会被重新赋值，但并没有。这是因为引用类型被重新赋值后，其指针在堆内存中的指向（引用类型的“值”）也发生了变化，正因为JS传参是按值传递，所以函数体内对引用类型的值（该引用类型在变量对象中的指针）的修改不会反映到函数体外。</p>
+<h2 id="帮助理解的关键概念"><a href="#帮助理解的关键概念" class="headerlink" title="帮助理解的关键概念"></a>帮助理解的关键概念</h2><p>1、引用类型保存在变量对象中的值实际是一指针，该指针指向堆内存中的对象；<br>2、<strong>修改引用类型变量的属性值，不会修改该变量在变量对象中的指针，但会修改其对应的堆内存中的对象，同时，也影响其他指向该堆内存对象的变量</strong>；<br>3、给引用类型重新赋值实际是修改引用类型指针的指向；<br>4、<strong>给引用类型重新赋值后不会影响其之前指向的堆内存中的对象，所以若有其他变量也指向堆内存中的这个对象，不会受到影响</strong> 。     </p>
+<blockquote>
+<ul>
+<li>可以把 ECMAScript 函数的参数想象成局部变量。</li>
+<li>JS这种传参方式从技术上讲是<strong>共享传参</strong>(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_sharing">call-by-sharing</a>):对形参赋值，不影响实参的值（按值传递）；但形参和实参指向同一堆内存中的对象，即<strong>共享</strong>同一对象，所以对形参属性值的修改也会影响实参。</li>
+</ul>
+</blockquote>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language">Is JavaScript a pass-by-reference or pass-by-value language?</a><br>【2】[美]Nicholas C. Zakas 著，李松峰 曹力 译（2012），JavasSript高级程序设计，p69~p71，人民邮电出版社<br>【3】<a target="_blank" rel="noopener" href="http://bosn.me/js/js-call-by-sharing/">JS是按值传递还是按引用传递?</a>   </p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/04/15/normalization-name-angular-directive/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/04/27/js-write-normalization/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/04/18/understand-params-passing-by-value/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

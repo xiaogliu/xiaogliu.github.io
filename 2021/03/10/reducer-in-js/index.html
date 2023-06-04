@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 中的 reducer | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript," />
+  
+
+  <meta name="description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗： const uniqueKey &#x3D; new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) &#x3D;&gt; [...acc, key], []));  这个函数的作用是将一个数组对象元素中的 key">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 中的 reducer">
+<meta property="og:url" content="https://xiaogliu.github.io/2021/03/10/reducer-in-js/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="很长一段时间一直对 reducer 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗： const uniqueKey &#x3D; new Set(obj.reduce((acc, &amp;#123; key &amp;#125;) &#x3D;&gt; [...acc, key], []));  这个函数的作用是将一个数组对象元素中的 key">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-10T11:09:18.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.570Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84-reducer-%E6%96%B9%E6%B3%95"><span class="toc-text">数组中的 reducer 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redux-%E4%B8%AD%E7%9A%84-reducer"><span class="toc-text">redux 中的 reducer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-hook-%E4%B8%AD%E7%9A%84-useReducer"><span class="toc-text">react hook 中的 useReducer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reducer-%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8"><span class="toc-text">reducer 其他应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Javascript 中的 reducer" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript 中的 reducer</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.03.10</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>很长一段时间一直对 <em>reducer</em> 不太理解，reduce 英文含义 “减少”，reducer 可以翻译成“缩减器”，但感觉还是不直观。 直到今天，看到一个函数，豁然开朗：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> uniqueKey = <span class="keyword">new</span> <span class="title class_">Set</span>(obj.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, &#123; key &#125;</span>) =&gt;</span> [...acc, key], []));</span><br></pre></td></tr></table></figure>
+
+<p>这个函数的作用是将一个数组对象元素中的 key 都找出来，然后去重，返回的是 <code>Set</code> 类型的数据。</p>
+<h2 id="数组中的-reducer-方法"><a href="#数组中的-reducer-方法" class="headerlink" title="数组中的 reducer 方法"></a>数组中的 reducer 方法</h2><p>上个函数是数组中 <code>reduce</code> 用法，</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">arr.<span class="title function_">reduce</span>(<span class="title function_">callback</span>( accumulator, currentValue, [, index[, array]] ) [, initialValue])</span><br></pre></td></tr></table></figure>
+
+<p>Your <strong>reducer</strong> (callback) function’s returned value is assigned to the accumulator, whose value is remembered across each iteration throughout the array, and ultimately becomes the final, <strong>single resulting value</strong>.</p>
+<p>重要信息：</p>
+<ol>
+<li>每次 callback function，即 reducer function 返回值都赋值给了 accumulator</li>
+<li>accumulator 在每次循环中会记录下来</li>
+<li>循环结束，accumulator 作为最终值被返回</li>
+</ol>
+<p>关于 initialValue</p>
+<ol>
+<li>如果提供 initalValue，第一次循环时，accumulator 值为 initialValue，currentValue 为数组第一个元素（同时 index 为 0）；</li>
+<li>如果不提供 initalValue，第一次循环时，accumulator 值为数组第一个元素，currentValue 为数组第二个元素（同时 index 为 1，index 始终为 currentValue 的 index）。</li>
+</ol>
+<blockquote>
+<p>如果是空数组，不提供 initialValue 会报错。</p>
+</blockquote>
+<p>至此，可以得出结论：reducer 函数的直观理解是 <strong>将多个值（或者对值可能产生的副作用）通过压缩（减少）处理，返回一个</strong>。</p>
+<p>比如，数组中 <code>reduce</code> 方法可以理解成：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">数组（多个值）-- reducer 函数 --&gt; 单个值</span><br></pre></td></tr></table></figure>
+
+<h2 id="redux-中的-reducer"><a href="#redux-中的-reducer" class="headerlink" title="redux 中的 reducer"></a>redux 中的 reducer</h2><p>redux 中也有 reducer，他的作用也能直观理解成 <strong>将多个值（或者对值可能产生的副作用）通过压缩（减少）处理，返回一个</strong>，reducer 接收 state 以及 action（对 state 产生副作用），然后（压缩 preState 和 action）返回新的 state，简单流程是这样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">preState + action -- reducer 函数 --&gt; newState</span><br></pre></td></tr></table></figure>
+
+<p>参考问题 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/34376023/why-are-reduxs-state-functions-called-reducers">Why are Redux’s state functions called reducers?</a></p>
+<h2 id="react-hook-中的-useReducer"><a href="#react-hook-中的-useReducer" class="headerlink" title="react hook 中的 useReducer"></a>react hook 中的 useReducer</h2><p>react hook 有一个 <code>useReducer</code>，它可以接收一个 reducer 函数，这里的 reducer 函数和 redux 中含义一直：接收 state 和 action，返回新的 state。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [state, dispatch] = <span class="title function_">useReducer</span>(reducer, initialArg, init);</span><br></pre></td></tr></table></figure>
+
+<h2 id="reducer-其他应用"><a href="#reducer-其他应用" class="headerlink" title="reducer 其他应用"></a>reducer 其他应用</h2><p>比如数组去重</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> uniqueArr = arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(acc, cur, acc.<span class="title function_">indexOf</span>(cur) === -<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> acc.<span class="title function_">indexOf</span>(cur) === -<span class="number">1</span> ? acc.<span class="title function_">concat</span>(cur) : acc;</span><br><span class="line">&#125;, []); <span class="comment">// 设置初始值，避免数组为空时报错</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>reducer 函数的直观理解是 <strong>将多个值（或者对值可能产生的副作用）通过压缩（减少）处理，返回一个</strong>。</p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/10/14/the-difference-between-dive-and-shallow/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2021/03/12/docker-compose-can-not-use-lastest-npm-package/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2021/03/10/reducer-in-js/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

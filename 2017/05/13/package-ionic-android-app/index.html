@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ionic打包Android apk | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript,Hybrid App,Ionic,npm," />
+  
+
+  <meta name="description" content="开始前请确保已安装node环境,Ionic的安装和后续的许多前端工具的安装都依赖于node的包管理器npm。 一 安装Android打包环境1.1 安装JDK并配置Java环境jdk官网下载地址    安装完成以后配置环境变量：    JAVA_HOME：JDK的安装路径，这个环境变量本身不存在，需要创建，创建完则可以利用%JAVA_HOME%作为统一引用路径，其值为：jdk在你电脑上的安装路径。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ionic打包Android apk">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/05/13/package-ionic-android-app/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="开始前请确保已安装node环境,Ionic的安装和后续的许多前端工具的安装都依赖于node的包管理器npm。 一 安装Android打包环境1.1 安装JDK并配置Java环境jdk官网下载地址    安装完成以后配置环境变量：    JAVA_HOME：JDK的安装路径，这个环境变量本身不存在，需要创建，创建完则可以利用%JAVA_HOME%作为统一引用路径，其值为：jdk在你电脑上的安装路径。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-13T15:42:41.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.569Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Hybrid App">
+<meta property="article:tag" content="Ionic">
+<meta property="article:tag" content="npm">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E5%AE%89%E8%A3%85Android%E6%89%93%E5%8C%85%E7%8E%AF%E5%A2%83"><span class="toc-text">一 安装Android打包环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85JDK%E5%B9%B6%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83"><span class="toc-text">1.1 安装JDK并配置Java环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%AE%89%E8%A3%85Android-Studio"><span class="toc-text">1.2 安装Android Studio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%AE%89%E8%A3%85Gradle"><span class="toc-text">1.3 安装Gradle</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-Ionic%E6%89%93%E5%8C%85%E6%B5%81%E7%A8%8B"><span class="toc-text">二 Ionic打包流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2"><span class="toc-text">2.1 平台部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%89%93%E5%8C%85"><span class="toc-text">2.2 打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%AE%BE%E7%BD%AE%E7%AD%BE%E5%90%8D"><span class="toc-text">2.3 设置签名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Ionic打包Android-apk" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Ionic打包Android apk</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.05.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Hybrid-App/">Hybrid App</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>开始前请确保已安装node环境,Ionic的安装和后续的许多前端工具的安装都依赖于node的包管理器npm。</p>
+<h1 id="一-安装Android打包环境"><a href="#一-安装Android打包环境" class="headerlink" title="一 安装Android打包环境"></a>一 安装Android打包环境</h1><h2 id="1-1-安装JDK并配置Java环境"><a href="#1-1-安装JDK并配置Java环境" class="headerlink" title="1.1 安装JDK并配置Java环境"></a>1.1 安装JDK并配置Java环境</h2><p>jdk官网<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">下载地址</a>   </p>
+<p>安装完成以后配置环境变量：   </p>
+<p><strong>JAVA_HOME</strong>：JDK的安装路径，这个环境变量本身不存在，需要创建，创建完则可以利用<code>%JAVA_HOME%</code>作为统一引用路径，其值为：jdk在你电脑上的安装路径。   </p>
+<p><strong>PATH</strong>：PATH属性已存在，可直接编辑。作用是用于配置路径，简化命令的输入，其值为：<code>%JAVA_HOME%\bin</code>。   </p>
+<p><strong>CLASSPATH</strong>：用于编译时JAVA类的路径，其值为：<code>%JAVA_HOME%\lib\tools.jar</code>。   </p>
+<p>配置完成后，在命令行运行以下命令：<code>java -version</code>，<code>javac</code> 如果返回使用说明信息，则设置成功。   </p>
+<blockquote>
+<p>扩展阅读：安装开发类软件时经常会设置系统环境变量，如果想明白为什么要设置环境变量，可参考这篇<a target="_blank" rel="noopener" href="http://www.cnblogs.com/zoupeiyang/p/4034517.html#2">博文</a>。   </p>
+</blockquote>
+<h2 id="1-2-安装Android-Studio"><a href="#1-2-安装Android-Studio" class="headerlink" title="1.2 安装Android Studio"></a>1.2 安装Android Studio</h2><p>Android Studio官网<a target="_blank" rel="noopener" href="https://developer.android.com/studio/index.html">下载地址</a>   </p>
+<p>下载完成并安装然后向系统Path环境变量中添加两个值。分别是Android SDK中tools目录的路径和platform-tools的路径。例如：<code>X:\software\Android\sdk\tools</code>;<code>X:\software\Android\sdk\platform-tools</code>;   </p>
+<p>配置完成后，在命令行运行<code>android</code>并且回车，如果返回使用说明信息，则设置成功。   </p>
+<blockquote>
+<p>有文章称这里可以只下载Android SDK，不需要一并下载Android Studio，未验证。   </p>
+</blockquote>
+<h2 id="1-3-安装Gradle"><a href="#1-3-安装Gradle" class="headerlink" title="1.3 安装Gradle"></a>1.3 安装Gradle</h2><p>Gradle官网<a target="_blank" rel="noopener" href="https://services.gradle.org/distributions/">下载地址</a>   </p>
+<p>下载后无需安装，解压即可使用，但需要设置环境变量：   </p>
+<p><strong>GRADLE_HOME</strong>：Gradle解压目录，利用<code>GRADLE_HOME</code>作为统一引用路径，其值为：Gradle在你电脑上解压路径，比如<code>X:\software\Android\gradle-3.5</code>   </p>
+<p><strong>PATH</strong>：其值为<code>%GRADLE_HOME%\bin</code>   </p>
+<p>配置完成后，在命令行运行<code>gradle -v</code>并且回车，如果返回版本信息，则设置成功。   </p>
+<blockquote>
+<p>Gradle是Java构建工具，更多Java构建工具可参考这篇博文<a target="_blank" rel="noopener" href="http://blog.csdn.net/napolunyishi/article/details/39345995">Java构建工具：Ant vs Maven vs Gradle</a></p>
+</blockquote>
+<h1 id="二-Ionic打包流程"><a href="#二-Ionic打包流程" class="headerlink" title="二 Ionic打包流程"></a>二 Ionic打包流程</h1><p>首先确保已有Ionic项目，如果还没有，可以下载Ionic官网示例进行接下来的打包流程。下载方法是在命令行中输入一下命令：   </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic start myApp tabs</span><br></pre></td></tr></table></figure>
+
+<p>下载完成后进入<code>myApp</code>目录进行接下来的操作。   </p>
+<h2 id="2-1-平台部署"><a href="#2-1-平台部署" class="headerlink" title="2.1 平台部署"></a>2.1 平台部署</h2><p>Ionic默认没有添加任何平台，需要我们手动添加，添加命令为<code>ionic platform add &lt;platform-name&gt;</code>   </p>
+<p>比如添加Android平台：   </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic platform add android</span><br></pre></td></tr></table></figure>
+
+<p>执行完毕后，在开发目录下的platform目录会多一个android目录。   </p>
+<p><strong>这里有一点需要注意</strong>：因为项目中是用Gradle作为构建工具，但在接下来的打包过程中却可能因为下载Gradle时报错，错误信息一般包含下面提示：   </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">java.net.SocketException:Connection reset</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>此时简单解决方案有两种：   </p>
+<ol>
+<li><p>在刚生成的这个目录android目录下新建<code>gradle</code>文件夹，并在<code>gradle</code>文件夹中放入<code>gradle-x.x-all.zip</code>文件（<a target="_blank" rel="noopener" href="https://services.gradle.org/distributions/">下载地址</a>），同时添加环境变量：<code>CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL</code>，值为<code>../gradle-x.x-all.zip</code>   </p>
+</li>
+<li><p>在<code>platforms\android\cordova\lib\builders</code>目录下找到<code>GradleBuilder.js</code>，<br>将下面的内容：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https\\://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure>
+<p>  修改为：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><strong>方法2未测试</strong>，更多内容可参考<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle">ionic build android error when download gradle</a>   </p>
+</blockquote>
+<h2 id="2-2-打包"><a href="#2-2-打包" class="headerlink" title="2.2 打包"></a>2.2 打包</h2><p>打包命令如下：   </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic build android -release</span><br></pre></td></tr></table></figure>
+
+<p>打包完成后会提示apk输出目录，此时的apk文件没有签名，无法使用。</p>
+<blockquote>
+<p>第一次打包速度很慢，大概需要1小时左右。</p>
+</blockquote>
+<h2 id="2-3-设置签名"><a href="#2-3-设置签名" class="headerlink" title="2.3 设置签名"></a>2.3 设置签名</h2><ul>
+<li>创建key，需要用到<code>keytool.exe</code>（位于<code>jdkx.x.x\jre\bin</code>目录下）；   </li>
+<li>使用产生的key对apk设置签名用到的是<code>jarsigner.exe</code>(位于<code>jdkx.x.x\bin</code>目录下)</li>
+</ul>
+<p>需要把上述两个软件所在的目录添加到环境变量PATH中，接下来   </p>
+<p><strong>创建key</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">keytool -genkey -alias demo.keystore -keyalg RSA -validity 40000 -keystore demo.keystore</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>genkey：产生密钥</li>
+<li>alias demo.keystore：秘钥别名 demo.keystore</li>
+<li>keyalg RSA：使用RSA算法对签名加密</li>
+<li>validity 40000：有效期限40000天</li>
+<li>keystore：秘钥库别名 demo.keystore</li>
+</ul>
+<p><strong>给apk设置签名</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jarsigner -verbose -keystore demo.keystore -signedjar demo_signed.apk demo.apk demo.keystore</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>verbose 输出签名的详细信息</li>
+<li>keystore demo.keystore 密钥库名称及放置路径</li>
+<li>signedjar demor_signed.apk demo.apk demo.keystore 三个参数的含义分别为：签名后产生的文件demo_signed，要签名的文件demo.apk和密钥库demo.keystore</li>
+</ul>
+<blockquote>
+<p>可以在构建过程中<strong>自动添加签名</strong>，方法如下：在platforms\android目录新建名为release-signing.properties的文件，文件内容如下：<br>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">storeFile=path/to/keystore</span><br><span class="line">keyAlias=your key aliasstore</span><br><span class="line">Password=your store passwordkey</span><br><span class="line">Password=your key password</span><br></pre></td></tr></table></figure><br>  使用<code>ionic build --release android</code>构建后，文件即是已签名的安装包。</p>
+</blockquote>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="http://www.cnblogs.com/shikelong/p/4480975.html">window下Ionic环境安装</a><br>【2】<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/0588510fbb97">ionic环境配置和android打包签名</a><br>【3】<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle">ionic build android error when download gradle</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/05/13/package.json-instruction/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/05/14/fix-ionic1.32-click-modal-app-frozen/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/05/13/package-ionic-android-app/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

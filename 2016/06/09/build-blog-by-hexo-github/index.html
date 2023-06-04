@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用 Hexo + Github 搭建个人博客 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Node.js,工具,hexo," />
+  
+
+  <meta name="description" content="记录利用 hexo 搭建 blog 的过程。 自从接触编程以来，一直想建立自己的博客来记录重要的学习笔记，这也符合“分享”的精神。但限于自己小白的身份，一直搭建不成功，直接使用 github page，只是自动生成了首页，但不知如何添加自己的文章。后面了解到，这可能需要借助 jekll ，但试着部署，还是有种累觉不爱的感觉：折腾的精神应该提倡，但写博客应该把精力放在内容本身上，而非花在样式、不熟等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Hexo + Github 搭建个人博客">
+<meta property="og:url" content="https://xiaogliu.github.io/2016/06/09/build-blog-by-hexo-github/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="记录利用 hexo 搭建 blog 的过程。 自从接触编程以来，一直想建立自己的博客来记录重要的学习笔记，这也符合“分享”的精神。但限于自己小白的身份，一直搭建不成功，直接使用 github page，只是自动生成了首页，但不知如何添加自己的文章。后面了解到，这可能需要借助 jekll ，但试着部署，还是有种累觉不爱的感觉：折腾的精神应该提倡，但写博客应该把精力放在内容本身上，而非花在样式、不熟等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-09T14:56:37.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.573Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">一、环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85-Git"><span class="toc-text">1.1 安装 Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AE%89%E8%A3%85-node-js"><span class="toc-text">1.2 安装 node.js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AE-Github"><span class="toc-text">二、配置 Github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%BB%BA%E7%AB%8B-repository"><span class="toc-text">2.1 建立 repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%85%8D%E7%BD%AE-SSH-Key"><span class="toc-text">2.2 配置 SSH-Key</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85-Hexo"><span class="toc-text">三、安装 Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%AE%89%E8%A3%85"><span class="toc-text">3.1 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-text">3.2 快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E8%AE%BE%E7%BD%AE%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="toc-text">3.2.1 设置你的博客</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E5%BC%80%E5%A7%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88start-server%EF%BC%89"><span class="toc-text">3.2.2 开始服务器（start server）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-Create-a-new-post"><span class="toc-text">3.2.3 Create a new post</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-Generate-static-files"><span class="toc-text">3.2.4 Generate static files</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5-%E7%BC%96%E8%BE%91%E6%96%87%E7%AB%A0"><span class="toc-text">3.2.5 编辑文章</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-6-%E9%83%A8%E7%BD%B2%E5%88%B0-Github"><span class="toc-text">3.2.6 部署到 Github</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-6-1-%E9%83%A8%E7%BD%B2%E5%88%B0-Github-%E5%89%8D%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE-hexo-%E7%9A%84-config-yml-%E6%96%87%E4%BB%B6%EF%BC%8C%E9%A6%96%E5%85%88%E6%89%BE%E5%88%B0%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%86%85%E5%AE%B9-%E4%B8%80%E8%88%AC%E5%9C%A8%E6%96%87%E6%A1%A3%E6%9C%80%E5%90%8E"><span class="toc-text">3.2.6-1 部署到 Github 前需要配置 hexo 的_config.yml 文件，首先找到下面的内容(一般在文档最后)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-6-2-%E5%AE%89%E8%A3%85-hexo-deployer"><span class="toc-text">3.2.6-2 安装 hexo-deployer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-6-3-deploy"><span class="toc-text">3.2.6-3 deploy</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-7-%E6%B5%8B%E8%AF%95"><span class="toc-text">3.2.7 测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-8-%E6%80%BB%E7%BB%93"><span class="toc-text">3.2.8 总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-9-%E6%80%BB%E7%BB%93%EF%BC%9A%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95"><span class="toc-text">3.2.9 总结：本地调试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-9-1-%E5%9C%A8%E6%89%A7%E8%A1%8C%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%91%BD%E4%BB%A4%E5%90%8E%EF%BC%8C"><span class="toc-text">3.2.9-1 在执行下面的命令后，</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-9-2-%E5%8F%AF%E4%BB%A5%E7%94%A8%E7%AE%80%E5%8C%96%E7%9A%84%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4"><span class="toc-text">3.2.9-2 可以用简化的一条命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93"><span class="toc-text">3.3 命令总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">3.3.1 常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4"><span class="toc-text">3.3.2 复合命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-%E5%91%BD%E4%BB%A4%E7%9A%84%E7%AE%80%E5%86%99%E4%B8%BA"><span class="toc-text">3.3.4 命令的简写为</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AE%BE%E8%AE%A1%E6%9B%B4%E6%94%B9"><span class="toc-text">四、设计更改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="toc-text">4.1 更换主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2"><span class="toc-text">4.2 自定义页面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-about-%E9%A1%B5%E9%9D%A2"><span class="toc-text">4.2.1 about 页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-404-%E9%A1%B5%E9%9D%A2"><span class="toc-text">4.2.2 404 页面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-hexo-%E6%9B%B4%E5%A4%9A%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.3 hexo 更多介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.3.1 目录介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-config-yml-%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-text">4.3.2 _config.yml 简单说明：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3-%E4%BF%AE%E6%94%B9%E5%B1%80%E9%83%A8%E9%A1%B5%E9%9D%A2"><span class="toc-text">4.3.3 修改局部页面</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%A4%9A%E5%8F%B0%E7%94%B5%E8%84%91%E5%8D%8F%E5%90%8C%E7%BB%B4%E6%8A%A4-blog"><span class="toc-text">五、多台电脑协同维护 blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">六、遇到问题及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-使用hexo+github搭建个人博客" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用 Hexo + Github 搭建个人博客</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.06.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>记录利用 hexo 搭建 blog 的过程。</p>
+<p>自从接触编程以来，一直想建立自己的博客来记录重要的学习笔记，这也符合“分享”的精神。但限于自己小白的身份，一直搭建不成功，直接使用 <a target="_blank" rel="noopener" href="https://pages.github.com/">github page</a>，只是自动生成了首页，但不知如何添加自己的文章。后面了解到，这可能需要借助 <a target="_blank" rel="noopener" href="http://jekyllrb.com/">jekll</a> ，但试着部署，还是有种累觉不爱的感觉：折腾的精神应该提倡，但写博客应该把精力放在内容本身上，而非花在样式、不熟等等事情上（算是给自己偷懒的说辞）。后来，注意，后来接触到了 <a target="_blank" rel="noopener" href="https://hexo.io/"><strong>hexo</strong></a> ，相比 jekll，它部署简单，并且实际写文章时也可以自动完成很多工作，使我可以专注写作。期间查了很多资料，在此一并做下总结。</p>
+<blockquote>
+<p>其他可选择方案：<a target="_blank" rel="noopener" href="https://github.com/gatsbyjs/gatsby">Gatsby</a>, <a target="_blank" rel="noopener" href="https://github.com/gohugoio/hugo">Hugo</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h2><h3 id="1-1-安装-Git"><a href="#1-1-安装-Git" class="headerlink" title="1.1 安装 Git"></a>1.1 安装 Git</h3><h3 id="1-2-安装-node-js"><a href="#1-2-安装-node-js" class="headerlink" title="1.2 安装 node.js"></a>1.2 安装 node.js</h3><h2 id="二、配置-Github"><a href="#二、配置-Github" class="headerlink" title="二、配置 Github"></a>二、配置 Github</h2><h3 id="2-1-建立-repository"><a href="#2-1-建立-repository" class="headerlink" title="2.1 建立 repository"></a>2.1 建立 repository</h3><p>必须先建立 username.github.io，可参照 github page 教程</p>
+<h3 id="2-2-配置-SSH-Key"><a href="#2-2-配置-SSH-Key" class="headerlink" title="2.2 配置 SSH-Key"></a>2.2 配置 SSH-Key</h3><p>貌似只有配置好 SSH-Key 以后才能用 git 命令远程控制 repository？</p>
+<h2 id="三、安装-Hexo"><a href="#三、安装-Hexo" class="headerlink" title="三、安装 Hexo"></a>三、安装 Hexo</h2><h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h3><p>打开 Git 命令控制窗口，执行下面命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-快速开始"><a href="#3-2-快速开始" class="headerlink" title="3.2 快速开始"></a>3.2 快速开始</h3><h4 id="3-2-1-设置你的博客"><a href="#3-2-1-设置你的博客" class="headerlink" title="3.2.1 设置你的博客"></a>3.2.1 设置你的博客</h4><p>在电脑中建立一个名字叫「Hexo」的文件夹（比如我建在了 E:\Hexo），然后在此文件夹中右键打开 Git Bash。执行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line"><span class="comment"># [info] Copying data</span></span><br><span class="line"><span class="comment"># [info] You are almost done! Don&#x27;t forget to run `npm install` before you start b</span></span><br><span class="line">logging with Hexo!</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 随后会自动在目标文件夹建立网站所需要的文件。然后按照提示，运行 npm install（在 &#x2F;E&#x2F;Hexo 下）</p>
+<blockquote>
+<p>windows 窗口下，在那个文件夹右键点击 git bash，git bash 打开后默认在该文件夹目录下</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>会在 E:\Hexo 目录中安装 node_modules。</p>
+<h4 id="3-2-2-开始服务器（start-server）"><a href="#3-2-2-开始服务器（start-server）" class="headerlink" title="3.2.2 开始服务器（start server）"></a>3.2.2 开始服务器（start server）</h4><p>运行下面的命令（在 &#x2F;E&#x2F;Hexo 下）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">[info] Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
+<p>表明 Hexo Server 已经启动了，在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> ，这时可以看到 Hexo 已为你生成了一篇 blog。<br>你可以按 Ctrl+C 停止 Server。</p>
+<blockquote>
+<p>只有在 hexo server 启动时，localhost 才可用</p>
+</blockquote>
+<h4 id="3-2-3-Create-a-new-post"><a href="#3-2-3-Create-a-new-post" class="headerlink" title="3.2.3 Create a new post"></a>3.2.3 Create a new post</h4><p>在&#x2F;E&#x2F;Hexo 目录下打开 git bash 窗口，执行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line"><span class="comment"># [info] File created at d:\Hexo\source\_posts\My-New-Post.md</span></span><br></pre></td></tr></table></figure>
+
+<p>刷新<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> ，可以发现在 E:\Hexo\source_posts 已生成了一篇新文章 “My New Post”。</p>
+<h4 id="3-2-4-Generate-static-files"><a href="#3-2-4-Generate-static-files" class="headerlink" title="3.2.4 Generate static files"></a>3.2.4 Generate static files</h4><p>执行下面的命令，将 markdown 文件生成静态网页。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>该命令执行完后，会在 D:\Hexo\public\ 目录下生成一系列 html，css 等文件。</p>
+<h4 id="3-2-5-编辑文章"><a href="#3-2-5-编辑文章" class="headerlink" title="3.2.5 编辑文章"></a>3.2.5 编辑文章</h4><p>hexo new “My New Post”会在 D:\Hexo\source_posts 目录下生成一个 markdown 文件：My-New-Post.md<br>可以使用一个支持 markdown 语法的编辑器（比如 Sublime Text 2）来编辑该文件。</p>
+<blockquote>
+<p>只改文件名无效，需要更改文档中的 yaml 文件头。</p>
+</blockquote>
+<h4 id="3-2-6-部署到-Github"><a href="#3-2-6-部署到-Github" class="headerlink" title="3.2.6 部署到 Github"></a><strong>3.2.6 <font color=red>部署到 Github</font></strong></h4><h5 id="3-2-6-1-部署到-Github-前需要配置-hexo-的-config-yml-文件，首先找到下面的内容-一般在文档最后"><a href="#3-2-6-1-部署到-Github-前需要配置-hexo-的-config-yml-文件，首先找到下面的内容-一般在文档最后" class="headerlink" title="3.2.6-1 部署到 Github 前需要配置 hexo 的_config.yml 文件，首先找到下面的内容(一般在文档最后)"></a>3.2.6-1 部署到 Github 前需要配置 hexo 的_config.yml 文件，首先找到下面的内容(一般在文档最后)</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>:</span><br></pre></td></tr></table></figure>
+
+<p>然后将它们修改为</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:xiaogliu/xiaogliu.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>Repository：必须是 SSH 形式的 url（ <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#105;&#x74;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:xiaogliu&#x2F;xiaogliu.github.io.git ），而不能是 HTTPS 形式的 url（<a target="_blank" rel="noopener" href="https://github.com/xiaogliu/xiaogliu.github.io.git">https://github.com/xiaogliu/xiaogliu.github.io.git</a> ），否则会出现错误：</p>
+<blockquote>
+<p>此处有坑，有说 type 为 github，但此处应该为 git，和 hexo 版本有关？？？</p>
+<p>另，有说：Be carefull, with your current configuration, you will erase all your source code on master branch. I recommend &gt; you to deploy on <code>gh-pages</code> to be automatically reachable at <a target="_blank" rel="noopener" href="https://github.com/username/repository_name">https://github.com/username/repository_name</a><br>deploy:<br>type: git<br>repo: <repository url><br>branch: gh-pages<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/34452547/hexoerror-deployer-not-found-github">http://stackoverflow.com/questions/34452547/hexoerror-deployer-not-found-github</a></p>
+</blockquote>
+<h5 id="3-2-6-2-安装-hexo-deployer"><a href="#3-2-6-2-安装-hexo-deployer" class="headerlink" title="3.2.6-2 安装 hexo-deployer"></a>3.2.6-2 安装 hexo-deployer</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-6-3-deploy"><a href="#3-2-6-3-deploy" class="headerlink" title="3.2.6-3 deploy"></a>3.2.6-3 deploy</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">[info] Start deploying: github</span><br><span class="line">[error] https://github.com/zhchnchn/zhchnchn.github.io is not a valid repositor URL!</span><br></pre></td></tr></table></figure>
+
+<p>使用 SSH url，如果电脑没有开放 SSH 端口，会致部署失败。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fatal: Could not <span class="built_in">read</span> from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你是为一个项目制作网站，那么需要把 branch 设置为 gh-pages。</p>
+</blockquote>
+<h4 id="3-2-7-测试"><a href="#3-2-7-测试" class="headerlink" title="3.2.7 测试"></a>3.2.7 测试</h4><p>当部署完成后，在浏览器中打开<a href="https://xiaogliu.github.io/">https://xiaogliu.github.io/</a> ，正常显示网页，表明部署成功。</p>
+<h4 id="3-2-8-总结"><a href="#3-2-8-总结" class="headerlink" title="3.2.8 总结"></a>3.2.8 总结</h4><p>每次部署的步骤，可按以下三步来进行。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每次写文章&#x2F;修改文章都要重新全部 deploy？？</p>
+</blockquote>
+<h4 id="3-2-9-总结：本地调试"><a href="#3-2-9-总结：本地调试" class="headerlink" title="3.2.9 总结：本地调试"></a>3.2.9 总结：本地调试</h4><h5 id="3-2-9-1-在执行下面的命令后，"><a href="#3-2-9-1-在执行下面的命令后，" class="headerlink" title="3.2.9-1 在执行下面的命令后，"></a>3.2.9-1 在执行下面的命令后，</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g <span class="comment">#生成</span></span><br><span class="line">$ hexo s <span class="comment">#启动本地服务，进行文章预览调试</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器输入<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> ，查看搭建效果。此后的每次变更_config.yml 文件或者新建文件都可以先用此命令调试，尤其是当你想调试新添加的主题时。</p>
+<h5 id="3-2-9-2-可以用简化的一条命令"><a href="#3-2-9-2-可以用简化的一条命令" class="headerlink" title="3.2.9-2 可以用简化的一条命令"></a>3.2.9-2 可以用简化的一条命令</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-命令总结"><a href="#3-3-命令总结" class="headerlink" title="3.3 命令总结"></a>3.3 命令总结</h3><h4 id="3-3-1-常用命令"><a href="#3-3-1-常用命令" class="headerlink" title="3.3.1 常用命令"></a>3.3.1 常用命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;postName&quot;</span> <span class="comment">#新建文章</span></span><br><span class="line">hexo new page <span class="string">&quot;pageName&quot;</span> <span class="comment">#新建页面</span></span><br><span class="line">hexo generate <span class="comment">#生成静态页面至public目录</span></span><br><span class="line">hexo server <span class="comment">#开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）</span></span><br><span class="line">hexo deploy <span class="comment">#将.deploy目录部署到GitHub</span></span><br><span class="line">hexo <span class="built_in">help</span>  <span class="comment"># 查看帮助</span></span><br><span class="line">hexo version  <span class="comment">#查看Hexo的版本</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-2-复合命令"><a href="#3-3-2-复合命令" class="headerlink" title="3.3.2 复合命令"></a>3.3.2 复合命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo deploy -g  <span class="comment">#生成加部署</span></span><br><span class="line">hexo server -g  <span class="comment">#生成加预览</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-4-命令的简写为"><a href="#3-3-4-命令的简写为" class="headerlink" title="3.3.4 命令的简写为"></a>3.3.4 命令的简写为</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、设计更改"><a href="#四、设计更改" class="headerlink" title="四、设计更改"></a>四、设计更改</h2><h3 id="4-1-更换主题"><a href="#4-1-更换主题" class="headerlink" title="4.1 更换主题"></a>4.1 更换主题</h3><p>在 Hexo 目录下打开 Git Bash，后只需要一句 Git 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/heroicyang/hexo-theme-modernist.git themes/modernist</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">more theme</a></p>
+</blockquote>
+<p>安装完成后，打开 hexo_config.yml，修改主题为 modernist</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">theme: modernist</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>打开 hexo\themes\modernist 目录下的_config.yml，可做有限的定制。若想再次基础上做更多更改，需要编辑主题的 js（ejs）、css（styl）等文件。</p>
+</blockquote>
+<p>更新主题：进到主题相应文件夹，pull</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes/modernist</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加网站图标</strong></p>
+<p>在 hexo\themes\modernist\layout_partial\head.ejs，找到这句：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;&lt;%- config.root %&gt;favicon.ico&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将你的 favicon.ico 放到工程根目录下即可，也就是 hexo\source 目录。</p>
+<h3 id="4-2-自定义页面"><a href="#4-2-自定义页面" class="headerlink" title="4.2 自定义页面"></a>4.2 自定义页面</h3><h4 id="4-2-1-about-页面"><a href="#4-2-1-about-页面" class="headerlink" title="4.2.1 about 页面"></a>4.2.1 about 页面</h4><p>执行 new page 命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在 hexo\source\下会生成 about 目录，里面有个 index.md，直接编辑就可以了，然后在主题的_config.yml 中将其配置显示出来。<br>上述步骤，也可以手工生成，在 hexo\source\下手工新建 about 和 index.md 也是完全等价的。</p>
+<h4 id="4-2-2-404-页面"><a href="#4-2-2-404-页面" class="headerlink" title="4.2.2 404 页面"></a>4.2.2 404 页面</h4><p>GitHub Pages 自定义<a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-a-custom-404-page-for-your-github-pages-site/">404 页面</a>非常容易，直接在根目录下创建自己的 404.html 就可以。但是自定义 404 页面仅对绑定顶级域名的项目才起作用，GitHub 默认分配的二级域名是不起作用的，使用 hexo server 在本机调试也是不起作用的。</p>
+<p>其实，404 页面可以做更多有意义的事，目前有如下几个公益 404 接入地址:</p>
+<p><a target="_blank" rel="noopener" href="http://www.qq.com/404/">腾讯公益 404</a><br><a target="_blank" rel="noopener" href="http://yibo.iyiyun.com/Index/web404">404 公益_益云(公益互联网)社会创新中心</a><br><a target="_blank" rel="noopener" href="http://404page.missingkids.org.tw/">失蹤兒童少年資料管理中心 404</a></p>
+<h3 id="4-3-hexo-更多介绍"><a href="#4-3-hexo-更多介绍" class="headerlink" title="4.3 hexo 更多介绍"></a>4.3 hexo 更多介绍</h3><h4 id="4-3-1-目录介绍"><a href="#4-3-1-目录介绍" class="headerlink" title="4.3.1 目录介绍"></a>4.3.1 目录介绍</h4><p>默认目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── .deploy</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── scripts</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">├── themes</span><br><span class="line">├── _config.yml</span><br><span class="line">└── package.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>.deploy：执行 hexo deploy 命令部署到 GitHub 上的内容目录</li>
+<li>public：执行 hexo generate 命令，输出的静态网页内容目录</li>
+<li>scaffolds：layout 模板文件目录，其中的 md 文件可以添加编辑</li>
+<li>scripts：扩展脚本目录，这里可以自定义一些 javascript 脚本</li>
+<li>source：文章源码目录，该目录下的 markdown 和 html 文件均会被 hexo 处理。该页面对应 repo 的根目录，404 文件</li>
+<li>favicon.ico 文件，CNAME 文件等都应该放这里，该目录下可新建页面目录。</li>
+<li>_drafts：草稿文章</li>
+<li>_posts：发布文章</li>
+<li>themes：主题文件目录</li>
+<li>_config.yml：全局配置文件，大多数的设置都在这里</li>
+<li>package.json：应用程序数据，指明 hexo 的版本等信息，类似于一般软件中的关于按钮</li>
+</ul>
+<h4 id="4-3-2-config-yml-简单说明："><a href="#4-3-2-config-yml-简单说明：" class="headerlink" title="4.3.2 _config.yml 简单说明："></a>4.3.2 _config.yml 简单说明：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: http://zespia.tw/hexo/docs/configure.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/tommy351/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site #整站的基本信息</span></span><br><span class="line">title: 刘小光 <span class="comment">#网站标题</span></span><br><span class="line">subtitle: 求知，好奇，审美。就自己仅有的才能去发挥，去表达内心深刻的感觉。 <span class="comment">#网站副标题</span></span><br><span class="line">description: <span class="comment">#网站描述，给搜索引擎用的，在生成html中的head-&gt;meta中可看到</span></span><br><span class="line">author: 刘小光 <span class="comment">#网站作者，在下方显示</span></span><br><span class="line">email: vincexgliu@gmail.com.com <span class="comment">#联系邮箱</span></span><br><span class="line">language: zh-CN <span class="comment">#语言</span></span><br><span class="line">timezone:</span><br><span class="line"></span><br><span class="line"><span class="comment"># URL #域名和文件结构</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line">url: http://ibruce.info <span class="comment">#你的域名</span></span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads/code</span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing #写文章选项</span></span><br><span class="line">new_post_name: :title.md <span class="comment"># File name of new posts</span></span><br><span class="line">default_layout: post <span class="comment">#默认layout方式</span></span><br><span class="line">auto_spacing: <span class="literal">false</span> <span class="comment"># Add spaces between asian characters and western characters</span></span><br><span class="line">titlecase: <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line">external_link: <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">max_open_file: 100</span><br><span class="line">multi_thread: <span class="literal">true</span></span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: <span class="literal">false</span></span><br><span class="line">highlight: <span class="comment">#代码高亮</span></span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span> <span class="comment">#是否启用</span></span><br><span class="line">  line_number: <span class="literal">false</span> <span class="comment">#是否显示行号</span></span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag #分类与标签</span></span><br><span class="line">default_category: uncategorized <span class="comment"># default</span></span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Archives #存档，这里的说明好像不对。全部选择1，这个选项与主题中的选项有时候会有冲突</span></span><br><span class="line"><span class="comment">## 2: Enable pagination</span></span><br><span class="line"><span class="comment">## 1: Disable pagination</span></span><br><span class="line"><span class="comment">## 0: Fully Disable</span></span><br><span class="line">archive: 1</span><br><span class="line">category: 1</span><br><span class="line">tag: 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Server #本地服务参数</span></span><br><span class="line"><span class="comment">## Hexo uses Connect as a server</span></span><br><span class="line"><span class="comment">## You can customize the logger format as defined in</span></span><br><span class="line"><span class="comment">## http://www.senchalabs.org/connect/logger.html</span></span><br><span class="line">port: 4000</span><br><span class="line">logger: <span class="literal">true</span></span><br><span class="line">logger_format:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format #日期显示格式</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line">date_format: MMM D YYYY</span><br><span class="line">time_format: H:mm:ss</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination #分页设置</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line">per_page: 10 <span class="comment">#每页10篇文章</span></span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disqus #社会化评论disqus，我使用多说，在主题中配置</span></span><br><span class="line">disqus_shortname:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions #插件，暂时未安装插件</span></span><br><span class="line"><span class="comment">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span></span><br><span class="line"><span class="comment">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span></span><br><span class="line"><span class="comment">## 主题</span></span><br><span class="line">theme: modernist <span class="comment"># raytaylorism # pacman # modernist # light</span></span><br><span class="line">exclude_generator:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment #部署</span></span><br><span class="line"><span class="comment">## Docs: http://zespia.tw/hexo/docs/deploy.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:xiaogliu/xiaogliu.github.io.git</span><br><span class="line">  branch: master <span class="comment">#你的GitHub Pages仓库</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3-3-修改局部页面"><a href="#4-3-3-修改局部页面" class="headerlink" title="4.3.3 修改局部页面"></a>4.3.3 修改局部页面</h4><p>页面展现的全部逻辑都在每个主题中控制，源代码在 hexo\themes\你使用的主题\中，以 modernist 主题为例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── languages          <span class="comment">#多语言</span></span><br><span class="line">|   ├── default.yml    <span class="comment">#默认语言</span></span><br><span class="line">|   └── zh-CN.yml      <span class="comment">#中文语言</span></span><br><span class="line">├── layout             <span class="comment">#布局，根目录下的*.ejs文件是对主页，分页，存档等的控制</span></span><br><span class="line">|   ├── _partial       <span class="comment">#局部的布局，此目录下的*.ejs是对头尾等局部的控制</span></span><br><span class="line">|   └── _widget        <span class="comment">#小挂件的布局，页面下方小挂件的控制</span></span><br><span class="line">├── <span class="built_in">source</span>             <span class="comment">#源码</span></span><br><span class="line">|   ├── css            <span class="comment">#css源码</span></span><br><span class="line">|   |   ├── _base      <span class="comment">#*.styl基础css</span></span><br><span class="line">|   |   ├── _partial   <span class="comment">#*.styl局部css</span></span><br><span class="line">|   |   ├── fonts      <span class="comment">#字体</span></span><br><span class="line">|   |   ├── images     <span class="comment">#图片</span></span><br><span class="line">|   |   └── style.styl <span class="comment">#*.styl引入需要的css源码</span></span><br><span class="line">|   ├── fancybox       <span class="comment">#fancybox效果源码</span></span><br><span class="line">|   └── js             <span class="comment">#javascript源代码</span></span><br><span class="line">├── _config.yml        <span class="comment">#主题配置文件</span></span><br><span class="line">└── README.md          <span class="comment">#用GitHub的都知道</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你需要修改头部，直接修改 hexo\themes\modernist\layout_partial\header.ejs，比如头上加个搜索框：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">&quot;search&quot;</span> <span class="attr">action</span>=<span class="string">&quot;//google.com/search&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span> <span class="attr">accept-charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">name</span>=<span class="string">&quot;q&quot;</span> <span class="attr">id</span>=<span class="string">&quot;search&quot;</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> <span class="attr">autocorrect</span>=<span class="string">&quot;off&quot;</span> <span class="attr">autocapitalize</span>=<span class="string">&quot;off&quot;</span> <span class="attr">maxlength</span>=<span class="string">&quot;20&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search&quot;</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;q&quot;</span> <span class="attr">value</span>=<span class="string">&quot;site:&lt;%- config.url.replace(/^https?:\/\//, &#x27;&#x27;) %&gt;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将如上代码加入即可，您需要修改 css 以便这个搜索框比较美观。</p>
+<p>再如，你要修改页脚版权信息，直接编辑 hexo\themes\modernist\layout_partial\footer.ejs。同理，你需要修改 css，直接去修改对应位置的 styl 文件。</p>
+<h2 id="五、多台电脑协同维护-blog"><a href="#五、多台电脑协同维护-blog" class="headerlink" title="五、多台电脑协同维护 blog"></a>五、多台电脑协同维护 blog</h2><p>这就需要一开始配置 github 仓库时做好：第一次搭建 blog 时 git 新建两个分支，一个 master，发布更新，一个 source（或其他任意名称）进行维护(放置所有原始 markdown 文件)。每次更新 blog，都是再 source 分支更新，然后 deploy 到 master。</p>
+<blockquote>
+<p>我第一次搭建 blog 时，发布的分支和维护的分支没有区分，虽然建了两个分支，但并不清楚原理，时隔几个月再看时，发现维护的 source 分支并没有及时推送到远程仓库，结果，拉回 source 分支一看，markdown 文件都丢失了，这样发布 master 后，之前的文件就都没有了！</p>
+</blockquote>
+<ul>
+<li><p>日常维护流程：<br>1、在 source 分支添加、修改 blog 内容，修改完后 git add , commit, push；<br>2、执行 hexo g -d，发布到 master（_config.yml 中的 deploy 参数，分支已经设置为 master）</p>
+</li>
+<li><p>本地资料丢失（比如重装电脑或者更换电脑）后进行下列步骤维护：</p>
+</li>
+</ul>
+<p>1、将 source 分支拉到本地</p>
+<p><strong>进行<code>hexo</code>命令操作前，确保本地已安装 hexo 命令行工具</strong></p>
+<blockquote>
+<p>检测方法：在命令行中输入<code>hexo</code>看有无版本信息，没有的执行命令<code>npm install hexo-cli -g</code>安装</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b <span class="built_in">source</span> https://github.com/xiaogliu/xiaogliu.github.io</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>之所以日常维护每次更改 markdown 都要 push，实际也是备份的过程，不然拉回的是不完整的 blog</p>
+</blockquote>
+<p>2、进入 hexo 文件夹，执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际不需要重新 npm install hexo、npm install、npm install hexo-deployer-git，因为执行 npm install，hexo,hexo-deployer-git 就已经安装，因为 package.json 文件里都写了相应依赖了，如下</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;hexo-site&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">&quot;hexo&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>: <span class="string">&quot;3.2.2&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;hexo&quot;</span>: <span class="string">&quot;^3.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-deployer-git&quot;</span>: <span class="string">&quot;^0.1.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-generator-archive&quot;</span>: <span class="string">&quot;^0.1.4&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-generator-category&quot;</span>: <span class="string">&quot;^0.1.3&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-generator-index&quot;</span>: <span class="string">&quot;^0.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-generator-tag&quot;</span>: <span class="string">&quot;^0.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-renderer-ejs&quot;</span>: <span class="string">&quot;^0.2.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-renderer-marked&quot;</span>: <span class="string">&quot;^0.2.10&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-renderer-stylus&quot;</span>: <span class="string">&quot;^0.3.1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;hexo-server&quot;</span>: <span class="string">&quot;^0.2.0&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、遇到问题及解决方案"><a href="#六、遇到问题及解决方案" class="headerlink" title="六、遇到问题及解决方案"></a>六、遇到问题及解决方案</h2><p>1，有时使用 hexo 默认指令<code>hexo server</code>会出现本地没法预览的情况。因为 hexo 本地预览，默认端口是<code>4000</code>，若该端口被占用，则无法启动预览，开启本地服务时置顶端口就可以了，比如</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo s -p <span class="number">3600</span> <span class="comment">// 指定3600端口</span></span><br></pre></td></tr></table></figure>
+
+<p>2，<code>FATAL Cannot set property &#39;lastIndex&#39; of undefined</code><br>解决方法：将文件<code>_config.yml</code>中的<code>auto_detect</code>设为<code>false</code>，详见<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1627">Hexo 3.2.0-beta.2 test result report</a>。</p>
+<p>3，<code>command not found: hexo</code></p>
+<p>问题描述： 之前使用 Ok，忽然就<code>command not found: hexo</code>，可能的原因是改变了 node 版本。</p>
+<p>解决办法：重新安装 hexo-cli： <code>npm install hexo-cli -g</code></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>【1】<a target="_blank" rel="noopener" href="http://ibruce.info/2013/11/22/hexo-your-blog/">hexo 你的博客</a><br>【2】<a target="_blank" rel="noopener" href="http://www.cnblogs.com/zhcncn/p/4097881.html%22">Hexo 搭建 Github 静态博客</a><br>【3】<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21193762">使用 hexo，如果换了电脑怎么更新博客？CrazyMilk 回答</a><br>【4】<a target="_blank" rel="noopener" href="http://www.baike.com/wiki/ssh">SSH-互动百科</a><br>【5】<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Secure_Shell">Secure Shell-维基百科</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="hide pull-left" href="/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/02/12/gather-git-question/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2016/06/09/build-blog-by-hexo-github/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

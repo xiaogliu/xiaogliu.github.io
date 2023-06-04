@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>VSCode 配置 react 开发环境 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="React,vscode," />
+  
+
+  <meta name="description" content="update 2018-05-16：这篇文章比较久了，如果配置完有问题，可参考这篇文章 使用 ESLint &amp;&amp; Prettier 规范代码格式  vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode 配置 react 开发环境">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/12/26/develop-react-using-vscode/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="update 2018-05-16：这篇文章比较久了，如果配置完有问题，可参考这篇文章 使用 ESLint &amp;&amp; Prettier 规范代码格式  vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/vscode_format_react.gif">
+<meta property="article:published_time" content="2017-12-26T12:27:48.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.571Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="vscode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/vscode_format_react.gif">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">编辑器安装插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-text">项目中的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEESLint"><span class="toc-text">配置ESLint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">基础配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">可能遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPrettier"><span class="toc-text">配置Prettier</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-VSCode 配置 react 开发环境" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">VSCode 配置 react 开发环境</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.12.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <blockquote>
+<p>update 2018-05-16：这篇文章比较久了，如果配置完有问题，可参考这篇文章 <a href="https://xiaogliu.github.io/2018/05/15/format-code-by-eslint-and-prettier/">使用 ESLint &amp;&amp; Prettier 规范代码格式</a></p>
+</blockquote>
+<p>vscode 默认配置对于 react 的 JSX 语法不友好，体现在使用自动格式化或者粘贴后默认缩进错误，尽管可以通过改变 language mode 缓解错误，但更改 language mode 后的格式化依然不够理想。    </p>
+<p>通过搭配使用 <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">ESLint</a> 和 <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier</a> 插件可以实现在 vscode 中完美支持 JSX 语法。      </p>
+<h1 id="编辑器安装插件"><a href="#编辑器安装插件" class="headerlink" title="编辑器安装插件"></a>编辑器安装插件</h1><p>在 vscode 中需要安装下面插件：   </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint">ESLint</a></li>
+<li><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier</a></li>
+</ul>
+<h1 id="项目中的配置"><a href="#项目中的配置" class="headerlink" title="项目中的配置"></a>项目中的配置</h1><h2 id="配置ESLint"><a href="#配置ESLint" class="headerlink" title="配置ESLint"></a>配置ESLint</h2><h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><ol>
+<li>项目中安装 <code>babel-eslint</code>, <code>eslint-plugin-jsx-a11y</code>, <code>eslint-plugin-react</code> 依赖：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install babel-eslint eslint-plugin-jsx-a11y eslint-plugin-react --save-dev</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>推荐的 ESLint 配置如下（修改<code>.eslintrc</code>）</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="comment">// Use the AirBnB JS styleguide - https://github.com/airbnb/javascript</span></span><br><span class="line">  <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="string">&quot;airbnb&quot;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// We use &#x27;babel-eslint&#x27; mainly for React Native Classes</span></span><br><span class="line">  <span class="attr">&quot;parser&quot;</span><span class="punctuation">:</span> <span class="string">&quot;babel-eslint&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ecmaFeatures&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;classes&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// jsx相关插件</span></span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;react&quot;</span><span class="punctuation">,</span> <span class="string">&quot;jsx-a11y&quot;</span><span class="punctuation">,</span> <span class="string">&quot;import&quot;</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// We can add/overwrite custom rules here</span></span><br><span class="line">  <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// React Native has JSX in JS files</span></span><br><span class="line">    <span class="attr">&quot;react/jsx-filename-extension&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;extensions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;.js&quot;</span><span class="punctuation">,</span> <span class="string">&quot;.jsx&quot;</span><span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// React Native includes images via require(&quot;../images/example.png&quot;)</span></span><br><span class="line">    <span class="attr">&quot;global-require&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意几点：   </p>
+<ul>
+<li>如果使用 yarn 安装，需要手动创建 <code>.eslintrc</code> 文件</li>
+<li><strong>如果在使用过程中 eslint 报错，提示缺少依赖，安装相关依赖就好</strong></li>
+</ul>
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><ul>
+<li>如果在项目中文件名后缀是 <code>.js</code> 而不是 <code>.jsx</code>，可能会遇到下面的错误：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[eslint] JSX not allowed <span class="keyword">in</span> files with extension <span class="string">&#x27;.js&#x27;</span> (react/jsx-filename-extension)</span><br></pre></td></tr></table></figure>
+<p>在 <code>.eslintrc</code> 中添加新的 <code>rules</code> 允许 <code>.js</code> 和 <code>.jsx</code> 后缀就好：   </p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;react/jsx-filename-extension&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;extensions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;.js&quot;</span><span class="punctuation">,</span> <span class="string">&quot;.jsx&quot;</span><span class="punctuation">]</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>react-native 0.49 及以后版本已经不建议使用 <code>.jsx</code> 为后缀了，参考这个讨论 <a target="_blank" rel="noopener" href="https://github.com/facebookincubator/create-react-app/issues/87">No .jsx extension?</a>   </p>
+</blockquote>
+<ul>
+<li>props validation 错误</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[eslint] <span class="string">&#x27;navigation&#x27;</span> is missing <span class="keyword">in</span> props validation (react/prop-types)</span><br></pre></td></tr></table></figure>
+
+<p>检测 props 的类型有助于写出复用组件，最好不要把这个提醒关掉，如果一定要关，添加下面规则：   </p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;react/prop-types&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置Prettier"><a href="#配置Prettier" class="headerlink" title="配置Prettier"></a>配置Prettier</h2><p>我们想要的效果是：<strong>配置 Prettier 按照 ESLint 的规则保存文件时自动格式化 JSX 代码</strong>，步骤如下：</p>
+<ol>
+<li>项目中安装 <code>prettier-eslint</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install prettier-eslint --save-dev</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置 vscode workspace</li>
+</ol>
+<p>在 vscode workspace 用户自定义部分添加如下代码：   </p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Format a file on save. </span></span><br><span class="line"><span class="comment">// A formatter must be available, </span></span><br><span class="line"><span class="comment">// the file must not be auto-saved, </span></span><br><span class="line"><span class="comment">// and editor must not be shutting down.</span></span><br><span class="line"><span class="attr">&quot;editor.formatOnSave&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Enable/disable default JavaScript formatter (For Prettier)</span></span><br><span class="line"><span class="attr">&quot;javascript.format.enable&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Use &#x27;prettier-eslint&#x27; instead of &#x27;prettier&#x27;. </span></span><br><span class="line"><span class="comment">// Other settings will only be fallbacks </span></span><br><span class="line"><span class="comment">// in case they could not be inferred from eslint rules.</span></span><br><span class="line"><span class="attr">&quot;prettier.eslintIntegration&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p>进行保存操作后，自动格式化文件</p>
+<p><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/vscode_format_react.gif" alt="vscode 格式化 react 效果图"></p>
+<blockquote>
+<p>ps：随着 vscode 不断升级，编辑器默认支持 react 越来越好，这片文章基于 vscode 19.0版本。    </p>
+</blockquote>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://hackernoon.com/configure-eslint-prettier-and-flow-in-vs-code-for-react-development-c9d95db07213">Configure ESLint, Prettier, and Flow in VS Code for React Development</a><br>【2】<a target="_blank" rel="noopener" href="https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md">eslint-plugin-react&#x2F;docs&#x2F;rules&#x2F;prop-types.md</a><br>【3】<a target="_blank" rel="noopener" href="https://medium.com/pvtl/linting-for-react-native-bdbb586ff694">Linting for React Native</a>   </p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/12/20/vuex-manage-menu-states/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/12/31/react-components-inner-communication/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/12/26/develop-react-using-vscode/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

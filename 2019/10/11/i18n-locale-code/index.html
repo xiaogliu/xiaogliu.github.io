@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>i18n（国际化）地域标识码 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Tools," />
+  
+
+  <meta name="description" content="i18n（国际化）地域标识码    国家 语言 语言编码 国家编码    中国 汉语 zh CN   中国香港  zh HK   中国澳门  zh MO   中国台湾  zh TW   新加坡 汉语 zh SG   中国简体中文 zh-CHS     中国繁体中文 zh-CHT     英国 英语 en GB   美国 英语 en US   俄罗斯 俄罗斯 Tatar 语 tt RU   俄罗斯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i18n（国际化）地域标识码">
+<meta property="og:url" content="https://xiaogliu.github.io/2019/10/11/i18n-locale-code/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="i18n（国际化）地域标识码    国家 语言 语言编码 国家编码    中国 汉语 zh CN   中国香港  zh HK   中国澳门  zh MO   中国台湾  zh TW   新加坡 汉语 zh SG   中国简体中文 zh-CHS     中国繁体中文 zh-CHT     英国 英语 en GB   美国 英语 en US   俄罗斯 俄罗斯 Tatar 语 tt RU   俄罗斯">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-11T09:47:49.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.572Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="Tools">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-i18n（国际化）地域标识码" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">i18n（国际化）地域标识码</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.10.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>i18n（国际化）地域标识码</p>
+<table>
+<thead>
+<tr>
+<th>国家</th>
+<th>语言</th>
+<th>语言编码</th>
+<th>国家编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国</td>
+<td>汉语</td>
+<td>zh</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>中国香港</td>
+<td></td>
+<td>zh</td>
+<td>HK</td>
+</tr>
+<tr>
+<td>中国澳门</td>
+<td></td>
+<td>zh</td>
+<td>MO</td>
+</tr>
+<tr>
+<td>中国台湾</td>
+<td></td>
+<td>zh</td>
+<td>TW</td>
+</tr>
+<tr>
+<td>新加坡</td>
+<td>汉语</td>
+<td>zh</td>
+<td>SG</td>
+</tr>
+<tr>
+<td>中国简体中文</td>
+<td>zh-CHS</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>中国繁体中文</td>
+<td>zh-CHT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>英国</td>
+<td>英语</td>
+<td>en</td>
+<td>GB</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>英语</td>
+<td>en</td>
+<td>US</td>
+</tr>
+<tr>
+<td>俄罗斯</td>
+<td>俄罗斯 Tatar 语</td>
+<td>tt</td>
+<td>RU</td>
+</tr>
+<tr>
+<td>俄罗斯</td>
+<td>俄罗斯语</td>
+<td>ru</td>
+<td>RU</td>
+</tr>
+<tr>
+<td>德国</td>
+<td>德语</td>
+<td>de</td>
+<td>DE</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td>德语</td>
+<td>de</td>
+<td>CH</td>
+</tr>
+<tr>
+<td>卢森堡</td>
+<td>德语</td>
+<td>de</td>
+<td>LU</td>
+</tr>
+<tr>
+<td>奥地利</td>
+<td>德语</td>
+<td>de</td>
+<td>AT</td>
+</tr>
+<tr>
+<td>列支敦士登</td>
+<td>德语</td>
+<td>de</td>
+<td>LI</td>
+</tr>
+<tr>
+<td>加拿大</td>
+<td>法语</td>
+<td>fr</td>
+<td>CA</td>
+</tr>
+<tr>
+<td>法国</td>
+<td>法语</td>
+<td>fr</td>
+<td>FR</td>
+</tr>
+<tr>
+<td>卢森堡</td>
+<td>法语</td>
+<td>fr</td>
+<td>LU</td>
+</tr>
+<tr>
+<td>比利时</td>
+<td>法语</td>
+<td>fr</td>
+<td>BE</td>
+</tr>
+<tr>
+<td>摩纳哥</td>
+<td>法语</td>
+<td>fr</td>
+<td>MC</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td>法语</td>
+<td>fr</td>
+<td>CH</td>
+</tr>
+<tr>
+<td>意大利</td>
+<td>意大利</td>
+<td>it</td>
+<td>IT</td>
+</tr>
+<tr>
+<td>日本</td>
+<td>日语</td>
+<td>ja</td>
+<td>JP</td>
+</tr>
+<tr>
+<td>韩国</td>
+<td>韩国</td>
+<td>ko</td>
+<td>KR</td>
+</tr>
+<tr>
+<td>哈萨克</td>
+<td>哈萨克(Kazakh)</td>
+<td>kk</td>
+<td>KZ</td>
+</tr>
+<tr>
+<td>芬兰</td>
+<td>芬兰语</td>
+<td>fi</td>
+<td>FI</td>
+</tr>
+<tr>
+<td>瑞典</td>
+<td>芬兰语</td>
+<td>sv</td>
+<td>FI</td>
+</tr>
+<tr>
+<td>瑞典</td>
+<td>瑞典语</td>
+<td>sv</td>
+<td>SE</td>
+</tr>
+<tr>
+<td>匈牙利</td>
+<td>匈牙利</td>
+<td>hu</td>
+<td>HU</td>
+</tr>
+<tr>
+<td>冰岛</td>
+<td>冰岛</td>
+<td>is</td>
+<td>IS</td>
+</tr>
+<tr>
+<td>印尼</td>
+<td>印尼</td>
+<td>id</td>
+<td>ID</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td>意大利</td>
+<td>it</td>
+<td>CH</td>
+</tr>
+<tr>
+<td>土耳其</td>
+<td>土耳其语</td>
+<td>tr</td>
+<td>TR</td>
+</tr>
+<tr>
+<td>乌克兰</td>
+<td>乌克兰语</td>
+<td>uk</td>
+<td>UA</td>
+</tr>
+<tr>
+<td>巴基斯坦</td>
+<td>巴基斯坦 Urdu 语</td>
+<td>ur</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>加拿大</td>
+<td>英语</td>
+<td>en</td>
+<td>CA</td>
+</tr>
+<tr>
+<td>爱尔兰</td>
+<td>英语</td>
+<td>en</td>
+<td>IE</td>
+</tr>
+<tr>
+<td>捷克</td>
+<td>捷克</td>
+<td>cs</td>
+<td>CZ</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td>法语</td>
+<td>fr</td>
+<td>CH</td>
+</tr>
+<tr>
+<td>加勒比海</td>
+<td>英语</td>
+<td>en</td>
+<td>CB</td>
+</tr>
+<tr>
+<td>澳洲</td>
+<td>英语</td>
+<td>en</td>
+<td>AU</td>
+</tr>
+<tr>
+<td>新西兰</td>
+<td>英语</td>
+<td>en</td>
+<td>NZ</td>
+</tr>
+<tr>
+<td>比利时</td>
+<td>法语</td>
+<td>fr</td>
+<td>BE</td>
+</tr>
+<tr>
+<td>菲律宾</td>
+<td>英语</td>
+<td>en</td>
+<td>PH</td>
+</tr>
+<tr>
+<td>牙买加</td>
+<td>英语</td>
+<td>en</td>
+<td>JM</td>
+</tr>
+<tr>
+<td>伯利兹</td>
+<td>英语</td>
+<td>en</td>
+<td>BZ</td>
+</tr>
+<tr>
+<td>千里达托贝哥共和国英语</td>
+<td></td>
+<td>en</td>
+<td>TT</td>
+</tr>
+<tr>
+<td>津巴布韦</td>
+<td>英语</td>
+<td>en</td>
+<td>ZW</td>
+</tr>
+<tr>
+<td>爱沙尼亚</td>
+<td>爱沙尼亚</td>
+<td>et</td>
+<td>EE</td>
+</tr>
+<tr>
+<td>法罗群岛</td>
+<td>法罗语(Faroese)</td>
+<td>fo</td>
+<td>FO</td>
+</tr>
+<tr>
+<td>摩纳哥</td>
+<td>法语</td>
+<td>fr</td>
+<td>MC</td>
+</tr>
+<tr>
+<td>西班牙</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>ES</td>
+</tr>
+<tr>
+<td>阿根廷</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>AR</td>
+</tr>
+<tr>
+<td>墨西哥</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>MX</td>
+</tr>
+<tr>
+<td>玻利维亚</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>BO</td>
+</tr>
+<tr>
+<td>智利</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>CL</td>
+</tr>
+<tr>
+<td>巴拿马</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>PA</td>
+</tr>
+<tr>
+<td>委内瑞拉</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>VE</td>
+</tr>
+<tr>
+<td>哥伦比亚</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>CO</td>
+</tr>
+<tr>
+<td>秘鲁</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>PE</td>
+</tr>
+<tr>
+<td>哥斯达黎加</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>CR</td>
+</tr>
+<tr>
+<td>多米尼加共和国</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>DO</td>
+</tr>
+<tr>
+<td>厄瓜多尔</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>EC</td>
+</tr>
+<tr>
+<td>萨尔瓦多</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>SV</td>
+</tr>
+<tr>
+<td>危地马拉</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>GT</td>
+</tr>
+<tr>
+<td>洪都拉斯</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>HN</td>
+</tr>
+<tr>
+<td>尼加拉瓜</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>NI</td>
+</tr>
+<tr>
+<td>巴拉圭</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>PY</td>
+</tr>
+<tr>
+<td>波多黎各</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>PR</td>
+</tr>
+<tr>
+<td>乌拉圭</td>
+<td>西班牙语</td>
+<td>es</td>
+<td>UY</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>坦米尔语</td>
+<td>ta</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>印度语(Gujarati)</td>
+<td>gu</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>北印度语</td>
+<td>hi</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>卡纳达语</td>
+<td>kn</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>Konkani</td>
+<td>kok</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>马拉地语</td>
+<td>mr</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>Punjab 语</td>
+<td>pa</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>梵文</td>
+<td>sa</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>印度 Telugu 语</td>
+<td>te</td>
+<td>IN</td>
+</tr>
+<tr>
+<td>挪威</td>
+<td>挪威</td>
+<td>nb</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>挪威</td>
+<td>挪威(Nynorsk)</td>
+<td>nn</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>波兰</td>
+<td>波兰</td>
+<td>pl</td>
+<td>PL</td>
+</tr>
+<tr>
+<td>巴西</td>
+<td>葡萄牙语</td>
+<td>pt</td>
+<td>BR</td>
+</tr>
+<tr>
+<td>葡萄牙</td>
+<td>葡萄牙语</td>
+<td>pt</td>
+<td>PT</td>
+</tr>
+<tr>
+<td>越南</td>
+<td>越南语</td>
+<td>vi</td>
+<td>VN</td>
+</tr>
+<tr>
+<td>泰国</td>
+<td>泰语</td>
+<td>th</td>
+<td>TH</td>
+</tr>
+<tr>
+<td>南非</td>
+<td>英语</td>
+<td>en</td>
+<td>ZA</td>
+</tr>
+<tr>
+<td>南非</td>
+<td>公用荷兰语</td>
+<td>af</td>
+<td>ZA</td>
+</tr>
+<tr>
+<td>白俄罗斯</td>
+<td>白俄罗斯语(Belarusian)</td>
+<td>be</td>
+<td>BY</td>
+</tr>
+<tr>
+<td>伊朗王国</td>
+<td>波斯语</td>
+<td>fa</td>
+<td>IR</td>
+</tr>
+<tr>
+<td>以色列</td>
+<td>希伯来文</td>
+<td>he</td>
+<td>IL</td>
+</tr>
+<tr>
+<td>丹麦</td>
+<td>丹麦</td>
+<td>da</td>
+<td>DK</td>
+</tr>
+<tr>
+<td>马尔代夫</td>
+<td>马尔代夫(Dhivehi)</td>
+<td>div</td>
+<td>MV</td>
+</tr>
+<tr>
+<td>比利时</td>
+<td>荷兰语</td>
+<td>nl</td>
+<td>BE</td>
+</tr>
+<tr>
+<td>荷兰</td>
+<td>荷兰语</td>
+<td>nl</td>
+<td>NL</td>
+</tr>
+<tr>
+<td>希腊</td>
+<td>希腊</td>
+<td>el</td>
+<td>GR</td>
+</tr>
+<tr>
+<td>沙特阿拉伯</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>SA</td>
+</tr>
+<tr>
+<td>埃及</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>EG</td>
+</tr>
+<tr>
+<td>伊拉克</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>IQ</td>
+</tr>
+<tr>
+<td>约旦</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>JO</td>
+</tr>
+<tr>
+<td>科威特</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>KW</td>
+</tr>
+<tr>
+<td>黎巴嫩</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>LB</td>
+</tr>
+<tr>
+<td>利比亚</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>LY</td>
+</tr>
+<tr>
+<td>卡塔尔</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>QA</td>
+</tr>
+<tr>
+<td>叙利亚共和国</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>SY</td>
+</tr>
+<tr>
+<td>叙利亚共和国</td>
+<td>叙利亚语(Syriac)</td>
+<td>syr</td>
+<td>SY</td>
+</tr>
+<tr>
+<td>保加利亚</td>
+<td>保加利亚</td>
+<td>bg</td>
+<td>BG</td>
+</tr>
+<tr>
+<td>阿尔巴尼亚</td>
+<td>阿尔巴尼亚</td>
+<td>sq</td>
+<td>AL</td>
+</tr>
+<tr>
+<td>阿尔及利亚</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>DZ</td>
+</tr>
+<tr>
+<td>巴林</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>BH</td>
+</tr>
+<tr>
+<td>摩洛哥</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>MA</td>
+</tr>
+<tr>
+<td>阿曼</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>OM</td>
+</tr>
+<tr>
+<td>北非的共和国</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>TN</td>
+</tr>
+<tr>
+<td>阿拉伯联合酋长国</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>AE</td>
+</tr>
+<tr>
+<td>也门</td>
+<td>阿拉伯语</td>
+<td>ar</td>
+<td>YE</td>
+</tr>
+<tr>
+<td>亚美尼亚</td>
+<td>亚美尼亚语</td>
+<td>hy</td>
+<td>AM</td>
+</tr>
+<tr>
+<td>巴斯克</td>
+<td>巴斯克</td>
+<td>eu</td>
+<td>ES</td>
+</tr>
+<tr>
+<td>嘉泰罗尼亚</td>
+<td>嘉泰罗尼亚</td>
+<td>ca</td>
+<td>ES</td>
+</tr>
+<tr>
+<td>肯尼亚</td>
+<td>肯尼亚(Swahili)语</td>
+<td>sw</td>
+<td>KE</td>
+</tr>
+<tr>
+<td>克罗埃西亚</td>
+<td>克罗埃西亚</td>
+<td>hr</td>
+<td>HR</td>
+</tr>
+<tr>
+<td>加利西亚</td>
+<td>加利西亚</td>
+<td>gl</td>
+<td>ES</td>
+</tr>
+<tr>
+<td>格鲁吉亚州</td>
+<td>格鲁吉亚州</td>
+<td>ka</td>
+<td>GE</td>
+</tr>
+<tr>
+<td>哈萨克</td>
+<td>Kyrgyz</td>
+<td>ky</td>
+<td>KZ</td>
+</tr>
+<tr>
+<td>拉脱维亚</td>
+<td>拉脱维亚</td>
+<td>lv</td>
+<td>LV</td>
+</tr>
+<tr>
+<td>立陶宛</td>
+<td>立陶宛</td>
+<td>lt</td>
+<td>LT</td>
+</tr>
+<tr>
+<td>马其顿</td>
+<td>马其顿</td>
+<td>mk</td>
+<td>MK</td>
+</tr>
+<tr>
+<td>汶莱</td>
+<td>马来语</td>
+<td>ms</td>
+<td>BN</td>
+</tr>
+<tr>
+<td>马来西亚</td>
+<td>马来西亚语</td>
+<td>ms</td>
+<td>MY</td>
+</tr>
+<tr>
+<td>蒙古</td>
+<td>蒙古</td>
+<td>mn</td>
+<td>MN</td>
+</tr>
+<tr>
+<td>罗马尼亚</td>
+<td>罗马尼亚语</td>
+<td>ro</td>
+<td>RO</td>
+</tr>
+<tr>
+<td>塞尔维亚(西里尔字母的)</td>
+<td>sr-SP-Cyrl</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>塞尔(拉丁文)</td>
+<td>sr-SP-Latn</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>斯洛伐克</td>
+<td>斯洛伐克</td>
+<td>sk</td>
+<td>SK</td>
+</tr>
+<tr>
+<td>斯洛文尼亚</td>
+<td>斯洛文尼亚</td>
+<td>sl</td>
+<td>SI</td>
+</tr>
+<tr>
+<td>乌兹别克</td>
+<td>乌兹别克(西里尔字母的)</td>
+<td>uz</td>
+<td>uz-UZ-Cyrl</td>
+</tr>
+<tr>
+<td>乌兹别克</td>
+<td>乌兹别克(拉丁文的)</td>
+<td>uz</td>
+<td>UZ-Latn</td>
+</tr>
+<tr>
+<td>塞浦路斯</td>
+<td>希腊文</td>
+<td>el</td>
+<td>CY</td>
+</tr>
+<tr>
+<td>英语(全球)</td>
+<td>en-WW</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>内容转自这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/isdom/p/webclips009.html">i18n(国际化) 和l18n(本地化)时的地域标识代码 格式如 zh-CN(语言-国家)</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/07/24/rollup-config/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/10/12/common-linux-command/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2019/10/11/i18n-locale-code/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

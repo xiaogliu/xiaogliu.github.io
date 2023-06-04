@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>异步之三：Async 函数的使用及简单实现 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript,ES6,ES7," />
+  
+
+  <meta name="description" content="解决回调地狱的异步操作，Async 函数是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第三部分，介绍 Async 函数相关。第一部分介绍 Generator，第二部分介绍 Promise。 在这部分中，我们会先介绍 Async 函数的基本使用，然后会结合前两部分介绍的生成器和 Promise 实现一个 async 函数。 1）Asyn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步之三：Async 函数的使用及简单实现">
+<meta property="og:url" content="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-3/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="解决回调地狱的异步操作，Async 函数是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第三部分，介绍 Async 函数相关。第一部分介绍 Generator，第二部分介绍 Promise。 在这部分中，我们会先介绍 Async 函数的基本使用，然后会结合前两部分介绍的生成器和 Promise 实现一个 async 函数。 1）Asyn">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-22T14:57:33.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.567Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="ES6">
+<meta property="article:tag" content="ES7">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%EF%BC%89Async-%E5%87%BD%E6%95%B0%E6%A6%82%E8%A7%88"><span class="toc-text">1）Async 函数概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Async-%E5%87%BD%E6%95%B0%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-text">1.2 Async 函数基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E5%87%BD%E6%95%B0%E4%BD%93%E5%86%85%E6%B2%A1%E6%9C%89-await"><span class="toc-text">1.2.1 函数体内没有 await</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-await-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.2.2 await 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-await-%E4%BD%BF%E7%94%A8"><span class="toc-text">1.2.3 await 使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%EF%BC%89Async-%E5%87%BD%E6%95%B0%E5%A4%84%E7%90%86%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82"><span class="toc-text">2）Async 函数处理异步请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%9B%B8%E4%BA%92%E4%BE%9D%E8%B5%96%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">2.1 相互依赖的异步数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%97%A0%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">2.2 无依赖关系的异步数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%EF%BC%89Async-%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">3）Async 模拟实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-async-%E5%87%BD%E6%95%B0%E5%A4%84%E7%90%86%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">3.1 async 函数处理异步数据的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-async-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="toc-text">3.2 async 函数简单实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">3.2.1 代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E4%BD%BF%E7%94%A8"><span class="toc-text">3.2.2 使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-text">3.2.3 说明：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post- 异步之三：Async函数使用及简单实现" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">异步之三：Async 函数的使用及简单实现</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.07.22</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>解决回调地狱的异步操作，Async 函数是终极办法，但了解生成器和 Promise 有助于理解 Async 函数原理。由于内容较多，分三部分进行，这是第三部分，介绍 Async 函数相关。<a href="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-1/">第一部分</a>介绍 Generator，<a href="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-2/">第二部分</a>介绍 Promise。</p>
+<p>在这部分中，我们会先介绍 Async 函数的基本使用，然后会结合前两部分介绍的生成器和 Promise 实现一个 async 函数。</p>
+<h1 id="1）Async-函数概览"><a href="#1）Async-函数概览" class="headerlink" title="1）Async 函数概览"></a>1）Async 函数概览</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>通过在普通函数前加<code>async</code>操作符可以定义 Async 函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这是一个 async 函数</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Async 函数体中的代码是异步执行的，不会阻塞后面代码执行，但它们的写法和同步代码相似。</p>
+<p>Async 函数会 <strong>返回一个已完成的 promise 对象</strong>，实际在使用的时候会和<code>await</code>操作符配合使用，在介绍<code>await</code>之前，我们先看看 async 函数本身有哪些特点。</p>
+<h2 id="1-2-Async-函数基本用法"><a href="#1-2-Async-函数基本用法" class="headerlink" title="1.2 Async 函数基本用法"></a>1.2 Async 函数基本用法</h2><h3 id="1-2-1-函数体内没有-await"><a href="#1-2-1-函数体内没有-await" class="headerlink" title="1.2.1 函数体内没有 await"></a>1.2.1 函数体内没有 await</h3><p>如果 async 函数体内如果没有<code>await</code>操作符，那么它返回的 promise 对象状态和他的函数体内代码怎么写有关系，具体和 promise 的<code>then()</code>方法的处理方式相同：</p>
+<p>1）没有显式 return 任何数据</p>
+<p>此时默认返回<code>Promise.resolve()</code>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = (<span class="keyword">async</span> () =&gt; &#123;&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>此时 a 的值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">  [[<span class="title class_">PromiseStatus</span>]]: <span class="string">&#x27;resolved&#x27;</span>,</span><br><span class="line">  [[<span class="title class_">PromiseValue</span>]]: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2）显式 return 非 promise</p>
+<p>相当于返回<code>Promise.resolve(data)</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">111</span>;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">111</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>此时 a 的值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">  [[<span class="title class_">PromiseStatus</span>]]: <span class="string">&#x27;resolved&#x27;</span>,</span><br><span class="line">  [[<span class="title class_">PromiseValue</span>]]: <span class="number">111</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3）显式 return promise 对象</p>
+<p>此时 async 函数返回的 promise 对象状态由显示返回的 promise 对象状态决定，这里以被拒绝的 promise 为例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = (<span class="keyword">async</span> () =&gt; <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="number">111</span>))();</span><br></pre></td></tr></table></figure>
+
+<p>此时 a 的值：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">  [[<span class="title class_">PromiseStatus</span>]]: <span class="string">&#x27;rejected&#x27;</span>,</span><br><span class="line">  [[<span class="title class_">PromiseValue</span>]]: <span class="number">111</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但实际使用中，我们不会向上面那样使用，而是配合<code>await</code>操作符一起使用，不然像上面那样，和 promise 相比，并没有优势可言。特别的，没有<code>await</code>操作符，我们并不能用 async 函数解决相互依赖的异步数据的请求问题。</p>
+<p>换句话说：我们不关心 async 返回的 promise 状态（通常情况，async 函数不会返回任何内容，即默认返回<code>Promise.resolve()</code>），我们关心的是 async 函数体内的代码怎么写，因为里面的代码可以异步执行且不阻塞 async 函数后面代码的执行，这就为写异步代码创造了条件，并且书写形式上和同步代码一样。</p>
+<h3 id="1-2-2-await-介绍"><a href="#1-2-2-await-介绍" class="headerlink" title="1.2.2 await 介绍"></a>1.2.2 await 介绍</h3><p><code>await</code>操作符使用方式如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[rv] = <span class="keyword">await</span> expression;</span><br></pre></td></tr></table></figure>
+
+<p>expression：可以是任何值，但通常是一个 promise；</p>
+<p>rv: 可选。如果有且 expression 是非 promise 的值，则 rv 等于 expression 本身；不然，rv 等于 <strong>兑现</strong> 的 promise 的值，如果该 promise 被拒绝，则抛个异常（所以<code>await</code>一般被 try-catch 包裹，异常可以被捕获到）。</p>
+<p>但注意<code>await</code><strong>必须在 async 函数中使用，不然会报语法错误</strong>。</p>
+<h3 id="1-2-3-await-使用"><a href="#1-2-3-await-使用" class="headerlink" title="1.2.3 await 使用"></a>1.2.3 await 使用</h3><p>看下面代码例子：</p>
+<p>1）expression 后为非 promise</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> b = <span class="keyword">await</span> <span class="number">111</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// 111</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>直接返回这个 expression 的值，即，打印 <code>111</code>。</p>
+<p>2）expression 为兑现的 promise</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> b = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">111</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// 111</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>返回兑现的 promise 的值，所以打印<code>111</code>。</p>
+<p>3）expression 为拒绝的 promise</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="number">111</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 前面的 await 出错后，当前代码块后面的代码就不执行了</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// 不执行</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;出错了：&quot;</span>, e); <span class="comment">// 出错了：111</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>如果<code>await</code>后面的 promise 被拒绝或本身代码执行出错都会抛出一个异常，然后被 catch 到，并且，和当前<code>await</code>同属一个代码块的后面的代码不再执行。</p>
+<h1 id="2）Async-函数处理异步请求"><a href="#2）Async-函数处理异步请求" class="headerlink" title="2）Async 函数处理异步请求"></a>2）Async 函数处理异步请求</h1><h2 id="2-1-相互依赖的异步数据"><a href="#2-1-相互依赖的异步数据" class="headerlink" title="2.1 相互依赖的异步数据"></a>2.1 相互依赖的异步数据</h2><p>在 promise 中我们处理相互依赖的异步数据使用链式调用的方式，虽然相比回调函数已经优化很多，但书写及理解上还是没有同步代码直观。我们看下 async 函数如何解决这个问题。</p>
+<p>先回顾下需求及 promise 的解决方案：</p>
+<p>需求：_请求 URL1 得到 data1；请求 URL2 得到 data2，但 URL2 &#x3D; data1[0].url2；请求 URL3 得到 data3，但 URL3 &#x3D; data2[0].url3_。</p>
+<p>使用 promise 链式调用可以这样写代码：</p>
+<blockquote>
+<p>promiseAjax 在 <a href="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-2/#3-1-%E7%94%A8-promise-%E5%B0%81%E8%A3%85-ajax">第二部分介绍 promise 时在 3.1 中定义的</a>，通过 promise 封装的 ajax GET 请求。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">promiseAjax</span>(<span class="string">&#x27;URL1&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">data1</span> =&gt;</span> <span class="title function_">promiseAjax</span>(data1[<span class="number">0</span>].<span class="property">url2</span>))</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">data2</span> =&gt;</span> <span class="title function_">promiseAjax</span>(data2[<span class="number">0</span>].<span class="property">url3</span>);)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="title function_">log</span>(data3))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(e));</span><br></pre></td></tr></table></figure>
+
+<p>如果使用 Async 函数则可以像同步代码的一样写：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> data1 = <span class="keyword">await</span> <span class="title function_">promiseAjax</span>(<span class="string">&#x27;URL1&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> data2 = <span class="keyword">await</span> <span class="title function_">promiseAjax</span>(data1[<span class="number">0</span>].<span class="property">url</span>);</span><br><span class="line">    <span class="keyword">const</span> data3 = <span class="keyword">await</span> <span class="title function_">promiseAjax</span>(data2[<span class="number">0</span>].<span class="property">url</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之所以可以这样用，是因为只有当前<code>await</code>等待的 promise 兑现后，它后面的代码才会执行（或者抛出错误，后面代码都不执行，直接去到 catch 分支）。</p>
+<p>这里有两点值得关注:</p>
+<p>1）<code>await</code>帮我们处理了 promise，要么返回兑现的值，要么抛出异常；<br>2）<code>await</code>在等待 promise 兑现的同时，整个 async 函数会挂起，promise 兑现后再重新执行接下来的代码。</p>
+<p>对于第 2 点，是不是想到了生成器？在 1.4 节中我们会通过生成器 + promise 自己写一个 async 函数。</p>
+<h2 id="2-2-无依赖关系的异步数据"><a href="#2-2-无依赖关系的异步数据" class="headerlink" title="2.2 无依赖关系的异步数据"></a>2.2 无依赖关系的异步数据</h2><p><del>Async 函数没有<code>Promise.all()</code>之类的方法，我们需要写多几个 async 函数。</del></p>
+<p>可以借助<code>Promise.all()</code>在同一个 async 函数中并行处理多个无依赖关系的异步数据，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> arr = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>([</span><br><span class="line">      <span class="title function_">promiseAjax</span>(<span class="string">&quot;URL1&quot;</span>),</span><br><span class="line">      <span class="title function_">promiseAjax</span>(<span class="string">&quot;URL2&quot;</span>),</span><br><span class="line">    ]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... do something</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>感谢 <a target="_blank" rel="noopener" href="https://segmentfault.com/u/jiasm">@贾顺名</a> 的 <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015735201#goToReplyArea">评论</a></p>
+</blockquote>
+<p>但实际开发中如果异步请求的数据是业务不相关的，不推荐这样写，原因如下：</p>
+<p>把所有的异步请求放在一个 async 函数中相当于手动加强了业务代码的耦合，会导致下面两个问题：</p>
+<p>1）写代码及获取数据都不直观，尤其请求多起来的时候；<br>2）<code>Promise.all</code>里面写多个无依赖的异步请求，如果 <strong>其中一个被拒绝或发生异常，所有请求的结果我们都获取不到</strong>。</p>
+<p>如果业务场景是不关心上面两点，可以考虑使用上面的写法，不然，每个异步请求都放在不同的 async 函数中发出。</p>
+<p>下面是分开写的例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> data1 = <span class="keyword">await</span> <span class="title function_">promiseAjax</span>(<span class="string">&quot;URL1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... do something</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">fn2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> data2 = <span class="keyword">await</span> <span class="title function_">promiseAjax</span>(<span class="string">&quot;URL2&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... do something</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3）Async-模拟实现"><a href="#3）Async-模拟实现" class="headerlink" title="3）Async 模拟实现"></a>3）Async 模拟实现</h1><h2 id="3-1-async-函数处理异步数据的原理"><a href="#3-1-async-函数处理异步数据的原理" class="headerlink" title="3.1 async 函数处理异步数据的原理"></a>3.1 async 函数处理异步数据的原理</h2><p>我们先看下 async 处理异步的原理：</p>
+<ul>
+<li>async 函数遇到<code>await</code>操作符会挂起；</li>
+<li><code>await</code>后面的表达式求值（通常是个耗时的异步操作）前 async 函数一直处于挂起状态，避免阻塞 async 函数后面的代码；</li>
+<li><code>await</code>后面的表达式求值求值后（异步操作完成），<code>await</code>可以对该值做处理：如果是非 promise，直接返回该值；如果是 promsie，则提取 promise 的值并返回。同时告诉 async 函数接着执行下面的代码；</li>
+<li>哪里出现异常，结束 async 函数。</li>
+</ul>
+<p><code>await</code>后面的那个异步操作，往往是返回 promise 对象（比如 <a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios</a>），然后交给 <code>await</code> 处理，毕竟，async-await 的设计初衷就是为了解决异步请求数据时的回调地狱问题，而使用 promise 是关键一步。</p>
+<p>async 函数本身的行为，和生成器类似；而<code>await</code>等待的通常是 promise 对象，也正因如此，常说 async 函数是 <em>生成器 + promise</em> 结合后的语法糖。</p>
+<p>既然我们知道了 async 函数处理异步数据的原理，接下来我们就简单模拟下 async 函数的实现过程。</p>
+<h2 id="3-2-async-函数简单实现"><a href="#3-2-async-函数简单实现" class="headerlink" title="3.2 async 函数简单实现"></a>3.2 async 函数简单实现</h2><p>这里只模拟 async 函数配合<code>await</code>处理网络请求的场景，并且请求最终返回 promise 对象，async 函数本身返回值（已完成的 promise 对象）及更多使用场景这里没做考虑。</p>
+<p>所以接下来的 myAsync 函数只是为了说明 async-await 原理，不要将其用在生产环境中。</p>
+<h3 id="3-2-1-代码实现"><a href="#3-2-1-代码实现" class="headerlink" title="3.2.1 代码实现"></a>3.2.1 代码实现</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟 async 函数的实现，该段代码取自 Secrets of the JavaScript Ninja (Second Edition)，p159</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 接收生成器作为参数，建议先移到后面，看下生成器中的代码</span></span><br><span class="line"><span class="keyword">var</span> <span class="title function_">myAsync</span> = generator =&gt; &#123;</span><br><span class="line">  <span class="comment">// 注意 iterator.next() 返回对象的 value 是 promiseAjax()，一个 promise</span></span><br><span class="line">  <span class="keyword">const</span> iterator = <span class="title function_">generator</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// handle 函数控制 async 函数的 挂起-执行</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handle</span> = iteratorResult =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (iteratorResult.<span class="property">done</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> iteratorValue = iteratorResult.<span class="property">value</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只考虑异步请求返回值是 promise 的情况</span></span><br><span class="line">    <span class="keyword">if</span> (iteratorValue <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">      <span class="comment">// 递归调用 handle，promise 兑现后再调用 iterator.next() 使生成器继续执行</span></span><br><span class="line">      <span class="comment">// ps.原书then最后少了半个括号 &#x27;)&#x27;</span></span><br><span class="line">      iteratorValue</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> <span class="title function_">handle</span>(iterator.<span class="title function_">next</span>(result)))</span><br><span class="line">        .<span class="title function_">catch</span>(<span class="function"><span class="params">e</span> =&gt;</span> iterator.<span class="keyword">throw</span>(e));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="title function_">handle</span>(iterator.<span class="title function_">next</span>());</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-2-使用"><a href="#3-2-2-使用" class="headerlink" title="3.2.2 使用"></a>3.2.2 使用</h3><p><code>myAsync</code>接收的一个生成器作为入参，生成器函数内部的代码，和写原生 async 函数类似，只是用<code>yield</code>代替了<code>await</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">myAsync</span>(<span class="keyword">function</span>*() &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="keyword">yield</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">yield</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(a + <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">const</span> c = <span class="keyword">yield</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(b + <span class="number">100</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c); <span class="comment">// 输出 1，11，111</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;出错了：&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面会打印<code>1 11 111</code>。</p>
+<p>如果第二个<code>yield</code>语句后的 promise 被拒绝<code>Promise.reject(a + 10)</code>，则打印<code>出错了：11</code>。</p>
+<h3 id="3-2-3-说明："><a href="#3-2-3-说明：" class="headerlink" title="3.2.3 说明："></a>3.2.3 说明：</h3><ul>
+<li>myAsync 函数接受一个生成器作为参数，控制生成器的 <em>挂起</em> 可达到使整个 myAsync 函数在异步代码请求过程 <em>挂起</em> 的效果；</li>
+<li>myAsync 函数内部通过定义<code>handle</code>函数，控制生成器的 _挂起-执行_。</li>
+</ul>
+<p>具体过程如下：</p>
+<p>1）首先调用<code>generator()</code>生成它的控制器，即迭代器<code>iterator</code>，此时，生成器处于挂起状态；<br>2）第一次调用<code>handle</code>函数，并传入<code>iterator.next()</code>，这样就完成生成器的第一次调用的；<br>3）执行生成器，遇到<code>yield</code>生成器再次挂起，同时把<code>yield</code>后表达式的结果（未完成的 promise）传给 handle；<br>4）生成器挂起的同时，异步请求还在进行，异步请求完成（promise 兑现）后，会调用<code>handle</code>函数中的<code>iteratorValue.then()</code>；<br>5）<code>iteratorValue.then()</code>执行时内部递归调用<code>handle</code>，同时把异步请求回的数据传给生成器（<code>iterator.next(result)</code>），生成器更新数据再次执行。如果出错直接结束；<br>6）3、4、5 步重复执行，直到生成器结束，即<code>iteratorResult.done === true</code>，myAsync 结束调用。</p>
+<blockquote>
+<p>如果看不明白，可参考下 <a href="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-1/">第一部分</a> 生成器相关和 <a href="https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-2/">第二部分</a> Promise 相关。</p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>【1】[美]JOHN RESIG,BEAR BIBEAULT and JOSIP MARAS 著（2016），Secrets of the JavaScript Ninja (Second Edition)，p159，Manning Publications Co.<br>【2】<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">async function-MDN</a><br>【3】<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await">await-MDN</a><br>【4】<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007535316">理解 JavaScript 的 async&#x2F;await</a>   </p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/07/22/generator-to-promise-to-async-2/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/09/20/config-win10-sub-linux-sys/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2018/07/22/generator-to-promise-to-async-3/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

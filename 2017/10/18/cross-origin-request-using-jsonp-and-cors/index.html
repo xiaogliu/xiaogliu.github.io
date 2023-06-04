@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JSONP和CORS实现跨源请求 | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript,Node.js," />
+  
+
+  <meta name="description" content="为什么会产生跨源跨源产生的场景主要是在：如果A页面（通过B页面提供的API）获取B页面的资源，而A页面和B页面的源信息不同，那么便会产生跨源错误。    源信息包括：协议、域名、端口三部分，同源指的是源信息的协议、域名、端口都相同  这主要源于 跨源安全策略，简单说，如果两个页面的源信息不同，就不能通过 XHR 对象获取对方的信息。 需要注意的是，跨源策略是浏览器基于安全考虑做的限制，而非服务器端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSONP和CORS实现跨源请求">
+<meta property="og:url" content="https://xiaogliu.github.io/2017/10/18/cross-origin-request-using-jsonp-and-cors/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="为什么会产生跨源跨源产生的场景主要是在：如果A页面（通过B页面提供的API）获取B页面的资源，而A页面和B页面的源信息不同，那么便会产生跨源错误。    源信息包括：协议、域名、端口三部分，同源指的是源信息的协议、域名、端口都相同  这主要源于 跨源安全策略，简单说，如果两个页面的源信息不同，就不能通过 XHR 对象获取对方的信息。 需要注意的是，跨源策略是浏览器基于安全考虑做的限制，而非服务器端">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-10-18T07:06:32.000Z">
+<meta property="article:modified_time" content="2023-06-04T03:07:02.570Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-87747398-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E4%BA%A7%E7%94%9F%E8%B7%A8%E6%BA%90"><span class="toc-text">为什么会产生跨源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E6%BA%90%E5%9C%BA%E6%99%AF"><span class="toc-text">跨源场景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%BA%90%E5%9C%BA%E6%99%AF%E8%AF%B4%E6%98%8E"><span class="toc-text">跨源场景说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%BA%90%E5%AE%9E%E4%BE%8B"><span class="toc-text">跨源实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSONP%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%BA%90%E9%80%9A%E4%BF%A1"><span class="toc-text">JSONP实现跨源通信</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP%E5%AE%9E%E4%BE%8B"><span class="toc-text">JSONP实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CORS%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%BA%90%E9%80%9A%E4%BF%A1"><span class="toc-text">CORS实现跨源通信</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS%E5%AE%9E%E4%BE%8B"><span class="toc-text">CORS实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%BA%90%E8%AE%BE%E7%BD%AE"><span class="toc-text">服务源设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%BA%90%E8%AE%BE%E7%BD%AE"><span class="toc-text">请求源设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-1"><span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%85%E8%A1%A5%E5%85%85"><span class="toc-text">待补充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">通过 Nginx 反向代理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JSONP和CORS实现跨域请求" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JSONP和CORS实现跨源请求</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.10.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="为什么会产生跨源"><a href="#为什么会产生跨源" class="headerlink" title="为什么会产生跨源"></a>为什么会产生跨源</h1><p>跨源产生的场景主要是在：如果A页面（通过B页面提供的API）获取B页面的资源，而A页面和B页面的源信息不同，那么便会产生跨源错误。  </p>
+<blockquote>
+<p>源信息包括：协议、域名、端口三部分，同源指的是源信息的协议、域名、端口都相同</p>
+</blockquote>
+<p>这主要源于 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">跨源安全策略</a>，简单说，如果两个页面的源信息不同，就不能通过 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest">XHR</a> 对象获取对方的信息。</p>
+<p><strong>需要注意的是，跨源策略是浏览器基于安全考虑做的限制，而非服务器端做了不允许跨源的限制</strong>。如果将浏览器设置为允许跨源请求，跨源策略随即失效（Safari浏览器开发菜单下拉列表中有“停用跨源限制”的选项，Chrome设置略复杂，请自行搜索解决）。   </p>
+<p>通过更改代码跳过浏览器跨源限制的方法很多，本文主要讨论常用的JSONP和CORS方法，完整代码已放在 Github 上 <a target="_blank" rel="noopener" href="https://github.com/xiaogliu/cross_origin_example">cross_origin_example</a>。</p>
+<h1 id="跨源场景"><a href="#跨源场景" class="headerlink" title="跨源场景"></a>跨源场景</h1><h2 id="跨源场景说明"><a href="#跨源场景说明" class="headerlink" title="跨源场景说明"></a>跨源场景说明</h2><table>
+<thead>
+<tr>
+<th>url</th>
+<th>说明</th>
+<th>是否允许通信</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com/a.js">http://www.domain.com/a.js</a> <br> <a target="_blank" rel="noopener" href="http://www.domain.com/b.js">http://www.domain.com/b.js</a> <br> <a target="_blank" rel="noopener" href="http://www.domain.com/c/c.js">http://www.domain.com/c/c.js</a></td>
+<td>同源，不同文件或路径</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com:8080/a.js">http://www.domain.com:8080/a.js</a> <br> <a target="_blank" rel="noopener" href="http://www.domain.com/b.js">http://www.domain.com/b.js</a></td>
+<td>协议、域名相同，端口不同</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com/a.js">http://www.domain.com/a.js</a> <br> <a target="_blank" rel="noopener" href="http://www.domain111.com/b.js">http://www.domain111.com/b.js</a></td>
+<td>协议、端口相同，域名不同</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com/a.js">http://www.domain.com/a.js</a> <br> <a target="_blank" rel="noopener" href="http://x.domain.com/b.js">http://x.domain.com/b.js</a> <br> <a target="_blank" rel="noopener" href="http://domain.com/c.js">http://domain.com/c.js</a></td>
+<td>协议、端口相同，域名不同（主域相同，子域不同）</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com/a.js">http://www.domain.com/a.js</a> <br> <a target="_blank" rel="noopener" href="http://127.0.0.1/b.js">http://127.0.0.1/b.js</a></td>
+<td>协议、端口相同，域名不同（即便 <a target="_blank" rel="noopener" href="http://www.domain.com/">www.domain.com</a> 对应的ip地址为 127.0.0.1）</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.domain.com/a.js">http://www.domain.com/a.js</a> <br> <a target="_blank" rel="noopener" href="https://www.domain.com/b.js">https://www.domain.com/b.js</a></td>
+<td>域名、端口相同，协议不同</td>
+<td>不允许</td>
+</tr>
+</tbody></table>
+<h2 id="跨源实例"><a href="#跨源实例" class="headerlink" title="跨源实例"></a>跨源实例</h2><p>下面是通过写原生 XHR 对象，调用豆瓣图书的API</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"></span><br><span class="line">xhr.<span class="property">onreadystatechange</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;= <span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt; <span class="number">300</span> || xhr.<span class="property">status</span> === <span class="number">304</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Error&quot;</span> + xhr.<span class="property">status</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 获取id为6548683的图书信息</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;https://api.douban.com/v2/book/6548683&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>直接使用上述代码会报下面的错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to load https://api.douban.com/v2/book/6548683:</span><br><span class="line">No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource.</span><br><span class="line">Origin &#x27;http://127.0.0.1:7070&#x27; is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+
+<p>该错误说明 <code>https://api.douban.com</code> 在响应头信息中没有设置 <code>Access-Control-Allow-Origin</code> （CORS标准中定义的内容，后面讨论），这就不允许跨源请求。</p>
+<blockquote>
+<ul>
+<li>此处我通过Node开启了本地服务，通过<a target="_blank" rel="noopener" href="http://127.0.0.1:7070/">http://127.0.0.1:7070</a> 这个地址进行的请求，如果直接将上述代码插入到 html 文件中，在本地直接访问也会报跨源错误，错误提示中 Origin 由 <a target="_blank" rel="noopener" href="http://127.0.0.1:7070/">http://127.0.0.1:7070</a> 变为 <code>null</code>。    </li>
+<li>不同浏览器的跨源安全策略实现方式有差异，上述代码在 Chrome（61.0.3163.100）浏览器下测试会报跨源错误，但 Safari（10.1.2）浏览器不会报跨源错误，可以正常返回数据。</li>
+</ul>
+</blockquote>
+<h1 id="JSONP实现跨源通信"><a href="#JSONP实现跨源通信" class="headerlink" title="JSONP实现跨源通信"></a>JSONP实现跨源通信</h1><p>JSONP(JSON with Padding) 实现跨源通信的原理是 <strong>Web 页面上调用外部 js 文件不受浏览器同源策略的限制，所以通过动态创建 <code>script</code> 便签，然后获取其内容，便实现了跨源通信</strong>，具体过程为：</p>
+<ol>
+<li>首先在 DOM 中创建 <code>script</code> 标签；</li>
+<li>将 <code>script</code> 标签的 <code>src</code> 属性值设置为请求API的地址（一般是一个绝对路径的url），这里的关键是 <strong>设置回调函数，并将其作为 url 的参数</strong>；</li>
+<li>服务端接收到请求后，通过该参数获得回调函数名，并将数据放在参数中将其返回；</li>
+<li>获取数据后就可以通过提前设置的回调函数进一步处理数据。</li>
+</ol>
+<h2 id="JSONP实例"><a href="#JSONP实例" class="headerlink" title="JSONP实例"></a>JSONP实例</h2><p>还是以调用豆瓣读书API为例，通过JSONP调用的代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建script标签</span></span><br><span class="line"><span class="keyword">const</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">script.<span class="property">type</span> = <span class="string">&#x27;text/javascript&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定script标签src属性值，同时传参并指定回调函数，此处为onBack</span></span><br><span class="line">script.<span class="property">src</span> = <span class="string">&#x27;https://api.douban.com/v2/book/6548683?callback=onBack&#x27;</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">appendChild</span>(script);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 回调函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onBack</span>(<span class="params">res</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行上面代码，就可以跨源访问豆瓣API了。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点</li>
+</ul>
+<ol>
+<li>兼容性很好，在古老的浏览器也能很好的运行；</li>
+<li>简单，不管通过创建 <code>script</code> 标签获取数据，还是通过回调函数处理获取的数据，都简单明了；</li>
+<li>不需要服务端单独为某个域名做设置（对比CORS方法，下文说明），这在请求自己不受控的资源是特别受用（你总不能要求豆瓣或者某个提供查询天气状况的API提供商单独为你的域名做设置）。</li>
+</ol>
+<ul>
+<li>缺点</li>
+</ul>
+<ol>
+<li>只支持 <code>get</code>；</li>
+<li>潜在的安全问题（大站提供的API可忽略）；</li>
+<li>稳定性存疑。毕竟，使用JSONP访问的资源往往都是别人家的，说不定哪天就关了或者代码有改动。</li>
+</ol>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>主要是在访问不能按自己的需求随意更改的公共API时使用，比如查个天气什么的。</p>
+<h1 id="CORS实现跨源通信"><a href="#CORS实现跨源通信" class="headerlink" title="CORS实现跨源通信"></a>CORS实现跨源通信</h1><p><a target="_blank" rel="noopener" href="https://fetch.spec.whatwg.org/#http-cors-protocol">CORS</a>(Cross-Origin Resource Sharing，跨源资源共享)是 W3C 一项推荐标准，定义了在必须访问跨源资源时，浏览器和服务器应该如何通信。   </p>
+<p>其实现方式是，通过使用自定义的HTTP头信息让浏览器和服务器进行通信，进而确定是否允许跨源通信。   </p>
+<p>浏览器向服务器发送请求时会在 Request Headers 中自动添加请求源信息（<code>Origin</code>字段），服务器端通过在 Response Headers 中添加 <code>Access-Control-Allow-Origin</code> 字段，指明允许那些源可以访问。经浏览器检查，如果请求源在服务器允许请求源列表中，则允许请求源从该服务器上的获取资源。   </p>
+<blockquote>
+<p>实际上，浏览器不会完全阻止跨源请求，如果源A要请求源B上的资源，浏览器会将请求到的数据放在 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/OSI_model#Layer_3:_Network_Layer">网络层</a> ，然后检查源A是否在源B允许的请求源列表上，如果没有，浏览器就会触发 <code>XMLHttpRequest</code> 的 <code>error</code> 事件（此处就是跨源错误），同时阻止数据从网络层传送到源A的js代码中。</p>
+</blockquote>
+<h2 id="CORS实例"><a href="#CORS实例" class="headerlink" title="CORS实例"></a>CORS实例</h2><p>实现CORS方法需要服务源做设置，为了模拟这个场景通过Node搭建两个本地服务器，一个做请求源，一个做服务源。   </p>
+<blockquote>
+<p>需要对Node有基本了解，如何使用Node搭建本地服务器不在本文中讨论</p>
+</blockquote>
+<h3 id="服务源设置"><a href="#服务源设置" class="headerlink" title="服务源设置"></a>服务源设置</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 引入http模块（http是node自带模块，安装node后自带，无需额外安装）</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> serv = http.<span class="title function_">createServer</span>(<span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">  res.<span class="title function_">writeHead</span>(<span class="number">200</span>, &#123;</span><br><span class="line">    <span class="comment">// 在respnse headers中注明是编码、数据类型</span></span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/html;charset=utf-8&quot;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 允许跨域请求源，端口后面不能有&#x27;/&#x27;</span></span><br><span class="line">    <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>: <span class="string">&#x27;http://127.0.0.1:7070&#x27;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  res.<span class="title function_">end</span>(<span class="string">&#x27;这是你要的数据：data&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">serv.<span class="title function_">listen</span>(<span class="number">3030</span>, <span class="string">&#x27;127.0.0.1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;服务启动，监听 127.0.0.1:3030&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中，关键是在 response headers 中添加 <code>&#39;Access-Control-Allow-Origin&#39;: &#39;http://127.0.0.1:7070&#39;,</code>，据此明确允许访问的源（列表）。如果是开放源，可以将 <code>Access-Control-Allow-Origin</code> 的值设为 <code>&#39;*&#39;</code>，这样任何请求源都可以访问该服务源上的数据。</p>
+<h3 id="请求源设置"><a href="#请求源设置" class="headerlink" title="请求源设置"></a>请求源设置</h3><ul>
+<li>设置静态服务器</li>
+</ul>
+<p>为方便起见，直接通过 <code>http-server</code> 模块搭建静态服务器，目的是通过指定源（此处为<a href="http://127.0.0.1:7070）发送请求。安装完">http://127.0.0.1:7070）发送请求。安装完</a> <code>http-server</code>模块后通过下面命令进行启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http-server -a 127.0.0.1 -p 7070</span><br></pre></td></tr></table></figure>
+
+<p>这里启动的静态服务器域名为 <code>127.0.0.1</code>， 端口为 <code>7070</code>，协议默认为 <code>http</code>，静态目录就是当前运行命令所在目录，点击事先准备好的请求文件模拟跨域请求。</p>
+<blockquote>
+<p>这里全局安装 <code>http-server</code> 模块后才能直接使用该命令，不过更推荐通过本地（局部）安装，然后通过 <a href="https://xiaogliu.github.io/2017/05/13/package.json-instruction/#npm-script">npm script</a> 启动服务。</p>
+</blockquote>
+<ul>
+<li>设置请求文件</li>
+</ul>
+<p>实际发送请求的代码可以通过多种形式写，原生、axios 或者 jquery，随意，只要请求 url 是上文设置的服务源就好。下面是使用原生方式写的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"></span><br><span class="line">xhr.<span class="property">onreadystatechange</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;= <span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt; <span class="number">300</span> || xhr.<span class="property">status</span> === <span class="number">304</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Error&quot;</span> + xhr.<span class="property">status</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 注明服务源地址</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:3030/&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点</li>
+</ul>
+<ol>
+<li>前端不需要改动代码，就像访问同源资源一样；</li>
+<li>没有对请求方法的限制。</li>
+</ol>
+<ul>
+<li>缺点</li>
+</ul>
+<ol>
+<li>存在<a target="_blank" rel="noopener" href="http://caniuse.com/#search=cors">兼容性问题</a>：IE10以上。</li>
+<li>最重要的是不能设置 cookie（cookie 遵循同源策略）。</li>
+</ol>
+<h2 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h2><p>在服务源可以按照自己的需求更改（即在 response headers 中添加请求源信息）时使用，公司项目一般都是通过CORS方法实现跨源通信的。</p>
+<h2 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h2><p>涉及到简单请求和复杂请求，其中 preflight 请求是不带任何自定义请求头的，是浏览器自发行为。</p>
+<h1 id="通过-Nginx-反向代理"><a href="#通过-Nginx-反向代理" class="headerlink" title="通过 Nginx 反向代理"></a>通过 Nginx 反向代理</h1><p>这是最好的方法，简单，前后端也不需要做额外更改。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10636611/how-does-access-control-allow-origin-header-work">How does Access-Control-Allow-Origin header work?</a><br>【2】<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25778815">关于跨域，你想知道的全在这里</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/09/09/use-sass-global-variables-in-every-vue-components/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/12/20/vuex-manage-menu-states/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2017/10/18/cross-origin-request-using-jsonp-and-cors/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
