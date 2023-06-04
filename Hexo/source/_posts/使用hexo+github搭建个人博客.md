@@ -507,20 +507,54 @@ npm install
 
 ## 六、遇到问题及解决方案
 
-1，有时使用 hexo 默认指令`hexo server`会出现本地没法预览的情况。因为 hexo 本地预览，默认端口是`4000`，若该端口被占用，则无法启动预览，开启本地服务时置顶端口就可以了，比如
+### 1. 端口冲突
+
+问题描述: 有时使用 hexo 默认指令`hexo server`会出现本地没法预览的情况。因为 hexo 本地预览，默认端口是`4000`，若该端口被占用，则无法启动预览
+
+解决办法: 开启本地服务时指定端口就可以了，比如
 
 ```js
 hexo s -p 3600 // 指定3600端口
 ```
 
-2，`FATAL Cannot set property 'lastIndex' of undefined`  
+### 2. 配置错误
+
+问题描述: `FATAL Cannot set property 'lastIndex' of undefined` 
+
 解决方法：将文件`_config.yml`中的`auto_detect`设为`false`，详见[Hexo 3.2.0-beta.2 test result report](https://github.com/hexojs/hexo/issues/1627)。
 
-3，`command not found: hexo`
+### 3. `command not found: hexo`
 
 问题描述： 之前使用 Ok，忽然就`command not found: hexo`，可能的原因是改变了 node 版本。
 
 解决办法：重新安装 hexo-cli： `npm install hexo-cli -g`
+
+### 4. 版本冲突 
+
+问题描述: 升级完 Node.js 后出现这个问题: `The "mode" argument must be integer. Received an instance of Object`
+
+解决办法: Hexo 和 Node 版本不匹配, 升级 Hexo 到最新版就好
+
+### 5. 升级导致兼容问题
+
+问题描述: 升级完 Hexo 后发现前后分页不能渲染 Html 了, 而是把源码展示了出来
+
+```js
+<%- paginator({
+  prev_text: '<i class="icon-angle-left"></i>',
+  next_text: '<i class="icon-angle-right"></i>',
+}) %>
+```
+
+解决办法: [查看文档](https://hexo.io/docs/helpers.html#paginator), 发现升级完后(0.3.1 -> 6.3.0) 为了安全期间, `paginator` 函数默认不渲染 Html 代码, 如果想直接渲染, 需要添加 `escape: false`, 更改后代码:
+
+```js
+<%- paginator({
+  prev_text: '<i class="icon-angle-left"></i>',
+  next_text: '<i class="icon-angle-right"></i>',
+  escape: false
+}) %>
+```
 
 ### 参考资料
 
