@@ -73,4 +73,4 @@ theme: fexo
 deploy:
   type: git
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
-  branch: master
+  branch: main
