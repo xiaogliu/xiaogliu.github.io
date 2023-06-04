@@ -124,14 +124,14 @@ deploy:
 deploy:
   type: git
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
-  branch: master
+  branch: main
 ```
 
 Repository：必须是 SSH 形式的 url（ git@github.com:xiaogliu/xiaogliu.github.io.git ），而不能是 HTTPS 形式的 url（https://github.com/xiaogliu/xiaogliu.github.io.git ），否则会出现错误：
 
 > 此处有坑，有说 type 为 github，但此处应该为 git，和 hexo 版本有关？？？
 >
-> 另，有说：Be carefull, with your current configuration, you will erase all your source code on master branch. I recommend > you to deploy on `gh-pages` to be automatically reachable at https://github.com/username/repository_name
+> 另，有说：Be carefull, with your current configuration, you will erase all your source code on main branch. I recommend > you to deploy on `gh-pages` to be automatically reachable at https://github.com/username/repository_name
 > deploy:
 > type: git
 > repo: <repository url>
@@ -407,7 +407,7 @@ exclude_generator:
 deploy:
   type: git
   repository: git@github.com:xiaogliu/xiaogliu.github.io.git
-  branch: master #你的GitHub Pages仓库
+  branch: main #你的GitHub Pages仓库
 ```
 
 #### 4.3.3 修改局部页面
@@ -452,13 +452,13 @@ deploy:
 
 ## 五、多台电脑协同维护 blog
 
-这就需要一开始配置 github 仓库时做好：第一次搭建 blog 时 git 新建两个分支，一个 master，发布更新，一个 source（或其他任意名称）进行维护(放置所有原始 markdown 文件)。每次更新 blog，都是再 source 分支更新，然后 deploy 到 master。
+这就需要一开始配置 github 仓库时做好：第一次搭建 blog 时 git 新建两个分支，一个 main，发布更新，一个 source（或其他任意名称）进行维护(放置所有原始 markdown 文件)。每次更新 blog，都是再 source 分支更新，然后 deploy 到 main。
 
-> 我第一次搭建 blog 时，发布的分支和维护的分支没有区分，虽然建了两个分支，但并不清楚原理，时隔几个月再看时，发现维护的 source 分支并没有及时推送到远程仓库，结果，拉回 source 分支一看，markdown 文件都丢失了，这样发布 master 后，之前的文件就都没有了！
+> 我第一次搭建 blog 时，发布的分支和维护的分支没有区分，虽然建了两个分支，但并不清楚原理，时隔几个月再看时，发现维护的 source 分支并没有及时推送到远程仓库，结果，拉回 source 分支一看，markdown 文件都丢失了，这样发布 main 后，之前的文件就都没有了！
 
 - 日常维护流程：
   1、在 source 分支添加、修改 blog 内容，修改完后 git add , commit, push；
-  2、执行 hexo g -d，发布到 master（\_config.yml 中的 deploy 参数，分支已经设置为 master）
+  2、执行 hexo g -d，发布到 main（\_config.yml 中的 deploy 参数，分支已经设置为 main）
 
 - 本地资料丢失（比如重装电脑或者更换电脑）后进行下列步骤维护：
 
