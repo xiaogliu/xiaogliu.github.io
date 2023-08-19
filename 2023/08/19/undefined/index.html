@@ -7,28 +7,31 @@
 <head>
   <meta charset="utf-8">
   
-  <title>docker-compose can not use lastest npm package | 刘小光的博客</title>
+  <title>Idea 创建 Spring Boot 项目 | 刘小光的博客</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="cmder,webstorm,sublime," />
+    <meta name="keywords" content="Java,Spring Boot," />
   
 
-  <meta name="description" content="正文前端本地开发时，使用了 docker，但遇到了一个奇怪的问题：本地 npm 包更新后，本地开发一直无法拿到最新代码 &quot;dependencies&quot;: &amp;#123;  &quot;month-view-page-common&quot;: &quot;file:packages&#x2F;common&quot;,&amp;#125;, 最后发现，原来是 docker 使用了缓存的 volume">
+  <meta name="description" content="Context这篇文章介绍通过 Idea 快速创建 Spring Boot 项目 创建过程1. create new project 2. 设置项目名称 Name: 一个对于用户更为友好的项目名称, 项目创建后本地项目文件夹名就是这个 name Location: 本地存储目录 Type: 用哪种构建工具, Gradle or Maven Group: 企业或团队的唯一标识，定义了项目属于哪个组&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker-compose can not use lastest npm package">
-<meta property="og:url" content="https://xiaogliu.github.io/2021/03/12/docker-compose-can-not-use-lastest-npm-package/index.html">
+<meta property="og:title" content="Idea 创建 Spring Boot 项目">
+<meta property="og:url" content="https://xiaogliu.github.io/2023/08/19/undefined/index.html">
 <meta property="og:site_name" content="刘小光的博客">
-<meta property="og:description" content="正文前端本地开发时，使用了 docker，但遇到了一个奇怪的问题：本地 npm 包更新后，本地开发一直无法拿到最新代码 &quot;dependencies&quot;: &amp;#123;  &quot;month-view-page-common&quot;: &quot;file:packages&#x2F;common&quot;,&amp;#125;, 最后发现，原来是 docker 使用了缓存的 volume">
+<meta property="og:description" content="Context这篇文章介绍通过 Idea 快速创建 Spring Boot 项目 创建过程1. create new project 2. 设置项目名称 Name: 一个对于用户更为友好的项目名称, 项目创建后本地项目文件夹名就是这个 name Location: 本地存储目录 Type: 用哪种构建工具, Gradle or Maven Group: 企业或团队的唯一标识，定义了项目属于哪个组&amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-12T13:04:12.000Z">
-<meta property="article:modified_time" content="2023-06-04T03:07:02.572Z">
+<meta property="og:image" content="https://img.inkseeker.com/i/36455e8b242381e0214a3b8a4d25ae6c/64e02d97111e1.webp">
+<meta property="og:image" content="https://img.inkseeker.com/i/007bf3f856d0a1627b08ef0c44396b7d/64e02e1f90d4e.webp">
+<meta property="og:image" content="https://img.inkseeker.com/i/8b4ee64449b9da285abfd9aac9762a37/64e02e2d307ae.webp">
+<meta property="article:published_time" content="2023-08-19T02:44:18.000Z">
+<meta property="article:modified_time" content="2023-08-19T03:21:03.766Z">
 <meta property="article:author" content="刘小光">
-<meta property="article:tag" content="cmder">
-<meta property="article:tag" content="webstorm">
-<meta property="article:tag" content="sublime">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring Boot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.inkseeker.com/i/36455e8b242381e0214a3b8a4d25ae6c/64e02d97111e1.webp">
 
   
 
@@ -178,20 +181,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Context"><span class="toc-text">Context</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="toc-text">创建过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-create-new-project"><span class="toc-text">1. create new project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0"><span class="toc-text">2. 设置项目名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%80%89%E6%8B%A9%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96-%E5%B9%B6%E5%88%9B%E5%BB%BA"><span class="toc-text">3. 选择项目依赖, 并创建</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-docker-compose-can-not-use-lastest-npm-package" class="article article-type-post" itemprop="blogPost">
+   <article id="post-Idea-创建-Spring-Boot-项目" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">docker-compose can not use lastest npm package</h1>
+    <h1 class="post-title">Idea 创建 Spring Boot 项目</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2021.03.12</span>
+        <span>2023.08.19</span>
       </span>
 
       
@@ -202,11 +205,6 @@ ga('send', 'pageview');
       
 
       
-  <span class="article-category">
-    <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-  </span>
-
 
 
       
@@ -224,17 +222,28 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>前端本地开发时，使用了 docker，但遇到了一个奇怪的问题：本地 npm 包更新后，本地开发一直无法拿到最新代码</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;month-view-page-common&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:packages/common&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-<p>最后发现，原来是 docker 使用了缓存的 volumes。解决方法：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rebuild, while making sure it doesn&#x27;t use the internal cache </span></span><br><span class="line">docker-compose build --no-cache</span><br><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>docker 不熟悉呀，需要加强 2021-03-12</p>
-</blockquote>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@semur.nabiev/how-to-make-docker-compose-volumes-ignore-the-node-modules-directory-99f9ec224561">NodeJS: Making docker-compose Volumes Ignore the node_modules Directory</a>   </li>
-<li><a target="_blank" rel="noopener" href="https://github.com/docker/compose/issues/4337">“docker-compose up” not rebuilding container that has an underlying updated image #4337</a></li>
-</ol>
+      <h1 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h1><p>这篇文章介绍通过 Idea 快速创建 Spring Boot 项目</p>
+<h1 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程"></a>创建过程</h1><h2 id="1-create-new-project"><a href="#1-create-new-project" class="headerlink" title="1. create new project"></a>1. create new project</h2><p><img src="https://img.inkseeker.com/i/36455e8b242381e0214a3b8a4d25ae6c/64e02d97111e1.webp" alt="create new project"></p>
+<h2 id="2-设置项目名称"><a href="#2-设置项目名称" class="headerlink" title="2. 设置项目名称"></a>2. 设置项目名称</h2><ul>
+<li>Name: 一个对于用户更为友好的项目名称, 项目创建后本地项目文件夹名就是这个 name</li>
+<li>Location: 本地存储目录</li>
+<li>Type: 用哪种构建工具, Gradle or Maven</li>
+<li>Group: 企业或团队的唯一标识，定义了项目属于哪个组&#x2F;团队, <code>域.企业or团队名</code></li>
+<li>Artifact: 项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称</li>
+</ul>
+<p>举例:</p>
+<p>Apache 公司的 Tomcat 项目：这个项目的 groupId 是 org.apache，它的域是 org，公司名称是 apache，artifactId 是 tomcat。</p>
+<p><img src="https://img.inkseeker.com/i/007bf3f856d0a1627b08ef0c44396b7d/64e02e1f90d4e.webp" alt="设置项目名称"></p>
+<h2 id="3-选择项目依赖-并创建"><a href="#3-选择项目依赖-并创建" class="headerlink" title="3. 选择项目依赖, 并创建"></a>3. 选择项目依赖, 并创建</h2><p>在 Dependencies 列表中选择项目依赖, 这里以 Web 开发后端为例, 选择了下面的依赖:</p>
+<ul>
+<li>Spring Boot DevTools: 可以实现本地更新后热加载</li>
+<li>Lombok: 建华 Java 对象 (POJO) 的使用, 不需要写一对 getter, setter 等样板式代码</li>
+<li>Spring Web: 简化 Web 开发, 比如集成 Web MVC, RESTful Web 服务等</li>
+<li>Spring DataJPA: 简化对数据库的访问和操作</li>
+<li>MySQL Driver: MySQL 官方 JDBC 驱动程序，连接 Java 程序和 MySQL 数据库</li>
+</ul>
+<p><img src="https://img.inkseeker.com/i/8b4ee64449b9da285abfd9aac9762a37/64e02e2d307ae.webp" alt="Alt text"></p>
+<p>依赖选择完之后, 点击创建就 Okay 啦!</p>
 
     
   </div>
@@ -246,10 +255,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2021/03/10/reducer-in-js/">
+    <a class="show pull-left" href="/2021/03/12/docker-compose-can-not-use-lastest-npm-package/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2023/08/19/undefined/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -352,7 +361,7 @@ ga('send', 'pageview');
   <script>
     var disqus_shortname = 'xiaogliu';
     
-    var disqus_url = 'https://xiaogliu.github.io/2021/03/12/docker-compose-can-not-use-lastest-npm-package/';
+    var disqus_url = 'https://xiaogliu.github.io/2023/08/19/undefined/';
     
     (function(){
       var dsq = document.createElement('script');
