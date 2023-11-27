@@ -49,15 +49,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -229,20 +228,17 @@ ga('send', 'pageview');
       <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a target="_blank" rel="noopener" href="http://cmder.net/">官网下载</a>程序包。<br><strong>cmder 无需安装，解压即用</strong>。官网有两个版本供下载：cmder-mini 和 cmder-full，两个区别是 full 版本含有 git for windows，若已经安装，选用 cmder-mini 即可，否则选 cmder-full。</p>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="添加鼠标右键"><a href="#添加鼠标右键" class="headerlink" title="添加鼠标右键"></a>添加鼠标右键</h2><p>以<strong>管理员权限</strong>打开终端，输入下面命令（先把 cmder 添加到系统变量中）</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Cmder.exe /REGISTER ALL</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>配置完成后，鼠标右键可看到 cmder 选项，打开 cmder，<strong>终端显示目录为当前目录</strong></p>
 </blockquote>
 <p>若想<strong>删除鼠标右键打开 cmder</strong>，根目录新建文件<code>*.bat</code>，写入下面内容，以管理员身份运行即可</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">Reg delete <span class="string">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\Background\shell\Cmder&quot;</span> /f</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
-
 <h2 id="添加系统环境变量"><a href="#添加系统环境变量" class="headerlink" title="添加系统环境变量"></a>添加系统环境变量</h2><p>我的电脑 &gt; 右键属性 &gt; 高级系统设置 &gt; 环境变量 &gt; 系统变量，在<code>path</code>中添加 cmder 路径</p>
 <blockquote>
 <p>添加系统变量后可以通过<code>win+r</code>输入<code>cmder</code>开启 cmder，打开后默认目录为<code>C:\Users\Administrator</code></p>
 </blockquote>
 <h2 id="ls-中文乱码"><a href="#ls-中文乱码" class="headerlink" title="ls 中文乱码"></a>ls 中文乱码</h2><p>Startup &gt; Environment &gt; Set up environment variables， 添加下面代码</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> LANG=zh_CN.UTF8</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>需要重启 cmder</p>
 </blockquote>
@@ -266,7 +262,8 @@ ga('send', 'pageview');
 <th>Description</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Cmder</td>
 <td>cmd.exe</td>
 <td>Windows ‘cmd.exe’ shell enhanced with Git, Git aware prompt, Clink(GNU Readline), and Aliases.</td>
@@ -289,24 +286,25 @@ ga('send', 'pageview');
 <tr>
 <td>Bash</td>
 <td>bash.exe</td>
-<td>Unix&#x2F;Linux like bash shell running on Windows.</td>
+<td>Unix/Linux like bash shell running on Windows.</td>
 </tr>
 <tr>
 <td>Bash as Admin</td>
 <td>bash.exe</td>
-<td>Administrative Unix&#x2F;Linux like bash shell running on Windows.</td>
+<td>Administrative Unix/Linux like bash shell running on Windows.</td>
 </tr>
 <tr>
 <td>Mintty</td>
 <td>bash.exe</td>
-<td>Unix&#x2F;Linux like bash shell running on Windows.</td>
+<td>Unix/Linux like bash shell running on Windows.</td>
 </tr>
 <tr>
 <td>Mintty as Admin</td>
 <td>bash.exe</td>
-<td>Administrative Unix&#x2F;Linux like bash shell running on Windows.</td>
+<td>Administrative Unix/Linux like bash shell running on Windows.</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>若使用 Mintty 需进行额外设置，详见<a target="_blank" rel="noopener" href="https://github.com/cmderdev/cmder">Access to multiple shells in one window using tabs</a>。</p>
 <blockquote>
 <p>使用 cmd.exe、powershell.exe 和 bash.exe，切换盘符有差别</p>
@@ -316,43 +314,36 @@ ga('send', 'pageview');
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 假设当前目录为C盘，想切换到D盘</span></span><br><span class="line"><span class="attr">d</span>:</span><br></pre></td></tr></table></figure>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; - bash.exe下切换盘符： cd空格/盘符/</span><br><span class="line">```js</span><br><span class="line">// 假设当前目录为C盘，想切换到D盘</span><br><span class="line">cd /d/</span><br></pre></td></tr></table></figure>
-
 <h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><h2 id="打开-cmder"><a href="#打开-cmder" class="headerlink" title="打开 cmder"></a>打开 cmder</h2><ul>
 <li><strong>当前目录右键打开 cmder</strong><br> 开始后 cmder 默认目录为当前目录</li>
 <li><strong>win+r，输入 cmder</strong><br> 开启后默认目录为 C:\Users\Administrator</li>
 </ul>
 <h2 id="调出设置面板"><a href="#调出设置面板" class="headerlink" title="调出设置面板"></a>调出设置面板</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">win + alt + p</span><br></pre></td></tr></table></figure>
-
 <h2 id="在已有终端窗口下打开新窗口"><a href="#在已有终端窗口下打开新窗口" class="headerlink" title="在已有终端窗口下打开新窗口"></a>在已有终端窗口下打开新窗口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ctrl + t</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>若想以管理员身份打开终端，<code>ctrl + t</code>调出选择面板后，勾选<code>run as administrator</code>。<br>在这里，也可以选择以什么任务打开新的窗口而非默认值</p>
 </blockquote>
 <h2 id="分屏显示"><a href="#分屏显示" class="headerlink" title="分屏显示"></a>分屏显示</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">LShift</span> + <span class="title class_">LAlt</span> + s; <span class="comment">// 自定义快捷键</span></span><br></pre></td></tr></table></figure>
-
 <h1 id="关联编辑器"><a href="#关联编辑器" class="headerlink" title="关联编辑器"></a>关联编辑器</h1><h2 id="webstorm"><a href="#webstorm" class="headerlink" title="webstorm"></a>webstorm</h2><p>settings &gt; terminal &gt; shell path, 填写下面内容</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;cmd.exe&quot;</span> /k <span class="string">&quot;&quot;</span>%CMDER_ROOT%\vendor\init.bat<span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>cmd.exe 需要加引号，路径需要加两个引号，不然可能会报下面错误</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java.io.IOException: Couldn<span class="string">&#x27;t create PTY</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="sublime"><a href="#sublime" class="headerlink" title="sublime"></a>sublime</h2><p>无法直接内嵌到 sublime 中，但可以在使用 sublime 时通过快捷键打开 cmder</p>
 <ul>
-<li><p>安装插件<code>terminal</code></p>
-</li>
+<li>安装插件<code>terminal</code></li>
 <li><p>设置<code>terminal</code><br>Preferences-&gt;Package Settings-&gt;Terminal-&gt;Settings-User，输入下面内容</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 输入cmder路径</span></span><br><span class="line">    <span class="string">&quot;terminal&quot;</span>: <span class="string">&quot;X:\\software\\cmder\\Cmder.exe&quot;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过设置自定义快捷键，使用命令&quot;open_terminal&quot; 或者</span></span><br><span class="line">    <span class="comment">// &quot;open_terminal_project_folder&quot;打开终端</span></span><br><span class="line">    <span class="string">&quot;parameters&quot;</span>: [<span class="string">&quot;/START&quot;</span>,<span class="string">&quot;%CWD%&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>自定义打开终端快捷键<br>Preferences-&gt;Key Bindings - User，输入下面内容</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span> <span class="attr">&quot;keys&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;alt+2&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;open_terminal&quot;</span> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span> <span class="attr">&quot;keys&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;alt+2&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;open_terminal&quot;</span> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h1 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h1><p>cmder 支持 Aliases，通过<code>alias</code>命令可以设置别名，简化操作，terminal 中输入<code>alias 替代名=被替代名 $*</code>，如</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">alias</span> <span class="built_in">ls</span>=<span class="built_in">ls</span> --color $*</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>也可以直接在 cmder 安装目录&#x2F;config&#x2F;user-aliases.cmd 中直接输入要设置的别名</p>
+<p>也可以直接在 cmder 安装目录/config/user-aliases.cmd 中直接输入要设置的别名</p>
 </blockquote>
 <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/cmder170726.png" alt="cmder效果图"></p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ol>
@@ -361,7 +352,7 @@ ga('send', 'pageview');
 <blockquote>
 <p>如果要使用 Windows 自带 bash 功能，必须使用新版控制台，但 Windows 下的 bash 目前（2017-07-03）还很鸡肋，不建议使用。</p>
 </blockquote>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://github.com/cmderdev/cmder">cmderdev&#x2F;cmder</a><br>【2】<a target="_blank" rel="noopener" href="http://front-end.leanote.com/post/Cmder">Cmder 使用</a><br>【3】<a target="_blank" rel="noopener" href="http://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/">Win 下必备神器之 Cmder</a><br>【4】<a target="_blank" rel="noopener" href="http://imweb.io/topic/56b072d05c49f9d377ed8ee2">再见 2015 再见 cmd</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://github.com/cmderdev/cmder">cmderdev/cmder</a><br>【2】<a target="_blank" rel="noopener" href="http://front-end.leanote.com/post/Cmder">Cmder 使用</a><br>【3】<a target="_blank" rel="noopener" href="http://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/">Win 下必备神器之 Cmder</a><br>【4】<a target="_blank" rel="noopener" href="http://imweb.io/topic/56b072d05c49f9d377ed8ee2">再见 2015 再见 cmd</a></p>
 
     
   </div>

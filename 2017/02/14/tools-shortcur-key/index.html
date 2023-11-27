@@ -45,15 +45,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -232,7 +231,6 @@ ga('send', 'pageview');
 <h2 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h2><p><strong>原生（插件 vimium 无法替代或无效时）</strong><br>1、在地址栏、书签栏（若显示）和页面内容之间向前切换焦点：<code>F6</code><br>2、关闭 tab：<code>ctrl</code> + <code>w</code> （新标签页 vimium 失效）<br>3、光标定位到地址栏： <code>ctrl</code> + <code>L</code>（Mac 是 <code>cmd + L</code>）</p>
 <p><strong>vimium 插件</strong><br>1、Open a link in the current tab (new tab)：<code>f</code> ( <code>F</code> )<br>2、上（下，左，右）移动： <code>j</code> ( <code>k</code>, <code>h</code>, <code>l</code> )【半屏下（上）： <code>d</code> ( <code>u</code> )】<br>3、返回顶部： <code>gg</code><br>4、create new tab: <code>t</code> 【配合 5 在新 tab 中打开需要的网页】<br>5、Open URL, bookmark or history(in new tab): <code>o</code> ( <code>O</code> ) 【Open a bookmark (in new tab): <code>b</code> ( <code>B</code> ) 】<br>6、close current tab： <code>x</code><br>7、标签页左（右）切换： <code>shift</code> + <code>j</code> ( <code>k</code> )<br>8、前进（后退）：<code>shift</code> + <code>h</code> ( <code>l</code> )<br>9、搜索： <code>/</code> + <code>内容</code> 【在搜索结果中上下检索： <code>n</code> ( <code>N</code> )】<br>10、refresh: <code>r</code><br>11、Focus the first text input on the page： <code>gi</code></p>
 <span id="more"></span>
-
 <p>12、Copy the current URL to the clipboard: <code>yy</code><br>13、Restore closed tab: <code>X</code></p>
 <h2 id="Vim-Webstorm-and-Sublime"><a href="#Vim-Webstorm-and-Sublime" class="headerlink" title="Vim, Webstorm and Sublime"></a>Vim, Webstorm and Sublime</h2><p>sublime 很多程序猿使用，它有自己一套快捷键，需要学习使用；但快捷键 vim 不同，而我在自定义 webstorm 的快捷键时借鉴了 vim，毕竟好多 vim 快捷键有助于提升生产力，且 vim 是很多软件的内置编辑器，故，也不能放弃 vim 快捷键。<del>那就记两套快捷键：sublime 默认快捷键和 webstorm(vim)快捷键</del>sublime 自定义快捷键和 webstorm 统一(<strong>英文名称为自定义部分</strong>)。</p>
 <blockquote>
@@ -241,160 +239,161 @@ ga('send', 'pageview');
 <table>
 <thead>
 <tr>
-<th align="left">name</th>
-<th align="left">vim</th>
-<th align="left">webstorm</th>
-<th align="left">sublime</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">vim</th>
+<th style="text-align:left">webstorm</th>
+<th style="text-align:left">sublime</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">delete line</td>
-<td align="left">dd</td>
-<td align="left">ctrl + d</td>
-<td align="left">ctrl + d</td>
+<tbody>
+<tr>
+<td style="text-align:left">delete line</td>
+<td style="text-align:left">dd</td>
+<td style="text-align:left">ctrl + d</td>
+<td style="text-align:left">ctrl + d</td>
 </tr>
 <tr>
-<td align="left">选中相同字符</td>
-<td align="left">–</td>
-<td align="left">alt + j</td>
-<td align="left">alt + j</td>
+<td style="text-align:left">选中相同字符</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + j</td>
+<td style="text-align:left">alt + j</td>
 </tr>
 <tr>
-<td align="left">duplicate line or selection</td>
-<td align="left">–</td>
-<td align="left">ctrl + y</td>
-<td align="left">ctrl + y</td>
+<td style="text-align:left">duplicate line or selection</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + y</td>
+<td style="text-align:left">ctrl + y</td>
 </tr>
 <tr>
-<td align="left">start new line</td>
-<td align="left">–</td>
-<td align="left">ctrl + o</td>
-<td align="left">ctrl + o</td>
+<td style="text-align:left">start new line</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + o</td>
+<td style="text-align:left">ctrl + o</td>
 </tr>
 <tr>
-<td align="left">折叠代码</td>
-<td align="left">–</td>
-<td align="left">ctrl + shift + 减号</td>
-<td align="left">ctrl + shift + 减号</td>
+<td style="text-align:left">折叠代码</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + shift + 减号</td>
+<td style="text-align:left">ctrl + shift + 减号</td>
 </tr>
 <tr>
-<td align="left">展开代码</td>
-<td align="left">–</td>
-<td align="left">ctrl + shift + 等号（相当于 ctrl + 加号）</td>
-<td align="left">ctrl + shift + 等号</td>
+<td style="text-align:left">展开代码</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + shift + 等号（相当于 ctrl + 加号）</td>
+<td style="text-align:left">ctrl + shift + 等号</td>
 </tr>
 <tr>
-<td align="left">转换大写</td>
-<td align="left">–</td>
-<td align="left">ctrl + shift + u (大小写切换)</td>
-<td align="left">ctrl + k + u</td>
+<td style="text-align:left">转换大写</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + shift + u (大小写切换)</td>
+<td style="text-align:left">ctrl + k + u</td>
 </tr>
 <tr>
-<td align="left">转换小写</td>
-<td align="left">–</td>
-<td align="left">ctrl + shift + u</td>
-<td align="left">ctrl + k + l</td>
+<td style="text-align:left">转换小写</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + shift + u</td>
+<td style="text-align:left">ctrl + k + l</td>
 </tr>
 <tr>
-<td align="left">vim emulator</td>
-<td align="left">–</td>
-<td align="left">alt + 0</td>
-<td align="left">–</td>
+<td style="text-align:left">vim emulator</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 0</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">project(default)</td>
-<td align="left">–</td>
-<td align="left">alt + 1</td>
-<td align="left">–</td>
+<td style="text-align:left">project(default)</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 1</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">terminal</td>
-<td align="left">–</td>
-<td align="left">alt + 2</td>
-<td align="left">–</td>
+<td style="text-align:left">terminal</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 2</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">version control</td>
-<td align="left">–</td>
-<td align="left">alt + 3</td>
-<td align="left">–</td>
+<td style="text-align:left">version control</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 3</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">event log</td>
-<td align="left">–</td>
-<td align="left">alt + 4</td>
-<td align="left">–</td>
+<td style="text-align:left">event log</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 4</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">structure</td>
-<td align="left">–</td>
-<td align="left">alt + 5</td>
-<td align="left">–</td>
+<td style="text-align:left">structure</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 5</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">gulp</td>
-<td align="left">–</td>
-<td align="left">alt + 减号</td>
-<td align="left">–</td>
+<td style="text-align:left">gulp</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 减号</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">favorites</td>
-<td align="left">–</td>
-<td align="left">alt + 等号</td>
-<td align="left">–</td>
+<td style="text-align:left">favorites</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + 等号</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">open</td>
-<td align="left">–</td>
-<td align="left">ctrl + shift + o</td>
-<td align="left">–</td>
+<td style="text-align:left">open</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + shift + o</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">reindent</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + i</td>
-<td align="left">ctrl + alt + i</td>
+<td style="text-align:left">reindent</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + i</td>
+<td style="text-align:left">ctrl + alt + i</td>
 </tr>
 <tr>
-<td align="left">find in path</td>
-<td align="left">–</td>
-<td align="left">alt + shift + f</td>
-<td align="left">alt + shift + f</td>
+<td style="text-align:left">find in path</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">alt + shift + f</td>
+<td style="text-align:left">alt + shift + f</td>
 </tr>
 <tr>
-<td align="left">file</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + shift + f</td>
-<td align="left">–</td>
+<td style="text-align:left">file</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + shift + f</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">show in explorer</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + shift + e</td>
-<td align="left">–</td>
+<td style="text-align:left">show in explorer</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + shift + e</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">open in browser</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + shift + b</td>
-<td align="left">–</td>
+<td style="text-align:left">open in browser</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + shift + b</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">show history</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + shift + h</td>
-<td align="left">–</td>
+<td style="text-align:left">show history</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + shift + h</td>
+<td style="text-align:left">–</td>
 </tr>
 <tr>
-<td align="left">show history</td>
-<td align="left">–</td>
-<td align="left">ctrl + alt + shift + h</td>
-<td align="left">–</td>
+<td style="text-align:left">show history</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">ctrl + alt + shift + h</td>
+<td style="text-align:left">–</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>配合 AutoHotKey 上下左右</strong></p>
 <h2 id="AutoHotKey"><a href="#AutoHotKey" class="headerlink" title="AutoHotKey"></a>AutoHotKey</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RAlt::RButton</span><br><span class="line">;鼠标右键</span><br><span class="line">;-------------------------------------</span><br><span class="line">^+m::send &#123;RButton&#125;&#123;SetKeyDelay, 0&#125;w&#123;up 2&#125;&#123;enter&#125;</span><br><span class="line">;快速新建txt文档</span><br><span class="line">;^表示ctrl，+表示shift，m表示按键m,即新建文本的快捷键是[ctrl+shift+m]</span><br><span class="line">;send后面是模拟按键（快捷键触发的真实按键），&#123;RButton&#125;代表鼠标右键，&#123;SetKeyDelay, 0&#125;代表右键后有最小延时</span><br><span class="line">;up后面数字每个人不同，代表你按[右键+w]后&quot;文本文档&quot;从下往上的位置</span><br><span class="line">;--------------------------------------</span><br><span class="line">^#=::Send &#123;Volume_Up&#125;  ; Raise the master volume by 1 interval (typically 5%).</span><br><span class="line">^#-::Send &#123;Volume_Down&#125;  ; Lower the master volume by 1 intervals.</span><br><span class="line">;!#&#123;Down&#125;::Send &#123;Volume_Down 3&#125;  ; Lower the master volume by 3 intervals.</span><br><span class="line">^#m::Send &#123;Volume_Mute&#125;  ; Mute/unmute the master volume.</span><br><span class="line">;--------------------------------------</span><br><span class="line">;--------------------------------------</span><br><span class="line">#b::run, X:\software\nyfedit7\myBase.exe ;open mybase</span><br><span class="line">#f::run, X:\software\Everything\Everything.exe ;open Everything</span><br><span class="line">#o::run, C:\Program Files (x86)\Microsoft Office\root\Office16\ONENOTE.EXE ;open onenote</span><br><span class="line">#Space::run, https://xiaogliu.github.io/ ;open liuxiaoguang&#x27;blog</span><br><span class="line">;--------------------------------------</span><br><span class="line">;allow keys</span><br><span class="line">+&lt;!j::send &#123;Down&#125; ;&lt;! is left alt</span><br><span class="line">+&lt;!k::send &#123;Up&#125;</span><br><span class="line">+&lt;!h::send &#123;Left&#125;</span><br><span class="line">+&lt;!l::send &#123;Right&#125;</span><br><span class="line">+&lt;!d::send &#123;Del&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="Win10"><a href="#Win10" class="headerlink" title="Win10"></a>Win10</h2><p>1、打开任务栏程序： <code>win</code> + <code>数字</code><br>2、鼠标右键： <code>App</code> 或 <code>document图标键</code><br>3、打开资源管理器： <code>win</code> + <code>e</code> 【配合 <code>tab</code> 切换目录】<br>4、展示所有窗口： <code>win</code> + <code>tab</code> 【配合方向键选择，<code>alt</code> + ( <code>shift</code> + ) <code>tab</code> 更方便？】<br>5、显示桌面： <code>win</code> + <code>d</code><br>6、关闭程序： <code>win</code> + <code>f4</code><br>7、打开消息： <code>win</code> + <code>A</code></p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>1、新建文章： <code>hexo new name</code><br>2、构建 + 发布： <code>hexo g -d</code></p>
 <h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><p>1、list npm user-installed packages： <code>npm list -g --depth=0</code></p>

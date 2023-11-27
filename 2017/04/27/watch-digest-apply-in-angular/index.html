@@ -45,15 +45,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -224,47 +223,40 @@ ga('send', 'pageview');
     
       <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>从某种程度上讲，<code>$watch()</code>,<code>$digest()</code>和<code>$apply()</code>是AngularJS核心函数的一部分，明白他们是怎么工作的，对于理解AngularJS至关重要。   </p>
 <p>当在视图中与<code>$scope</code>对象上的变量进行数据绑定时，AngularJS自动创建了“监听”事件，这意味着AngularJS时刻监测着<code>$scope</code>对象上变量的变化。“监听”工作是通过<code>$scope.$watch()</code>函数创建的，这也是这篇文章接下来要讲述的。   </p>
-<p>在应用程序很多关键地方，AngularJS都会调用<code>$scope.$digest()</code>函数。如果某个被监听的变量发生了变化，<code>$digest()</code>函数会遍历所有watcher（译者注：可以理解为<code>watch()</code>函数创建的监听器），检查是否还有其他变量发生了变化。如果检测到有变量发生了变化，对应的监听函数(listener function)就会执行，监听函数可以执行任何需要的操作，比如更新视图中对应的文本信息。所以，**<code>$digest()</code>函数就是触发绑定的数据进行更新**。   </p>
+<p>在应用程序很多关键地方，AngularJS都会调用<code>$scope.$digest()</code>函数。如果某个被监听的变量发生了变化，<code>$digest()</code>函数会遍历所有watcher（译者注：可以理解为<code>watch()</code>函数创建的监听器），检查是否还有其他变量发生了变化。如果检测到有变量发生了变化，对应的监听函数(listener function)就会执行，监听函数可以执行任何需要的操作，比如更新视图中对应的文本信息。所以，<strong><code>$digest()</code>函数就是触发绑定的数据进行更新</strong>。   </p>
 <p>大部分时候，AngularJS会自动调用<code>$scope.$watch()</code>和<code>$scope.$digest()</code>函数，但有些时候你必须自己调用他们。因此，知道他们是怎么工作的是很有必要的。   </p>
-<p>**<code>$scope.$apply()</code>函数用来执行某些代码，代码执行完成后调用<code>$scope.$digest()</code>**，所以此时所有的watcher都会被检查。因此当把AngularJS和其他代码集成时<code>$apply()</code>很有用。   </p>
+<p><strong><code>$scope.$apply()</code>函数用来执行某些代码，代码执行完成后调用<code>$scope.$digest()</code></strong>，所以此时所有的watcher都会被检查。因此当把AngularJS和其他代码集成时<code>$apply()</code>很有用。   </p>
 <p>接下来，会详细介绍<code>$watch()</code>,<code>$digest()</code>和<code>$apply()</code>函数。   </p>
 <h1 id="watch"><a href="#watch" class="headerlink" title="$watch()"></a>$watch()</h1><p><code>$scope.watch()</code>函数在变量上创建watcher。当创建watcher时，向<code>$watch()</code>函数传递了两个函数作为入参：   </p>
 <ul>
 <li>值函数（value function）   </li>
-<li>监听函数（listener function）（译者注：即回调函数，当检测到变化时在这个函数中定义要执行的操作）</li>
+<li>监听函数（listener function）（译者注：即回调函数，当检测到变化时在这个函数中定义要执行的操作）   </li>
 </ul>
 <p>这是一个例子：   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$scope.$watch(<span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;, <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;);</span><br></pre></td></tr></table></figure>
-
 <p>第一个函数时值函数，第二个函数是监听函数。   </p>
 <p>值函数应该返回被监听变量的值。AngularJS会检查当前返回的值和最后一次返回的值是否相同，这样AngularJS就可以判断变量的值是否发生变化，下面是一个例子：   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$scope.$watch(<span class="keyword">function</span> (<span class="params">scope</span>) &#123; <span class="keyword">return</span> scope.<span class="property">data</span>.<span class="property">myVar</span> &#125;,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <p>在这个例子中，值函数返回了<code>$scope</code>对象的变量<code>scope.data.myVar</code>。如果这个变量的值发生了变化，不同的值便会返回，这样，AngularJS就会触发监听函数。   </p>
 <p>注意这里值函数是将scope作为入参的（没有前缀$）。通过这个参数，值函数可以访问<code>$scope</code>对象及定义在上面的变量。当然，值函数也可以监听全局变量，但更多时候，只是监听<code>$scope</code>对象上的变量。   </p>
 <p>如果被监听的变量值发生了变化，监听函数可以执行定义在其上的任何操作。比如，改变另一个变量的值，或者更新某个html元素或者其他什么事。下面是一个例子：   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$scope.$watch(<span class="keyword">function</span> (<span class="params">scope</span>) &#123; <span class="keyword">return</span> scope.<span class="property">data</span>.<span class="property">myVar</span> &#125;,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;someId&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;&lt;b&gt;&quot;</span> + newValue + <span class="string">&quot;&lt;/b&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
 <p>在这个例子中，把id为<code>someId</code>的html元素的内容更新为变量<code>scope.data.myVar</code>的新值，同时被<code>b</code>元素包裹以便使内容加粗。当然，也可以通过<code>&#123;&#123;data.myVar&#125;&#125;</code>来达到同样的效果，这里只是为了展示监听函数可以执行的操作。   </p>
 <h1 id="digest"><a href="#digest" class="headerlink" title="$digest()"></a>$digest()</h1><p><code>$scope.$digest()</code>函数循环时会遍历<code>$scope</code>对象（以及它的子<code>$scope</code>对象，如果有的话）上所有的watcher。<strong>在遍历watcher时，同时会调用watcher上的值函数，如果检测到返回值发生了变化，便会触发对应的监听函数</strong>。   </p>
-<p><strong><code>$digest()</code>函数会在AngularJS认为有必要时被调用</strong>。比如，当按钮的点击事件触发时或者AJAX请求返回时（当<code>done()</code>&#x2F;<code>fail()</code>回调函数执行完成后）。   </p>
+<p><strong><code>$digest()</code>函数会在AngularJS认为有必要时被调用</strong>。比如，当按钮的点击事件触发时或者AJAX请求返回时（当<code>done()</code>/<code>fail()</code>回调函数执行完成后）。   </p>
 <p>但这种调用机制在实际使用中可能会遇到AngularJS没有及时调用<code>$digest()</code>函数的情况。所以，当遇到数据没有及时更新时，应该手动检查下是不是AngularJS没有及时调用<code>$digest()</code>函数导致的。这种情况下，如果手动触发下<code>$scope.$digest()</code>应该就会正常工作了。或者，可以通过<code>$scope.$apply()</code>代替手动检查，下面会详述。   </p>
 <h1 id="apply"><a href="#apply" class="headerlink" title="$apply()"></a>$apply()</h1><p><code>$scope.$apply()</code>函数会接受一个函数作为入参，这个函数会在<code>$apply()</code>函数调用时被执行，当这个函数执行完成后，<code>$scope.$digest()</code>便被触发。这可以更容易的保证所有的watcher都被检查，从而使绑定的数据得到更新。下面是一个应用<code>$apply</code>的例子：   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$scope.$apply(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  $scope.<span class="property">data</span>.<span class="property">myVar</span> = <span class="string">&quot;Another value&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
 <p>这个作为参数传进<code>$apply</code>的函数改变了<code>$scope.data.myVar</code>的值，一旦这个函数执行完，AngularJS会调用<code>$scope.$digest()</code>，从而保证所有被监听的数据都得到更新。   </p>
 <h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>为了说明<code>$watch()</code>,<code>$digest()</code>和<code>$apply()</code>怎么工作的，来看下面的例子：   </p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">&quot;myController&quot;</span>&gt;</span></span><br><span class="line">  &#123;&#123;data.time&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">ng-click</span>=<span class="string">&quot;updateTime()&quot;</span>&gt;</span>update time - ng-click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;updateTimeButton&quot;</span>  &gt;</span>update time<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> <span class="variable language_">module</span> = angular.<span class="title function_">module</span>(<span class="string">&quot;myapp&quot;</span>, []);</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> myController1 = <span class="variable language_">module</span>.<span class="title function_">controller</span>(<span class="string">&quot;myController&quot;</span>, <span class="keyword">function</span> (<span class="params">$scope</span>) &#123;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  $scope.<span class="property">data</span> = &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">time</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span></span><br><span class="line"><span class="language-javascript">  &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  $scope.<span class="property">updateTime</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    $scope.<span class="property">data</span>.<span class="property">time</span> = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;updateTimeButton&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">    .<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;update time clicked&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      $scope.<span class="property">data</span>.<span class="property">time</span> = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>在这个例子中，将<code>$scope.data.time</code>绑定到了HTML页面，同时，也为<code>$scope.data.time</code>创建了watcher。   </p>
 <p>这个例子中包含两个按钮，第一个按钮添加了<code>ng-click</code>，当按钮点击时，<code>$scope.updateTime()</code>函数被调用，之后，AngularJS调用<code>$scope.$digest()</code>使绑定的数据得以更新。</p>
 <p>第二个按钮是在控制器函数中添加的标准JavaScript监听事件。当按钮被点击时，执行监听函数。正如你所见，这两个按钮上的监听函数做着几乎一样的事情，但是当第二个按钮上的监听函数被调用时，绑定的数据并没有更新。这是因为当第二个按钮的监听函数执行以后<code>$scope.$digest()</code>没有被调用。因此，当点击第二个按钮时，尽管<code>$scope.data.time</code>上的时间更新了，但是更新的时间并没有在HTML中展示出来。   </p>
 <p>为了解决这个问题，我们可以在第二个按钮监听事件的最后一行添加<code>$scope.$digest()</code>来触发<code>$digest</code>函数。   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;updateTimeButton&quot;</span>)</span><br><span class="line">  .<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;update time clicked&quot;</span>);</span><br><span class="line">    $scope.<span class="property">data</span>.<span class="property">time</span> = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    $scope.$digest();</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
 <p>除了在第二个按钮的监听函数内部调用<code>$digest()</code>，还可以如下所示，使用<code>$apply()</code>函数   </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;updateTimeButton&quot;</span>)</span><br><span class="line">  .<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $scope.$apply(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;update time clicked&quot;</span>);</span><br><span class="line">      $scope.<span class="property">data</span>.<span class="property">time</span> = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
 <p>注意如何在按钮的监听事件中调用<code>$scope.$apply()</code>以及<code>$scope.data.time</code>的值是如何更新的。这样，当<code>$apply</code>函数执行完成后，AngularJS自动启用digest循环，所以数据得到了更新。   </p>
 <blockquote>
 <p>译者注：总结下，<code>$watch()</code>检测变化，并且在检测到变化时可以通过监听函数执行相关操作；但<code>$watch()</code>不会自己执行，这时<code>$digest()</code>就登场了，<code>$digest()</code>被触发后会遍历watcher，遍历的过程也就是触发每个watcher的过程；但<code>$digest()</code>触发时机是由AngularJS决定的，有可能出现该触发时未触发的情况，从而导致视图中的数据未及时更新；这时<code>$apply()</code>又登场了，其入参为一函数，该函数执行完毕紧接着会触发<code>$digest()</code>，从而保证在该函数里面更新的数据一定会同步更新到视图中。   </p>

@@ -47,15 +47,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -229,20 +228,17 @@ ga('send', 'pageview');
 <ul>
 <li>Node.js <a target="_blank" rel="noopener" href="https://nodejs.org/en/">官网下载地址</a>   </li>
 <li>Python <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">官网下载地址</a>   </li>
-<li>Java SE Development Kit 8 <a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">官网下载地址</a></li>
+<li>Java SE Development Kit 8 <a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">官网下载地址</a>   </li>
 </ul>
 <h2 id="React-Native-CLI"><a href="#React-Native-CLI" class="headerlink" title="React Native CLI"></a>React Native CLI</h2><p>使用下面命令安装 React Native CLI ：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
-
 <h2 id="Android-Development-Environment"><a href="#Android-Development-Environment" class="headerlink" title="Android Development Environment"></a>Android Development Environment</h2><p>具体步骤请参考<a target="_blank" rel="noopener" href="https://facebook.github.io/react-native/docs/getting-started.html#android-development-environment">官方教程</a>   </p>
 <h1 id="启动Android-Virtual-Device"><a href="#启动Android-Virtual-Device" class="headerlink" title="启动Android Virtual Device"></a>启动Android Virtual Device</h1><p>这点很重要，进行React Native APP的调试可以选择在安卓模拟器或者真机上进行，如果使用安卓模拟器，在调试之前必须先把模拟器打开，不然会报下面的错误：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Execution failed for task &#x27;:app:installDebug&#x27;.</span><br><span class="line">&gt; com.android.builder.testing.api.DeviceException: No connected devices!</span><br></pre></td></tr></table></figure>
-
 <p>错误提示为：未发现连接的设备。如果是用模拟器，错误提示可以理解为“模拟器未打开”。   </p>
 <p><strong>下面通过命令行的方式打开安卓模拟器</strong>：</p>
 <p>1.查看可用安卓模拟器</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">emulator -avd -list-avds</span><br></pre></td></tr></table></figure>
-
 <p>2.假如上述列表为空，则通过Android Studio创建新的模拟器：   </p>
 <p>创建路径为 tools - android - AVD manager   </p>
 <blockquote>
@@ -250,31 +246,24 @@ ga('send', 'pageview');
 </blockquote>
 <p>3.开启模拟器</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">emulator -avd &lt;AVD-name&gt;</span><br></pre></td></tr></table></figure>
-
 <p>开启模拟器的过程最可能出现的问题是下面的错误：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[11256]:ERROR:./android/qt/qt_setup.cpp:28:Qt library not found at ..\emulator\lib64\qt\lib</span><br><span class="line">Could not launch &#x27;..\emulator/qemu/windows-x86_64/qemu-system-x86_64.exe&#x27;: No such file or directory</span><br></pre></td></tr></table></figure>
-
 <p>这是因为emulator更新过程中目录发生了变化，可通过下面命令查询emulator路径   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">which emulator</span><br></pre></td></tr></table></figure>
-
 <p>如果和<code>qemu-system-x86_64.exe</code>文件不再同一个目录，进入<code>qemu-system-x86_64.exe</code>目录，重新输入启动模拟器的命令即可   </p>
 <blockquote>
 <p>如何通过环境变量更改后面再填坑</p>
 </blockquote>
 <h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>这里使用React官方案例，下载案例命令如下：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">react-native init AwesomeProject</span><br></pre></td></tr></table></figure>
-
 <p>进入AwesomeProject目录，输入下面命令：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">react-native run-android</span><br></pre></td></tr></table></figure>
-
 <p>顺利的话就可以在模拟器中看到APP了。</p>
 <p>我在打包后遇到过这个错误</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Error calling AppRegistry.runApplication</span><br></pre></td></tr></table></figure>
-
 <p>有人反馈在模拟器中也遇到过，解决方法请参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43744156/error-calling-appregistry-runapplication-in-react-native">Error calling Appregistry.runApplication in react-native</a></p>
 <h1 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h1><p>前面准备工作做好后，React签名打包相对简单，输入下面命令就好：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gradlew assembleRelease</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>在Mac或者Linux系统，使用这个命令：<code>./gradlew assembleRelease</code></p>
 </blockquote>
@@ -283,7 +272,7 @@ ga('send', 'pageview');
 <p>1.finished with non zero exit value</p>
 <p>解决方法：通过<code>gradlew assembleDebug --info</code>尝试打包debug的APK, 然后在重新使发布命令。</p>
 <p>2.设置签名后输出的APK还是未签名的</p>
-<p>解决方法：目前无解，不知道为什么按照官方教程设置以后依然是未签名的APK，但可以手动给未签名的APK设置签名，参考这篇文章：<a href="https://xiaogliu.github.io/2017/05/13/Ionic%E6%89%93%E5%8C%85Android-apk/#2-3-%E8%AE%BE%E7%BD%AE%E7%AD%BE%E5%90%8D">Ionic打包Android apk</a>设置签名部分。</p>
+<p>解决方法：目前无解，不知道为什么按照官方教程设置以后依然是未签名的APK，但可以手动给未签名的APK设置签名，参考这篇文章：<a href="https://xiaogliu.github.io/2017/05/13/Ionic%E6%89%93%E5%8C%85Android-apk/#2-3-设置签名">Ionic打包Android apk</a>设置签名部分。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://facebook.github.io/react-native/docs/getting-started.html">Getting Started</a><br>【2】<a target="_blank" rel="noopener" href="https://github.com/facebook/react-native/issues/3091">Failed run android simulator : No connected devices!</a><br>【3】<a target="_blank" rel="noopener" href="http://www.cnblogs.com/hautezwei/p/6719929.html">Android emulator启动模拟器</a><br>【4】<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4974568/how-do-i-launch-the-android-emulator-from-the-command-line">How do I launch the Android emulator from the command line?</a>   </p>
 
     

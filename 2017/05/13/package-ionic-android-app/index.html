@@ -48,15 +48,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -251,43 +250,39 @@ ga('send', 'pageview');
 </blockquote>
 <h1 id="二-Ionic打包流程"><a href="#二-Ionic打包流程" class="headerlink" title="二 Ionic打包流程"></a>二 Ionic打包流程</h1><p>首先确保已有Ionic项目，如果还没有，可以下载Ionic官网示例进行接下来的打包流程。下载方法是在命令行中输入一下命令：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic start myApp tabs</span><br></pre></td></tr></table></figure>
-
 <p>下载完成后进入<code>myApp</code>目录进行接下来的操作。   </p>
 <h2 id="2-1-平台部署"><a href="#2-1-平台部署" class="headerlink" title="2.1 平台部署"></a>2.1 平台部署</h2><p>Ionic默认没有添加任何平台，需要我们手动添加，添加命令为<code>ionic platform add &lt;platform-name&gt;</code>   </p>
 <p>比如添加Android平台：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic platform add android</span><br></pre></td></tr></table></figure>
-
 <p>执行完毕后，在开发目录下的platform目录会多一个android目录。   </p>
 <p><strong>这里有一点需要注意</strong>：因为项目中是用Gradle作为构建工具，但在接下来的打包过程中却可能因为下载Gradle时报错，错误信息一般包含下面提示：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">java.net.SocketException:Connection reset</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
 <p>此时简单解决方案有两种：   </p>
 <ol>
 <li><p>在刚生成的这个目录android目录下新建<code>gradle</code>文件夹，并在<code>gradle</code>文件夹中放入<code>gradle-x.x-all.zip</code>文件（<a target="_blank" rel="noopener" href="https://services.gradle.org/distributions/">下载地址</a>），同时添加环境变量：<code>CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL</code>，值为<code>../gradle-x.x-all.zip</code>   </p>
 </li>
 <li><p>在<code>platforms\android\cordova\lib\builders</code>目录下找到<code>GradleBuilder.js</code>，<br>将下面的内容：</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https\\://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure>
-<p>  修改为：</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https\\://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var distributionUrl = process.env[&#x27;CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL&#x27;] || &#x27;https://services.gradle.org/distributions/gradle-3.3-all.zip&#x27;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <blockquote>
 <p><strong>方法2未测试</strong>，更多内容可参考<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/29874564/ionic-build-android-error-when-download-gradle">ionic build android error when download gradle</a>   </p>
 </blockquote>
 <h2 id="2-2-打包"><a href="#2-2-打包" class="headerlink" title="2.2 打包"></a>2.2 打包</h2><p>打包命令如下：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ionic build android -release</span><br></pre></td></tr></table></figure>
-
 <p>打包完成后会提示apk输出目录，此时的apk文件没有签名，无法使用。</p>
 <blockquote>
 <p>第一次打包速度很慢，大概需要1小时左右。</p>
 </blockquote>
 <h2 id="2-3-设置签名"><a href="#2-3-设置签名" class="headerlink" title="2.3 设置签名"></a>2.3 设置签名</h2><ul>
 <li>创建key，需要用到<code>keytool.exe</code>（位于<code>jdkx.x.x\jre\bin</code>目录下）；   </li>
-<li>使用产生的key对apk设置签名用到的是<code>jarsigner.exe</code>(位于<code>jdkx.x.x\bin</code>目录下)</li>
+<li>使用产生的key对apk设置签名用到的是<code>jarsigner.exe</code>(位于<code>jdkx.x.x\bin</code>目录下)   </li>
 </ul>
 <p>需要把上述两个软件所在的目录添加到环境变量PATH中，接下来   </p>
 <p><strong>创建key</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">keytool -genkey -alias demo.keystore -keyalg RSA -validity 40000 -keystore demo.keystore</span><br></pre></td></tr></table></figure>
-
 <p>说明：</p>
 <ul>
 <li>genkey：产生密钥</li>
@@ -298,7 +293,6 @@ ga('send', 'pageview');
 </ul>
 <p><strong>给apk设置签名</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jarsigner -verbose -keystore demo.keystore -signedjar demo_signed.apk demo.apk demo.keystore</span><br></pre></td></tr></table></figure>
-
 <p>说明：</p>
 <ul>
 <li>verbose 输出签名的详细信息</li>

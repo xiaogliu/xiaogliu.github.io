@@ -15,12 +15,12 @@
     <meta name="keywords" content="sublime,编辑器," />
   
 
-  <meta name="description" content="插件管理安装插件（包括主题） 方法一：使用package controlctrl+shift+p 调出命令面板，输入install根据提示找到package control：install package ，选中并回车，输入插件名安装，页面左下角会提示安装进度。  有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017&#x2F;3&#x2F;17）">
+  <meta name="description" content="插件管理安装插件（包括主题） 方法一：使用package controlctrl+shift+p 调出命令面板，输入install根据提示找到package control：install package ，选中并回车，输入插件名安装，页面左下角会提示安装进度。  有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017&#x2F;3&#x2F;17）我下载sublime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sublime使用指南">
 <meta property="og:url" content="https://xiaogliu.github.io/2017/03/17/sublime-guide/index.html">
 <meta property="og:site_name" content="刘小光的博客">
-<meta property="og:description" content="插件管理安装插件（包括主题） 方法一：使用package controlctrl+shift+p 调出命令面板，输入install根据提示找到package control：install package ，选中并回车，输入插件名安装，页面左下角会提示安装进度。  有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017&#x2F;3&#x2F;17）">
+<meta property="og:description" content="插件管理安装插件（包括主题） 方法一：使用package controlctrl+shift+p 调出命令面板，输入install根据提示找到package control：install package ，选中并回车，输入插件名安装，页面左下角会提示安装进度。  有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017&#x2F;3&#x2F;17）我下载sublime">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-03-17T13:34:16.000Z">
 <meta property="article:modified_time" content="2023-06-04T03:07:02.572Z">
@@ -46,15 +46,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -226,9 +225,9 @@ ga('send', 'pageview');
       <h1 id="插件管理"><a href="#插件管理" class="headerlink" title="插件管理"></a>插件管理</h1><h2 id="安装插件（包括主题）"><a href="#安装插件（包括主题）" class="headerlink" title="安装插件（包括主题）"></a>安装插件（包括主题）</h2><ul>
 <li><p>方法一：使用package control<br><code>ctrl+shift+p</code> 调出命令面板，输入install根据提示找到<code>package control：install package</code> ，选中并回车，输入插件名安装，页面左下角会提示安装进度。</p>
 <blockquote>
-<p>有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017&#x2F;3&#x2F;17）我下载sublime3，package control已经安装好，无需这步操作（如果在menu &gt; preferences下面有package control，证明已安装好）   </p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import urllib.request,os; pf = &#x27;Package Control.sublime-package&#x27;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#x27;wb&#x27;).write(urllib.request.urlopen( &#x27;http://sublime.wbond.net/&#x27; + pf.replace(&#x27; &#x27;,&#x27;%20&#x27;)).read())</span><br></pre></td></tr></table></figure></li>
+<p>有文章说需要先调出console，输入下面代码才可以使用package control，目前（2017/3/17）我下载sublime3，package control已经安装好，无需这步操作（如果在menu &gt; preferences下面有package control，证明已安装好）   </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import urllib.request,os; pf = &#x27;Package Control.sublime-package&#x27;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#x27;wb&#x27;).write(urllib.request.urlopen( &#x27;http://sublime.wbond.net/&#x27; + pf.replace(&#x27; &#x27;,&#x27;%20&#x27;)).read())</span><br></pre></td></tr></table></figure></blockquote>
+</li>
 <li><p>方法： 直接将package文件夹放到sublime package目录（menu &gt; preferences &gt; browse packages，点击直接打开package文件夹）   </p>
 <blockquote>
 <p>若国内网络环境不允许或者，更换电脑，用此方法方便快捷</p>
@@ -240,23 +239,21 @@ ga('send', 'pageview');
 <li>查看插件： list package</li>
 <li>更新插件： upgrade package   </li>
 <li>禁用插件： disable package   </li>
-<li>激活插件： enable package</li>
+<li>激活插件： enable package   </li>
 </ul>
 <blockquote>
-<p>禁用插件等同于在preferences &gt; settings &gt; user里添加需要忽略的插件：</p>
+<p>禁用插件等同于在preferences &gt; settings &gt; user里添加需要忽略的插件：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;ignored_packages&quot;</span>:</span><br><span class="line">[</span><br><span class="line">  <span class="string">&quot;Vintage&quot;</span> <span class="comment">// 在这个数组里面添加需要忽略的插件</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;ignored_packages&quot;</span>:</span><br><span class="line">[</span><br><span class="line">  <span class="string">&quot;Vintage&quot;</span> <span class="comment">// 在这个数组里面添加需要忽略的插件</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
-
 <h2 id="自用插件"><a href="#自用插件" class="headerlink" title="自用插件"></a>自用插件</h2><ul>
 <li>Package Control：插件管理，已随sublime3安装好；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/BoundInCode/AutoFileName">AutoFileName</a>：自动补全文件路径，比如图片；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/babel/babel-sublime">Babel</a>：将ES6语法转化为ES5（2017-05-31更）；</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/facelessuser/BracketHighlighter">BracketHightLighter</a>：成对括号、标签高亮（自定义颜色高亮点这里<a href="https://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#%E4%BC%98%E5%8C%96BracketHighlighter%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA">优化BracketHighlighter高亮显示</a>）；</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/facelessuser/BracketHighlighter">BracketHightLighter</a>：成对括号、标签高亮（自定义颜色高亮点这里<a href="https://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化BracketHighlighter高亮显示">优化BracketHighlighter高亮显示</a>）；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/csscomb/CSScomb-for-Sublime">CSScomb</a>：css属性排序；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/sergeche/emmet-sublime">Emmet</a>：html编辑自动补全；</li>
 <li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/EJS%202">EJS2</a>：EJS文件高亮；（编辑hexo主题使用）</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/victorporof/Sublime-JSHint">JSHint Gutter</a>：js代码检查工具；</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/jonschlinkert/sublime-markdown-extended">Markdown Extended</a>：markdown高亮优化（查看<a href="https://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#%E4%BC%98%E5%8C%96markdown%E9%AB%98%E4%BA%AE%E6%98%BE%E7%A4%BA">效果图</a>）；</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jonschlinkert/sublime-markdown-extended">Markdown Extended</a>：markdown高亮优化（查看<a href="https://xiaogliu.github.io/2017/04/07/sublime%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2/#优化markdown高亮显示">效果图</a>）；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/revolunet/sublimetext-markdown-preview">Markdown Preview</a>：Markdown预览插件（<strong>快捷键<code>ctrl + B</code>可以将当前md文件编译成html文件，超赞</strong>）；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/bitwiser73/MarkdownTableFormatter">Markdown Table Formatter</a>：格式化表格；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/SublimeText-Markdown/MarkdownEditing">Markdown Editing</a>：加粗、斜体可以使用快捷键；</li>
@@ -266,7 +263,7 @@ ga('send', 'pageview');
 <li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Terminal">Terminal</a>：在sublime使用过程中打开终端；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/buymeasoda/soda-theme">Theme-soda</a>：清爽不浮夸；</li>
 <li><a target="_blank" rel="noopener" href="http://www.typescriptlang.org/">TypeScript</a>：TypeScript语法高亮；</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/guillermooo/Vintageous">Vintageous</a>：在sublime下开启vi&#x2F;vim模式；</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/guillermooo/Vintageous">Vintageous</a>：在sublime下开启vi/vim模式；</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-syntax-highlight">Vue Syntax Highlight</a>：vue语法高亮，注意，需要配合sass插件才能使vue文件中<code>&lt;style lang=&quot;scss&quot;&gt;</code>中的sass代码高亮。</li>
 </ul>
 <blockquote>
@@ -290,25 +287,19 @@ ga('send', 'pageview');
 </blockquote>
 <h2 id="自定义常用快捷键："><a href="#自定义常用快捷键：" class="headerlink" title="自定义常用快捷键："></a>自定义常用快捷键：</h2><p>menu &gt; preferences &gt; key bindings,在user文件中，输入自定义快捷键。自己自定以快捷键如下：   </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+alt+i&quot;], &quot;command&quot;: &quot;reindent&quot; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;alt+1&quot;], &quot;command&quot;: &quot;toggle_side_bar&quot; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;alt+2&quot;],&quot;command&quot;: &quot;open_terminal&quot;&#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;alt+3&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;console&quot;, &quot;toggle&quot;: true&#125; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;res://Packages/Default/Delete Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+y&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+o&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;res://Packages/Default/Add Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+shift+-&quot;], &quot;command&quot;: &quot;fold&quot; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;ctrl+shift+=&quot;], &quot;command&quot;: &quot;unfold&quot; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;alt+shift+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;find_in_files&quot;&#125; &#125;,</span><br><span class="line">  &#123; &quot;keys&quot;: [&quot;alt+j&quot;], &quot;command&quot;: &quot;find_under_expand&quot; &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;keys&quot;: [&quot;j&quot;, &quot;j&quot;],</span><br><span class="line">    &quot;command&quot;: &quot;_enter_normal_mode&quot;,</span><br><span class="line">    &quot;args&quot;: &#123;</span><br><span class="line">      &quot;mode&quot;: &quot;mode_insert&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;context&quot;: [&#123;&quot;key&quot;: &quot;vi_insert_mode_aware&quot;&#125;]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
 <h1 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h1><p>以下在menu &gt; preferences &gt; settings &gt; user中设置</p>
 <h2 id="选中带中划线“-”的文本（如css的class名）"><a href="#选中带中划线“-”的文本（如css的class名）" class="headerlink" title="选中带中划线“-”的文本（如css的class名）"></a>选中带中划线“-”的文本（如css的class名）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">word_separators&quot;: &quot;./\\()\&quot;&#x27;:,.;&lt;&gt;~!@#$%^&amp;*|+=[]&#123;&#125;`~?&quot;,</span><br></pre></td></tr></table></figure>
-
 <h2 id="显示space，tab符号"><a href="#显示space，tab符号" class="headerlink" title="显示space，tab符号"></a>显示space，tab符号</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;draw_white_space&quot;: &quot;all&quot;,</span><br></pre></td></tr></table></figure>
-
 <h2 id="换行为UNIX格式（LF）"><a href="#换行为UNIX格式（LF）" class="headerlink" title="换行为UNIX格式（LF）"></a>换行为UNIX格式（LF）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;default_line_ending&quot;: &quot;unix&quot;,</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>推荐使用UNIX格式的行结束符，这样兼容性更好。换行符详细区分见<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2006/04/post_213.html">回车和换行</a>   </p>
 </blockquote>
 <h2 id="状态栏显示编码和行结束（line-endings）提示"><a href="#状态栏显示编码和行结束（line-endings）提示" class="headerlink" title="状态栏显示编码和行结束（line-endings）提示"></a>状态栏显示编码和行结束（line-endings）提示</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;show_encoding&quot;: true,</span><br><span class="line">&quot;show_line_endings&quot;: true,</span><br></pre></td></tr></table></figure>
-
-
 <h2 id="user文件所有设置如下"><a href="#user文件所有设置如下" class="headerlink" title="user文件所有设置如下"></a>user文件所有设置如下</h2><figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;color_scheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Packages/User/SublimeLinter/Monokai Soda (SL).tmTheme&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;default_line_ending&quot;</span><span class="punctuation">:</span> <span class="string">&quot;unix&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;font_face&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Microsoft YaHei Mono&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// &quot;font_face&quot;: &quot;YaHei Consolas Hybrid&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;font_face&quot;: &quot;Ubuntu Mono&quot;,</span></span><br><span class="line">  <span class="attr">&quot;font_size&quot;</span><span class="punctuation">:</span> <span class="number">12</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ignored_packages&quot;</span><span class="punctuation">:</span></span><br><span class="line">  <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;Color Highlighter&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">// &quot;JavaScript&quot;,</span></span><br><span class="line">    <span class="string">&quot;Markdown&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;Vintage&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;Vintageous&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;soda_classic_tabs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tab_size&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;theme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Soda Dark 3.sublime-theme&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;word_separators&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./\\()\&quot;&#x27;:,.;&lt;&gt;~!@#$%^&amp;*|+=[]&#123;&#125;`~?&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;show_encoding&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="comment">// 显示文件编码</span></span><br><span class="line">  <span class="attr">&quot;show_line_endings&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果要将字体设为系统中没有的，比如Ubuntu Mono，需要在系统中安装Ubuntu Mono字体，下载地址<a target="_blank" rel="noopener" href="http://font.ubuntu.com/">Ubuntu Font</a>。</p>
 </blockquote>
-<h1 id="ubuntu下使用"><a href="#ubuntu下使用" class="headerlink" title="ubuntu下使用"></a>ubuntu下使用</h1><h2 id="输入中文"><a href="#输入中文" class="headerlink" title="输入中文"></a>输入中文</h2><p>可参考这个仓库的做法<a target="_blank" rel="noopener" href="https://github.com/lyfeyaj/sublime-text-imfix">lyfeyaj&#x2F;sublime-text-imfix</a></p>
+<h1 id="ubuntu下使用"><a href="#ubuntu下使用" class="headerlink" title="ubuntu下使用"></a>ubuntu下使用</h1><h2 id="输入中文"><a href="#输入中文" class="headerlink" title="输入中文"></a>输入中文</h2><p>可参考这个仓库的做法<a target="_blank" rel="noopener" href="https://github.com/lyfeyaj/sublime-text-imfix">lyfeyaj/sublime-text-imfix</a></p>
 <h1 id="重要更新"><a href="#重要更新" class="headerlink" title="重要更新"></a>重要更新</h1><p>现在主力编辑器（2017-09-14）已经更换为<a target="_blank" rel="noopener" href="https://atom.io/">Atom</a>，原因如下：</p>
 <ul>
 <li>最为重要的是sublime在js代码有注释的情况下，自动缩进失效，这个问题在github上早有提及<a target="_blank" rel="noopener" href="https://github.com/SublimeTextIssues/Core/issues/1271">Reindent command breaks on (multiline) comments</a>，但一直没有解决；</li>

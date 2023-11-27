@@ -45,15 +45,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -224,18 +223,15 @@ ga('send', 'pageview');
     
       <p>用 vscode 很长一段时间，因为相比 atom，vscode 占用内存和 CPU 更少，并且体积也比 atom 小很多。但是 vscode 耗电量太大了，自己经常带笔记本出去不带电源，如果打开 vscode 电量消耗太快。所以，又用回 atom（2018-5）。</p>
 <h1 id="编辑器配置"><a href="#编辑器配置" class="headerlink" title="编辑器配置"></a>编辑器配置</h1><h2 id="Non-Word-Charactors"><a href="#Non-Word-Charactors" class="headerlink" title="Non Word Charactors"></a>Non Word Charactors</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/\()&quot;&#x27;:,.;&lt;&gt;~!@#$%^&amp;*|+=[]&#123;&#125;`?…</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>双击选择文本时中划线<code>-</code>作为单词的一部分，不作为分割依据</p>
 </blockquote>
 <h2 id="Preferred-Line-Length"><a href="#Preferred-Line-Length" class="headerlink" title="Preferred Line Length"></a>Preferred Line Length</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1000</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>不一定是 200，主要不想看到编辑器中的分割线，大于编辑器能显示的最大字符就好</p>
 </blockquote>
 <h2 id="Show-Indent-Guide"><a href="#Show-Indent-Guide" class="headerlink" title="Show Indent Guide"></a>Show Indent Guide</h2><p>复选框打钩，可以显示对齐线。</p>
 <h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><h2 id="自定义快捷键配置如下："><a href="#自定义快捷键配置如下：" class="headerlink" title="自定义快捷键配置如下："></a>自定义快捷键配置如下：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;atom-text-editor&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;cmd-alt-i&#x27;</span>:        <span class="string">&#x27;editor:auto-indent&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-shift-cmd-m&#x27;</span>: <span class="string">&#x27;markdown-preview:toggle&#x27;</span></span><br><span class="line"><span class="comment"># markdown-writer keymap</span></span><br><span class="line"><span class="string">&#x27;.platform-darwin atom-text-editor:not([mini])&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;shift-cmd-K&#x27;</span>: <span class="string">&#x27;markdown-writer:insert-link&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-I&#x27;</span>: <span class="string">&#x27;markdown-writer:insert-image&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-v&#x27;</span>:       <span class="string">&#x27;markdown-writer:insert-image-clipboard&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-i&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-italic-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-b&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-bold-text&#x27;</span></span><br><span class="line">  <span class="string">&quot;cmd-&#x27;&quot;</span>:       <span class="string">&#x27;markdown-writer:toggle-code-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-k&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-keystroke-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-h&#x27;</span>:       <span class="string">&#x27;markdown-writer:toggle-strikethrough-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-1&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h1&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-2&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h2&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-3&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h3&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-4&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h4&#x27;</span></span><br><span class="line">  <span class="string">&#x27;ctrl-alt-5&#x27;</span>:  <span class="string">&#x27;markdown-writer:toggle-h5&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-O&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-ol&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-U&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-ul&#x27;</span></span><br><span class="line">  <span class="string">&#x27;shift-cmd-&gt;&#x27;</span>: <span class="string">&#x27;markdown-writer:toggle-blockquote&#x27;</span></span><br><span class="line">  <span class="string">&quot;shift-cmd-&#x27;&quot;</span>: <span class="string">&#x27;markdown-writer:toggle-codeblock-text&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-p&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-previous-heading&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-n&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-next-heading&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-d&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-reference-definition&#x27;</span></span><br><span class="line">  <span class="string">&#x27;cmd-j cmd-t&#x27;</span>: <span class="string">&#x27;markdown-writer:jump-to-next-table-cell&#x27;</span></span><br><span class="line"><span class="comment"># enable emmet in .vue file</span></span><br><span class="line"><span class="string">&#x27;atom-text-editor[data-grammar~=&quot;vue&quot;]:not([mini])&#x27;</span>:</span><br><span class="line">  <span class="string">&#x27;tab&#x27;</span>: <span class="string">&#x27;emmet:expand-abbreviation-with-tab&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="系统默认常用快捷键"><a href="#系统默认常用快捷键" class="headerlink" title="系统默认常用快捷键"></a>系统默认常用快捷键</h2><table>
 <thead>
 <tr>
@@ -243,7 +239,8 @@ ga('send', 'pageview');
 <th>快捷键</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>toggle 目录树</td>
 <td>cmd + \</td>
 </tr>
@@ -287,7 +284,8 @@ ga('send', 'pageview');
 <td>通过 atom-beautify 格式化</td>
 <td>ctrl + options + b</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>显示隐藏不可见字符操作：首先<code>cmd + shift + p</code>调出命令行，然后在搜索框输入<code>invisible</code>，选中<code>Window Toggle Invisibles</code>。这在确认编辑器中是否混用<code>tab</code>，<code>space</code>，或者查看行结尾是 Unix 类型还是 Windows 类型时很便捷，不用去设置里设置。</p>
 </blockquote>
@@ -309,7 +307,7 @@ ga('send', 'pageview');
 <li>运行<code>Update.exe --install=.</code> 。</li>
 </ol>
 <h2 id="更新说明"><a href="#更新说明" class="headerlink" title="更新说明"></a>更新说明</h2><p>2017-09-16 更新为基于 Mac 进行的配置。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://github.com/atom/atom/issues/5109">Path too long exception on Windows install</a><br>【2】<a target="_blank" rel="noopener" href="https://gxnotes.com/article/71037.html">Atom 编辑器中的自动缩进代码</a><br>【3】<a target="_blank" rel="noopener" href="https://github.com/zhuochun/md-writer/wiki/Settings-for-Keymaps">zhuochun&#x2F;md-writer-Settings for Keymaps</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="https://github.com/atom/atom/issues/5109">Path too long exception on Windows install</a><br>【2】<a target="_blank" rel="noopener" href="https://gxnotes.com/article/71037.html">Atom 编辑器中的自动缩进代码</a><br>【3】<a target="_blank" rel="noopener" href="https://github.com/zhuochun/md-writer/wiki/Settings-for-Keymaps">zhuochun/md-writer-Settings for Keymaps</a></p>
 
     
   </div>

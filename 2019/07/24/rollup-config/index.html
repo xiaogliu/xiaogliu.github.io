@@ -45,15 +45,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -227,7 +226,6 @@ ga('send', 'pageview');
 <p>本篇文章主要记录如何配置 Rollup 对 Library 进行打包。</p>
 <h1 id="一-调用-Rollup"><a href="#一-调用-Rollup" class="headerlink" title="一 调用 Rollup"></a>一 调用 Rollup</h1><p>配置 Rollup 进行可以可以通过命令行的方式和配置文件的方式，通常我们选择使用配置文件的方式。在根目录下新建 <code>rollup.config.js</code> 文件，然后 <code>package.json</code> 中的 script 命令中添加下面两行：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NODE_ENV=dev rollup -w -c&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NODE_ENV=prod rollup -c&quot;</span><span class="punctuation">,</span></span><br><span class="line">  ...</span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
 <p>其中 <code>start</code> 表示开发模式；<code>-w</code> 表示 <code>watch</code> 如果入口文件及其中导入的文件发生变化重新打包；<code>-c</code> 表示 <code>config</code>，表示使用 Rollup 打包规则按照配置文件 <code>rollup.config.js</code> 进行。完整命令行 flag 看这里 <a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/#command-line-flags">Rollup - Command line flags</a></p>
 <h1 id="二-写-Rollup-配置文件"><a href="#二-写-Rollup-配置文件" class="headerlink" title="二 写 Rollup 配置文件"></a>二 写 Rollup 配置文件</h1><p>就配置而言，Rollup 要比 Webpack 简单很多。Rollup 配置文件完整选项看这里 <a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/#configuration-files">Rollup - Configuration Files</a>，这里介绍常用三个选项： - <code>input</code>：入口文件；</p>
 <ul>
@@ -239,15 +237,14 @@ ga('send', 'pageview');
 </blockquote>
 <h2 id="2-1）单个输入输出文件"><a href="#2-1）单个输入输出文件" class="headerlink" title="2.1）单个输入输出文件"></a>2.1）单个输入输出文件</h2><p>这是最简单的模式</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">input</span>: <span class="string">&quot;main-a.js&quot;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">file</span>: <span class="string">&quot;dist/bundle-a.js&quot;</span>,</span><br><span class="line">    <span class="attr">format</span>: <span class="string">&quot;cjs&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p><code>output.format</code>：表示打包输出的文件类型，有 <code>amd</code>, <code>cjs</code>, <code>es</code>, <code>iife</code>, <code>umd</code></p>
 <ul>
 <li>amd - 异步模块定义，用于像 RequireJS 这样的模块加载器</li>
-<li>cjs - CommonJS，适用于 Node 和 Browserify&#x2F;Webpack</li>
+<li>cjs - CommonJS，适用于 Node 和 Browserify/Webpack</li>
 <li>es - 将软件包保存为 ES 模块文件</li>
 <li>iife - 一个自动执行的功能，适合作为 <code>&lt;script&gt;</code> 标签。（如果要为应用程序创建一个捆绑包，您可能想要使用它，因为它会使文件大小变小。）</li>
-<li>umd - 通用模块定义，以 amd，cjs 和 iife 为一体</li>
+<li>umd - 通用模块定义，以 amd，cjs 和 iife 为一体 </li>
 </ul>
 </li>
 <li><p><code>output.name</code>：生成包名称，如果是 <code>iife/umd</code> 格式，<code>name</code> 必须有，相当于 <code>var moduleName = (function()&#123;&#125;)()</code></p>
@@ -255,7 +252,6 @@ ga('send', 'pageview');
 </ul>
 <h2 id="2-2）多个输入输出文件"><a href="#2-2）多个输入输出文件" class="headerlink" title="2.2）多个输入输出文件"></a>2.2）多个输入输出文件</h2><p>Rollup 支持一次处理多个输入输出文件，<code>watch</code> mode 也支持检测多个入口文件，这个时候，使用数组进行包装。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [</span><br><span class="line">  <span class="comment">// 第一个入口文件</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">input</span>: <span class="string">&quot;main-a.js&quot;</span>,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">      <span class="attr">file</span>: <span class="string">&quot;dist/bundle-a.js&quot;</span>,</span><br><span class="line">      <span class="attr">format</span>: <span class="string">&quot;cjs&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 第二个入口文件</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">input</span>: <span class="string">&quot;main-b.js&quot;</span>,</span><br><span class="line">    <span class="attr">output</span>: [</span><br><span class="line">      <span class="comment">// 多个输出文件</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">file</span>: <span class="string">&quot;dist/bundle-b1.js&quot;</span>,</span><br><span class="line">        <span class="attr">format</span>: <span class="string">&quot;cjs&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">file</span>: <span class="string">&quot;dist/bundle-b2.js&quot;</span>,</span><br><span class="line">        <span class="attr">format</span>: <span class="string">&quot;esm&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-
 <p><strong>更常见的模式是一个入口文件，多个输出文件，其中输出文件的不同在于使用了不同的模块定义，比如同时输出 ES6 模块和 CommonJS 模块</strong>。</p>
 <blockquote>
 <p>输出 ES6 模式是为了做 Treeshaking，详见：输出 CommonJS 模块是为了兼容。</p>
@@ -264,18 +260,16 @@ ga('send', 'pageview');
 <p>import babel from “rollup-plugin-babel”;<br>import alias from “rollup-plugin-alias”;<br>import { terser } from “rollup-plugin-terser”;</p>
 <h2 id="3-1）rollup-plugin-babel"><a href="#3-1）rollup-plugin-babel" class="headerlink" title="3.1）rollup-plugin-babel"></a>3.1）rollup-plugin-babel</h2><p>适用于 Rollup 的 Babel 插件。这里需要特别说明，Babel7 之前，如果要转译 TypeScript 代码，需要安装单独的 TypeScript 插件，但从 Babel7 开始，通过 <code>preset-typeScript</code> 这一个 preset 对 TypeScript 进行转译。</p>
 <blockquote>
-<p>preset 代表一组 <em>预设</em> 的 Babel 插件集合。</p>
+<p>preset 代表一组 _预设_ 的 Babel 插件集合。</p>
 </blockquote>
 <p>相对于引入 TS 自身的编译器，通过 Babel 统一管理需要转译的代码是比较好的（不管 JSX or TS or 其他，只要非目标 JS，都用 Babel 进行转译，相比于 JSX，TS 也没啥特殊的），更多介绍可参考这篇文章：<a target="_blank" rel="noopener" href="https://iamturns.com/typeScript-babel/">TypeScript With Babel: A Beautiful Marriage</a></p>
 <p>在 <code>rollup.config.js</code> 中配置如下：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">  <span class="title function_">babel</span>(&#123;</span><br><span class="line">    <span class="attr">extensions</span>: [<span class="string">&quot;.js&quot;</span>, <span class="string">&quot;.ts&quot;</span>],</span><br><span class="line">    <span class="attr">exclude</span>: <span class="string">&quot;node_modules/**&quot;</span></span><br><span class="line">  &#125;)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-1-1）新建-Babel-配置文件"><a href="#3-1-1）新建-Babel-配置文件" class="headerlink" title="3.1.1）新建 Babel 配置文件"></a>3.1.1）新建 Babel 配置文件</h3><p>在项目根目录新建 <code>.babelrc</code> 文件，内容设置如下：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/#babel">Rollup 文档</a>中推荐将 Babel 配置文件放在 src 目录下，以区分测试文件，这个看具体情况。</p>
 </blockquote>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;presets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;@babel/preset-env&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="comment">// 避免转换成 CommonJS</span></span><br><span class="line">        <span class="attr">&quot;modules&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">// 使用 loose 模式，避免产生副作用</span></span><br><span class="line">        <span class="attr">&quot;loose&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span><span class="string">&quot;@babel/preset-typeScript&quot;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="3-1-2）Babel-配置说明"><a href="#3-1-2）Babel-配置说明" class="headerlink" title="3.1.2）Babel 配置说明"></a>3.1.2）Babel 配置说明</h3><ul>
 <li>module</li>
 </ul>
@@ -284,9 +278,8 @@ ga('send', 'pageview');
 <li>loose</li>
 </ul>
 <p><code>loose</code> 是否设置为 <code>true</code> 看业务需求，宽松模式使 Babel 在编译代码不完全按照 ES6 语义进行编译，而是编译成更接近于我们手写代码的形式，这样好处除了使代码更加精简，还会避免产生副作用。典型的是对 ES6 <code>class</code> 语法进行转译的区别：如果不是用宽松模式，ES6 的方法通过 <code>Object.defineProperty</code> 进行定义；如果使用宽松模式，则直接在原型链上进行定义。可以通过输入下面代码在 Babel REPL 进行测试：</p>
-<p><code>loose</code> 为 <a target="_blank" rel="noopener" href="https://babeljs.io/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=KYDwDg9gTgLgBAYwDYEMDOa4AVhTRAOzgG8AoORQtGKAVwRmjgApi4CUBbYOAXwEoS5CnBgALAJZoAdB25wAvOy7BhvYQHNgMAHIqWgsiLhRttKEXFTZKtaV5A&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015&prettier=false&targets=&version=7.5.5&externalPlugins="><code>false</code></a>; <code>loose</code> 为 <a target="_blank" rel="noopener" href="https://babeljs.io/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=KYDwDg9gTgLgBAYwDYEMDOa4AVhTRAOzgG8AoORQtGKAVwRmjgApi4CUBbYOAXwEoS5CnBgALAJZoAdB25wAvOy7BhvYQHNgMAHIqWgsiLhRttKEXFTZKtaV5A&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015-loose&prettier=false&targets=&version=7.5.5&externalPlugins="><code>true</code></a>。</p>
+<p><code>loose</code> 为 <a target="_blank" rel="noopener" href="https://babeljs.io/repl#?babili=false&amp;browsers=&amp;build=&amp;builtIns=false&amp;spec=false&amp;loose=false&amp;code_lz=KYDwDg9gTgLgBAYwDYEMDOa4AVhTRAOzgG8AoORQtGKAVwRmjgApi4CUBbYOAXwEoS5CnBgALAJZoAdB25wAvOy7BhvYQHNgMAHIqWgsiLhRttKEXFTZKtaV5A&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=false&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=es2015&amp;prettier=false&amp;targets=&amp;version=7.5.5&amp;externalPlugins="><code>false</code></a>; <code>loose</code> 为 <a target="_blank" rel="noopener" href="https://babeljs.io/repl#?babili=false&amp;browsers=&amp;build=&amp;builtIns=false&amp;spec=false&amp;loose=false&amp;code_lz=KYDwDg9gTgLgBAYwDYEMDOa4AVhTRAOzgG8AoORQtGKAVwRmjgApi4CUBbYOAXwEoS5CnBgALAJZoAdB25wAvOy7BhvYQHNgMAHIqWgsiLhRttKEXFTZKtaV5A&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=false&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=es2015-loose&amp;prettier=false&amp;targets=&amp;version=7.5.5&amp;externalPlugins="><code>true</code></a>。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// es6</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">&#123; name &#125;</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">getName</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">name</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>那么问题来了，用不用原型链进行构造函数方法的定义有什么差别？差别就是如果使用 <code>Object.defineProperty</code> 进行定义可以产生副作用导致 treeshaking 失效，具体参考这篇文章：<a target="_blank" rel="noopener" href="https://juejin.im/post/5a5652d8f265da3e497ff3de#heading-2">你的 Tree-Shaking 并没什么卵用</a>。</p>
 <h2 id="3-2）rollup-plugin-terser"><a href="#3-2）rollup-plugin-terser" class="headerlink" title="3.2）rollup-plugin-terser"></a>3.2）rollup-plugin-terser</h2><p><a target="_blank" rel="noopener" href="https://github.com/TrySound/rollup-plugin-terser">rollup-plugin-terser</a> 用于压缩 ES6 代码，功能和 uglify-js 相同，但 uglify-js 不支持 ES6 所以有了这个插件。</p>
 <blockquote>
@@ -294,7 +287,6 @@ ga('send', 'pageview');
 </blockquote>
 <p>使用：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">  <span class="title function_">terser</span>(&#123;</span><br><span class="line">    <span class="attr">compress</span>: &#123;</span><br><span class="line">      <span class="comment">// remove console.log</span></span><br><span class="line">      <span class="attr">pure_funcs</span>: [<span class="string">&quot;console.log&quot;</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">      <span class="comment">// add comment on the top</span></span><br><span class="line">      <span class="attr">preamble</span>: <span class="string">`/*! <span class="subst">$&#123;PROJECT&#125;</span> - v<span class="subst">$&#123;VERSION&#125;</span> - <span class="subst">$&#123;DATE&#125;</span> https://xiaogliu.github.io */`</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>题外话，为什么那么执着于 ES6 模块定义？因为 TreeShaking 正是基于 ES6 的模块系统进行静态分析，配合 rollup-plugin-terser 移除不会执行（传统 DCE，dead code elimination）以及模块间没有用到的代码。</p>
 </blockquote>

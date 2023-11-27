@@ -46,15 +46,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -226,42 +225,32 @@ ga('send', 'pageview');
       <h1 id="一-安装"><a href="#一-安装" class="headerlink" title="一 安装"></a>一 安装</h1><p>git 客户端地址：<a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Git for Windows</a><br>Git for Windows 提供了 GUI 和 Git Bash 两种操作方式，除<code>merge</code>差异巨大的分支外，建议都通过 Git Bash 进行代码维护。</p>
 <h1 id="二-配置"><a href="#二-配置" class="headerlink" title="二 配置"></a>二 配置</h1><h2 id="2-1-配置用户名和邮箱"><a href="#2-1-配置用户名和邮箱" class="headerlink" title="2.1 配置用户名和邮箱"></a>2.1 配置用户名和邮箱</h2><p>“这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：”</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;your name&quot;</span></span><br><span class="line">git config --global user.email youremail@xxx.com</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-2-生成-SSH-公钥"><a href="#2-2-生成-SSH-公钥" class="headerlink" title="2.2 生成 SSH 公钥"></a>2.2 生成 SSH 公钥</h2><p>使用 git 进行代码管理一般都需要远程操作，为保证安全，使用 SSH 公钥机制进行数据加密，完成公钥加密需要进行两步操作：</p>
 <h3 id="2-2-1-将自己的公钥添加至远程服务器公钥列表"><a href="#2-2-1-将自己的公钥添加至远程服务器公钥列表" class="headerlink" title="2.2.1 将自己的公钥添加至远程服务器公钥列表"></a>2.2.1 将自己的公钥添加至远程服务器公钥列表</h3><p>若未将自己的公钥提交到远程服务器用于授权，进行<code>clone</code>, <code>pull</code>等操作时，会提示如下错误：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not <span class="built_in">read</span> from remote repository.</span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
-
 <p>将自己的公钥添加至远程服务器公钥列表前，先查看自己是否有公钥，公钥默认存放在<code>~/.ssh</code>（波浪线代表用户的根目录，windows 默认用户根目录为<code>C:\Users\Administrator\</code>），名称为<code>id_rsa.pub</code><br>若没有公钥，使用<code>ssh-keygen</code>命令生成公钥：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C youremail@xxx.com</span><br><span class="line"><span class="comment"># Generating public/private rsa key pair.</span></span><br><span class="line"><span class="comment"># Enter file in which to save the key (~/.ssh/id_rsa):</span></span><br><span class="line"><span class="comment"># Enter passphrase (empty for no passphrase):</span></span><br><span class="line"><span class="comment"># Enter same passphrase again:</span></span><br><span class="line"><span class="comment"># Your identification has been saved in ~/.ssh/id_rsa.</span></span><br><span class="line"><span class="comment"># Your public key has been saved in ~/.ssh/id_rsa.pub.</span></span><br><span class="line"><span class="comment"># The key fingerprint is:xxx</span></span><br></pre></td></tr></table></figure>
-
-<p>生成公钥过程中先要求你确认保存公钥的位置（.ssh&#x2F;id_rsa），然后会让你重复一个密码两次，<strong>如果不想在使用公钥的时候输入密码，可以留空</strong>。</p>
+<p>生成公钥过程中先要求你确认保存公钥的位置（.ssh/id_rsa），然后会让你重复一个密码两次，<strong>如果不想在使用公钥的时候输入密码，可以留空</strong>。</p>
 <h3 id="2-2-2-将远程服务器公钥添加到本地已知-host-列表（可能不需要用户授权，直接添加到已知-host-列表？）"><a href="#2-2-2-将远程服务器公钥添加到本地已知-host-列表（可能不需要用户授权，直接添加到已知-host-列表？）" class="headerlink" title="2.2.2 将远程服务器公钥添加到本地已知 host 列表（可能不需要用户授权，直接添加到已知 host 列表？）"></a>2.2.2 将远程服务器公钥添加到本地已知 host 列表（可能不需要用户授权，直接添加到已知 host 列表？）</h3><p>将自己的公钥放置到远程服务器列表后，首次<code>clone</code>操作，会提示给远程服务器授权，比如给 github 授权：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The authenticity of host &#x27;github.com (192.30.255.112)&#x27; can&#x27;t be established.</span></span><br><span class="line"><span class="comment"># RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span></span><br><span class="line"><span class="comment"># Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="comment"># Warning: Permanently added &#x27;github.com,192.30.255.112&#x27; (RSA) to the list of known hosts.</span></span><br></pre></td></tr></table></figure>
-
 <p>输入<code>yes</code>后，就将<code>github.com (192.30.255.112)</code>添加到本地 list of known hosts。</p>
 <p>配置完 SSH 公钥，就可以在本地对远程仓库进行操作了。</p>
 <blockquote>
-<p>.ssh 目录结构及说明如下<br>.ssh<br>|— id_rsa（秘钥，不能泄露）<br>|— id_rsa.pub（公钥，提供给需要首选的远程服务器）<br>|— known_hosts（已知远程服务器列表）<br>（关于 SSH 协议&#x2F;RSA 算法&#x2F;公钥秘钥机制，再写一篇 blog。）</p>
+<p>.ssh 目录结构及说明如下<br>.ssh<br>|— id_rsa（秘钥，不能泄露）<br>|— id_rsa.pub（公钥，提供给需要首选的远程服务器）<br>|— known_hosts（已知远程服务器列表）<br>（关于 SSH 协议/RSA 算法/公钥秘钥机制，再写一篇 blog。）</p>
 </blockquote>
 <h1 id="三-解决乱码"><a href="#三-解决乱码" class="headerlink" title="三 解决乱码"></a>三 解决乱码</h1><p>安装完 git，新建 git 项目后，输入<code>git log</code>或<code>git status</code>命令后中文可能出现乱码，</p>
 <h2 id="3-1-解决-git-log-中文乱码"><a href="#3-1-解决-git-log-中文乱码" class="headerlink" title="3.1 解决 git log 中文乱码"></a>3.1 解决 git log 中文乱码</h2><p>乱码类似</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;E4&gt;&lt;BF&gt;&lt;AE&gt;&lt;E6&gt;&lt;94&gt;&lt;B9&gt;&lt;E6&gt;&lt;96&gt;&lt;87&gt;&lt;E6&gt;&lt;9C&gt;&lt;AC&gt;&lt;E6&gt;&lt;96&gt;&lt;87&gt;&lt;E6&gt;&lt;A1&gt;&lt;A3&gt;</span><br></pre></td></tr></table></figure>
-
 <p>或者这样</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">涓枃鍗氬娴嬭瘯</span><br></pre></td></tr></table></figure>
-
 <p>解决方法：打开 Git Bash，输入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global i18n.logoutputencoding gbk</span><br></pre></td></tr></table></figure>
-
 <p>很诡异，更换一台电脑以后（win10-1703），需要<code>utf-8</code>编码才能正确显示中文</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global i18n.logoutputencoding utf-8</span><br></pre></td></tr></table></figure>
-
 <h2 id="3-2-解决-git-status-中文乱码"><a href="#3-2-解决-git-status-中文乱码" class="headerlink" title="3.2 解决 git status 中文乱码"></a>3.2 解决 git status 中文乱码</h2><p>乱码类似</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\247\345\223\201\351\234\200\</span><br></pre></td></tr></table></figure>
-
 <p>解决方法：打开 Git Bash，输入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p><strong>若输入上述命令后，乱码依旧，这时可能是 Git for Windows 版本问题，更换其他版本即可</strong>。比如 Git-2.11.0-64-bit 就出现中文乱码和不能输入中文的情况，上述方法都不能解决。<a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/tags">Git 各版本下载地址</a></p>
 </blockquote>
@@ -270,17 +259,14 @@ ga('send', 'pageview');
 <li>修改最后一次提交注释（未 push）</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查看本地分支与远程分支对应关系（远程有多个分支时有用，可以查看与哪个远程分支对应）</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>查看远程分支地址</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>【1】<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git">How do I discard unstaged changes in Git?</a><br>【2】<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE">起步 - 初次运行 Git 前的配置</a></p>
 
     

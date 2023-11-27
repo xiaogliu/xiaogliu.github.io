@@ -47,15 +47,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -233,32 +232,29 @@ ga('send', 'pageview');
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fatal: refusing to merge unrelated histories</span><br></pre></td></tr></table></figure>
 <ul>
-<li>原因：The default behavior has changed since git 2.9:<blockquote>
+<li><p>原因：The default behavior has changed since git 2.9:</p>
+<blockquote>
 <p>“git merge” used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch “–allow-unrelated-histories” option to be used in a rare event that merges histories of two projects that started their lives independently.</p>
 </blockquote>
+<p>See the <a target="_blank" rel="noopener" href="https://github.com/git/git/blob/master/Documentation/RelNotes/2.9.0.txt#L58-L68">git release changelog</a> for more information.</p>
+</li>
+<li><p>解决方案：Using <code>--allow-unrelated-histories</code> flag worked with pull request in this way</p>
 </li>
 </ul>
-<p> See the <a target="_blank" rel="noopener" href="https://github.com/git/git/blob/master/Documentation/RelNotes/2.9.0.txt#L58-L68">git release changelog</a> for more information.</p>
-<ul>
-<li>解决方案：Using <code>--allow-unrelated-histories</code> flag worked with pull request in this way</li>
-</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin branchname --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>参考资料：stack<strong>overflow</strong> <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories">Git refusing to merge unrelated histories</a></li>
 </ul>
 <span id="more"></span>
-
 <h2 id="每次push要求填写用户名和密码"><a href="#每次push要求填写用户名和密码" class="headerlink" title="每次push要求填写用户名和密码"></a>每次push要求填写用户名和密码</h2><ul>
 <li><p>问题描述：已配置ssh，从remote repository可以正常clone，无需填写密码，但每次push有弹框跳出要求填写用户名密码。</p>
 </li>
-<li><p>原因：A common mistake is cloning using the default (HTTPS) instead of SSH.通过命令 <code>git remote -v</code>可以查看默认地址，如果https，要改回ssh<br><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/2017-02-12_201337.png"></p>
+<li><p>原因：A common mistake is cloning using the default (HTTPS) instead of SSH.通过命令 <code>git remote -v</code>可以查看默认地址，如果https，要改回ssh<br><img src="https://raw.githubusercontent.com/xiaogliu/pic-lib/master/old/2017-02-12_201337.png" alt=""></p>
 </li>
 <li><p>解决方案：You can correct this by going to your repository, clicking the ssh button left to the URL field and updating the URL of your origin remote like this:(不需要重新clone一份)</p>
 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github.com:username/repo.git</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>参考资料：stack<strong>overflow</strong> <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password">Git push requires username and password</a></li>
 </ul>
@@ -271,20 +267,17 @@ ga('send', 'pageview');
 <li>解决方案：解决这个问题方法是设置git编码：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="Could-not-resolve-hostname-github-com"><a href="#Could-not-resolve-hostname-github-com" class="headerlink" title="Could not resolve hostname github.com"></a>Could not resolve hostname github.com</h2><ul>
 <li>问题描述：用着好好地，某天忽然报<code>Could not resolve hostname github.com</code>，完整错误见下</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh: Could not resolve hostname github.com: Name or service not known</span><br><span class="line">fatal: Could not <span class="built_in">read</span> from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>解决方案：</li>
+<li>解决方案：   </li>
 </ul>
 <p><code>ping</code>github.com，将得到的ip地址添加到hosts文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ping github.com</span><br></pre></td></tr></table></figure>
 <p>得到ip为192.30.253.112，将下面代码添加到hosts文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.30.253.112 github.com</span><br></pre></td></tr></table></figure>
-
 <h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>【1】<a target="_blank" rel="noopener" href="http://blog.csdn.net/cjopengler/article/details/46585319">git status 显示中文</a><br>【2】<a target="_blank" rel="noopener" href="http://blog.csdn.net/piaotiejun/article/details/48734175">git错误–ssh: Could not resolve hostname ssh.github.com: Name or service not known–解决方式</a></p>
 
     

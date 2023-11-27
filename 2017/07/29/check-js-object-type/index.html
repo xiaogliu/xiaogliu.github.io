@@ -15,12 +15,12 @@
     <meta name="keywords" content="JavaScript," />
   
 
-  <meta name="description" content="这里检测对象类型不是指typeof操作符返回的六种对象类型（string, number, boolean, object, function, undefined），而是指要区分出具体的引用类型(Object, Array, Date, RegExp, Function)以及null。测试结果具体见下表    测试对象 返回结果    undefined undefined   null nul">
+  <meta name="description" content="这里检测对象类型不是指typeof操作符返回的六种对象类型（string, number, boolean, object, function, undefined），而是指要区分出具体的引用类型(Object, Array, Date, RegExp, Function)以及null。测试结果具体见下表    测试对象 返回结果     undefined undefined   null nu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="检测JS对象类型">
 <meta property="og:url" content="https://xiaogliu.github.io/2017/07/29/check-js-object-type/index.html">
 <meta property="og:site_name" content="刘小光的博客">
-<meta property="og:description" content="这里检测对象类型不是指typeof操作符返回的六种对象类型（string, number, boolean, object, function, undefined），而是指要区分出具体的引用类型(Object, Array, Date, RegExp, Function)以及null。测试结果具体见下表    测试对象 返回结果    undefined undefined   null nul">
+<meta property="og:description" content="这里检测对象类型不是指typeof操作符返回的六种对象类型（string, number, boolean, object, function, undefined），而是指要区分出具体的引用类型(Object, Array, Date, RegExp, Function)以及null。测试结果具体见下表    测试对象 返回结果     undefined undefined   null nu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-07-29T03:25:08.000Z">
 <meta property="article:modified_time" content="2023-06-04T03:07:02.575Z">
@@ -45,15 +45,14 @@
 
   
 <!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-ga('create', 'UA-87747398-1', 'auto');
-ga('send', 'pageview');
-
+  gtag('config', 'UA-87747398-1');
 </script>
 <!-- End Google Analytics -->
 
@@ -226,55 +225,57 @@ ga('send', 'pageview');
 <table>
 <thead>
 <tr>
-<th align="left">测试对象</th>
-<th align="left">返回结果</th>
+<th style="text-align:left">测试对象</th>
+<th style="text-align:left">返回结果</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">undefined</td>
-<td align="left">undefined</td>
+<tbody>
+<tr>
+<td style="text-align:left">undefined</td>
+<td style="text-align:left">undefined</td>
 </tr>
 <tr>
-<td align="left">null</td>
-<td align="left">null</td>
+<td style="text-align:left">null</td>
+<td style="text-align:left">null</td>
 </tr>
 <tr>
-<td align="left">true</td>
-<td align="left">boolean</td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">boolean</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">number</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">number</td>
 </tr>
 <tr>
-<td align="left">“”</td>
-<td align="left">string</td>
+<td style="text-align:left">“”</td>
+<td style="text-align:left">string</td>
 </tr>
 <tr>
-<td align="left">{}</td>
-<td align="left">object</td>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">object</td>
 </tr>
 <tr>
-<td align="left">[]</td>
-<td align="left">array</td>
+<td style="text-align:left">[]</td>
+<td style="text-align:left">array</td>
 </tr>
 <tr>
-<td align="left">new Date()</td>
-<td align="left">date</td>
+<td style="text-align:left">new Date()</td>
+<td style="text-align:left">date</td>
 </tr>
 <tr>
-<td align="left">&#x2F;.css$&#x2F;</td>
-<td align="left">regexp</td>
+<td style="text-align:left">/.css$/</td>
+<td style="text-align:left">regexp</td>
 </tr>
 <tr>
-<td align="left">function () {}</td>
-<td align="left">function</td>
+<td style="text-align:left">function () {}</td>
+<td style="text-align:left">function</td>
 </tr>
 <tr>
-<td align="left">window</td>
-<td align="left">global</td>
+<td style="text-align:left">window</td>
+<td style="text-align:left">global</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>JS更多对象类型参见<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects">Standard built-in objects</a></p>
 </blockquote>
@@ -283,26 +284,21 @@ ga('send', 'pageview');
 <li>语法</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Array.isArray(obj)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>举例：</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="title function_">isArray</span>([]); <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="title function_">isArray</span>(<span class="number">1</span>); <span class="comment">// false</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="title function_">isArray</span>(<span class="string">&quot;&quot;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="instanceof操作符"><a href="#instanceof操作符" class="headerlink" title="instanceof操作符"></a>instanceof操作符</h2><ul>
 <li>语法</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">obj <span class="keyword">instanceof</span> <span class="title class_">Array</span>;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>举例</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[] <span class="keyword">instanceof</span> <span class="title class_">Array</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line">a <span class="keyword">instanceof</span> <span class="title class_">Array</span>; <span class="comment">// false</span></span><br><span class="line">a <span class="keyword">instanceof</span> <span class="title class_">Object</span>; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用instanceof注意事项"><a href="#使用instanceof注意事项" class="headerlink" title="使用instanceof注意事项"></a>使用instanceof注意事项</h2><p>**如果变量是<code>String</code>, <code>Number</code>或者<code>Boolean</code>类型，使用<code>instanceof</code>操作符始终返回<code>false</code>**，见下代码：</p>
+<h2 id="使用instanceof注意事项"><a href="#使用instanceof注意事项" class="headerlink" title="使用instanceof注意事项"></a>使用instanceof注意事项</h2><p><strong>如果变量是<code>String</code>, <code>Number</code>或者<code>Boolean</code>类型，使用<code>instanceof</code>操作符始终返回<code>false</code></strong>，见下代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">a <span class="keyword">instanceof</span> <span class="title class_">String</span>; <span class="comment">// false</span></span><br><span class="line">b <span class="keyword">instanceof</span> <span class="title class_">Number</span>; <span class="comment">// false</span></span><br><span class="line">c <span class="keyword">instanceof</span> <span class="title class_">Boolean</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<p>这涉及<strong>基本包装类型</strong>的知识点，这里不做展开，可参考《JavaScript高级程序设计（第3版）》对_基本包装类型_的解释以及《The Principles of Object-Oriented JavaScript》对_Primitive wrapper Types_的解释。  </p>
+<p>这涉及<strong>基本包装类型</strong>的知识点，这里不做展开，可参考《JavaScript高级程序设计（第3版）》对<em>基本包装类型</em>的解释以及《The Principles of Object-Oriented JavaScript》对<em>Primitive wrapper Types</em>的解释。  </p>
 <h1 id="检测对象类型通用方法"><a href="#检测对象类型通用方法" class="headerlink" title="检测对象类型通用方法"></a>检测对象类型通用方法</h1><p>如果要判断某个对象是否是某种具体引用类型，使用<code>instanceof</code>操作符就可以解决。但如果是想知道一个对象的具体类型（具体哪种基本类型、引用类型），使用<code>instanceof</code>就不合理了，总不能一个个去试。</p>
 <p>并且，<code>instanceof</code>对于基本数据类型无能为力。</p>
 <h2 id="使用Object-prototype-toString-call-obj"><a href="#使用Object-prototype-toString-call-obj" class="headerlink" title="使用Object.prototype.toString.call(obj)"></a>使用Object.prototype.toString.call(obj)</h2><p>使用<code>Object.prototype.toString.call(obj)</code>可以判断某个对象的具体类型。</p>
@@ -310,7 +306,6 @@ ga('send', 'pageview');
 <li>语法</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(obj)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>该方法返回字符串，其中包含对象类型，格式如下”[object type]”，其中type为对象具体类型</p>
 </blockquote>
@@ -318,12 +313,9 @@ ga('send', 'pageview');
 <li>举例</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>([]); <span class="comment">// &quot;[object Array]&quot;</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Date</span>()); <span class="comment">// &quot;[object Date]&quot;</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(&#123;&#125;); <span class="comment">// &quot;[object Object]&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>使用<code>Object.prototype.toString.call(obj)</code>可以检测对象的具体类型，但性能损耗，如果要频繁使用，可以对该方法封装后使用：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 封装检测对象类型方法</span></span><br><span class="line"><span class="keyword">var</span> type = (<span class="keyword">function</span>(<span class="params"><span class="variable language_">global</span></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> key;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 下面六行注释依次为</span></span><br><span class="line"><span class="comment">         * // null</span></span><br><span class="line"><span class="comment">         * // window in browser or global in nodejs</span></span><br><span class="line"><span class="comment">         * // basic: string, boolean, number, undefined, function</span></span><br><span class="line"><span class="comment">         * // DOM element</span></span><br><span class="line"><span class="comment">         * // cached. date, regexp, error, object, array, math</span></span><br><span class="line"><span class="comment">         * // get XXXX from [object XXXX], and cache it</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">return</span> obj === <span class="literal">null</span> ? <span class="string">&#x27;null&#x27;</span></span><br><span class="line">            : obj === <span class="variable language_">global</span> ? <span class="string">&#x27;global&#x27;</span></span><br><span class="line">            : (key = <span class="keyword">typeof</span> obj) !== <span class="string">&#x27;object&#x27;</span> ? key</span><br><span class="line">            : obj.<span class="property">nodeType</span> ? <span class="string">&#x27;object&#x27;</span></span><br><span class="line">            : cache[key = (&#123;&#125;).<span class="property">toString</span>.<span class="title function_">call</span>(obj)]</span><br><span class="line">            || (cache[key] = key.<span class="title function_">slice</span>(<span class="number">8</span>, -<span class="number">1</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;(<span class="variable language_">this</span>));</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="title function_">type</span>(&#123;&#125;); <span class="comment">// Object</span></span><br><span class="line"><span class="title function_">type</span>([]); <span class="comment">// Array</span></span><br><span class="line"><span class="title function_">type</span>(<span class="keyword">new</span> <span class="title class_">Date</span>()); <span class="comment">// Date</span></span><br><span class="line"><span class="title function_">type</span>(<span class="regexp">/\.css$/</span>); <span class="comment">// Regexp</span></span><br></pre></td></tr></table></figure>
-
 <p>参考资料：<br>【1】<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7893776/the-most-accurate-way-to-check-js-objects-type">The most accurate way to check JS object’s type?</a></p>
 
     
