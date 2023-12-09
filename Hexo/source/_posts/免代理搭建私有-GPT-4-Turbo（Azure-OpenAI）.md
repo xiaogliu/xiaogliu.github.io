@@ -129,7 +129,7 @@ docker run -d \
   -p 9000:3000 \
   -e AZURE_URL=https://{azure-resource-url}/openai/deployments/{deploy-name} \
   -e AZURE_API_KEY={azure-api-key} \
-  -e AZURE_API_VERSION=2023-07-01-preview \
+  -e AZURE_API_VERSION={azure-api-version} \
   -e CODE={app-custom-password} \
   -e HIDE_USER_API_KEY=1 \
   --restart=always \
