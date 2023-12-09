@@ -105,7 +105,7 @@ e_title: deploy-gpt4-turbo-without-vpn
 - **AZURE_URL (required)**: `https://{azure-resource-url}/openai/deployments/{deploy-name}` 
 - **AZURE_API_VERSION (required)**: Azure API Version
 
-上面两个变量都可以在上文提到的 Endpoint 中获取：`https://{azure-resource-name}.openai.azure.com/openai/deployments/{deploy-name}/chat/completions?api-version={api-version})` 
+上面两个变量都可以在上文提到的 Endpoint 中获取：`https://{azure-resource-name}.openai.azure.com/openai/deployments/{deploy-name}/chat/completions?api-version={api-version}` 
 
 > 不要直接把 endpoint 放到 AZURE_URL 中，AZURE_URL 只需要 endpoint 的一部分！
 
