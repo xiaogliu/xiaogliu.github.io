@@ -11,7 +11,7 @@ e_title: deploy-gpt4-turbo-without-vpn
 ## 1.1 重点
 
 - 需要使用企业邮箱，个人邮箱会被拒绝。这里的企业邮箱可以是个人域名下的邮箱，只要不是 @[gmail.com](http://gmail.com/), @[yahoo.com](http://yahoo.com/), @[hotmail.com](http://hotmail.com/) 这些就好。
-- 另外，原则上申请使用资格是代表**你自己的公司**，所以最好不要使用你所在打工的公司邮箱，至于会有怎么的后果我并不清楚，申请时请注意。
+- 另外，原则上申请使用资格是代表 **你自己的公司**，所以最好不要使用非你控制的公司邮箱，至于会有怎么的后果我并不清楚，申请时请注意。
 	![代表自己公司](https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.42.07.png)
 
 ## 1.2 前置工作
