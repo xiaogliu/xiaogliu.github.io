@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>免代理搭建私有 GPT-4 Turbo（Azure OpenAI） | 刘小光的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ChatGPT," />
+  
+
+  <meta name="description" content="一. 申请 Azure OpenAI API 使用资格1.1 重点 需要使用企业邮箱，个人邮箱会被拒绝。这里的企业邮箱可以是个人域名下的邮箱，只要不是 @gmail.com, @yahoo.com, @hotmail.com 这些就好。 另外，原则上申请使用资格是代表你自己的公司，所以最好不要使用你所在打工的公司邮箱，至于会有怎么的后果我并不清楚，申请时请注意。    1.2 前置工作除了准备企业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="免代理搭建私有 GPT-4 Turbo（Azure OpenAI）">
+<meta property="og:url" content="https://xiaogliu.github.io/2023/12/09/deploy-gpt4-turbo-without-vpn/index.html">
+<meta property="og:site_name" content="刘小光的博客">
+<meta property="og:description" content="一. 申请 Azure OpenAI API 使用资格1.1 重点 需要使用企业邮箱，个人邮箱会被拒绝。这里的企业邮箱可以是个人域名下的邮箱，只要不是 @gmail.com, @yahoo.com, @hotmail.com 这些就好。 另外，原则上申请使用资格是代表你自己的公司，所以最好不要使用你所在打工的公司邮箱，至于会有怎么的后果我并不清楚，申请时请注意。    1.2 前置工作除了准备企业">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.42.07.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/image1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.32.57.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.54.54.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.55.10.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_15.04.24.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.07.29.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.09.24.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.13.44.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.14.52.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_15.34.08.png">
+<meta property="article:published_time" content="2023-12-09T07:41:27.000Z">
+<meta property="article:modified_time" content="2023-12-09T07:43:23.000Z">
+<meta property="article:author" content="刘小光">
+<meta property="article:tag" content="ChatGPT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.42.07.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/personal-style.css">
+
+  
+
+  
+<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87747398-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-87747398-1');
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b13a69b867cd1964903ac0c912077723";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            目录
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%94%B3%E8%AF%B7-Azure-OpenAI-API-%E4%BD%BF%E7%94%A8%E8%B5%84%E6%A0%BC"><span class="toc-text">一. 申请 Azure OpenAI API 使用资格</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%87%8D%E7%82%B9"><span class="toc-text">1.1 重点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%89%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C"><span class="toc-text">1.2 前置工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E8%AE%A2%E9%98%85%E5%85%A5%E5%8F%A3"><span class="toc-text">1.2.1 订阅入口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2%E5%9C%A8%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8%E4%B8%AD%E9%80%89%E6%8B%A9%E8%A6%81%E9%83%A8%E7%BD%B2%E7%9A%84-ID"><span class="toc-text">1.2.2在订阅列表中选择要部署的 ID</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%A1%AB%E5%86%99%E7%94%B3%E8%AF%B7%E8%A1%A8"><span class="toc-text">1.3 填写申请表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E9%83%A8%E7%BD%B2-Azure-Open-AI"><span class="toc-text">二. 部署 Azure Open AI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA-Azure-OpenAI-%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.1 创建 Azure OpenAI 实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-Azure-OpenAI-%E5%85%A5%E5%8F%A3"><span class="toc-text">2.1.1 Azure OpenAI 入口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E5%88%9B%E5%BB%BA%E6%96%B0%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.1.2 创建新实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-%E5%A1%AB%E5%86%99%E5%AE%9E%E4%BE%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">2.1.3 填写实例信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%83%A8%E7%BD%B2-Azure-OpenAI-%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.2 部署 Azure OpenAI 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E8%BF%9B%E5%85%A5%E5%88%9A%E5%88%9A%E5%88%9B%E5%BB%BA%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.2.1 进入刚刚创建的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%A1%AB%E5%86%99%E6%A8%A1%E5%9E%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">2.2.2 填写模型信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%8E%B7%E5%8F%96-Azure-OpenAI-API-%E4%BF%A1%E6%81%AF"><span class="toc-text">2.3 获取 Azure OpenAI API 信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E7%82%B9%E5%87%BB-%E2%80%9DView-Code%E2%80%9D"><span class="toc-text">2.3.1 点击 ”View Code”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%A4%8D%E5%88%B6-Endpoint-%E5%92%8C-Key%EF%BC%8C%E5%90%8E%E9%9D%A2%E9%83%A8%E7%BD%B2%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%B6%E9%9C%80%E8%A6%81"><span class="toc-text">2.3.2 复制 Endpoint 和 Key，后面部署客户端时需要</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E9%83%A8%E7%BD%B2%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">三. 部署客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%BC%80%E6%BA%90%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%80%89%E6%8B%A9"><span class="toc-text">3.1 开源客户端选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2%E5%88%B0%E7%A7%81%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">3.2 部署到私人服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E8%8E%B7%E5%8F%96%E9%83%A8%E7%BD%B2-Azure-OpenAI-%E5%BF%85%E8%A6%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">3.2.1 获取部署 Azure OpenAI 必要环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E9%9D%9E%E5%BF%85%E8%A6%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BD%86%E6%9C%80%E5%A5%BD%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.2.2 非必要环境变量但最好设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E9%83%A8%E7%BD%B2%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">3.2.3 部署客户端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">四. 客户端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E9%85%8D%E7%BD%AE-Auth"><span class="toc-text">4.1 配置 Auth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%90%8C%E6%AD%A5"><span class="toc-text">4.2 聊天记录同步</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-免代理搭建私有-GPT-4-Turbo（Azure-OpenAI）" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">免代理搭建私有 GPT-4 Turbo（Azure OpenAI）</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.12.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>刘小光</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/AI/">AI</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="一-申请-Azure-OpenAI-API-使用资格"><a href="#一-申请-Azure-OpenAI-API-使用资格" class="headerlink" title="一. 申请 Azure OpenAI API 使用资格"></a>一. 申请 Azure OpenAI API 使用资格</h1><h2 id="1-1-重点"><a href="#1-1-重点" class="headerlink" title="1.1 重点"></a>1.1 重点</h2><ul>
+<li>需要使用企业邮箱，个人邮箱会被拒绝。这里的企业邮箱可以是个人域名下的邮箱，只要不是 @<a target="_blank" rel="noopener" href="http://gmail.com/">gmail.com</a>, @<a target="_blank" rel="noopener" href="http://yahoo.com/">yahoo.com</a>, @<a target="_blank" rel="noopener" href="http://hotmail.com/">hotmail.com</a> 这些就好。</li>
+<li>另外，原则上申请使用资格是代表<strong>你自己的公司</strong>，所以最好不要使用你所在打工的公司邮箱，至于会有怎么的后果我并不清楚，申请时请注意。<br>  <img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.42.07.png" alt="代表自己公司"></li>
+</ul>
+<h2 id="1-2-前置工作"><a href="#1-2-前置工作" class="headerlink" title="1.2 前置工作"></a>1.2 前置工作</h2><p>除了准备企业邮箱，还需要准备好订阅 ID。</p>
+<p>登陆 <a target="_blank" rel="noopener" href="https://portal.azure.com/">Azure</a>，然后到搜索 ”订阅“ 即可看到订阅 ID，如果没有 “添加” 即可。</p>
+<blockquote>
+<p>如果不是新用户，需要绑定信用卡。</p>
+</blockquote>
+<blockquote>
+<p>如果是新用户，会默认分配一个 ”Free Trial“ 的订阅 ID，有效期为一个月。如果你申请的 Azure Open AI API 挂在试用订阅 ID 下面，记得升级试用订阅 ID 为正式订阅 ID，不然一个月到期后，试用帐号被删除，这个帐号下面的资源也会同步删除。</p>
+</blockquote>
+<h3 id="1-2-1-订阅入口"><a href="#1-2-1-订阅入口" class="headerlink" title="1.2.1 订阅入口"></a>1.2.1 订阅入口</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/image1.png" alt="订阅 ID 入口"></p>
+<h3 id="1-2-2在订阅列表中选择要部署的-ID"><a href="#1-2-2在订阅列表中选择要部署的-ID" class="headerlink" title="1.2.2在订阅列表中选择要部署的 ID"></a>1.2.2在订阅列表中选择要部署的 ID</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.32.57.png" alt="订阅 ID"></p>
+<h2 id="1-3-填写申请表"><a href="#1-3-填写申请表" class="headerlink" title="1.3 填写申请表"></a>1.3 填写申请表</h2><p>点击 <a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2222006&clcid=0x409&culture=en-us&country=us">Request Access to Azure OpenAI Service</a> 进去申请页面，一般 24 小时会出结果。</p>
+<blockquote>
+<p>但也有可能遇到进一步审核的情况，会让你提交更多企业资料。这种情况一般是因为你填的公司微软审核无法验证。</p>
+</blockquote>
+<h1 id="二-部署-Azure-Open-AI"><a href="#二-部署-Azure-Open-AI" class="headerlink" title="二. 部署 Azure Open AI"></a>二. 部署 Azure Open AI</h1><p>使用资格申请下来后就可以部署 Azure Open AI 了。</p>
+<h2 id="2-1-创建-Azure-OpenAI-实例"><a href="#2-1-创建-Azure-OpenAI-实例" class="headerlink" title="2.1 创建 Azure OpenAI 实例"></a>2.1 创建 Azure OpenAI 实例</h2><p>搜索 ”Azure OpenAI“ 进入创建流程。</p>
+<h3 id="2-1-1-Azure-OpenAI-入口"><a href="#2-1-1-Azure-OpenAI-入口" class="headerlink" title="2.1.1 Azure OpenAI 入口"></a>2.1.1 Azure OpenAI 入口</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.54.54.png" alt="Azure OpenAI 入口"></p>
+<h3 id="2-1-2-创建新实例"><a href="#2-1-2-创建新实例" class="headerlink" title="2.1.2 创建新实例"></a>2.1.2 创建新实例</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_10.55.10.png" alt="创建新实例"></p>
+<h3 id="2-1-3-填写实例信息"><a href="#2-1-3-填写实例信息" class="headerlink" title="2.1.3 填写实例信息"></a>2.1.3 填写实例信息</h3><p><strong>实例信息中唯一需要关注的是实例区域的选择，因为不同区域 Open AI 的模型不一样。</strong> 比如现在（2023-12-09）如果你想在一个实例中同时部署 <code>gpt-4-1106-preview</code> 和<code>gpt-35-turbo-1106</code> 美国地区只有 West US 满足。点击 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models">Azure OpenAI Service models</a> 查看哪些区域有哪些模型。</p>
+<p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_15.04.24.png" alt="填写实例信息"></p>
+<blockquote>
+<p><code>gpt-4-1106-preview</code> 即 GPT-4 Turbo，比 GPT-4 更强大并且价格更低。所以<a target="_blank" rel="noopener" href="https://openai.com/pricing">模型代码及价格</a></p>
+</blockquote>
+<h2 id="2-2-部署-Azure-OpenAI-模型"><a href="#2-2-部署-Azure-OpenAI-模型" class="headerlink" title="2.2 部署 Azure OpenAI 模型"></a>2.2 部署 Azure OpenAI 模型</h2><p>创建 Azure Open AI 实例成功后，便可部署模型。</p>
+<h3 id="2-2-1-进入刚刚创建的实例"><a href="#2-2-1-进入刚刚创建的实例" class="headerlink" title="2.2.1 进入刚刚创建的实例"></a>2.2.1 进入刚刚创建的实例</h3><p>点击 “Create new deployment”</p>
+<p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.07.29.png" alt="Deployments"></p>
+<h3 id="2-2-2-填写模型信息"><a href="#2-2-2-填写模型信息" class="headerlink" title="2.2.2 填写模型信息"></a>2.2.2 填写模型信息</h3><p>填写模型信息后点击 “Create” 就可以创建模型了。</p>
+<p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.09.24.png" alt="填写模型信息"></p>
+<h2 id="2-3-获取-Azure-OpenAI-API-信息"><a href="#2-3-获取-Azure-OpenAI-API-信息" class="headerlink" title="2.3 获取 Azure OpenAI API 信息"></a>2.3 获取 Azure OpenAI API 信息</h2><p>推荐从 Chat –&gt; View Code 中获取这些信息</p>
+<h3 id="2-3-1-点击-”View-Code”"><a href="#2-3-1-点击-”View-Code”" class="headerlink" title="2.3.1 点击 ”View Code”"></a>2.3.1 点击 ”View Code”</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.13.44.png" alt="view code"></p>
+<h3 id="2-3-2-复制-Endpoint-和-Key，后面部署客户端时需要"><a href="#2-3-2-复制-Endpoint-和-Key，后面部署客户端时需要" class="headerlink" title="2.3.2 复制 Endpoint 和 Key，后面部署客户端时需要"></a>2.3.2 复制 Endpoint 和 Key，后面部署客户端时需要</h3><p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_11.14.52.png" alt="sample code"></p>
+<h1 id="三-部署客户端"><a href="#三-部署客户端" class="headerlink" title="三. 部署客户端"></a>三. 部署客户端</h1><h2 id="3-1-开源客户端选择"><a href="#3-1-开源客户端选择" class="headerlink" title="3.1 开源客户端选择"></a>3.1 开源客户端选择</h2><p>目前有很多开源的 ChatGPT 客户端，我用的是 <a target="_blank" rel="noopener" href="https://github.com/Yidadaa/ChatGPT-Next-Web">ChatGPT-Next-Web</a>。</p>
+<p>它支持多种部署方式，下面是以部署到私人服务器为例，介绍怎么通过 <a target="_blank" rel="noopener" href="https://github.com/Yidadaa/ChatGPT-Next-Web">ChatGPT-Next-Web</a> 部署 Azure OpenAI。</p>
+<h2 id="3-2-部署到私人服务器"><a href="#3-2-部署到私人服务器" class="headerlink" title="3.2 部署到私人服务器"></a>3.2 部署到私人服务器</h2><p><a target="_blank" rel="noopener" href="https://github.com/Yidadaa/ChatGPT-Next-Web">ChatGPT-Next-Web</a> 最开始只支持 OpenAI 的 API，从 <code>2.9.11</code> 版本开始，已支持 Azure OpenAI 的部署，不同 API 只需要配置对应的环境变量即可。</p>
+<h3 id="3-2-1-获取部署-Azure-OpenAI-必要环境变量"><a href="#3-2-1-获取部署-Azure-OpenAI-必要环境变量" class="headerlink" title="3.2.1 获取部署 Azure OpenAI 必要环境变量"></a>3.2.1 获取部署 Azure OpenAI 必要环境变量</h3><ul>
+<li><strong>AZURE_URL (required)</strong>: <code>https://&#123;azure-resource-url&#125;/openai/deployments/&#123;deploy-name&#125;</code> </li>
+<li><strong>AZURE_API_VERSION (required)</strong>: Azure API Version</li>
+</ul>
+<p>上面两个变量都可以在上文提到的 Endpoint 中获取：<code>https://&#123;azure-resource-name&#125;.openai.azure.com/openai/deployments/&#123;deploy-name&#125;/chat/completions?api-version=&#123;api-version&#125;)</code> </p>
+<blockquote>
+<p>不要直接把 endpoint 放到 AZURE_URL 中，AZURE_URL 只需要 endpoint 的一部分！</p>
+</blockquote>
+<ul>
+<li><strong>AZURE_API_KEY (required)</strong>: Azure API Key</li>
+</ul>
+<h3 id="3-2-2-非必要环境变量但最好设置"><a href="#3-2-2-非必要环境变量但最好设置" class="headerlink" title="3.2.2 非必要环境变量但最好设置"></a>3.2.2 非必要环境变量但最好设置</h3><ul>
+<li><strong>CODE</strong>：在部署 Azure OpenAI 实例时我选择了外网均可访问，如果把 ChatGPT 客户端部署到服务器上，默认外网都可访问，设置 <strong>CODE</strong> 就给自己客户端加了一层密码，只有输入密码后才能使用。如果只在本地使用，该变量可忽略。</li>
+</ul>
+<blockquote>
+<p>如果你部署的客户端外网可访问，这个密码务必设置为强密码，不然可能被<a target="_blank" rel="noopener" href="https://github.com/Yidadaa/ChatGPT-Next-Web/blob/main/docs/faq-cn.md#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E7%9A%84-token-%E6%B6%88%E8%80%97%E5%BE%97%E8%BF%99%E4%B9%88%E5%BF%AB">爆破</a>!</p>
+</blockquote>
+<ul>
+<li><strong>HIDE_USER_API_KEY</strong>：这个参数决定用户是否禁止用户自己的 API key，对于 Azure OpenAI，用户数据它的 API key 也没用，设置为 <code>1</code> 。</li>
+</ul>
+<h3 id="3-2-3-部署客户端"><a href="#3-2-3-部署客户端" class="headerlink" title="3.2.3 部署客户端"></a>3.2.3 部署客户端</h3><p>以 Linux 服务器为例，可使用 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/yidadaa/chatgpt-next-web/tags">ChatGPT next web Docker 镜像</a> 实现快速部署：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name chatgpt-web \</span><br><span class="line">  -p 9000:3000 \</span><br><span class="line">  -e AZURE_URL=https://&#123;azure-resource-url&#125;/openai/deployments/&#123;deploy-name&#125; \</span><br><span class="line">  -e AZURE_API_KEY=&#123;azure-api-key&#125; \</span><br><span class="line">  -e AZURE_API_VERSION=2023-07-01-preview \</span><br><span class="line">  -e CODE=&#123;app-custom-password&#125; \</span><br><span class="line">  -e HIDE_USER_API_KEY=1 \</span><br><span class="line">  --restart=always \</span><br><span class="line">  yidadaa/chatgpt-next-web:latest</span><br></pre></td></tr></table></figure>
+
+<p>上面命令中使用的是服务器 <code>9000</code> 接口，可根据你自己的配置灵活调整。</p>
+<h1 id="四-客户端配置"><a href="#四-客户端配置" class="headerlink" title="四. 客户端配置"></a>四. 客户端配置</h1><h2 id="4-1-配置-Auth"><a href="#4-1-配置-Auth" class="headerlink" title="4.1 配置 Auth"></a>4.1 配置 Auth</h2><p>如果第三步部署成功，访问你的域名应该可以看到如下界面</p>
+<p><img src="https://raw.githubusercontent.com/xiaogliu/xiaogliu.github.io.image/main/Azure%20Open%20AI%20deployment/iShot_2023-12-09_15.34.08.png" alt="ChatGPT next web"></p>
+<p>点击 auth，输入配置的密码（<strong>CODE</strong>）后就可以正常访问了。</p>
+<h2 id="4-2-聊天记录同步"><a href="#4-2-聊天记录同步" class="headerlink" title="4.2 聊天记录同步"></a>4.2 聊天记录同步</h2><p>聊天记录默认存储在本地，目前（2023-12-09）ChatGPT next web 支持 WebDAV 和 <a target="_blank" rel="noopener" href="https://upstash.com/">UpStash</a> 两种同步方法：</p>
+<ul>
+<li>WebDAV：如果你有外网可访问的 WebDAV，推荐这种同步方法；</li>
+<li>UpStash：如果你没有外网可访问的 WebDAV，可以直接使用 UpStash，免费版本就够用了。UpStash 的同步配置过程请看 ChatGPT next web 文档 <a target="_blank" rel="noopener" href="https://github.com/Yidadaa/ChatGPT-Next-Web/blob/main/docs/synchronise-chat-logs-cn.md">synchronise-chat-logs-cn.md</a></li>
+</ul>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2023/08/19/undefined/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              目录
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xiaogliu';
+    
+    var disqus_url = 'https://xiaogliu.github.io/2023/12/09/deploy-gpt4-turbo-without-vpn/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xiaogliu.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
